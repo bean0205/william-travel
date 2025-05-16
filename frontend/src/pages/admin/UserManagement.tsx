@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Table, Button, Space, Tag, Typography, Input, Select, Modal, Form } from 'antd';
 import { UserOutlined, EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import { UserRole } from '@/store/authStore';
+import { UserRole } from '@/store/authStore'; // Adjust the import path as necessary
 
 const { Search } = Input;
 const { Option } = Select;

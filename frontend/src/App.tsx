@@ -32,11 +32,14 @@ const CreateGuidePage = lazy(() => import('@/pages/guide/CreateGuidePage'));
 const MyGuidesPage = lazy(() => import('@/pages/guide/MyGuidesPage'));
 const EditGuidePage = lazy(() => import('@/pages/guide/EditGuidePage'));
 
+// Location detail page
+const LocationDetailPage = lazy(() => import('@/pages/LocationDetailPage'));
+
 function App() {
   const { checkAuth } = useAuthStore();
 
   // Check auth status when app loads
-  useEffect(() => {
+useEffect(() => {
     checkAuth();
   }, [checkAuth]);
 
@@ -48,6 +51,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="map" element={<MapExplorerPage />} />
           <Route path="locations" element={<LocationsPage />} />
+          <Route path="locations/:id" element={<LocationDetailPage />} />
           <Route path="guides" element={<GuidesPage />} />
           
           {/* Auth routes */}

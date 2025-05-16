@@ -9,7 +9,7 @@ const mockUsers = [
     email: 'user@example.com',
     password: 'password123', // In real app, password would be hashed server-side
     name: 'Demo User',
-    role: UserRole.USER,
+    role: 'user',
     permissions: ['view_locations', 'view_guides', 'add_favorite']
   },
   {
@@ -17,7 +17,7 @@ const mockUsers = [
     email: 'guide@example.com',
     password: 'password123',
     name: 'Demo Guide',
-    role: UserRole.GUIDE,
+    role: 'guide',
     permissions: ['view_locations', 'view_guides', 'add_favorite', 'create_guide', 'edit_own_guide']
   },
   {
@@ -25,7 +25,7 @@ const mockUsers = [
     email: 'admin@example.com',
     password: 'password123',
     name: 'Admin User',
-    role: UserRole.ADMIN,
+    role: 'admin',
     permissions: ['view_locations', 'view_guides', 'add_favorite', 'create_guide', 'edit_any_guide', 'add_location', 'edit_location', 'delete_location', 'manage_users']
   }
 ];
