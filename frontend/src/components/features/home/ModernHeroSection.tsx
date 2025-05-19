@@ -566,7 +566,7 @@ export const ModernHeroSection = ({ countryName, countryCode, countryDescription
       </div>
       
       {/* Search and Location Selector */}
-      <div className="relative -mt-16 md:-mt-24 z-40 container mx-auto px-4 pb-12">
+      <div className="relative -mt-24 md:-mt-32 z-40 container mx-auto px-4 pb-12">
         <Card className="bg-white/95 dark:bg-black/80 backdrop-blur-md shadow-xl rounded-2xl overflow-hidden border-0">
           <CardContent className="p-0">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-0">

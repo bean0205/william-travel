@@ -1,15 +1,36 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useCountryStore } from '@/store/countryStore';
 import { getNavItems } from '@/routes/routes';
 import { Button } from '@/components/ui/button';
-import { SearchIcon, UserIcon, MenuIcon, XIcon } from 'lucide-react';
+import { 
+  SearchIcon, 
+  UserIcon, 
+  MenuIcon, 
+  XIcon, 
+  MapIcon,
+  HomeIcon,
+  CompassIcon,
+  BookOpenIcon,
+  MoreHorizontalIcon,
+  BedIcon,
+  UtensilsIcon,
+  FileTextIcon,
+  CalendarIcon
+} from 'lucide-react';
 import { SettingsToggle } from '@/components/common/SettingsToggle';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuGroup,
+  DropdownMenuLabel
+} from '@/components/ui/dropdown-menu';
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { selectedCountry } = useCountryStore();
   const location = useLocation();
   const navItems = getNavItems();
   const { t } = useTranslation();
@@ -20,6 +41,36 @@ const Header = () => {
 
   const isActive = (path: string) => {
     return location.pathname === path;
+  };
+
+  // Define primary navigation items to always show
+  const primaryNavItems = navItems.slice(0, 3); // Show first 3 items
+  
+  // Define secondary navigation items for the dropdown
+  const secondaryNavItems = navItems.slice(3);
+
+  // Map icons to navigation items
+  const getNavIcon = (label: string) => {
+    switch (label) {
+      case 'home':
+        return <HomeIcon className="h-4 w-4 mr-2" />;
+      case 'mapExplorer':
+        return <MapIcon className="h-4 w-4 mr-2" />;
+      case 'locations':
+        return <CompassIcon className="h-4 w-4 mr-2" />;
+      case 'travelGuides':
+        return <BookOpenIcon className="h-4 w-4 mr-2" />;
+      case 'accommodations':
+        return <BedIcon className="h-4 w-4 mr-2" />;
+      case 'food':
+        return <UtensilsIcon className="h-4 w-4 mr-2" />;
+      case 'articles':
+        return <FileTextIcon className="h-4 w-4 mr-2" />;
+      case 'events':
+        return <CalendarIcon className="h-4 w-4 mr-2" />;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -36,23 +87,61 @@ const Header = () => {
           </div>
 
           {/* Desktop navigation */}
-          <nav className="hidden md:block">
-            <ul className="flex items-center space-x-1">
-              {navItems.map((item) => (
-                <li key={item.path}>
-                  <Link
-                    to={item.path}
-                    className={`theme-transition-fast text-sm font-medium transition-colors rounded-md px-3 py-2 ${
-                      isActive(item.path)
+          <nav className="hidden md:flex items-center space-x-1">
+            {/* Primary nav items always visible */}
+            {primaryNavItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`theme-transition-fast flex items-center text-sm font-medium transition-colors rounded-md px-3 py-2 ${
+                  isActive(item.path)
+                    ? 'text-primary-600 underline underline-offset-4'
+                    : 'text-foreground hover:text-primary-600 hover:bg-muted/50'
+                }`}
+              >
+                {getNavIcon(item.label)}
+                {t(`navigation.${item.label}`)}
+              </Link>
+            ))}
+            
+            {/* More dropdown for secondary nav items */}
+            {secondaryNavItems.length > 0 && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    className={`theme-transition-fast flex items-center text-sm font-medium transition-colors rounded-md px-3 py-2 ${
+                      secondaryNavItems.some(item => isActive(item.path))
                         ? 'text-primary-600 underline underline-offset-4'
                         : 'text-foreground hover:text-primary-600 hover:bg-muted/50'
                     }`}
                   >
-                    {t(`navigation.${item.label}`)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                    <MoreHorizontalIcon className="h-4 w-4 mr-1" />
+                    {t('navigation.more')}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>{t('navigation.exploreMore')}</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    {secondaryNavItems.map((item) => (
+                      <DropdownMenuItem key={item.path} asChild>
+                        <Link
+                          to={item.path}
+                          className={`w-full flex items-center ${
+                            isActive(item.path) ? 'text-primary-600 font-medium' : ''
+                          }`}
+                        >
+                          {getNavIcon(item.label)}
+                          {t(`navigation.${item.label}`)}
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </nav>
 
           {/* User actions */}
@@ -116,14 +205,15 @@ const Header = () => {
                 <li key={item.path}>
                   <Link
                     to={item.path}
-                    className={`theme-transition-fast block rounded-md px-3 py-2 text-base font-medium transition-colors ${
+                    className={`theme-transition-fast flex items-center rounded-md px-3 py-2 text-base font-medium transition-colors ${
                       isActive(item.path)
                         ? 'bg-primary-50 text-primary-600 dark:bg-primary-950/20'
                         : 'text-foreground hover:bg-muted'
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    {t(`navigation.${item.label.toLowerCase()}`)}
+                    {getNavIcon(item.label)}
+                    {t(`navigation.${item.label}`)}
                   </Link>
                 </li>
               ))}

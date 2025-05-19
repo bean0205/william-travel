@@ -21,7 +21,9 @@
     "logout": "Logout",
     "profile": "Profile",
     "favorites": "My Favorites",
-    "travelGuides": "Travel Guides"
+    "travelGuides": "Travel Guides",
+    "more": "More",
+    "exploreMore": "Explore More"
   },
   "theme": {
     "light": "Light",
