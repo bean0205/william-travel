@@ -62,27 +62,27 @@ export const ModernHeroSection = ({ countryName, countryCode, countryDescription
   VN: [
     {
       id: 1,
-      url: 'https://images.unsplash.com/photo-1549887534-1f1b7c5f0c5b',
+      url: '../../../../public/images/halong_wal.jpg',
       caption: 'Vịnh Hạ Long - Di sản thiên nhiên thế giới',
     },
     {
       id: 2,
-      url: 'https://images.unsplash.com/photo-1586769852836-4b8b1d1a1c1c',
+      url: '../../../../public/images/hanoi.jpg',
       caption: 'Hà Nội - Thủ đô ngàn năm văn hiến',
     },
     {
       id: 3,
-      url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
+      url: '../../../../public/images/hoian.jpg',
       caption: 'Hội An - Phố cổ đèn lồng',
     },
     {
       id: 4,
-      url: 'https://images.unsplash.com/photo-1598935886643-3e5b4f1a1c1c',
+      url: '../../../../public/images/sapa.jpg',
       caption: 'Sapa - Ruộng bậc thang tuyệt đẹp',
     },
     {
       id: 5,
-      url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
+      url: '../../../../public/images/hagiang.jpg',
       caption: 'Đồng bằng sông Cửu Long - Miền sông nước',
     },
   ],
@@ -560,7 +560,7 @@ export const ModernHeroSection = ({ countryName, countryCode, countryDescription
         </button>
         
         {/* Slide caption */}
-        <div className="absolute bottom-20 md:bottom-24 left-1/2 transform -translate-x-1/2 text-center text-white text-sm md:text-xl font-medium z-20 bg-black/20 px-4 md:px-6 py-2 md:py-3 rounded-full backdrop-blur-sm transition-all duration-300 max-w-[90%] md:max-w-[80%] truncate">
+        <div className="absolute bottom-32 md:bottom-40 left-1/2 transform -translate-x-1/2 text-center text-white text-sm md:text-xl font-medium z-20 bg-black/20 px-4 md:px-6 py-2 md:py-3 rounded-full backdrop-blur-sm transition-all duration-300 max-w-[90%] md:max-w-[80%]">
           {slides[currentSlide]?.caption}
         </div>
       </div>
@@ -688,7 +688,17 @@ export const ModernHeroSection = ({ countryName, countryCode, countryDescription
                 
                 {/* Button tìm kiếm */}
                 <div className="mt-4 md:mt-6 flex justify-end">
-                  <Button className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white gap-1 md:gap-2 shadow transition-all hover:shadow-md text-xs md:text-sm h-8 md:h-10">
+                  <Button 
+                    className="
+                      bg-gradient-to-r from-blue-600 to-blue-500 
+                      hover:from-blue-500 hover:to-blue-600 
+                      text-white gap-1 md:gap-2 
+                      shadow transition-all hover:shadow-md 
+                      text-xs md:text-sm h-8 md:h-10
+                      border-0
+                    "
+                    disabled={!selectedProvince}
+                  >
                     Khám phá {selectedWard ? 'địa điểm đã chọn' : selectedDistrict ? 'khu vực đã chọn' : selectedProvince ? 'tỉnh/thành phố đã chọn' : countryName}
                     <ChevronRight className="h-3 w-3 md:h-4 md:w-4" />
                   </Button>

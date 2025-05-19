@@ -23,7 +23,7 @@ const Header = () => {
   };
 
   return (
-    <header className="border-border bg-background/95 theme-transition-slow sticky top-0 z-10 border-b shadow-sm backdrop-blur-sm">
+    <header className="border-border bg-background/95 theme-transition-slow sticky top-0 z-10 border-b shadow-md backdrop-blur-sm">
       <div className="container mx-auto px-4 py-3 md:px-6">
         <div className="flex items-center justify-between">
           {/* Logo and brand */}
@@ -37,15 +37,15 @@ const Header = () => {
 
           {/* Desktop navigation */}
           <nav className="hidden md:block">
-            <ul className="flex space-x-8">
+            <ul className="flex items-center space-x-1">
               {navItems.map((item) => (
                 <li key={item.path}>
                   <Link
                     to={item.path}
-                    className={`theme-transition-fast text-sm font-medium transition-colors ${
+                    className={`theme-transition-fast text-sm font-medium transition-colors rounded-md px-3 py-2 ${
                       isActive(item.path)
                         ? 'text-primary-600 underline underline-offset-4'
-                        : 'text-foreground hover:text-primary-600'
+                        : 'text-foreground hover:text-primary-600 hover:bg-muted/50'
                     }`}
                   >
                     {t(`navigation.${item.label}`)}
