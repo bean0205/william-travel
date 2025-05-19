@@ -6,17 +6,21 @@
   "notFound": "Page not found",
   "unauthorized": "Unauthorized access",
   "search": "Search",
-  "toggleMenu": "Toggle menu",
-  "navigation": {
+  "toggleMenu": "Toggle menu",  "navigation": {
     "home": "Home",
     "locations": "Locations",
     "guides": "Guides",
     "mapExplorer": "Map Explorer",
+    "accommodations": "Accommodations",
+    "food": "Food & Dining",
+    "articles": "Travel Articles",
+    "events": "Events & Festivals",
     "admin": "Admin",
     "login": "Login",
     "register": "Register",
     "logout": "Logout",
     "profile": "Profile",
+    "favorites": "My Favorites",
     "travelGuides": "Travel Guides"
   },
   "theme": {

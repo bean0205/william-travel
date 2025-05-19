@@ -1,3 +1,4 @@
+// filepath: /Users/williamnguyen/Documents/william travel/frontend/src/App.tsx
 import { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -17,6 +18,15 @@ const LocationsPage = lazy(() => import('@/pages/LocationsPage'));
 const GuidesPage = lazy(() => import('@/pages/GuidesPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 const UnauthorizedPage = lazy(() => import('@/pages/UnauthorizedPage'));
+
+// New added pages
+const AccommodationsPage = lazy(() => import('@/pages/AccommodationsPage'));
+const FoodPage = lazy(() => import('@/pages/FoodPage'));
+const ArticlesPage = lazy(() => import('@/pages/ArticlesPage'));
+const EventsPage = lazy(() => import('@/pages/EventsPage'));
+const GuideDetailsPage = lazy(() => import('@/pages/GuideDetailsPage'));
+const ProfilePage = lazy(() => import('@/pages/ProfilePage'));
+const FavoritesPage = lazy(() => import('@/pages/FavoritesPage'));
 
 // Auth pages
 const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
@@ -91,6 +101,28 @@ function App() {
                 element={withPageTransition(LocationDetailPage)()}
               />
               <Route path="guides" element={withPageTransition(GuidesPage)()} />
+              
+              {/* New added pages */}
+              <Route 
+                path="accommodations" 
+                element={withPageTransition(AccommodationsPage)()} 
+              />
+              <Route 
+                path="food" 
+                element={withPageTransition(FoodPage)()} 
+              />
+              <Route 
+                path="articles" 
+                element={withPageTransition(ArticlesPage)()} 
+              />
+              <Route 
+                path="events" 
+                element={withPageTransition(EventsPage)()} 
+              />
+              <Route 
+                path="guides/:id" 
+                element={withPageTransition(GuideDetailsPage)()} 
+              />
 
               {/* Auth routes */}
               <Route path="login" element={withPageTransition(LoginPage)()} />
@@ -120,15 +152,11 @@ function App() {
               <Route path="/" element={<MainLayout />}>
                 <Route
                   path="profile"
-                  element={withPageTransition(() => (
-                    <div>Profile Page (Coming Soon)</div>
-                  ))()}
+                  element={withPageTransition(ProfilePage)()}
                 />
                 <Route
                   path="favorites"
-                  element={withPageTransition(() => (
-                    <div>Favorites Page (Coming Soon)</div>
-                  ))()}
+                  element={withPageTransition(FavoritesPage)()}
                 />
               </Route>
             </Route>

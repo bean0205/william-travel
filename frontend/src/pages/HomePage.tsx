@@ -230,7 +230,65 @@ const HomePage = () => {
         countryDescription={selectedCountry.description}
       />
       
-   
+      {/* Quick Links to Main Sections */}
+      <section className="py-8 md:py-12">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimateElement animation="fade" delay={0.1}>
+            <h2 className="text-2xl font-bold tracking-tight mb-6 sm:text-3xl">
+              Explore {selectedCountry.name}
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="flex flex-col items-center justify-center h-32 p-4 border-2 hover:bg-muted/50"
+                onClick={() => navigate('/accommodations')}
+              >
+                <Building className="h-8 w-8 mb-2 text-primary" />
+                <span className="text-lg font-medium">Accommodations</span>
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="flex flex-col items-center justify-center h-32 p-4 border-2 hover:bg-muted/50"
+                onClick={() => navigate('/food')}
+              >
+                <svg className="h-8 w-8 mb-2 text-primary" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M21 20C21 16.6863 16.9706 14 12 14C7.02944 14 3 16.6863 3 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="text-lg font-medium">Food & Dining</span>
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="flex flex-col items-center justify-center h-32 p-4 border-2 hover:bg-muted/50"
+                onClick={() => navigate('/articles')}
+              >
+                <svg className="h-8 w-8 mb-2 text-primary" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 19.5V4.5C4 3.95 4.196 3.479 4.588 3.087C4.979 2.696 5.45 2.5 6 2.5H18C18.55 2.5 19.021 2.696 19.413 3.087C19.804 3.479 20 3.95 20 4.5V19.5C20 20.05 19.804 20.521 19.413 20.913C19.021 21.304 18.55 21.5 18 21.5H6C5.45 21.5 4.979 21.304 4.588 20.913C4.196 20.521 4 20.05 4 19.5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M8 6.5H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M8 10.5H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M8 14.5H12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="text-lg font-medium">Articles</span>
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="flex flex-col items-center justify-center h-32 p-4 border-2 hover:bg-muted/50"
+                onClick={() => navigate('/events')}
+              >
+                <CalendarDays className="h-8 w-8 mb-2 text-primary" />
+                <span className="text-lg font-medium">Events</span>
+              </Button>
+            </div>
+          </AnimateElement>
+        </div>
+      </section>
       
       {/* Events Section */}
       <section className="py-8 bg-muted/30 md:py-12">

@@ -31,6 +31,26 @@ export const APP_ROUTES: Record<string, AppRoute> = {
     path: '/locations/:id',
     label: 'Location Details',
   },
+  ACCOMMODATIONS: {
+    path: '/accommodations',
+    label: 'accommodations',
+    isNavItem: true,
+  },
+  FOOD: {
+    path: '/food',
+    label: 'food',
+    isNavItem: true,
+  },
+  ARTICLES: {
+    path: '/articles',
+    label: 'articles',
+    isNavItem: true,
+  },
+  EVENTS: {
+    path: '/events',
+    label: 'events',
+    isNavItem: true,
+  },
   GUIDES: {
     path: '/guides',
     label: 'travelGuides',
@@ -42,11 +62,11 @@ export const APP_ROUTES: Record<string, AppRoute> = {
   },
   PROFILE: {
     path: '/profile',
-    label: 'My Profile',
+    label: 'profile',
   },
   FAVORITES: {
     path: '/favorites',
-    label: 'My Favorites',
+    label: 'favorites',
   },
   NOT_FOUND: {
     path: '*',
