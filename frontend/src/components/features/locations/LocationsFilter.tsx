@@ -1,3 +1,15 @@
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Card, CardContent } from '@/components/ui/card';
+import { SearchIcon, FilterIcon } from 'lucide-react';
+
 type LocationsFilterProps = {
   filter: {
     category: string;
@@ -17,41 +29,62 @@ const LocationsFilter = ({ filter, onFilterChange }: LocationsFilterProps) => {
   ];
 
   return (
-    <div className="mb-8 rounded-lg bg-white p-4 shadow-md md:p-6">
-      <div className="grid gap-4 md:grid-cols-2">
-        <div>
-          <label htmlFor="search" className="mb-1 block text-sm font-medium text-gray-700">
-            Search
-          </label>
-          <input
-            type="text"
-            id="search"
-            placeholder="Search destinations..."
-            className="input w-full"
-            value={filter.searchQuery}
-            onChange={(e) => onFilterChange({ ...filter, searchQuery: e.target.value })}
-          />
+    <Card className="bg-card mb-8">
+      <CardContent className="grid gap-6 pt-6 md:grid-cols-2">
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <SearchIcon className="text-muted-foreground h-4 w-4" />
+            <Label
+              htmlFor="search"
+              className="text-foreground text-sm font-medium"
+            >
+              Search
+            </Label>
+          </div>
+          <div className="relative">
+            <Input
+              id="search"
+              type="text"
+              placeholder="Search destinations..."
+              className="w-full pl-3"
+              value={filter.searchQuery}
+              onChange={(e) =>
+                onFilterChange({ ...filter, searchQuery: e.target.value })
+              }
+            />
+          </div>
         </div>
-        
-        <div>
-          <label htmlFor="category" className="mb-1 block text-sm font-medium text-gray-700">
-            Category
-          </label>
-          <select
-            id="category"
-            className="input w-full"
+
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <FilterIcon className="text-muted-foreground h-4 w-4" />
+            <Label
+              htmlFor="category"
+              className="text-foreground text-sm font-medium"
+            >
+              Category
+            </Label>
+          </div>
+          <Select
             value={filter.category}
-            onChange={(e) => onFilterChange({ ...filter, category: e.target.value })}
+            onValueChange={(value) =>
+              onFilterChange({ ...filter, category: value })
+            }
           >
-            {categories.map((category) => (
-              <option key={category.value} value={category.value}>
-                {category.label}
-              </option>
-            ))}
-          </select>
+            <SelectTrigger id="category" className="w-full">
+              <SelectValue placeholder="Select category" />
+            </SelectTrigger>{' '}
+            <SelectContent>
+              {categories.map((category) => (
+                <SelectItem key={category.value} value={category.value}>
+                  {category.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

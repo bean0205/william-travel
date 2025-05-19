@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { StarIcon } from 'lucide-react';
 
 type LocationCardProps = {
   location: {
@@ -13,43 +16,52 @@ type LocationCardProps = {
 
 const LocationCard = ({ location }: LocationCardProps) => {
   return (
-    <div className="overflow-hidden rounded-lg bg-white shadow-md transition-transform hover:scale-[1.02]">
-      <img
-        src={location.imageUrl}
-        alt={location.name}
-        className="h-48 w-full object-cover"
-      />
-      <div className="p-5">
+    <Card className="bg-card border-border/40 group overflow-hidden transition-all duration-300 hover:shadow-lg">
+      <div className="aspect-video w-full overflow-hidden">
+        <img
+          src={location.imageUrl}
+          alt={location.name}
+          className="h-full w-full object-cover transition-transform group-hover:scale-105"
+        />
+      </div>
+      <CardContent className="p-5">
         <div className="mb-2 flex items-center justify-between">
-          <h3 className="text-xl font-bold">{location.name}</h3>
-          <span className="rounded-full bg-primary-100 px-2 py-1 text-xs font-medium text-primary-800">
+          <h3 className="text-card-foreground text-xl font-bold">
+            {location.name}
+          </h3>
+          <span className="rounded-full bg-primary-100 px-2.5 py-1 text-xs font-medium text-primary-800">
             {location.category}
           </span>
         </div>
         <div className="mb-3 flex items-center">
           {[...Array(5)].map((_, i) => (
-            <span
+            <StarIcon
               key={i}
-              className={`mr-1 text-lg ${
-                i < location.rating ? 'text-yellow-500' : 'text-gray-300'
+              className={`mr-0.5 h-4 w-4 ${
+                i < location.rating
+                  ? 'fill-amber-400 text-amber-400'
+                  : 'fill-muted text-muted'
               }`}
-            >
-              ★
-            </span>
+            />
           ))}
-          <span className="text-sm text-gray-600 ml-1">
+          <span className="text-muted-foreground ml-1 text-sm">
             ({location.rating.toFixed(1)})
           </span>
         </div>
-        <p className="mb-4 text-gray-600 line-clamp-3">{location.description}</p>
-        <Link
-          to={`/locations/${location.id}`}
-          className="text-primary-600 font-medium hover:text-primary-700"
+        <p className="text-muted-foreground mb-4 line-clamp-3">
+          {location.description}
+        </p>
+      </CardContent>
+      <CardFooter className="px-5 pb-5 pt-0">
+        <Button
+          asChild
+          variant="link"
+          className="gap-1.5 px-0 hover:no-underline"
         >
-          Learn more →
-        </Link>
-      </div>
-    </div>
+          <Link to={`/locations/${location.id}`}>Learn more →</Link>
+        </Button>
+      </CardFooter>
+    </Card>
   );
 };
 

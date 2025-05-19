@@ -1,0 +1,92 @@
+{
+  "appName": "William Travel",
+  "loading": "Loading...",
+  "error": "Error",
+  "success": "Success",
+  "notFound": "Page not found",
+  "unauthorized": "Unauthorized access",
+  "search": "Search",
+  "toggleMenu": "Toggle menu",
+  "navigation": {
+    "home": "Home",
+    "locations": "Locations",
+    "guides": "Guides",
+    "mapExplorer": "Map Explorer",
+    "admin": "Admin",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "profile": "Profile",
+    "travelGuides": "Travel Guides"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "toggleTheme": "Toggle theme",
+    "settings": "Theme settings"
+  },
+  "language": {
+    "en": "English",
+    "vi": "Vietnamese",
+    "changeLanguage": "Change language"
+  },
+  "buttons": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "exploreNow": "Explore Now",
+    "viewAll": "View all",
+    "continue": "Continue with",
+    "search": "Search",
+    "backToRegions": "Back to regions",
+    "continueWith": "Continue with"
+  },
+  "footer": {
+    "copyright": "© 2025 William Travel. All rights reserved.",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "description": "Discover amazing places around the world and plan your next adventure.",
+    "quickLinks": "Quick Links",
+    "resources": "Resources",
+    "faq": "FAQ",
+    "contactUs": "Contact Us"
+  },
+  "countrySelection": {
+    "title": "Begin your journey across the world",
+    "subtitle": "Choose your destination and discover personalized travel experiences tailored just for you.",
+    "chooseContinent": "Choose a Continent",
+    "selectRegion": "Select a region to explore its destinations",
+    "searchCountries": "Search countries...",
+    "explore": "Explore",
+    "selectCountry": "Select a country to personalize your experience",
+    "noDestinations": "No destinations found",
+    "personalizedRecs": "Personalized recommendations",
+    "exclusiveDeals": "Exclusive deals",
+    "localExperiences": "Local experiences",
+    "featuredDestinations": "Featured Destinations",
+    "exploreRegion": "Explore Region",
+    "tap": "Select",
+    "noDescription": "No description available for this country.",
+    "continentDesc": {
+      "asia": "Discover ancient temples, bustling markets, and breathtaking landscapes across the diverse countries of Asia.",
+      "europe": "Explore historic cities, charming villages, and stunning architecture throughout the European continent.",
+      "northAmerica": "Experience vast landscapes, vibrant cities, and natural wonders across North America.",
+      "southAmerica": "Journey through lush rainforests, ancient ruins, and vibrant cultures of South America.",
+      "africa": "Venture across savannas, deserts, and diverse cultures in the beautiful continent of Africa.",
+      "oceania": "Discover paradise islands, unique wildlife, and stunning coastal landscapes in Oceania."
+    },
+    "continents": {
+      "asia": "Asia",
+      "europe": "Europe",
+      "northAmerica": "North America",
+      "southAmerica": "South America",
+      "africa": "Africa",
+      "oceania": "Oceania"
+    }
+  }
+}

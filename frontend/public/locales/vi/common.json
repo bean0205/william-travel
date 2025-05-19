@@ -1,0 +1,91 @@
+{
+  "appName": "William Travel",
+  "loading": "Đang tải...",
+  "error": "Lỗi",
+  "success": "Thành công",
+  "notFound": "Không tìm thấy trang",
+  "unauthorized": "Truy cập trái phép",
+  "search": "Tìm kiếm",
+  "toggleMenu": "Mở/Đóng menu",
+  "navigation": {
+    "home": "Trang chủ",
+    "locations": "Địa điểm",
+    "guides": "Hướng dẫn",
+    "mapExplorer": "Khám phá bản đồ",
+    "admin": "Quản trị",
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "logout": "Đăng xuất",
+    "profile": "Hồ sơ"
+  },
+  "theme": {
+    "light": "Sáng",
+    "dark": "Tối",
+    "system": "Hệ thống",
+    "toggleTheme": "Chuyển đổi chủ đề",
+    "settings": "Cài đặt chủ đề"
+  },
+  "language": {
+    "en": "Tiếng Anh",
+    "vi": "Tiếng Việt",
+    "changeLanguage": "Thay đổi ngôn ngữ"
+  },
+  "buttons": {
+    "submit": "Gửi",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "edit": "Sửa",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "exploreNow": "Khám phá ngay",
+    "viewAll": "Xem tất cả",
+    "continue": "Tiếp tục với",
+    "search": "Tìm kiếm",
+    "backToRegions": "Quay lại khu vực",
+    "continueWith": "Tiếp tục với"
+  },
+  "footer": {
+    "copyright": "© 2025 William Travel. Đã đăng ký bản quyền.",
+    "termsOfService": "Điều khoản dịch vụ",
+    "privacyPolicy": "Chính sách bảo mật",
+    "description": "Khám phá những địa điểm tuyệt vời trên khắp thế giới và lên kế hoạch cho chuyến phiêu lưu tiếp theo của bạn.",
+    "quickLinks": "Liên kết nhanh",
+    "resources": "Tài nguyên",
+    "faq": "Câu hỏi thường gặp",
+    "contactUs": "Liên hệ với chúng tôi"
+  },
+  "countrySelection": {
+    "title": "Bắt đầu hành trình khám phá thế giới",
+    "subtitle": "Chọn điểm đến của bạn và khám phá những trải nghiệm du lịch được cá nhân hóa dành riêng cho bạn.",
+    "chooseContinent": "Chọn một Châu lục",
+    "selectRegion": "Chọn một khu vực để khám phá điểm đến",
+    "searchCountries": "Tìm kiếm quốc gia...",
+    "explore": "Khám phá",
+    "selectCountry": "Chọn một quốc gia để cá nhân hóa trải nghiệm của bạn",
+    "noDestinations": "Không tìm thấy điểm đến nào",
+    "personalizedRecs": "Gợi ý cá nhân hóa",
+    "exclusiveDeals": "Ưu đãi độc quyền",
+    "localExperiences": "Trải nghiệm địa phương",
+    "featuredDestinations": "Điểm đến nổi bật",
+    "exploreRegion": "Khám phá khu vực",
+    "tap": "Chọn",
+    "noDescription": "Không có mô tả cho quốc gia này.",
+    "continentDesc": {
+      "asia": "Khám phá các đền chùa cổ, chợ nhộn nhịp và phong cảnh tuyệt đẹp trên khắp các quốc gia đa dạng của châu Á.",
+      "europe": "Khám phá các thành phố lịch sử, làng mạc quyến rũ và kiến trúc tuyệt đẹp trên khắp lục địa châu Âu.",
+      "northAmerica": "Trải nghiệm phong cảnh rộng lớn, thành phố sôi động và kỳ quan thiên nhiên trên khắp Bắc Mỹ.",
+      "southAmerica": "Hành trình qua rừng rậm xanh tươi, di tích cổ đại và nền văn hóa sôi động của Nam Mỹ.",
+      "africa": "Phiêu lưu qua các vùng đồng cỏ, sa mạc và các nền văn hóa đa dạng ở châu Phi xinh đẹp.",
+      "oceania": "Khám phá các hòn đảo thiên đường, động vật hoang dã độc đáo và cảnh quan ven biển tuyệt đẹp ở châu Đại Dương."
+    },
+    "continents": {
+      "asia": "Châu Á",
+      "europe": "Châu Âu",
+      "northAmerica": "Bắc Mỹ",
+      "southAmerica": "Nam Mỹ",
+      "africa": "Châu Phi",
+      "oceania": "Châu Đại Dương"
+    }
+  }
+}

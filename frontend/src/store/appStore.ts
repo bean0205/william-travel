@@ -1,13 +1,14 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { getLocations } from '@/services/api/locationService';
+import { useCountryStore } from './countryStore';
 
 type AppState = {
   user: any | null;
   isLoading: boolean;
   error: string | null;
   featuredLocations: any[];
-  fetchFeaturedLocations: () => Promise<void>;
+  fetchFeaturedLocations: (countryCode?: string) => Promise<void>;
   setUser: (user: any | null) => void;
 };
 
@@ -18,10 +19,17 @@ export const useAppStore = create<AppState>()(
     error: null,
     featuredLocations: [],
     
-    fetchFeaturedLocations: async () => {
+    fetchFeaturedLocations: async (countryCode?: string) => {
       try {
         set({ isLoading: true, error: null });
-        const locations = await getLocations({ featured: true });
+        const params: Record<string, any> = { featured: true };
+        
+        // If countryCode is provided, filter by it
+        if (countryCode) {
+          params.countryCode = countryCode;
+        }
+        
+        const locations = await getLocations(params);
         set({ featuredLocations: locations, isLoading: false });
       } catch (error) {
         set({ 

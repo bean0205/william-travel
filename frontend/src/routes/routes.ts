@@ -8,19 +8,23 @@ interface AppRoute {
 }
 
 export const APP_ROUTES: Record<string, AppRoute> = {
-  HOME: {
+  COUNTRY_SELECTION: {
     path: '/',
-    label: 'Home',
+    label: 'Select Country',
+  },
+  HOME: {
+    path: '/home',
+    label: 'home',
     isNavItem: true,
   },
   MAP: {
     path: '/map',
-    label: 'Map Explorer',
+    label: 'mapExplorer',
     isNavItem: true,
   },
   LOCATIONS: {
     path: '/locations',
-    label: 'Locations',
+    label: 'locations',
     isNavItem: true,
   },
   LOCATION_DETAILS: {
@@ -29,7 +33,7 @@ export const APP_ROUTES: Record<string, AppRoute> = {
   },
   GUIDES: {
     path: '/guides',
-    label: 'Travel Guides',
+    label: 'travelGuides',
     isNavItem: true,
   },
   GUIDE_DETAILS: {
