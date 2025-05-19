@@ -31,11 +31,6 @@ const Header = () => {
             <Link to="/home" className="flex items-center">
               <span className="theme-transition-slow text-xl font-bold text-primary-600">
                 {t('appName')}
-                {selectedCountry && (
-                  <span className="text-muted-foreground theme-transition-fast ml-2 text-sm font-normal">
-                    {selectedCountry.name}
-                  </span>
-                )}
               </span>
             </Link>
           </div>

@@ -2,37 +2,26 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '@/store/appStore';
 import { useCountryStore } from '@/store/countryStore';
+import { ModernHeroSection } from '@/components/features/home/ModernHeroSection';
+import { LocationSelector } from '@/components/features/locations/LocationSelector';
+import { EventsCarousel } from '@/components/features/events/EventsCarousel';
+import { FoodSection } from '@/components/features/food/FoodSection';
+import { AccommodationSection } from '@/components/features/accommodations/AccommodationSection';
+import { ArticleSection } from '@/components/features/articles/ArticleSection';
 import { AnimateElement } from '@/components/common/PageTransition';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { LocationSelector } from '@/components/features/locations/LocationSelector';
-import { EventsCarousel } from '@/components/features/events/EventsCarousel';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
-  Search,
-  ChevronRight,
-  MapPin,
   CalendarDays,
-  Compass,
-  PlaneTakeoff,
-  Globe,
   Building,
-  Palmtree,
-  Mountain,
-  Sailboat,
-  Heart,
-  Star,
   ArrowRight,
-  MapPinned,
-  Filter,
-  X,
   Map,
   Home,
 } from 'lucide-react';
@@ -110,42 +99,6 @@ const scrollbarStyles = `
   }
 `;
 
-// Sample travel categories
-const travelCategories = [
-  {
-    id: 'cultural',
-    name: 'Cultural',
-    icon: <Building className="h-5 w-5" />,
-    color: 'from-purple-500 to-indigo-600',
-    image:
-      'https://images.unsplash.com/photo-1583417319070-4a69db38a482?q=80&w=400',
-  },
-  {
-    id: 'beaches',
-    name: 'Beaches',
-    icon: <Palmtree className="h-5 w-5" />,
-    color: 'from-cyan-500 to-blue-600',
-    image:
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400',
-  },
-  {
-    id: 'mountains',
-    name: 'Mountains',
-    icon: <Mountain className="h-5 w-5" />,
-    color: 'from-green-500 to-emerald-600',
-    image:
-      'https://images.unsplash.com/photo-1491555103944-7c647fd857e6?q=80&w=400',
-  },
-  {
-    id: 'islands',
-    name: 'Islands',
-    icon: <Sailboat className="h-5 w-5" />,
-    color: 'from-amber-500 to-orange-600',
-    image:
-      'https://images.unsplash.com/photo-1516091877493-bf6e132b91a3?q=80&w=400',
-  },
-];
-
 const mockEvents = [
   {
     id: '1',
@@ -183,16 +136,13 @@ const mockEvents = [
 ];
 
 const HomePage = () => {
-  const { fetchFeaturedLocations, isLoading, featuredLocations } =
-    useAppStore();
+  const { fetchFeaturedLocations } = useAppStore();
   const { selectedCountry, isCountrySelected } = useCountryStore();
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filteredLocations, setFilteredLocations] = useState<any[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<{
-    province?: any;
-    district?: any;
-    ward?: any;
+    province?: { name: string; code: string };
+    district?: { name: string; code: string };
+    ward?: { name: string; code: string };
   }>({});
   const [activeTab, setActiveTab] = useState<'all' | 'ongoing' | 'upcoming'>(
     'all'
@@ -220,21 +170,28 @@ const HomePage = () => {
       fetchFeaturedLocations();
     }
   }, [fetchFeaturedLocations, isCountrySelected, navigate, selectedCountry]);
-
   // Filter locations based on search term
   useEffect(() => {
-    if (featuredLocations) {
-      setFilteredLocations(
-        featuredLocations.filter((location) =>
-          location.name.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      );
+    if (!isCountrySelected) {
+      navigate('/');
+      return;
     }
-  }, [searchTerm, featuredLocations]);
+
+    if (selectedCountry) {
+      fetchFeaturedLocations(selectedCountry.code);
+    } else {
+      fetchFeaturedLocations();
+    }
+  }, [fetchFeaturedLocations, isCountrySelected, navigate, selectedCountry]);
+  
   // Handle location selection from the selector
-  const handleLocationChange = (location: any) => {
+  const handleLocationChange = (location: {
+    province?: { name: string; code: string };
+    district?: { name: string; code: string };
+    ward?: { name: string; code: string };
+  }) => {
     setSelectedLocation(location);
-    console.log('Selected location:', location);
+    // Process the selected location
   };
 
   // Check if a complete location is selected (province, district, and ward)
@@ -242,22 +199,20 @@ const HomePage = () => {
     selectedLocation?.province &&
     selectedLocation?.district &&
     selectedLocation?.ward;
-
   // Handle location confirmation
   const handleLocationConfirm = () => {
     if (selectedLocation?.province) {
-      console.log('Location confirmed:', selectedLocation);
-      // Here you could navigate to a details page or perform other actions
+      // Process the confirmed location
     }
   };
-
   if (!selectedCountry) return null;
 
   return (
     <div className="min-h-screen bg-background">
       {/* Custom scrollbar styles */}
       <style>{scrollbarStyles}</style>
-      {/* Decorative floating elements */}
+      
+      {/* Decorative floating elements for background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="bg-primary/10 animate-float absolute -left-20 top-[20%] h-40 w-40 rounded-full blur-3xl"></div>
         <div
@@ -268,307 +223,17 @@ const HomePage = () => {
           className="animate-float absolute -bottom-20 left-[30%] h-40 w-40 rounded-full bg-cyan-600/10 blur-3xl"
           style={{ animationDelay: '1s' }}
         ></div>
-      </div>
-      {/* Hero Section */}
-      <section className="from-primary/5 relative overflow-hidden bg-gradient-to-b via-background to-background pb-8 pt-8 md:pb-12 md:pt-10 lg:pb-16 lg:pt-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
-            <AnimateElement animation="fade-right" delay={0.1}>
-              <div className="flex flex-col justify-center space-y-4 md:space-y-6">
-                {' '}
-                <div>
-                  <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
-                    Explore {selectedCountry.name}
-                  </h1>
-                  <p className="mt-3 text-base text-muted-foreground md:text-lg">
-                    Discover amazing places, local experiences, and
-                    unforgettable adventures
-                  </p>
-                </div>
-                {/* Search Bar with Animation */}
-                <div
-                  className="animate-slide-in relative max-w-xl"
-                  style={{ animationDelay: '0.2s' }}
-                >
-                  <Input
-                    type="text"
-                    placeholder="Search for locations, attractions, or activities..."
-                    className="h-12 rounded-full pl-12 pr-4"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                  <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-                </div>
-                {/* Highlighted action */}
-                <div
-                  className="animate-slide-in"
-                  style={{ animationDelay: '0.4s' }}
-                >
-                  <Button
-                    size="lg"
-                    className="group rounded-full"
-                    onClick={() => {
-                      // Scroll to location selector section
-                      document
-                        .querySelector('#location-selector-section')
-                        ?.scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'start',
-                        });
-                    }}
-                  >
-                    Find Your Perfect Destination
-                    <ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </div>
-                {/* Quick access badges */}
-                <div
-                  className="animate-slide-in flex flex-wrap gap-2"
-                  style={{ animationDelay: '0.3s' }}
-                >
-                  {travelCategories.map((category) => (
-                    <Badge
-                      key={category.id}
-                      variant="outline"
-                      className="cursor-pointer bg-card/80 backdrop-blur-sm hover:bg-card"
-                    >
-                      <span
-                        className={`mr-1 bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}
-                      >
-                        •
-                      </span>{' '}
-                      {category.name}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </AnimateElement>
-
-            <AnimateElement animation="fade-left" delay={0.2}>
-              <div className="relative aspect-square overflow-hidden rounded-2xl shadow-xl lg:aspect-[4/3]">
-                <img
-                  src={`https://source.unsplash.com/featured/1200x800/?${selectedCountry.name},landscape`}
-                  alt={`${selectedCountry.name} landscape`}
-                  className="duration-10000 h-full w-full object-cover transition-transform hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6">
-                  <div className="flex items-center">
-                    <Badge className="bg-primary/80 backdrop-blur-sm">
-                      Featured Destination
-                    </Badge>
-                  </div>
-                  <h3 className="mt-2 text-xl font-bold text-white md:text-2xl">
-                    Beautiful {selectedCountry.name}
-                  </h3>
-                </div>
-              </div>
-            </AnimateElement>
-          </div>
-        </div>
-      </section>{' '}
-      {/* Location Selector & Search Results Section */}
-      <section id="location-selector-section" className="py-8 md:py-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-8">
-            {' '}
-            <AnimateElement animation="fade" delay={0.1}>
-              <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
-                <div>
-                  <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                    Explore Destinations
-                  </h2>
-                  <p className="mt-1 text-muted-foreground">
-                    Find your perfect location in {selectedCountry.name}
-                  </p>
-                </div>
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="flex items-center gap-1"
-                  >
-                    <Filter className="h-4 w-4" />
-                    Filters
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="flex items-center gap-1"
-                  >
-                    <MapPinned className="h-4 w-4" />
-                    Popular Locations
-                  </Button>
-                </div>
-              </div>
-            </AnimateElement>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-3 lg:gap-12">
-            {/* Location Selector */}
-            <div className="md:col-span-1">
-              <AnimateElement animation="fade-right" delay={0.2}>
-                <LocationSelector
-                  title="Find Your Destination"
-                  subtitle="Select your travel location"
-                  variant="modern"
-                  onLocationChange={handleLocationChange}
-                  className="shadow-md"
-                  showConfirmButton={true}
-                  confirmButtonText="Set Destination"
-                  onConfirm={handleLocationConfirm}
-                />
-
-                {isFullLocationSelected && (
-                  <Card className="border-primary/20 bg-primary/5 mt-4 overflow-hidden">
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-base">
-                        Selected Destination
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="pb-4">
-                      <div className="flex flex-col gap-1 text-sm">
-                        <div className="flex items-center gap-1.5">
-                          <Building className="text-primary h-3.5 w-3.5" />
-                          <span className="font-medium">
-                            {selectedLocation.province?.name}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <Map className="text-primary h-3.5 w-3.5" />
-                          <span>{selectedLocation.district?.name}</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <Home className="text-primary h-3.5 w-3.5" />
-                          <span>{selectedLocation.ward?.name}</span>
-                        </div>
-                      </div>
-                      <Button
-                        className="mt-3 w-full"
-                        size="sm"
-                        variant="secondary"
-                        onClick={() => {
-                          // Navigate to destination details or other action
-                          console.log('View destination details');
-                        }}
-                      >
-                        View Details
-                      </Button>
-                    </CardContent>
-                  </Card>
-                )}
-              </AnimateElement>
-            </div>
-
-            {/* Search Results or Featured Locations */}
-            <div className="md:col-span-2">
-              <AnimateElement animation="fade-left" delay={0.3}>
-                <Card className="h-full overflow-hidden bg-gradient-to-br from-background to-muted/50">
-                  <CardHeader className="bg-primary/5 pb-4">
-                    <div className="flex flex-wrap items-center justify-between gap-4">
-                      <div>
-                        <CardTitle className="flex items-center gap-2 text-xl">
-                          <MapPin className="text-primary h-5 w-5" />
-                          {searchTerm ? 'Search Results' : 'Featured Locations'}
-                        </CardTitle>
-                        <CardDescription className="mt-1">
-                          {searchTerm
-                            ? `Found ${filteredLocations.length} locations matching "${searchTerm}"`
-                            : `Discover the top destinations in ${selectedCountry.name}`}
-                        </CardDescription>
-                      </div>
-                      <div className="w-full sm:max-w-xs">
-                        <div className="relative">
-                          <Input
-                            type="text"
-                            placeholder="Search locations..."
-                            className="pr-10"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                          />
-                          {searchTerm ? (
-                            <button
-                              className="absolute right-3 top-1/2 -translate-y-1/2"
-                              onClick={() => setSearchTerm('')}
-                            >
-                              <X className="h-4 w-4 text-muted-foreground hover:text-foreground" />
-                            </button>
-                          ) : (
-                            <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </CardHeader>
-
-                  <CardContent className="custom-scrollbar max-h-[400px] overflow-y-auto p-4">
-                    {isLoading ? (
-                      <div className="flex h-32 items-center justify-center">
-                        <div className="flex flex-col items-center gap-2 text-center">
-                          <div className="border-primary h-8 w-8 animate-spin rounded-full border-4 border-t-transparent"></div>
-                          <p className="text-sm text-muted-foreground">
-                            Loading locations...
-                          </p>
-                        </div>
-                      </div>
-                    ) : filteredLocations.length === 0 ? (
-                      <div className="flex h-32 items-center justify-center">
-                        <div className="text-center">
-                          <p className="text-muted-foreground">
-                            {searchTerm
-                              ? 'No locations found matching your search'
-                              : 'No featured locations available'}
-                          </p>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        {filteredLocations.map((location) => (
-                          <Card
-                            key={location.id}
-                            className="overflow-hidden transition-all hover:shadow-md"
-                          >
-                            <div className="relative h-28 w-full">
-                              <img
-                                src={`https://source.unsplash.com/featured/300x200/?${location.name},city`}
-                                alt={location.name}
-                                className="h-full w-full object-cover"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                              <div className="absolute bottom-3 left-3">
-                                <h3 className="font-semibold text-white">
-                                  {location.name}
-                                </h3>
-                              </div>
-                            </div>
-                            <div className="p-3">
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                                  <MapPin className="h-3 w-3" />
-                                  {selectedCountry.name}
-                                </div>
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  className="h-8 w-8 p-0"
-                                >
-                                  <Heart className="h-4 w-4" />
-                                </Button>
-                              </div>
-                            </div>
-                          </Card>
-                        ))}
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </AnimateElement>
-            </div>
-          </div>
-        </div>
-      </section>{' '}
+      </div>        {/* Hero Section */}
+      <ModernHeroSection 
+        countryName={selectedCountry.name}
+        countryCode={selectedCountry.code}
+        countryDescription={selectedCountry.description}
+      />
+      
+   
+      
       {/* Events Section */}
-      <section className="bg-muted/30 py-8 md:py-12">
+      <section className="py-8 bg-muted/30 md:py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateElement animation="fade" delay={0.1}>
             <div className="mb-8">
@@ -583,7 +248,7 @@ const HomePage = () => {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <Button
-                    variant={activeTab === 'all' ? 'secondary' : 'outline'}
+                    variant={activeTab === 'all' ? "secondary" : "outline"}
                     size="sm"
                     className="flex items-center gap-1"
                     onClick={() => setActiveTab('all')}
@@ -592,7 +257,7 @@ const HomePage = () => {
                     All Events ({mockEvents.length})
                   </Button>
                   <Button
-                    variant={activeTab === 'ongoing' ? 'secondary' : 'outline'}
+                    variant={activeTab === 'ongoing' ? "secondary" : "outline"}
                     size="sm"
                     className="flex items-center gap-1"
                     onClick={() => setActiveTab('ongoing')}
@@ -604,7 +269,7 @@ const HomePage = () => {
                     Ongoing ({ongoingEvents.length})
                   </Button>
                   <Button
-                    variant={activeTab === 'upcoming' ? 'secondary' : 'outline'}
+                    variant={activeTab === 'upcoming' ? "secondary" : "outline"}
                     size="sm"
                     className="flex items-center gap-1"
                     onClick={() => setActiveTab('upcoming')}
@@ -629,78 +294,17 @@ const HomePage = () => {
             />
           </AnimateElement>
         </div>
-      </section>{' '}
-      {/* Travel Categories Section */}
-      <section className="bg-gradient-to-b from-background via-muted/10 to-background py-8 md:py-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimateElement animation="fade" delay={0.1}>
-            <div className="mb-8 text-center">
-              <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                Discover by Category
-              </h2>
-              <p className="mx-auto mt-2 max-w-3xl text-muted-foreground">
-                Find the perfect experiences for your {selectedCountry.name}{' '}
-                adventure
-              </p>
-            </div>
-          </AnimateElement>
-
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {travelCategories.map((category, index) => (
-              <AnimateElement
-                key={category.id}
-                animation="slide-up"
-                delay={0.1 + index * 0.1}
-              >
-                <div className="group relative cursor-pointer overflow-hidden rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                  {/* Image with gradient overlay */}
-                  <div className="relative h-52 w-full overflow-hidden">
-                    <img
-                      src={category.image}
-                      alt={category.name}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-70 mix-blend-multiply`}
-                    ></div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="absolute inset-0 flex flex-col justify-between p-5">
-                    <div className="flex w-fit items-center rounded-full bg-white/20 px-3 py-1.5 backdrop-blur-sm">
-                      <div className="mr-2 text-white">{category.icon}</div>
-                      <h3 className="text-sm font-medium text-white">
-                        {category.name}
-                      </h3>
-                    </div>
-
-                    <div className="space-y-2">
-                      <p className="line-clamp-2 text-sm text-white/90">
-                        {category.id === 'cultural' &&
-                          'Explore historical sites, museums, and traditional villages'}
-                        {category.id === 'beaches' &&
-                          'Relax on pristine shores with crystal clear waters'}
-                        {category.id === 'mountains' &&
-                          'Experience breathtaking views and hiking adventures'}
-                        {category.id === 'islands' &&
-                          'Discover hidden paradises and unique ecosystems'}
-                      </p>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="w-full justify-center border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/30 group-hover:bg-white/20"
-                      >
-                        <span>Explore {category.name}</span>
-                        <ChevronRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </AnimateElement>
-            ))}
-          </div>
-        </div>
-      </section>{' '}
+      </section>
+      
+      {/* Food Section */}
+      <FoodSection countryName={selectedCountry.name} />
+      
+      {/* Accommodation Section */}
+      <AccommodationSection countryName={selectedCountry.name} />
+      
+      {/* Articles Section */}
+      <ArticleSection countryName={selectedCountry.name} />
+      
       {/* Newsletter Section */}
       <section className="py-8 md:py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
