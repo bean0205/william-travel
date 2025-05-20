@@ -21,8 +21,8 @@ import {
   CameraIcon,
   HeartIcon
 } from 'lucide-react';
-import { SettingsToggle } from '@/components/common/SettingsToggle';
-import { LanguageSwitcher } from '@/components/common/LanguageSwitcher';
+import { ThemeToggleButton } from '@/components/common/ThemeToggleButton';
+import { LanguageButton } from '@/components/common/LanguageButton';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -55,6 +55,22 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  // Control body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      // Prevent scrolling on body when mobile menu is open
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Re-enable scrolling when mobile menu is closed
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      // Cleanup - ensure scrolling is re-enabled when component unmounts
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -100,7 +116,7 @@ const Header = () => {
   return (
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled 
+        scrolled && !mobileMenuOpen 
           ? 'bg-white/90 dark:bg-slate-900/90 shadow-md backdrop-blur-md' 
           : 'bg-gradient-to-r from-blue-50/90 via-white/80 to-emerald-50/90 dark:from-slate-900/90 dark:via-slate-900/80 dark:to-slate-800/90'
       }`}
@@ -193,54 +209,58 @@ const Header = () => {
 
           {/* User actions */}
           <div className="flex items-center space-x-2">
-            {/* Search button */}
-            <Button
-              variant="outline"
-              size="icon"
-              className="rounded-full border-muted-foreground/20 text-muted-foreground hover:bg-muted hover:text-foreground"
-              aria-label={t('search')}
-            >
-              <SearchIcon className="h-4 w-4" />
-            </Button>
+            {/* Desktop only actions */}
+            <div className="hidden md:flex items-center space-x-2">
+              {/* Search button */}
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full border-muted-foreground/20 text-muted-foreground hover:bg-muted hover:text-foreground"
+                aria-label={t('search')}
+              >
+                <SearchIcon className="h-4 w-4" />
+              </Button>
 
-            {/* Language switcher - compact mode */}
-            <div className="hidden sm:block">
-              <LanguageSwitcher variant="ghost" size="sm" showText={false} />
+              {/* Language switcher - compact mode */}
+              <LanguageButton />
+
+              {/* Settings toggle */}
+              <ThemeToggleButton />
+
+              {/* Book Now button (call-to-action) */}
+              <Button
+                variant="default"
+                size="sm"
+                className="flex items-center gap-1 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white shadow-md hover:shadow-lg transition-all"
+              >
+                <CameraIcon className="h-3.5 w-3.5" />
+                <span>{t('header.bookNow')}</span>
+              </Button>
+
+              {/* User menu / login */}
+              <div className="relative">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  asChild
+                  className="gap-2 rounded-full bg-transparent border-muted-foreground/20"
+                >
+                  <Link to="/login">
+                    <UserIcon className="h-4 w-4" />
+                    <span>{t('navigation.login')}</span>
+                  </Link>
+                </Button>
+              </div>
             </div>
 
-            {/* Settings toggle */}
-            <SettingsToggle
-              mode="separated"
-              style="embedded"
-              size="sm"
-              colorScheme="auto"
-              position="right"
-            />
-
-            {/* Book Now button (call-to-action) */}
+            {/* Book Now button visible on mobile */}
             <Button
               variant="default"
               size="sm"
-              className="hidden sm:flex items-center gap-1 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white shadow-md hover:shadow-lg transition-all"
+              className="md:hidden flex items-center gap-1 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white shadow-md hover:shadow-lg transition-all"
             >
               <CameraIcon className="h-3.5 w-3.5" />
-              <span>{t('header.bookNow')}</span>
             </Button>
-
-            {/* User menu / login */}
-            <div className="relative">
-              <Button
-                variant="outline"
-                size="sm"
-                asChild
-                className="gap-2 rounded-full bg-transparent border-muted-foreground/20"
-              >
-                <Link to="/login">
-                  <UserIcon className="h-4 w-4" />
-                  <span className="hidden sm:inline">{t('navigation.login')}</span>
-                </Link>
-              </Button>
-            </div>
 
             {/* Mobile menu button */}
             <Button
@@ -283,6 +303,52 @@ const Header = () => {
                   >
                     <XIcon className="h-5 w-5" />
                   </Button>
+                </div>
+
+                {/* User Profile and Actions Section */}
+                <div className="mb-8 py-4 px-3 bg-muted/30 rounded-xl">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-100 dark:bg-primary-900/30">
+                      <UserIcon className="h-6 w-6 text-primary-600 dark:text-primary-400" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium">{t('header.welcome')}</h3>
+                      <Button asChild variant="link" className="p-0 h-auto font-semibold text-primary-600">
+                        <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
+                          {t('navigation.login')}
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    {/* Search Button */}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center justify-start gap-2 rounded-lg"
+                      aria-label={t('search')}
+                    >
+                      <SearchIcon className="h-4 w-4" />
+                      <span>{t('search')}</span>
+                    </Button>
+
+                    {/* Book Now Button */}
+                    <Button
+                      variant="default"
+                      size="sm"
+                      className="flex items-center justify-start gap-2 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600"
+                    >
+                      <CameraIcon className="h-4 w-4" />
+                      <span>{t('header.bookNow')}</span>
+                    </Button>
+
+                    {/* Theme Toggle Button - Manual implementation */}
+                    <ThemeToggleButton />
+
+                    {/* Language Switcher Button - Manual implementation */}
+                    <LanguageButton />
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -334,18 +400,6 @@ const Header = () => {
                 </div>
 
                 <div className="mt-8 border-t pt-6 border-muted/20">
-                  <div className="flex flex-wrap justify-between items-center gap-4">
-                    <LanguageSwitcher variant="ghost" size="md" showText={true} />
-
-                    <Button
-                      variant="default"
-                      className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white"
-                    >
-                      <CameraIcon className="h-4 w-4" />
-                      {t('header.bookNow')}
-                    </Button>
-                  </div>
-
                   <div className="mt-6 flex items-center justify-center space-x-4">
                     <a href="#" className="text-muted-foreground hover:text-foreground text-sm">
                       {t('footer.privacyPolicy')}
