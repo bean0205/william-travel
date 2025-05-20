@@ -1,29 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAppStore } from '@/store/appStore';
 import { useCountryStore } from '@/store/countryStore';
 import { ModernHeroSection } from '@/components/features/home/ModernHeroSection';
-import { LocationSelector } from '@/components/features/locations/LocationSelector';
 import { EventsCarousel } from '@/components/features/events/EventsCarousel';
 import { FoodSection } from '@/components/features/food/FoodSection';
 import { AccommodationSection } from '@/components/features/accommodations/AccommodationSection';
 import { ArticleSection } from '@/components/features/articles/ArticleSection';
 import { AnimateElement } from '@/components/common/PageTransition';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
   CalendarDays,
   Building,
   ArrowRight,
-  Map,
-  Home,
 } from 'lucide-react';
 
 // Custom scrollbar styles
@@ -139,6 +131,7 @@ const HomePage = () => {
   const { fetchFeaturedLocations } = useAppStore();
   const { selectedCountry, isCountrySelected } = useCountryStore();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [selectedLocation, setSelectedLocation] = useState<{
     province?: { name: string; code: string };
     district?: { name: string; code: string };
@@ -235,7 +228,7 @@ const HomePage = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateElement animation="fade" delay={0.1}>
             <h2 className="text-2xl font-bold tracking-tight mb-6 sm:text-3xl">
-              Explore {selectedCountry.name}
+              {t('Explore')} {selectedCountry.name}
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <Button 
@@ -245,7 +238,7 @@ const HomePage = () => {
                 onClick={() => navigate('/accommodations')}
               >
                 <Building className="h-8 w-8 mb-2 text-primary" />
-                <span className="text-lg font-medium">Accommodations</span>
+                <span className="text-lg font-medium">{t('Accommodations')}</span>
               </Button>
               
               <Button 
@@ -258,7 +251,7 @@ const HomePage = () => {
                   <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   <path d="M21 20C21 16.6863 16.9706 14 12 14C7.02944 14 3 16.6863 3 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                <span className="text-lg font-medium">Food & Dining</span>
+                <span className="text-lg font-medium">{t('Food & Dining')}</span>
               </Button>
               
               <Button 
@@ -273,7 +266,7 @@ const HomePage = () => {
                   <path d="M8 10.5H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   <path d="M8 14.5H12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                <span className="text-lg font-medium">Articles</span>
+                <span className="text-lg font-medium">{t('Articles')}</span>
               </Button>
               
               <Button 
@@ -283,7 +276,7 @@ const HomePage = () => {
                 onClick={() => navigate('/events')}
               >
                 <CalendarDays className="h-8 w-8 mb-2 text-primary" />
-                <span className="text-lg font-medium">Events</span>
+                <span className="text-lg font-medium">{t('Events')}</span>
               </Button>
             </div>
           </AnimateElement>
@@ -298,10 +291,10 @@ const HomePage = () => {
               <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                 <div>
                   <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                    Events & Festivals
+                    {t('Events & Festivals')}
                   </h2>
                   <p className="mt-1 text-muted-foreground">
-                    Discover what's happening in {selectedCountry.name}
+                    {t('Discover what\'s happening in')} {selectedCountry.name}
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -312,7 +305,7 @@ const HomePage = () => {
                     onClick={() => setActiveTab('all')}
                   >
                     <CalendarDays className="h-4 w-4" />
-                    All Events ({mockEvents.length})
+                    {t('All Events')} ({mockEvents.length})
                   </Button>
                   <Button
                     variant={activeTab === 'ongoing' ? "secondary" : "outline"}
@@ -324,7 +317,7 @@ const HomePage = () => {
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
                       <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
                     </span>
-                    Ongoing ({ongoingEvents.length})
+                    {t('Ongoing')} ({ongoingEvents.length})
                   </Button>
                   <Button
                     variant={activeTab === 'upcoming' ? "secondary" : "outline"}
@@ -333,7 +326,7 @@ const HomePage = () => {
                     onClick={() => setActiveTab('upcoming')}
                   >
                     <CalendarDays className="h-4 w-4" />
-                    Upcoming ({upcomingEvents.length})
+                    {t('Upcoming')} ({upcomingEvents.length})
                   </Button>
                 </div>
               </div>
@@ -363,68 +356,7 @@ const HomePage = () => {
       {/* Articles Section */}
       <ArticleSection countryName={selectedCountry.name} />
       
-      {/* Newsletter Section */}
-      <section className="py-8 md:py-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimateElement animation="fade" delay={0.1}>
-            <div className="from-primary/90 to-primary-foreground/80 relative overflow-hidden rounded-2xl bg-gradient-to-r p-6 md:p-10">
-              <div className="absolute inset-0 overflow-hidden opacity-20">
-                <div
-                  style={{
-                    backgroundImage: `url('/patterns/noise.png')`,
-                    backgroundSize: '200px',
-                    width: '100%',
-                    height: '100%',
-                  }}
-                ></div>
-              </div>
 
-              {/* Decorative elements */}
-              <div className="pointer-events-none absolute inset-0 overflow-hidden">
-                <div className="animate-float absolute -right-16 top-[20%] h-32 w-32 rounded-full bg-white/10 blur-2xl"></div>
-                <div
-                  className="animate-float absolute -left-16 bottom-[20%] h-24 w-24 rounded-full bg-white/10 blur-2xl"
-                  style={{ animationDelay: '2s' }}
-                ></div>
-              </div>
-
-              <div className="relative z-10 mx-auto max-w-2xl text-center">
-                <div className="inline-flex rounded-full bg-white/10 px-3 py-1 text-sm text-white/90 backdrop-blur-sm">
-                  <span className="relative mr-2 mt-1 flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75"></span>
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-white"></span>
-                  </span>
-                  Travel updates for {selectedCountry.name}
-                </div>
-                <h2 className="mb-4 mt-4 text-2xl font-bold text-white sm:text-3xl">
-                  Stay Updated with Exclusive Travel News
-                </h2>
-                <p className="mb-8 text-white/80">
-                  Subscribe to receive personalized travel insights, seasonal
-                  recommendations, and special offers for your next adventure in{' '}
-                  {selectedCountry.name}.
-                </p>
-                <div className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
-                  <div className="relative flex-1">
-                    <Input
-                      type="email"
-                      placeholder="Your email address"
-                      className="h-12 border-white/20 bg-white/10 pl-4 pr-4 text-white placeholder:text-white/60 focus:border-white/30 focus-visible:ring-white/20"
-                    />
-                  </div>
-                  <Button className="text-primary h-12 gap-2 bg-white hover:bg-white/90">
-                    Subscribe
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </div>
-                <p className="mt-4 text-xs text-white/60">
-                  We respect your privacy. Unsubscribe at any time.
-                </p>
-              </div>
-            </div>
-          </AnimateElement>
-        </div>
-      </section>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -235,28 +236,34 @@ export function AccommodationSection({ countryName, location }: AccommodationSec
               key={accommodation.id}
               className="group overflow-hidden transition-all duration-300 hover:shadow-lg dark:bg-card dark:hover:shadow-primary/5"
             >
-              <div className="relative w-full h-48 overflow-hidden">
-                <img
-                  src={accommodation.image}
-                  alt={accommodation.name}
-                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                />
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="absolute z-10 top-2 right-2 h-8 w-8 bg-black/20 hover:bg-black/30 text-white backdrop-blur-sm"
-                >
-                  <Heart className="w-4 h-4" />
-                </Button>
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent pt-10 pb-4 px-4">
-                  <Badge className="bg-primary/80 backdrop-blur-sm text-white">
-                    {accommodation.type}
-                  </Badge>
-                  <h3 className="mt-2 text-lg font-bold text-white">
-                    {accommodation.name}
-                  </h3>
+              <Link to={`/accommodations/${accommodation.id}`} className="block">
+                <div className="relative w-full h-48 overflow-hidden">
+                  <img
+                    src={accommodation.image}
+                    alt={accommodation.name}
+                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="absolute z-10 top-2 right-2 h-8 w-8 bg-black/20 hover:bg-black/30 text-white backdrop-blur-sm"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // Add to favorites function
+                    }}
+                  >
+                    <Heart className="w-4 h-4" />
+                  </Button>
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent pt-10 pb-4 px-4">
+                    <Badge className="bg-primary/80 backdrop-blur-sm text-white">
+                      {accommodation.type}
+                    </Badge>
+                    <h3 className="mt-2 text-lg font-bold text-white">
+                      {accommodation.name}
+                    </h3>
+                  </div>
                 </div>
-              </div>
+              </Link>
 
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-3">
@@ -278,9 +285,11 @@ export function AccommodationSection({ countryName, location }: AccommodationSec
                   )}
                 </div>
 
-                <p className="mb-3 text-sm text-muted-foreground line-clamp-2">
-                  {accommodation.description}
-                </p>
+                <Link to={`/accommodations/${accommodation.id}`}>
+                  <p className="mb-3 text-sm text-muted-foreground line-clamp-2">
+                    {accommodation.description}
+                  </p>
+                </Link>
 
                 <div className="flex flex-wrap items-center gap-2 pt-2 text-xs border-t border-border">
                   {accommodation.amenities.slice(0, 4).map((amenity, index) => (

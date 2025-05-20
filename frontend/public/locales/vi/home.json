@@ -1,0 +1,60 @@
+{
+  "hero": {
+    "title": "Khám phá kho báu ẩn của Việt Nam",
+    "subtitle": "Trải nghiệm vẻ đẹp, văn hóa và những cuộc phiêu lưu khó quên",
+    "searchPlaceholder": "Tìm kiếm điểm đến, hoạt động hoặc trải nghiệm",
+    "searchButton": "Khám phá",
+    "popularSearches": "Tìm kiếm phổ biến:",
+    "continueExploring": "Tiếp tục khám phá"
+  },
+  "destinations": {
+    "title": "Điểm đến phổ biến",
+    "subtitle": "Khám phá những điểm du lịch được yêu thích nhất Việt Nam",
+    "viewAll": "Xem tất cả điểm đến",
+    "exploreNow": "Khám phá ngay"
+  },
+  "experiences": {
+    "title": "Trải nghiệm độc đáo",
+    "subtitle": "Khám phá những hoạt động làm cho chuyến đi của bạn đáng nhớ",
+    "viewAll": "Xem tất cả trải nghiệm"
+  },
+  "events": {
+    "title": "Sự kiện & Lễ hội sắp tới",
+    "subtitle": "Đừng bỏ lỡ những lễ hội văn hóa này",
+    "viewAll": "Xem tất cả sự kiện"
+  },
+  "food": {
+    "title": "Ẩm thực tuyệt vời",
+    "subtitle": "Thưởng thức hương vị đích thực của Việt Nam",
+    "viewAll": "Khám phá tất cả ẩm thực"
+  },
+  "accommodations": {
+    "title": "Nơi lưu trú",
+    "subtitle": "Từ khu nghỉ dưỡng sang trọng đến homestay đậm chất địa phương",
+    "viewAll": "Tìm nơi lưu trú"
+  },
+  "articles": {
+    "title": "Câu chuyện & Lời khuyên du lịch",
+    "subtitle": "Kinh nghiệm từ du khách và chuyên gia địa phương",
+    "viewAll": "Đọc tất cả bài viết"
+  },
+  "guides": {
+    "title": "Gặp gỡ hướng dẫn viên địa phương",
+    "subtitle": "Hướng dẫn viên chuyên nghiệp sẽ nâng tầm hành trình của bạn",
+    "viewAll": "Xem tất cả hướng dẫn viên"
+  },
+  "cta": {
+    "title": "Sẵn sàng cho cuộc phiêu lưu Việt Nam của bạn?",
+    "subtitle": "Lên kế hoạch cho chuyến đi hoàn hảo với lịch trình tùy chỉnh của chúng tôi",
+    "button": "Bắt đầu lập kế hoạch"
+  },
+  "filters": {
+    "dates": "Ngày du lịch",
+    "duration": "Thời gian",
+    "travelers": "Số người",
+    "budget": "Ngân sách",
+    "interests": "Sở thích",
+    "applyFilters": "Áp dụng bộ lọc"
+  }
+}
+

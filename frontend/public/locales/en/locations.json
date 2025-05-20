@@ -1,0 +1,38 @@
+{
+  "detail": {
+    "loading": "Loading location details...",
+    "error": "Could not load location information. Please try again later.",
+    "notFound": "Location not found",
+    "notFoundDescription": "The location might not exist or has been removed.",
+    "backToList": "Back to locations list",
+    "reviews": "reviews",
+    "tabs": {
+      "overview": "Overview",
+      "photos": "Photos",
+      "reviews": "Reviews",
+      "map": "Map",
+      "nearbyAttractions": "Nearby"
+    },
+    "info": {
+      "address": "Address",
+      "phone": "Phone",
+      "website": "Website",
+      "openingHours": "Opening Hours",
+      "visitDuration": "Visit Duration",
+      "bestTimeToVisit": "Best Time to Visit",
+      "entranceFee": "Entrance Fee",
+      "accessibility": "Accessibility"
+    },
+    "actions": {
+      "addToFavorites": "Add to favorites",
+      "removeFromFavorites": "Remove from favorites",
+      "share": "Share",
+      "bookNow": "Book Now",
+      "readReviews": "Read Reviews",
+      "writeReview": "Write a Review"
+    },
+    "nearbyPlaces": "Nearby Places",
+    "viewAllPhotos": "View all photos"
+  }
+}
+

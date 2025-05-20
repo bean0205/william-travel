@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
+import { useTranslation } from 'react-i18next';
 import SimpleLayout from '@/layouts/SimpleLayout';
 import * as locationService from '@/services/api/locationService';
 import {
@@ -18,6 +19,7 @@ import { IoMdPhotos } from 'react-icons/io';
 import { MdOutlineRecommend } from 'react-icons/md';
 
 const LocationDetailPage = () => {
+  const { t } = useTranslation(['locations', 'common']);
   const { id } = useParams<{ id: string }>();
   const [location, setLocation] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -38,7 +40,7 @@ const LocationDetailPage = () => {
         const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
         setIsFavorite(favorites.includes(id));
       } catch (err) {
-        setError('Không thể tải thông tin địa điểm. Vui lòng thử lại sau.');
+        setError(t('locations:detail.error'));
         console.error('Error fetching location details:', err);
       } finally {
         setLoading(false);
@@ -48,7 +50,7 @@ const LocationDetailPage = () => {
     if (id) {
       fetchLocationDetail();
     }
-  }, [id]);
+  }, [id, t]);
 
   const toggleFavorite = () => {
     if (!isAuthenticated) {
@@ -94,13 +96,13 @@ const LocationDetailPage = () => {
             <FaInfoCircle className="inline" />
           </div>
           <h1 className="mb-4 text-2xl font-bold text-gray-800">
-            {error || 'Không tìm thấy địa điểm'}
+            {error || t('locations:detail.notFound')}
           </h1>
           <p className="mb-6 text-gray-600">
-            Có thể địa điểm này không tồn tại hoặc đã bị xóa.
+            {t('locations:detail.notFoundDescription')}
           </p>
           <Link to="/locations" className="btn btn-primary">
-            Quay lại danh sách địa điểm
+            {t('common:backToList')}
           </Link>
         </div>
       </SimpleLayout>
@@ -146,7 +148,7 @@ const LocationDetailPage = () => {
               <div className="mr-4 flex">
                 {renderStars(location.rating || 0)}
                 <span className="ml-2">
-                  ({location.reviewCount || 0} đánh giá)
+                  ({location.reviewCount || 0} {t('locations:detail.reviews')})
                 </span>
               </div>
               <span className="rounded-full bg-primary-100 bg-opacity-90 px-3 py-1 text-xs font-medium text-primary-800">
@@ -176,12 +178,12 @@ const LocationDetailPage = () => {
                 ) : (
                   <FaRegHeart className="mr-2" />
                 )}
-                {isFavorite ? 'Đã yêu thích' : 'Yêu thích'}
+                {isFavorite ? t('locations:detail.favorited') : t('locations:detail.favorite')}
               </button>
 
               <button className="flex items-center rounded-md bg-gray-100 px-4 py-2 font-medium text-gray-700 hover:bg-gray-200">
                 <FaShare className="mr-2" />
-                Chia sẻ
+                {t('locations:detail.share')}
               </button>
             </div>
 
@@ -196,7 +198,7 @@ const LocationDetailPage = () => {
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                   }`}
                 >
-                  Tổng quan
+                  {t('locations:detail.overview')}
                 </button>
                 <button
                   onClick={() => setActiveTab('photos')}
@@ -206,7 +208,7 @@ const LocationDetailPage = () => {
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                   }`}
                 >
-                  Hình ảnh
+                  {t('locations:detail.photos')}
                 </button>
                 <button
                   onClick={() => setActiveTab('reviews')}
@@ -216,7 +218,7 @@ const LocationDetailPage = () => {
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                   }`}
                 >
-                  Đánh giá
+                  {t('locations:detail.reviews')}
                 </button>
               </nav>
             </div>
@@ -224,7 +226,7 @@ const LocationDetailPage = () => {
             {/* Tab content */}
             {activeTab === 'overview' && (
               <div>
-                <h2 className="mb-4 text-2xl font-bold">Giới thiệu</h2>
+                <h2 className="mb-4 text-2xl font-bold">{t('locations:detail.introduction')}</h2>
                 <p className="mb-6 leading-relaxed text-gray-700">
                   {location.description}
                 </p>
@@ -232,7 +234,7 @@ const LocationDetailPage = () => {
                 {location.highlights && location.highlights.length > 0 && (
                   <>
                     <h3 className="mb-3 mt-8 text-xl font-bold">
-                      Điểm nổi bật
+                      {t('locations:detail.highlights')}
                     </h3>
                     <ul className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
                       {location.highlights.map(
@@ -250,7 +252,7 @@ const LocationDetailPage = () => {
                 {location.activities && location.activities.length > 0 && (
                   <>
                     <h3 className="mb-3 mt-8 text-xl font-bold">
-                      Hoạt động phổ biến
+                      {t('locations:detail.activities')}
                     </h3>
                     <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
                       {location.activities.map(
@@ -273,12 +275,12 @@ const LocationDetailPage = () => {
                 )}
 
                 <h3 className="mb-3 mt-8 text-xl font-bold">
-                  Vị trí trên bản đồ
+                  {t('locations:detail.map')}
                 </h3>
                 <div className="mb-8 h-80 rounded-lg bg-gray-200">
                   {/* Replace with your map component */}
                   <div className="flex h-full w-full items-center justify-center">
-                    <p className="text-gray-500">Bản đồ đang được tải...</p>
+                    <p className="text-gray-500">{t('locations:detail.mapLoading')}</p>
                   </div>
                 </div>
               </div>
@@ -286,7 +288,7 @@ const LocationDetailPage = () => {
 
             {activeTab === 'photos' && (
               <div>
-                <h2 className="mb-4 text-2xl font-bold">Thư viện ảnh</h2>
+                <h2 className="mb-4 text-2xl font-bold">{t('locations:detail.photoGallery')}</h2>
                 <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
                   {(location.images || []).map(
                     (image: string, index: number) => (
@@ -310,7 +312,7 @@ const LocationDetailPage = () => {
                   <div className="rounded-lg bg-gray-50 py-12 text-center">
                     <IoMdPhotos className="mx-auto mb-3 text-4xl text-gray-400" />
                     <p className="text-gray-500">
-                      Chưa có hình ảnh nào cho địa điểm này
+                      {t('locations:detail.noPhotos')}
                     </p>
                   </div>
                 )}
@@ -320,10 +322,10 @@ const LocationDetailPage = () => {
             {activeTab === 'reviews' && (
               <div>
                 <div className="mb-6 flex items-center justify-between">
-                  <h2 className="text-2xl font-bold">Đánh giá từ du khách</h2>
+                  <h2 className="text-2xl font-bold">{t('locations:detail.visitorReviews')}</h2>
                   <button className="btn btn-primary">
                     <FaComments className="mr-2" />
-                    Viết đánh giá
+                    {t('locations:detail.writeReview')}
                   </button>
                 </div>
 
@@ -362,10 +364,10 @@ const LocationDetailPage = () => {
                   <div className="rounded-lg bg-gray-50 py-12 text-center">
                     <FaComments className="mx-auto mb-3 text-4xl text-gray-400" />
                     <p className="text-gray-500">
-                      Chưa có đánh giá nào cho địa điểm này
+                      {t('locations:detail.noReviews')}
                     </p>
                     <p className="mt-2 text-gray-500">
-                      Hãy là người đầu tiên chia sẻ trải nghiệm của bạn!
+                      {t('locations:detail.firstReviewPrompt')}
                     </p>
                   </div>
                 )}
@@ -377,7 +379,7 @@ const LocationDetailPage = () => {
           <div className="lg:col-span-1">
             {/* Quick information */}
             <div className="mb-6 rounded-lg bg-white p-6 shadow-md">
-              <h3 className="mb-4 text-lg font-bold">Thông tin cơ bản</h3>
+              <h3 className="mb-4 text-lg font-bold">{t('locations:detail.basicInfo')}</h3>
 
               <div className="space-y-4">
                 {location.address && (
@@ -385,7 +387,7 @@ const LocationDetailPage = () => {
                     <FaMapMarkerAlt className="mr-3 mt-1 flex-shrink-0 text-gray-500" />
                     <div>
                       <p className="text-sm font-medium text-gray-700">
-                        Địa chỉ
+                        {t('locations:detail.address')}
                       </p>
                       <p className="text-gray-600">{location.address}</p>
                     </div>
@@ -397,7 +399,7 @@ const LocationDetailPage = () => {
                     <FaGlobe className="mr-3 mt-1 flex-shrink-0 text-gray-500" />
                     <div>
                       <p className="text-sm font-medium text-gray-700">
-                        Website
+                        {t('locations:detail.website')}
                       </p>
                       <a
                         href={location.website}
@@ -416,7 +418,7 @@ const LocationDetailPage = () => {
                     <FaPhone className="mr-3 mt-1 flex-shrink-0 text-gray-500" />
                     <div>
                       <p className="text-sm font-medium text-gray-700">
-                        Điện thoại
+                        {t('locations:detail.phone')}
                       </p>
                       <p className="text-gray-600">{location.phone}</p>
                     </div>
@@ -429,7 +431,7 @@ const LocationDetailPage = () => {
             {location.bestTimeToVisit && (
               <div className="mb-6 rounded-lg bg-white p-6 shadow-md">
                 <h3 className="mb-3 text-lg font-bold">
-                  Thời điểm lý tưởng để đến
+                  {t('locations:detail.bestTimeToVisit')}
                 </h3>
                 <p className="text-gray-700">{location.bestTimeToVisit}</p>
               </div>
@@ -438,25 +440,25 @@ const LocationDetailPage = () => {
             {/* Weather information */}
             {location.weather && (
               <div className="mb-6 rounded-lg bg-white p-6 shadow-md">
-                <h3 className="mb-3 text-lg font-bold">Thời tiết</h3>
+                <h3 className="mb-3 text-lg font-bold">{t('locations:detail.weather')}</h3>
                 <p className="mb-2 text-gray-700">
                   {location.weather.description}
                 </p>
                 <div className="grid grid-cols-3 gap-2 text-center">
                   <div className="rounded bg-blue-50 p-2">
-                    <p className="text-xs text-gray-500">Mùa Xuân</p>
+                    <p className="text-xs text-gray-500">{t('locations:detail.spring')}</p>
                     <p className="font-medium">{location.weather.spring}°C</p>
                   </div>
                   <div className="rounded bg-yellow-50 p-2">
-                    <p className="text-xs text-gray-500">Mùa Hè</p>
+                    <p className="text-xs text-gray-500">{t('locations:detail.summer')}</p>
                     <p className="font-medium">{location.weather.summer}°C</p>
                   </div>
                   <div className="rounded bg-orange-50 p-2">
-                    <p className="text-xs text-gray-500">Mùa Thu</p>
+                    <p className="text-xs text-gray-500">{t('locations:detail.autumn')}</p>
                     <p className="font-medium">{location.weather.autumn}°C</p>
                   </div>
                   <div className="col-span-3 rounded bg-blue-100 p-2">
-                    <p className="text-xs text-gray-500">Mùa Đông</p>
+                    <p className="text-xs text-gray-500">{t('locations:detail.winter')}</p>
                     <p className="font-medium">{location.weather.winter}°C</p>
                   </div>
                 </div>
@@ -467,7 +469,7 @@ const LocationDetailPage = () => {
             <div className="rounded-lg bg-white p-6 shadow-md">
               <h3 className="mb-4 flex items-center text-lg font-bold">
                 <MdOutlineRecommend className="mr-2" />
-                Địa điểm tương tự
+                {t('locations:detail.relatedLocations')}
               </h3>
 
               {location.relatedLocations &&
@@ -511,7 +513,7 @@ const LocationDetailPage = () => {
                 </div>
               ) : (
                 <p className="text-sm text-gray-500">
-                  Không có địa điểm tương tự
+                  {t('locations:detail.noRelatedLocations')}
                 </p>
               )}
             </div>

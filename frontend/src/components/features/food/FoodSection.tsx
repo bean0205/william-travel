@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -206,21 +207,23 @@ export function FoodSection({ countryName, location }: FoodSectionProps) {
               key={food.id}
               className="group overflow-hidden transition-all duration-300 hover:shadow-lg dark:bg-card dark:hover:shadow-primary/5"
             >
-              <div className="relative w-full h-48 overflow-hidden">
-                <img
-                  src={food.image}
-                  alt={food.name}
-                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent pt-10 pb-4 px-4">
-                  <Badge className="bg-primary/80 backdrop-blur-sm text-white">
-                    {food.category}
-                  </Badge>
-                  <h3 className="mt-2 text-lg font-bold text-white">
-                    {food.name}
-                  </h3>
+              <Link to={`/food/${food.id}`} className="block">
+                <div className="relative w-full h-48 overflow-hidden">
+                  <img
+                    src={food.image}
+                    alt={food.name}
+                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent pt-10 pb-4 px-4">
+                    <Badge className="bg-primary/80 backdrop-blur-sm text-white">
+                      {food.category}
+                    </Badge>
+                    <h3 className="mt-2 text-lg font-bold text-white">
+                      {food.name}
+                    </h3>
+                  </div>
                 </div>
-              </div>
+              </Link>
 
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-3">
@@ -231,9 +234,11 @@ export function FoodSection({ countryName, location }: FoodSectionProps) {
                   <Badge variant="outline">{food.price}</Badge>
                 </div>
 
-                <p className="mb-3 text-sm text-muted-foreground line-clamp-2">
-                  {food.description}
-                </p>
+                <Link to={`/food/${food.id}`}>
+                  <p className="mb-3 text-sm text-muted-foreground line-clamp-2">
+                    {food.description}
+                  </p>
+                </Link>
 
                 <div className="flex flex-col gap-1 pt-2 text-xs text-muted-foreground border-t border-border">
                   <div className="flex items-center gap-1">

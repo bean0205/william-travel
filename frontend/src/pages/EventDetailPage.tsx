@@ -246,16 +246,16 @@ const EventDetailPage = () => {
                 <ChevronLeft className="mr-1 h-4 w-4" />
                 Quay lại
               </button>
-              
+
               <div className="mb-2 flex items-center">
                 <MapPin className="mr-2 h-4 w-4" />
                 <span className="text-sm">
                   {event.venue}, {event.location}
                 </span>
               </div>
-              
+
               <h1 className="mb-2 text-4xl font-bold">{event.title}</h1>
-              
+
               <div className="mb-4 flex flex-wrap items-center gap-2">
                 {eventStatus()}
                 <Badge variant="outline" className="border-white bg-transparent text-white">
@@ -267,13 +267,13 @@ const EventDetailPage = () => {
                   </Badge>
                 )}
               </div>
-              
+
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center text-white">
                   <CalendarDays className="mr-2 h-4 w-4" />
                   <span>
                     {formatDate(event.startDate)}
-                    {event.endDate.toDateString() !== event.startDate.toDateString() && 
+                    {event.endDate.toDateString() !== event.startDate.toDateString() &&
                       ` - ${formatDate(event.endDate)}`}
                   </span>
                 </div>
@@ -294,8 +294,8 @@ const EventDetailPage = () => {
             <div className="lg:col-span-2">
               {/* Action buttons */}
               <div className="mb-6 flex items-center space-x-4">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   onClick={toggleFavorite}
                   className={isFavorite ? "text-red-600" : ""}
                 >
@@ -398,9 +398,9 @@ const EventDetailPage = () => {
                         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
                           {event.sponsors.map((sponsor, index) => (
                             <div key={index} className="flex flex-col items-center rounded-lg border border-gray-200 p-4">
-                              <img 
-                                src={sponsor.logo} 
-                                alt={sponsor.name} 
+                              <img
+                                src={sponsor.logo}
+                                alt={sponsor.name}
                                 className="mb-2 h-16 w-16 object-contain"
                               />
                               <span className="text-center text-sm font-medium">{sponsor.name}</span>
@@ -435,7 +435,7 @@ const EventDetailPage = () => {
                   <div className="space-y-6">
                     <h2 className="mb-4 text-2xl font-semibold text-gray-900">Lịch trình</h2>
                     <p className="text-gray-700">Lịch trình chi tiết sẽ được cập nhật gần ngày sự kiện.</p>
-                    
+
                     <div className="space-y-4">
                       {/* Schedule items would be mapped here - using static example for now */}
                       <div className="rounded-lg border border-gray-200 p-4">
@@ -452,7 +452,7 @@ const EventDetailPage = () => {
                           Buổi lễ khai mạc với các tiết mục biểu diễn đặc sắc từ các nghệ sĩ trong nước và quốc tế.
                         </p>
                       </div>
-                      
+
                       <div className="rounded-lg border border-gray-200 p-4">
                         <div className="flex items-start justify-between">
                           <div>
@@ -466,7 +466,7 @@ const EventDetailPage = () => {
                           Workshop hướng dẫn các nghệ thuật truyền thống như nặn tò he, vẽ tranh dân gian.
                         </p>
                       </div>
-                      
+
                       <div className="rounded-lg border border-gray-200 p-4">
                         <div className="flex items-start justify-between">
                           <div>
@@ -487,19 +487,19 @@ const EventDetailPage = () => {
                 {activeTab === 'organizer' && (
                   <div className="space-y-6">
                     <h2 className="mb-4 text-2xl font-semibold text-gray-900">Thông tin nhà tổ chức</h2>
-                    
+
                     <div className="flex items-center">
                       {event.organizerLogo && (
-                        <img 
-                          src={event.organizerLogo} 
-                          alt={event.organizer} 
+                        <img
+                          src={event.organizerLogo}
+                          alt={event.organizer}
                           className="mr-4 h-16 w-16 rounded-full object-cover"
                         />
                       )}
                       <div>
                         <h3 className="text-xl font-medium text-gray-900">{event.organizer}</h3>
                         {event.website && (
-                          <a 
+                          <a
                             href={event.website}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -511,23 +511,23 @@ const EventDetailPage = () => {
                         )}
                       </div>
                     </div>
-                    
+
                     {event.organizerDescription && (
                       <div className="mt-4">
                         <p className="text-gray-700">{event.organizerDescription}</p>
                       </div>
                     )}
-                    
+
                     <div className="mt-6 space-y-4">
                       <h3 className="text-lg font-medium text-gray-900">Thông tin liên hệ</h3>
-                      
+
                       {event.contactEmail && (
                         <div className="flex items-center">
                           <Info className="mr-2 h-4 w-4 text-gray-500" />
                           <span className="text-gray-700">{event.contactEmail}</span>
                         </div>
                       )}
-                      
+
                       {event.contactPhone && (
                         <div className="flex items-center">
                           <Info className="mr-2 h-4 w-4 text-gray-500" />
@@ -541,7 +541,7 @@ const EventDetailPage = () => {
                 {activeTab === 'faq' && (
                   <div className="space-y-6">
                     <h2 className="mb-4 text-2xl font-semibold text-gray-900">Câu hỏi thường gặp</h2>
-                    
+
                     <div className="space-y-4">
                       {event.faq?.map((item, index) => (
                         <div key={index} className="rounded-lg border border-gray-200 p-4">
@@ -574,7 +574,7 @@ const EventDetailPage = () => {
                         </p>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-center">
                       <Clock className="mr-3 h-5 w-5 text-gray-500" />
                       <div>
@@ -584,7 +584,7 @@ const EventDetailPage = () => {
                         </p>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-center">
                       <MapPin className="mr-3 h-5 w-5 text-gray-500" />
                       <div>
@@ -593,7 +593,7 @@ const EventDetailPage = () => {
                         <p className="text-sm text-gray-600">{event.address}</p>
                       </div>
                     </div>
-                    
+
                     {event.price && (
                       <div className="flex items-center">
                         <DollarSign className="mr-3 h-5 w-5 text-gray-500" />
@@ -603,7 +603,7 @@ const EventDetailPage = () => {
                         </div>
                       </div>
                     )}
-                    
+
                     {(event.attendees !== undefined && event.capacity !== undefined) && (
                       <div className="flex items-center">
                         <Users className="mr-3 h-5 w-5 text-gray-500" />
@@ -611,15 +611,15 @@ const EventDetailPage = () => {
                           <p className="text-sm font-medium text-gray-700">Người tham dự</p>
                           <p className="text-gray-700">{event.attendees} / {event.capacity}</p>
                           <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-gray-200">
-                            <div 
-                              className="h-full bg-primary-600" 
+                            <div
+                              className="h-full bg-primary-600"
                               style={{width: `${Math.min(100, (event.attendees / event.capacity) * 100)}%`}}
                             ></div>
                           </div>
                         </div>
                       </div>
                     )}
-                    
+
                     {event.organizer && (
                       <div className="flex items-center">
                         <User className="mr-3 h-5 w-5 text-gray-500" />
@@ -633,7 +633,7 @@ const EventDetailPage = () => {
 
                   {event.status !== 'past' && event.ticketUrl && (
                     <div className="mt-6">
-                      <a 
+                      <a
                         href={event.ticketUrl}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -658,7 +658,7 @@ const EventDetailPage = () => {
                     </div>
                   </div>
                 )}
-                
+
                 {event.status === 'ongoing' && (
                   <div className="rounded-lg border border-green-200 bg-green-50 p-4">
                     <div className="flex">
@@ -672,7 +672,7 @@ const EventDetailPage = () => {
                     </div>
                   </div>
                 )}
-                
+
                 {event.status === 'past' && (
                   <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
                     <div className="flex">
@@ -720,3 +720,4 @@ const EventDetailPage = () => {
 };
 
 export default EventDetailPage;
+

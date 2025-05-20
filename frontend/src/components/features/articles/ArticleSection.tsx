@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { 
-  BookOpen, 
-  Filter, 
-  Clock, 
+import {
+  BookOpen,
+  Filter,
+  Clock,
   ArrowRight,
   ThumbsUp,
   Eye,
@@ -147,7 +148,7 @@ const articleCategories = [
   'History'
 ];
 
-export function ArticleSection({ countryName, location }: ArticleSectionProps) {
+export const ArticleSection = ({ countryName, location }: ArticleSectionProps) => {
   const [activeCategory, setActiveCategory] = useState('All Categories');
   const [showFilters, setShowFilters] = useState(false);
 
@@ -225,25 +226,31 @@ export function ArticleSection({ countryName, location }: ArticleSectionProps) {
               key={article.id}
               className="group overflow-hidden transition-all duration-300 hover:shadow-lg dark:bg-card dark:hover:shadow-primary/5"
             >
-              <div className="relative w-full h-48 overflow-hidden">
-                <img
-                  src={article.image}
-                  alt={article.title}
-                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute top-4 left-4">
-                  <Badge className="bg-primary/80 backdrop-blur-sm text-white">
-                    {article.category}
-                  </Badge>
+              <Link to={`/articles/${article.id}`} className="block">
+                <div className="relative w-full h-48 overflow-hidden">
+                  <img
+                    src={article.image}
+                    alt={article.title}
+                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <Badge className="bg-primary/80 backdrop-blur-sm text-white">
+                      {article.category}
+                    </Badge>
+                  </div>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="absolute z-10 top-4 right-4 h-8 w-8 bg-black/20 hover:bg-black/30 text-white backdrop-blur-sm"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // Add bookmark function here
+                    }}
+                  >
+                    <BookmarkPlus className="w-4 h-4" />
+                  </Button>
                 </div>
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="absolute z-10 top-4 right-4 h-8 w-8 bg-black/20 hover:bg-black/30 text-white backdrop-blur-sm"
-                >
-                  <BookmarkPlus className="w-4 h-4" />
-                </Button>
-              </div>
+              </Link>
 
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-3">
@@ -262,13 +269,15 @@ export function ArticleSection({ countryName, location }: ArticleSectionProps) {
                   </div>
                 </div>
 
-                <h3 className="mb-2 text-lg font-bold line-clamp-2 group-hover:text-primary transition-colors">
-                  {article.title}
-                </h3>
+                <Link to={`/articles/${article.id}`}>
+                  <h3 className="mb-2 text-lg font-bold line-clamp-2 group-hover:text-primary transition-colors">
+                    {article.title}
+                  </h3>
 
-                <p className="mb-4 text-sm text-muted-foreground line-clamp-2">
-                  {article.excerpt}
-                </p>
+                  <p className="mb-4 text-sm text-muted-foreground line-clamp-2">
+                    {article.excerpt}
+                  </p>
+                </Link>
 
                 <div className="flex items-center justify-between pt-2 text-xs border-t border-border">
                   <div className="flex gap-3">
@@ -313,7 +322,4 @@ export function ArticleSection({ countryName, location }: ArticleSectionProps) {
       </div>
     </section>
   );
-}
-
-
-
+};
