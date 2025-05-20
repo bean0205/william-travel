@@ -5,7 +5,19 @@
     "searchPlaceholder": "Tìm kiếm điểm đến, hoạt động hoặc trải nghiệm",
     "searchButton": "Khám phá",
     "popularSearches": "Tìm kiếm phổ biến:",
-    "continueExploring": "Tiếp tục khám phá"
+    "continueExploring": "Tiếp tục khám phá",
+    "searchDestination": "Tìm kiếm điểm đến",
+    "locationsIn": "Địa điểm ở {{countryName}}...",
+    "popularDestinations": "Địa điểm phổ biến:",
+    "selectExactLocation": "Chọn địa điểm chính xác",
+    "province": "Tỉnh/Thành phố",
+    "district": "Quận/Huyện",
+    "ward": "Phường/Xã",
+    "chooseProvince": "Chọn tỉnh/thành phố",
+    "chooseDistrict": "Chọn quận/huyện",
+    "chooseWard": "Chọn phường/xã",
+    "explore": "Khám phá",
+    "exploreSelectedLocation": "Khám phá {{location}}"
   },
   "destinations": {
     "title": "Điểm đến phổ biến",
@@ -55,6 +67,45 @@
     "budget": "Ngân sách",
     "interests": "Sở thích",
     "applyFilters": "Áp dụng bộ lọc"
+  },
+  "navigation": {
+    "explore": "Khám phá",
+    "accommodations": "Chỗ ở",
+    "foodAndDining": "Ẩm thực",
+    "articles": "Bài viết",
+    "events": "Sự kiện",
+    "transportation": "Giao thông",
+    "shoppingAndSouvenirs": "Mua sắm & Quà lưu niệm",
+    "tipsAndWarnings": "Mẹo & Cảnh báo",
+    "photoVideoAlbum": "Thư viện Ảnh/Video"
+  },
+  "eventTabs": {
+    "allEvents": "Tất cả Sự kiện",
+    "ongoing": "Đang diễn ra",
+    "upcoming": "Sắp diễn ra"
+  },
+  "transportation": {
+    "title": "Giao thông",
+    "subtitle": "Tìm cách di chuyển tốt nhất",
+    "viewAll": "Xem tất cả phương tiện giao thông"
+  },
+  "shopping": {
+    "title": "Mua sắm & Quà lưu niệm",
+    "subtitle": "Mang về nhà những món quà độc đáo",
+    "viewAll": "Xem tất cả địa điểm mua sắm"
+  },
+  "tipsWarnings": {
+    "title": "Mẹo & Cảnh báo Du lịch",
+    "subtitle": "An toàn và tận hưởng chuyến đi của bạn",
+    "viewAll": "Xem tất cả mẹo"
+  },
+  "gallery": {
+    "title": "Thư viện Ảnh & Video",
+    "subtitle": "Trải nghiệm vẻ đẹp qua hình ảnh",
+    "viewAll": "Xem toàn bộ thư viện"
+  },
+  "common": {
+    "discoverIn": "Khám phá điều đang diễn ra ở"
   }
 }
 

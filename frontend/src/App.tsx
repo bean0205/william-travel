@@ -27,6 +27,10 @@ const EventsPage = lazy(() => import('@/pages/EventsPage'));
 const GuideDetailsPage = lazy(() => import('@/pages/GuideDetailsPage'));
 const ProfilePage = lazy(() => import('@/pages/ProfilePage'));
 const FavoritesPage = lazy(() => import('@/pages/FavoritesPage'));
+const TransportationPage = lazy(() => import('@/pages/TransportationPage'));
+const ShoppingPage = lazy(() => import('@/pages/ShoppingPage'));
+const TipsWarningsPage = lazy(() => import('@/pages/TipsWarningsPage'));
+const GalleryPage = lazy(() => import('@/pages/GalleryPage'));
 
 // Detail pages
 const LocationDetailPage = lazy(() => import('@/pages/LocationDetailPage'));
@@ -34,6 +38,9 @@ const AccommodationDetailPage = lazy(() => import('@/pages/AccommodationDetailPa
 const FoodDetailPage = lazy(() => import('@/pages/FoodDetailPage'));
 const ArticleDetailPage = lazy(() => import('@/pages/ArticleDetailPage'));
 const EventDetailPage = lazy(() => import('@/pages/EventDetailPage'));
+const TransportationDetailPage = lazy(() => import('@/pages/TransportationDetailPage'));
+const ShoppingDetailPage = lazy(() => import('@/pages/ShoppingDetailPage'));
+const TipsWarningsDetailPage = lazy(() => import('@/pages/TipsWarningsDetailPage'));
 
 // Auth pages
 const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
@@ -142,6 +149,34 @@ function App() {
               <Route
                 path="guides/:id" 
                 element={withPageTransition(GuideDetailsPage)()} 
+              />
+              <Route
+                path="transportation"
+                element={withPageTransition(TransportationPage)()}
+              />
+              <Route
+                path="transportation/:id"
+                element={withPageTransition(TransportationDetailPage)()}
+              />
+              <Route
+                path="shopping"
+                element={withPageTransition(ShoppingPage)()}
+              />
+              <Route
+                path="shopping/:id"
+                element={withPageTransition(ShoppingDetailPage)()}
+              />
+              <Route
+                path="tips-warnings"
+                element={withPageTransition(TipsWarningsPage)()}
+              />
+              <Route
+                path="tips-warnings/:id"
+                element={withPageTransition(TipsWarningsDetailPage)()}
+              />
+              <Route
+                path="gallery"
+                element={withPageTransition(GalleryPage)()}
               />
 
               {/* Auth routes */}

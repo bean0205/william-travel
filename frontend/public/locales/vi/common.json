@@ -1,5 +1,5 @@
 {
-  "appName": "William Travel",
+  "appName": "Skylora",
   "loading": "Đang tải...",
   "error": "Lỗi",
   "success": "Thành công",
@@ -46,7 +46,7 @@
     "continueWith": "Tiếp tục với"
   },
   "footer": {
-    "copyright": "© 2025 William Travel. Đã đăng ký bản quyền.",
+    "copyright": "© 2025 Skylora. Đã đăng ký bản quyền.",
     "termsOfService": "Điều khoản dịch vụ",
     "privacyPolicy": "Chính sách bảo mật",
     "description": "Khám phá những địa điểm tuyệt vời trên khắp thế giới và lên kế hoạch cho chuyến phiêu lưu tiếp theo của bạn.",

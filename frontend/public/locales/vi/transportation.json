@@ -1,0 +1,78 @@
+{
+  "transportation": {
+    "pageTitle": "Phương tiện giao thông",
+    "pageSubtitle": "Tìm cách tốt nhất để di chuyển khắp Việt Nam",
+    "filterTitle": "Tìm phương tiện giao thông",
+    "searchPlaceholder": "Tìm kiếm phương tiện hoặc tuyến đường",
+    "filters": {
+      "title": "Bộ lọc",
+      "type": "Loại phương tiện",
+      "priceRange": "Khoảng giá",
+      "features": "Tính năng",
+      "sortBy": "Sắp xếp theo",
+      "applyFilters": "Áp dụng bộ lọc",
+      "clearFilters": "Xóa tất cả",
+      "types": {
+        "all": "Tất cả loại",
+        "air": "Máy bay",
+        "train": "Tàu hỏa",
+        "bus": "Xe buýt & Xe khách",
+        "boat": "Tàu & Phà",
+        "motorbike": "Xe máy",
+        "taxi": "Taxi & Dịch vụ đi chung",
+        "bicycle": "Xe đạp",
+        "walking": "Tour đi bộ"
+      },
+      "sortOptions": {
+        "popular": "Phổ biến nhất",
+        "priceLow": "Giá (Thấp đến Cao)",
+        "priceHigh": "Giá (Cao đến Thấp)",
+        "duration": "Thời gian (Ngắn nhất trước)"
+      }
+    },
+    "resultCount": "Tìm thấy {{count}} phương tiện giao thông",
+    "noResults": "Không tìm thấy phương tiện nào",
+    "viewDetails": "Xem chi tiết",
+    "bookNow": "Đặt ngay",
+    "priceRange": "Khoảng giá: {{range}}",
+    "duration": "Thời gian: {{time}}",
+    "showMap": "Hiển thị trên bản đồ",
+    "saveToFavorites": "Lưu vào mục yêu thích",
+    "savedToFavorites": "Đã lưu vào mục yêu thích",
+    "popularRoutes": "Tuyến đường phổ biến",
+    "travelTips": "Mẹo di chuyển",
+    "localTransport": "Phương tiện địa phương",
+    "intercityTravel": "Di chuyển liên tỉnh"
+  },
+  "transportationDetail": {
+    "bookTickets": "Đặt vé",
+    "overview": "Tổng quan",
+    "schedule": "Lịch trình",
+    "routes": "Tuyến đường",
+    "pricing": "Giá vé",
+    "facilities": "Tiện nghi",
+    "safety": "Thông tin an toàn",
+    "gallery": "Thư viện ảnh",
+    "relatedOptions": "Lựa chọn liên quan",
+    "transportDetails": "Chi tiết phương tiện",
+    "operator": "Nhà vận hành",
+    "departurePoints": "Điểm khởi hành",
+    "arrivalPoints": "Điểm đến",
+    "frequency": "Tần suất",
+    "travelTime": "Thời gian di chuyển",
+    "ticketOptions": "Lựa chọn vé",
+    "bookingInfo": "Thông tin đặt vé",
+    "contactInfo": "Thông tin liên hệ",
+    "callNow": "Gọi ngay",
+    "emailUs": "Gửi email",
+    "visitWebsite": "Truy cập trang web",
+    "howToBook": "Cách đặt vé",
+    "readMore": "Đọc thêm",
+    "readLess": "Thu gọn",
+    "viewAllPhotos": "Xem tất cả ảnh",
+    "viewOnMap": "Xem trên bản đồ",
+    "reviewsRatings": "Đánh giá & Xếp hạng",
+    "alternativeOptions": "Lựa chọn thay thế"
+  }
+}
+

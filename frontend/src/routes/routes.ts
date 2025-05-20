@@ -76,6 +76,38 @@ export const APP_ROUTES: Record<string, AppRoute> = {
     path: '/guides/:id',
     label: 'Guide Details',
   },
+  TRANSPORTATION: {
+    path: '/transportation',
+    label: 'transportation',
+    isNavItem: true,
+  },
+  TRANSPORTATION_DETAILS: {
+    path: '/transportation/:id',
+    label: 'Transportation Details',
+  },
+  SHOPPING: {
+    path: '/shopping',
+    label: 'shopping',
+    isNavItem: true,
+  },
+  SHOPPING_DETAILS: {
+    path: '/shopping/:id',
+    label: 'Shopping Details',
+  },
+  TIPS_WARNINGS: {
+    path: '/tips-warnings',
+    label: 'tipsWarnings',
+    isNavItem: true,
+  },
+  TIPS_WARNINGS_DETAILS: {
+    path: '/tips-warnings/:id',
+    label: 'Tips & Warnings Details',
+  },
+  GALLERY: {
+    path: '/gallery',
+    label: 'gallery',
+    isNavItem: true,
+  },
   PROFILE: {
     path: '/profile',
     label: 'profile',

@@ -79,7 +79,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <MailIcon className="mr-3 h-5 w-5 text-primary-400" />
-                <a href="mailto:info@williamtravel.com" className="text-sm text-slate-300 hover:text-white transition-colors">
+                <a href="mailto:info@Skylora.com" className="text-sm text-slate-300 hover:text-white transition-colors">
                   info@williamtravel.com
                 </a>
               </div>

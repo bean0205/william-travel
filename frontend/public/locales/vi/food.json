@@ -1,0 +1,84 @@
+{
+  "food": {
+    "pageTitle": "Ẩm thực & Nhà hàng",
+    "pageSubtitle": "Khám phá ẩm thực Việt Nam và trải nghiệm ăn uống",
+    "filterTitle": "Tìm món ăn & Nhà hàng",
+    "searchPlaceholder": "Tìm kiếm món ăn, nhà hàng hoặc ẩm thực",
+    "filters": {
+      "title": "Bộ lọc",
+      "cuisine": "Loại ẩm thực",
+      "price": "Khoảng giá",
+      "features": "Tính năng",
+      "sortBy": "Sắp xếp theo",
+      "applyFilters": "Áp dụng bộ lọc",
+      "clearFilters": "Xóa tất cả",
+      "cuisineTypes": {
+        "all": "Tất cả ẩm thực",
+        "vietnamese": "Việt Nam",
+        "regional": "Vùng miền",
+        "fusion": "Fusion",
+        "international": "Quốc tế",
+        "streetFood": "Đồ ăn đường phố",
+        "vegetarian": "Chay"
+      },
+      "priceRanges": {
+        "cheap": "Giá rẻ",
+        "moderate": "Trung bình",
+        "expensive": "Cao cấp",
+        "luxury": "Sang trọng"
+      },
+      "featureOptions": {
+        "outdoorSeating": "Chỗ ngồi ngoài trời",
+        "delivery": "Giao hàng",
+        "takeaway": "Mang đi",
+        "reservations": "Đặt chỗ",
+        "groupFriendly": "Thích hợp cho nhóm",
+        "liveMusic": "Nhạc sống",
+        "views": "View đẹp"
+      },
+      "sortOptions": {
+        "popular": "Phổ biến nhất",
+        "priceLow": "Giá (Thấp đến Cao)",
+        "priceHigh": "Giá (Cao đến Thấp)",
+        "rating": "Đánh giá cao nhất"
+      }
+    },
+    "resultCount": "Tìm thấy {{count}} lựa chọn ẩm thực",
+    "noResults": "Không tìm thấy món ăn nào",
+    "viewDetails": "Xem chi tiết",
+    "priceRange": "Khoảng giá: {{range}}",
+    "cuisine": "Ẩm thực: {{type}}",
+    "showMap": "Hiển thị trên bản đồ",
+    "saveToFavorites": "Lưu vào mục yêu thích",
+    "savedToFavorites": "Đã lưu vào mục yêu thích",
+    "featuredFoods": "Món ăn nổi bật",
+    "popularDishes": "Món ăn phổ biến",
+    "mustTry": "Món nhất định phải thử",
+    "localSpecialties": "Đặc sản địa phương"
+  },
+  "foodDetail": {
+    "findRestaurants": "Tìm nhà hàng",
+    "overview": "Tổng quan",
+    "ingredients": "Nguyên liệu",
+    "howToEat": "Cách thưởng thức",
+    "whereToTry": "Nơi nên thử",
+    "recipes": "Công thức",
+    "gallery": "Thư viện ảnh",
+    "relatedDishes": "Món ăn liên quan",
+    "dishDetails": "Chi tiết món ăn",
+    "origin": "Nguồn gốc",
+    "spiceLevel": "Độ cay",
+    "dietaryInfo": "Thông tin dinh dưỡng",
+    "bestSeason": "Mùa thích hợp nhất",
+    "tipFromLocals": "Mẹo từ người địa phương",
+    "readMore": "Đọc thêm",
+    "readLess": "Thu gọn",
+    "viewAllPhotos": "Xem tất cả ảnh",
+    "shareDish": "Chia sẻ món ăn này",
+    "restaurantOptions": "Lựa chọn nhà hàng",
+    "similarDishes": "Món ăn tương tự",
+    "seeMenu": "Xem thực đơn",
+    "reserveTable": "Đặt bàn"
+  }
+}
+

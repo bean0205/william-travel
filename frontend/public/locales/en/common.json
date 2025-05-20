@@ -1,11 +1,19 @@
 {
-  "appName": "William Travel",
+  "appName": "Skylora",
   "loading": "Loading...",
   "error": "Error",
   "success": "Success",
   "notFound": "Page not found",
   "unauthorized": "Unauthorized access",
   "search": "Search",
+  "Header": {
+    "welcome": "Welcome to Skylora",
+    "explore": "Explore the world with us",
+    "discover": "Discover new places and experiences",
+    "searchPlaceholder": "Search for destinations, guides, or articles...",
+    "searchButton": "Search",
+    "menu": "Menu"
+  },
   "toggleMenu": "Toggle menu",  "navigation": {
     "home": "Home",
     "locations": "Locations",
@@ -53,7 +61,7 @@
     "continueWith": "Continue with"
   },
   "footer": {
-    "copyright": "© 2025 William Travel. All rights reserved.",
+    "copyright": "© 2025 Skylora Travel. All rights reserved.",
     "termsOfService": "Terms of Service",
     "privacyPolicy": "Privacy Policy",
     "description": "Discover amazing places around the world and plan your next adventure.",

@@ -1,0 +1,81 @@
+{
+  "accommodations": {
+    "pageTitle": "Accommodations",
+    "pageSubtitle": "Find your perfect stay in Vietnam",
+    "filterTitle": "Find Accommodations",
+    "searchPlaceholder": "Search by name, location, or amenities",
+    "filters": {
+      "title": "Filters",
+      "type": "Accommodation Type",
+      "priceRange": "Price Range",
+      "amenities": "Amenities",
+      "sortBy": "Sort By",
+      "applyFilters": "Apply Filters",
+      "clearFilters": "Clear All",
+      "types": {
+        "all": "All Types",
+        "hotel": "Hotel",
+        "resort": "Resort",
+        "homestay": "Homestay",
+        "apartment": "Apartment",
+        "villa": "Villa",
+        "hostel": "Hostel"
+      },
+      "sortOptions": {
+        "popular": "Most Popular",
+        "priceLow": "Price (Low to High)",
+        "priceHigh": "Price (High to Low)",
+        "rating": "Highest Rating"
+      },
+      "amenitiesList": {
+        "wifi": "Free WiFi",
+        "breakfast": "Breakfast Included",
+        "pool": "Swimming Pool",
+        "parking": "Free Parking",
+        "aircon": "Air Conditioning",
+        "spa": "Spa Services",
+        "restaurant": "Restaurant",
+        "petFriendly": "Pet Friendly"
+      }
+    },
+    "resultCount": "{{count}} accommodations found",
+    "noResults": "No accommodations found",
+    "viewDetails": "View Details",
+    "bookNow": "Book Now",
+    "pricePerNight": "{{price}} per night",
+    "showMap": "Show on Map",
+    "saveToFavorites": "Save to Favorites",
+    "savedToFavorites": "Saved to Favorites",
+    "featuredAccommodations": "Featured Accommodations",
+    "searchResults": "Search Results",
+    "similarAccommodations": "Similar Accommodations"
+  },
+  "accommodationDetail": {
+    "bookNow": "Book Now",
+    "checkAvailability": "Check Availability",
+    "overview": "Overview",
+    "amenities": "Amenities",
+    "location": "Location",
+    "reviews": "Reviews",
+    "policies": "Policies",
+    "roomTypes": "Room Types",
+    "contactInfo": "Contact Information",
+    "callNow": "Call Now",
+    "emailUs": "Email Us",
+    "visitWebsite": "Visit Website",
+    "getDirections": "Get Directions",
+    "averageRating": "Average Rating",
+    "basedOn": "Based on {{count}} reviews",
+    "priceDetails": "Price Details",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "guests": "Guests",
+    "viewAllPhotos": "View All Photos",
+    "showMore": "Show More",
+    "showLess": "Show Less",
+    "bookingOptions": "Booking Options",
+    "similarProperties": "Similar Properties",
+    "nearbyAttractions": "Nearby Attractions"
+  }
+}
+

@@ -8,14 +8,20 @@ import { EventsCarousel } from '@/components/features/events/EventsCarousel';
 import { FoodSection } from '@/components/features/food/FoodSection';
 import { AccommodationSection } from '@/components/features/accommodations/AccommodationSection';
 import { ArticleSection } from '@/components/features/articles/ArticleSection';
+import { TransportationSection } from '@/components/features/transportation/TransportationSection';
+import { ShoppingSection } from '@/components/features/shopping/ShoppingSection';
+import { TipsWarningsSection } from '@/components/features/tips/TipsWarningsSection';
+import { PhotoVideoGallery } from '@/components/features/gallery/PhotoVideoGallery';
 import { AnimateElement } from '@/components/common/PageTransition';
 
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
   CalendarDays,
   Building,
-  ArrowRight,
+  Car,
+  ShoppingBag,
+  AlertTriangle,
+  Camera,
 } from 'lucide-react';
 
 // Custom scrollbar styles
@@ -228,7 +234,7 @@ const HomePage = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateElement animation="fade" delay={0.1}>
             <h2 className="text-2xl font-bold tracking-tight mb-6 sm:text-3xl">
-              {t('Explore')} {selectedCountry.name}
+              {t('home:navigation.explore')} {selectedCountry.name}
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <Button 
@@ -238,7 +244,7 @@ const HomePage = () => {
                 onClick={() => navigate('/accommodations')}
               >
                 <Building className="h-8 w-8 mb-2 text-primary" />
-                <span className="text-lg font-medium">{t('Accommodations')}</span>
+                <span className="text-lg font-medium">{t('home:navigation.accommodations')}</span>
               </Button>
               
               <Button 
@@ -251,7 +257,7 @@ const HomePage = () => {
                   <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   <path d="M21 20C21 16.6863 16.9706 14 12 14C7.02944 14 3 16.6863 3 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                <span className="text-lg font-medium">{t('Food & Dining')}</span>
+                <span className="text-lg font-medium">{t('home:navigation.foodAndDining')}</span>
               </Button>
               
               <Button 
@@ -266,7 +272,7 @@ const HomePage = () => {
                   <path d="M8 10.5H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   <path d="M8 14.5H12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                <span className="text-lg font-medium">{t('Articles')}</span>
+                <span className="text-lg font-medium">{t('home:navigation.articles')}</span>
               </Button>
               
               <Button 
@@ -276,7 +282,47 @@ const HomePage = () => {
                 onClick={() => navigate('/events')}
               >
                 <CalendarDays className="h-8 w-8 mb-2 text-primary" />
-                <span className="text-lg font-medium">{t('Events')}</span>
+                <span className="text-lg font-medium">{t('home:navigation.events')}</span>
+              </Button>
+
+              <Button
+                variant="outline"
+                size="lg"
+                className="flex flex-col items-center justify-center h-32 p-4 border-2 hover:bg-muted/50"
+                onClick={() => navigate('/transportation')}
+              >
+                <Car className="h-8 w-8 mb-2 text-primary" />
+                <span className="text-lg font-medium">{t('home:navigation.transportation')}</span>
+              </Button>
+
+              <Button
+                variant="outline"
+                size="lg"
+                className="flex flex-col items-center justify-center h-32 p-4 border-2 hover:bg-muted/50"
+                onClick={() => navigate('/shopping')}
+              >
+                <ShoppingBag className="h-8 w-8 mb-2 text-primary" />
+                <span className="text-lg font-medium">{t('home:navigation.shoppingAndSouvenirs')}</span>
+              </Button>
+
+              <Button
+                variant="outline"
+                size="lg"
+                className="flex flex-col items-center justify-center h-32 p-4 border-2 hover:bg-muted/50"
+                onClick={() => navigate('/tips-warnings')}
+              >
+                <AlertTriangle className="h-8 w-8 mb-2 text-primary" />
+                <span className="text-lg font-medium">{t('home:navigation.tipsAndWarnings')}</span>
+              </Button>
+
+              <Button
+                variant="outline"
+                size="lg"
+                className="flex flex-col items-center justify-center h-32 p-4 border-2 hover:bg-muted/50"
+                onClick={() => navigate('/gallery')}
+              >
+                <Camera className="h-8 w-8 mb-2 text-primary" />
+                <span className="text-lg font-medium">{t('home:navigation.photoVideoAlbum')}</span>
               </Button>
             </div>
           </AnimateElement>
@@ -291,10 +337,10 @@ const HomePage = () => {
               <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                 <div>
                   <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                    {t('Events & Festivals')}
+                    {t('home:events.title')}
                   </h2>
                   <p className="mt-1 text-muted-foreground">
-                    {t('Discover what\'s happening in')} {selectedCountry.name}
+                    {t('home:common.discoverIn')} {selectedCountry.name}
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -305,7 +351,7 @@ const HomePage = () => {
                     onClick={() => setActiveTab('all')}
                   >
                     <CalendarDays className="h-4 w-4" />
-                    {t('All Events')} ({mockEvents.length})
+                    {t('home:eventTabs.allEvents')} ({mockEvents.length})
                   </Button>
                   <Button
                     variant={activeTab === 'ongoing' ? "secondary" : "outline"}
@@ -317,7 +363,7 @@ const HomePage = () => {
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
                       <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
                     </span>
-                    {t('Ongoing')} ({ongoingEvents.length})
+                    {t('home:eventTabs.ongoing')} ({ongoingEvents.length})
                   </Button>
                   <Button
                     variant={activeTab === 'upcoming' ? "secondary" : "outline"}
@@ -326,7 +372,7 @@ const HomePage = () => {
                     onClick={() => setActiveTab('upcoming')}
                   >
                     <CalendarDays className="h-4 w-4" />
-                    {t('Upcoming')} ({upcomingEvents.length})
+                    {t('home:eventTabs.upcoming')} ({upcomingEvents.length})
                   </Button>
                 </div>
               </div>
@@ -355,8 +401,18 @@ const HomePage = () => {
       
       {/* Articles Section */}
       <ArticleSection countryName={selectedCountry.name} />
-      
 
+      {/* Transportation Section */}
+      <TransportationSection countryName={selectedCountry.name} />
+
+      {/* Shopping Section */}
+      <ShoppingSection countryName={selectedCountry.name} />
+
+      {/* Tips & Warnings Section */}
+      <TipsWarningsSection countryName={selectedCountry.name} />
+
+      {/* Photo/Video Album Section */}
+      <PhotoVideoGallery countryName={selectedCountry.name} />
     </div>
   );
 };

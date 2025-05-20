@@ -5,7 +5,19 @@
     "searchPlaceholder": "Search for destinations, activities, or experiences",
     "searchButton": "Explore",
     "popularSearches": "Popular Searches:",
-    "continueExploring": "Continue Exploring"
+    "continueExploring": "Continue Exploring",
+    "searchDestination": "Search for destinations",
+    "locationsIn": "Locations in {{countryName}}...",
+    "popularDestinations": "Popular destinations:",
+    "selectExactLocation": "Select exact location",
+    "province": "Province/City",
+    "district": "District",
+    "ward": "Ward",
+    "chooseProvince": "Choose province/city",
+    "chooseDistrict": "Choose district",
+    "chooseWard": "Choose ward",
+    "explore": "Explore",
+    "exploreSelectedLocation": "Explore {{location}}"
   },
   "destinations": {
     "title": "Popular Destinations",
@@ -55,6 +67,45 @@
     "budget": "Budget",
     "interests": "Interests",
     "applyFilters": "Apply Filters"
+  },
+  "navigation": {
+    "explore": "Explore",
+    "accommodations": "Accommodations",
+    "foodAndDining": "Food & Dining",
+    "articles": "Articles",
+    "events": "Events",
+    "transportation": "Transportation",
+    "shoppingAndSouvenirs": "Shopping & Souvenirs",
+    "tipsAndWarnings": "Tips & Warnings",
+    "photoVideoAlbum": "Photo/Video Album"
+  },
+  "eventTabs": {
+    "allEvents": "All Events",
+    "ongoing": "Ongoing",
+    "upcoming": "Upcoming"
+  },
+  "transportation": {
+    "title": "Transportation",
+    "subtitle": "Find the best ways to get around",
+    "viewAll": "View All Transportation Options"
+  },
+  "shopping": {
+    "title": "Shopping & Souvenirs",
+    "subtitle": "Bring home unique treasures and gifts",
+    "viewAll": "Browse All Shopping Options"
+  },
+  "tipsWarnings": {
+    "title": "Travel Tips & Warnings",
+    "subtitle": "Stay safe and make the most of your trip",
+    "viewAll": "View All Tips"
+  },
+  "gallery": {
+    "title": "Photo & Video Gallery",
+    "subtitle": "Experience the beauty through visuals",
+    "viewAll": "View Full Gallery"
+  },
+  "common": {
+    "discoverIn": "Discover what's happening in"
   }
 }
 

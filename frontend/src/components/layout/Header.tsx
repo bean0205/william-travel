@@ -129,17 +129,13 @@ const Header = () => {
           {/* Logo and brand */}
           <div className="flex items-center">
             <Link to="/home" className="flex items-center group">
-              <div className="relative mr-2 flex h-8 w-8 overflow-hidden rounded-full bg-primary-600 text-white shadow-md transition-transform duration-300 group-hover:scale-110">
-                <GlobeIcon className="m-auto h-5 w-5" />
-                <div className="absolute -bottom-2 -right-2 h-4 w-4 rounded-full bg-amber-500"></div>
-              </div>
               <div>
                 <span className="text-lg font-extrabold tracking-tight text-primary-700 dark:text-primary-500">
                   {t('appName')}
                 </span>
-                <span className="hidden md:inline-block text-xs font-medium ml-1 text-muted-foreground">
-                  | {t('header.tagline')}
-                </span>
+                {/*<span className="hidden md:inline-block text-xs font-medium ml-1 text-muted-foreground">*/}
+                {/*  | {t('header.tagline')}*/}
+                {/*</span>*/}
               </div>
             </Link>
           </div>

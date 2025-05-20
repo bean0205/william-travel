@@ -1,0 +1,78 @@
+{
+  "transportation": {
+    "pageTitle": "Transportation",
+    "pageSubtitle": "Find the best ways to travel around Vietnam",
+    "filterTitle": "Find Transportation",
+    "searchPlaceholder": "Search for transportation modes or routes",
+    "filters": {
+      "title": "Filters",
+      "type": "Transportation Type",
+      "priceRange": "Price Range",
+      "features": "Features",
+      "sortBy": "Sort By",
+      "applyFilters": "Apply Filters",
+      "clearFilters": "Clear All",
+      "types": {
+        "all": "All Types",
+        "air": "Air Travel",
+        "train": "Train",
+        "bus": "Bus & Coach",
+        "boat": "Boat & Ferry",
+        "motorbike": "Motorbike",
+        "taxi": "Taxi & Ride-sharing",
+        "bicycle": "Bicycle",
+        "walking": "Walking Tours"
+      },
+      "sortOptions": {
+        "popular": "Most Popular",
+        "priceLow": "Price (Low to High)",
+        "priceHigh": "Price (High to Low)",
+        "duration": "Duration (Shortest First)"
+      }
+    },
+    "resultCount": "{{count}} transportation options found",
+    "noResults": "No transportation options found",
+    "viewDetails": "View Details",
+    "bookNow": "Book Now",
+    "priceRange": "Price Range: {{range}}",
+    "duration": "Duration: {{time}}",
+    "showMap": "Show on Map",
+    "saveToFavorites": "Save to Favorites",
+    "savedToFavorites": "Saved to Favorites",
+    "popularRoutes": "Popular Routes",
+    "travelTips": "Travel Tips",
+    "localTransport": "Local Transport",
+    "intercityTravel": "Intercity Travel"
+  },
+  "transportationDetail": {
+    "bookTickets": "Book Tickets",
+    "overview": "Overview",
+    "schedule": "Schedule",
+    "routes": "Routes",
+    "pricing": "Pricing",
+    "facilities": "Facilities",
+    "safety": "Safety Information",
+    "gallery": "Gallery",
+    "relatedOptions": "Related Options",
+    "transportDetails": "Transportation Details",
+    "operator": "Operator",
+    "departurePoints": "Departure Points",
+    "arrivalPoints": "Arrival Points",
+    "frequency": "Frequency",
+    "travelTime": "Travel Time",
+    "ticketOptions": "Ticket Options",
+    "bookingInfo": "Booking Information",
+    "contactInfo": "Contact Information",
+    "callNow": "Call Now",
+    "emailUs": "Email Us",
+    "visitWebsite": "Visit Website",
+    "howToBook": "How to Book",
+    "readMore": "Read More",
+    "readLess": "Read Less",
+    "viewAllPhotos": "View All Photos",
+    "viewOnMap": "View on Map",
+    "reviewsRatings": "Reviews & Ratings",
+    "alternativeOptions": "Alternative Options"
+  }
+}
+

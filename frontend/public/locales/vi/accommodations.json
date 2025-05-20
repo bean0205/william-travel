@@ -1,0 +1,81 @@
+{
+  "accommodations": {
+    "pageTitle": "Chỗ ở",
+    "pageSubtitle": "Tìm nơi lưu trú lý tưởng của bạn tại Việt Nam",
+    "filterTitle": "Tìm chỗ ở",
+    "searchPlaceholder": "Tìm theo tên, địa điểm hoặc tiện nghi",
+    "filters": {
+      "title": "Bộ lọc",
+      "type": "Loại chỗ ở",
+      "priceRange": "Khoảng giá",
+      "amenities": "Tiện nghi",
+      "sortBy": "Sắp xếp theo",
+      "applyFilters": "Áp dụng bộ lọc",
+      "clearFilters": "Xóa tất cả",
+      "types": {
+        "all": "Tất cả",
+        "hotel": "Khách sạn",
+        "resort": "Khu nghỉ dưỡng",
+        "homestay": "Homestay",
+        "apartment": "Căn hộ",
+        "villa": "Biệt thự",
+        "hostel": "Nhà nghỉ"
+      },
+      "sortOptions": {
+        "popular": "Phổ biến nhất",
+        "priceLow": "Giá (Thấp đến Cao)",
+        "priceHigh": "Giá (Cao đến Thấp)",
+        "rating": "Đánh giá cao nhất"
+      },
+      "amenitiesList": {
+        "wifi": "WiFi miễn phí",
+        "breakfast": "Bao gồm bữa sáng",
+        "pool": "Hồ bơi",
+        "parking": "Đậu xe miễn phí",
+        "aircon": "Điều hòa",
+        "spa": "Dịch vụ spa",
+        "restaurant": "Nhà hàng",
+        "petFriendly": "Thân thiện với thú cưng"
+      }
+    },
+    "resultCount": "Tìm thấy {{count}} chỗ ở",
+    "noResults": "Không tìm thấy chỗ ở nào",
+    "viewDetails": "Xem chi tiết",
+    "bookNow": "Đặt ngay",
+    "pricePerNight": "{{price}} mỗi đêm",
+    "showMap": "Hiển thị trên bản đồ",
+    "saveToFavorites": "Lưu vào mục yêu thích",
+    "savedToFavorites": "Đã lưu vào mục yêu thích",
+    "featuredAccommodations": "Chỗ ở nổi bật",
+    "searchResults": "Kết quả tìm kiếm",
+    "similarAccommodations": "Chỗ ở tương tự"
+  },
+  "accommodationDetail": {
+    "bookNow": "Đặt ngay",
+    "checkAvailability": "Kiểm tra tình trạng",
+    "overview": "Tổng quan",
+    "amenities": "Tiện nghi",
+    "location": "Vị trí",
+    "reviews": "Đánh giá",
+    "policies": "Chính sách",
+    "roomTypes": "Loại phòng",
+    "contactInfo": "Thông tin liên hệ",
+    "callNow": "Gọi ngay",
+    "emailUs": "Gửi email",
+    "visitWebsite": "Truy cập trang web",
+    "getDirections": "Chỉ đường",
+    "averageRating": "Đánh giá trung bình",
+    "basedOn": "Dựa trên {{count}} đánh giá",
+    "priceDetails": "Chi tiết giá",
+    "checkIn": "Nhận phòng",
+    "checkOut": "Trả phòng",
+    "guests": "Khách",
+    "viewAllPhotos": "Xem tất cả ảnh",
+    "showMore": "Hiển thị thêm",
+    "showLess": "Hiển thị ít hơn",
+    "bookingOptions": "Tùy chọn đặt phòng",
+    "similarProperties": "Chỗ ở tương tự",
+    "nearbyAttractions": "Điểm tham quan gần đó"
+  }
+}
+

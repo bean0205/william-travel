@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent } from '@/components/ui/card';
+import { useTranslation } from 'react-i18next';
 
 interface ModernHeroSectionProps {
   countryName: string;
@@ -49,7 +50,9 @@ export const ModernHeroSection = ({ countryName, countryCode, countryDescription
   const [selectedProvince, setSelectedProvince] = useState<string>('');
   const [selectedDistrict, setSelectedDistrict] = useState<string>('');
   const [selectedWard, setSelectedWard] = useState<string>('');
-  
+
+  const { t } = useTranslation(['home']);
+
   // Dữ liệu ảnh slide theo quốc gia
   const getSlidesByCountry = (code: string): SlideImage[] => {
     const defaultSlides = [
@@ -574,13 +577,13 @@ export const ModernHeroSection = ({ countryName, countryCode, countryDescription
               <div className="p-4 md:p-6 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-700 md:col-span-1">
                 <h2 className="text-base md:text-lg font-semibold mb-3 md:mb-4 flex items-center">
                   <Search className="h-4 w-4 md:h-5 md:w-5 mr-2 text-primary" />
-                  Tìm kiếm điểm đến
+                  {t('home:hero.searchDestination')}
                 </h2>
                 <div className="space-y-3 md:space-y-4">
                   <div className="relative">
                     <Input
                       className="pr-10 border-primary/30 focus:border-primary dark:bg-black/40 dark:placeholder:text-gray-400 text-sm md:text-base"
-                      placeholder={`Địa điểm ở ${countryName}...`}
+                      placeholder={t('home:hero.locationsIn', { countryName })}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -593,7 +596,7 @@ export const ModernHeroSection = ({ countryName, countryCode, countryDescription
                     </Button>
                   </div>
                   <div>
-                    <p className="text-xs md:text-sm text-muted-foreground mb-1.5 md:mb-2">Địa điểm phổ biến:</p>
+                    <p className="text-xs md:text-sm text-muted-foreground mb-1.5 md:mb-2">{t('home:hero.popularDestinations')}</p>
                     <div className="flex flex-wrap gap-1.5 md:gap-2">
                       {popularDestinations.slice(0, 4).map((destination, index) => (
                         <Badge 
@@ -614,18 +617,18 @@ export const ModernHeroSection = ({ countryName, countryCode, countryDescription
               <div className="p-4 md:p-6 md:col-span-2">
                 <h2 className="text-base md:text-lg font-semibold mb-3 md:mb-4 flex items-center">
                   <MapPin className="h-4 w-4 md:h-5 md:w-5 mr-2 text-primary" />
-                  Chọn địa điểm chính xác
+                  {t('home:hero.selectExactLocation')}
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
                   {/* Tỉnh/Thành phố */}
                   <div>
                     <div className="flex items-center mb-1 md:mb-2 text-xs md:text-sm font-medium text-muted-foreground">
                       <Building className="h-3 w-3 md:h-4 md:w-4 mr-1" />
-                      <span>Tỉnh/Thành phố</span>
+                      <span>{t('home:hero.province')}</span>
                     </div>
                     <Select value={selectedProvince} onValueChange={handleProvinceChange}>
                       <SelectTrigger className="bg-white dark:bg-black/40 h-8 md:h-10 text-xs md:text-sm">
-                        <SelectValue placeholder="Chọn tỉnh/thành phố" />
+                        <SelectValue placeholder={t('home:hero.chooseProvince')} />
                       </SelectTrigger>
                       <SelectContent>
                         {provinces.map((province) => (
@@ -641,7 +644,7 @@ export const ModernHeroSection = ({ countryName, countryCode, countryDescription
                   <div>
                     <div className="flex items-center mb-1 md:mb-2 text-xs md:text-sm font-medium text-muted-foreground">
                       <Map className="h-3 w-3 md:h-4 md:w-4 mr-1" />
-                      <span>Quận/Huyện</span>
+                      <span>{t('home:hero.district')}</span>
                     </div>
                     <Select 
                       value={selectedDistrict} 
@@ -649,7 +652,7 @@ export const ModernHeroSection = ({ countryName, countryCode, countryDescription
                       disabled={!selectedProvince}
                     >
                       <SelectTrigger className="bg-white dark:bg-black/40 h-8 md:h-10 text-xs md:text-sm">
-                        <SelectValue placeholder="Chọn quận/huyện" />
+                        <SelectValue placeholder={t('home:hero.chooseDistrict')} />
                       </SelectTrigger>
                       <SelectContent>
                         {districts.map((district) => (
@@ -665,7 +668,7 @@ export const ModernHeroSection = ({ countryName, countryCode, countryDescription
                   <div>
                     <div className="flex items-center mb-1 md:mb-2 text-xs md:text-sm font-medium text-muted-foreground">
                       <Home className="h-3 w-3 md:h-4 md:w-4 mr-1" />
-                      <span>Phường/Xã</span>
+                      <span>{t('home:hero.ward')}</span>
                     </div>
                     <Select 
                       value={selectedWard} 
@@ -673,7 +676,7 @@ export const ModernHeroSection = ({ countryName, countryCode, countryDescription
                       disabled={!selectedDistrict}
                     >
                       <SelectTrigger className="bg-white dark:bg-black/40 h-8 md:h-10 text-xs md:text-sm">
-                        <SelectValue placeholder="Chọn phường/xã" />
+                        <SelectValue placeholder={t('home:hero.chooseWard')} />
                       </SelectTrigger>
                       <SelectContent>
                         {wards.map((ward) => (
@@ -699,7 +702,13 @@ export const ModernHeroSection = ({ countryName, countryCode, countryDescription
                     "
                     disabled={!selectedProvince}
                   >
-                    Khám phá {selectedWard ? 'địa điểm đã chọn' : selectedDistrict ? 'khu vực đã chọn' : selectedProvince ? 'tỉnh/thành phố đã chọn' : countryName}
+                    {t('home:hero.explore')} {selectedWard ?
+                      t('home:hero.exploreSelectedLocation', { location: 'địa điểm đã chọn' }) :
+                      selectedDistrict ?
+                      t('home:hero.exploreSelectedLocation', { location: 'khu vực đã chọn' }) :
+                      selectedProvince ?
+                      t('home:hero.exploreSelectedLocation', { location: 'tỉnh/thành phố đã chọn' }) :
+                      countryName}
                     <ChevronRight className="h-3 w-3 md:h-4 md:w-4" />
                   </Button>
                 </div>

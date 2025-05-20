@@ -1,0 +1,74 @@
+{
+  "shopping": {
+    "pageTitle": "Mua sắm & Quà lưu niệm",
+    "pageSubtitle": "Tìm những món quà độc đáo từ Việt Nam",
+    "filterTitle": "Tìm địa điểm mua sắm",
+    "searchPlaceholder": "Tìm kiếm sản phẩm, chợ, hoặc khu mua sắm",
+    "filters": {
+      "title": "Bộ lọc",
+      "category": "Danh mục",
+      "location": "Địa điểm",
+      "priceRange": "Khoảng giá",
+      "sortBy": "Sắp xếp theo",
+      "applyFilters": "Áp dụng bộ lọc",
+      "clearFilters": "Xóa tất cả",
+      "categories": {
+        "all": "Tất cả danh mục",
+        "markets": "Chợ",
+        "malls": "Trung tâm mua sắm",
+        "boutiques": "Cửa hàng thời trang",
+        "artisans": "Xưởng thủ công",
+        "souvenir": "Cửa hàng quà lưu niệm",
+        "antiques": "Đồ cổ",
+        "food": "Sản phẩm thực phẩm",
+        "clothing": "Quần áo & Dệt may",
+        "handicrafts": "Đồ thủ công"
+      },
+      "sortOptions": {
+        "popular": "Phổ biến nhất",
+        "priceLow": "Giá (Thấp đến Cao)",
+        "priceHigh": "Giá (Cao đến Thấp)",
+        "rating": "Đánh giá cao nhất"
+      }
+    },
+    "resultCount": "Tìm thấy {{count}} lựa chọn mua sắm",
+    "noResults": "Không tìm thấy lựa chọn mua sắm nào",
+    "viewDetails": "Xem chi tiết",
+    "priceRange": "Khoảng giá: {{range}}",
+    "showMap": "Hiển thị trên bản đồ",
+    "saveToFavorites": "Lưu vào mục yêu thích",
+    "savedToFavorites": "Đã lưu vào mục yêu thích",
+    "mustBuy": "Những món phải mua",
+    "bestMarkets": "Chợ tốt nhất",
+    "artisanCrafts": "Đồ thủ công nghệ nhân",
+    "localProducts": "Sản phẩm địa phương"
+  },
+  "shoppingDetail": {
+    "shopNow": "Mua ngay",
+    "overview": "Tổng quan",
+    "products": "Sản phẩm",
+    "location": "Địa điểm",
+    "openingHours": "Giờ mở cửa",
+    "vendorInfo": "Thông tin người bán",
+    "gallery": "Thư viện ảnh",
+    "relatedShops": "Cửa hàng liên quan",
+    "shopDetails": "Chi tiết cửa hàng",
+    "bestSellingItems": "Sản phẩm bán chạy nhất",
+    "priceRange": "Khoảng giá",
+    "paymentOptions": "Phương thức thanh toán",
+    "bargainingTips": "Mẹo mặc cả",
+    "shipping": "Vận chuyển & Giao hàng",
+    "contactInfo": "Thông tin liên hệ",
+    "callNow": "Gọi ngay",
+    "emailUs": "Gửi email",
+    "visitWebsite": "Truy cập trang web",
+    "getDirections": "Chỉ đường",
+    "readMore": "Đọc thêm",
+    "readLess": "Thu gọn",
+    "viewAllPhotos": "Xem tất cả ảnh",
+    "viewOnMap": "Xem trên bản đồ",
+    "reviewsRatings": "Đánh giá & Xếp hạng",
+    "similarShops": "Cửa hàng tương tự"
+  }
+}
+
