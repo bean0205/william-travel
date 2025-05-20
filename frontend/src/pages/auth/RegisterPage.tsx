@@ -20,7 +20,8 @@ import {
   Mail,
   Lock,
   ShieldCheck,
-  ArrowLeft
+  ArrowLeft,
+  MapPin
 } from 'lucide-react';
 
 // Define the validation schema
@@ -70,7 +71,8 @@ const RegisterPage = () => {
   };
 
   // Background image URLs for travel inspiration
-  const bgImageUrl = '/images/halong_wal.jpg';
+  const bgImageUrl = '/images/sapa.jpg';
+  const locationName = 'Sa Pa';
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 relative">
@@ -78,9 +80,16 @@ const RegisterPage = () => {
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-background/90 via-background/80 to-background/70 dark:from-background/95 dark:via-background/90 dark:to-background/80 z-10"></div>
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-30 dark:opacity-20"
+          className="absolute inset-0 bg-cover bg-center opacity-30 dark:opacity-20 transition-opacity duration-1000"
           style={{ backgroundImage: `url(${bgImageUrl})` }}
         ></div>
+        {/* Location badge */}
+        <div className="absolute bottom-4 right-4 bg-background/70 backdrop-blur-sm text-foreground px-3 py-1 rounded-full text-sm font-medium z-20 shadow-md dark:bg-background/40">
+          <span className="flex items-center gap-1.5">
+            <MapPin className="h-3.5 w-3.5" />
+            {locationName}
+          </span>
+        </div>
       </div>
 
       <div className="w-full max-w-md relative">
