@@ -16,6 +16,8 @@ import {
   FaShare,
   FaInfoCircle,
   FaCalendarAlt,
+  FaPhone,
+  FaGlobe
 } from 'react-icons/fa';
 import { MdOutlineCleaningServices, MdPets, MdAirportShuttle } from 'react-icons/md';
 import { IoBusiness } from 'react-icons/io5';

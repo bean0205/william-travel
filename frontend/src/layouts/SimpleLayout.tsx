@@ -9,9 +9,7 @@ interface SimpleLayoutProps {
 const SimpleLayout = ({ children }: SimpleLayoutProps) => {
   return (
     <div className="bg-background theme-transition-slow flex min-h-screen flex-col">
-      <Header />
       <main className="theme-transition-slow flex-1">{children}</main>
-      <Footer />
     </div>
   );
 };
