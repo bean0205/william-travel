@@ -33,6 +33,7 @@ const LocationDetailPage = lazy(() => import('@/pages/LocationDetailPage'));
 const AccommodationDetailPage = lazy(() => import('@/pages/AccommodationDetailPage'));
 const FoodDetailPage = lazy(() => import('@/pages/FoodDetailPage'));
 const ArticleDetailPage = lazy(() => import('@/pages/ArticleDetailPage'));
+const EventDetailPage = lazy(() => import('@/pages/EventDetailPage'));
 
 // Auth pages
 const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
@@ -134,7 +135,11 @@ function App() {
                 path="events" 
                 element={withPageTransition(EventsPage)()} 
               />
-              <Route 
+              <Route
+                path="events/:id"
+                element={withPageTransition(EventDetailPage)()}
+              />
+              <Route
                 path="guides/:id" 
                 element={withPageTransition(GuideDetailsPage)()} 
               />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useCountryStore } from '@/store/countryStore';
 import { PageTransition, AnimateElement } from '@/components/common/PageTransition';
 import { EventsCarousel } from '@/components/features/events/EventsCarousel';
@@ -457,33 +457,35 @@ const EventsPage = () => {
                     : upcomingEvents
                 ).map(event => (
                   <Card key={event.id} className="overflow-hidden hover:shadow-md transition-shadow">
-                    <div className="relative h-48">
-                      <img
-                        src={event.image}
-                        alt={event.title}
-                        className="w-full h-full object-cover"
-                      />
-                      {event.status === 'ongoing' && (
-                        <Badge className="absolute top-2 right-2 bg-green-500 text-white">
-                          Happening Now
-                        </Badge>
-                      )}
-                    </div>
-                    <CardHeader>
-                      <CardTitle className="text-xl">{event.title}</CardTitle>
-                      <div className="flex items-center gap-1 text-sm text-muted-foreground mt-1">
-                        <CalendarDays className="h-4 w-4" />
-                        <span>{formatDate(event.startDate)}{event.startDate.toDateString() !== event.endDate.toDateString() && ` - ${formatDate(event.endDate)}`}</span>
+                    <Link to={`/events/${event.id}`} className="block">
+                      <div className="relative h-48">
+                        <img
+                          src={event.image}
+                          alt={event.title}
+                          className="w-full h-full object-cover"
+                        />
+                        {event.status === 'ongoing' && (
+                          <Badge className="absolute top-2 right-2 bg-green-500 text-white">
+                            Happening Now
+                          </Badge>
+                        )}
                       </div>
-                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                        <Clock className="h-4 w-4" />
-                        <span>{formatTime(event.startDate)} - {formatTime(event.endDate)}</span>
-                      </div>
-                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                        <MapPin className="h-4 w-4" />
-                        <span>{event.location}</span>
-                      </div>
-                    </CardHeader>
+                      <CardHeader>
+                        <CardTitle className="text-xl">{event.title}</CardTitle>
+                        <div className="flex items-center gap-1 text-sm text-muted-foreground mt-1">
+                          <CalendarDays className="h-4 w-4" />
+                          <span>{formatDate(event.startDate)}{event.startDate.toDateString() !== event.endDate.toDateString() && ` - ${formatDate(event.endDate)}`}</span>
+                        </div>
+                        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                          <Clock className="h-4 w-4" />
+                          <span>{formatTime(event.startDate)} - {formatTime(event.endDate)}</span>
+                        </div>
+                        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                          <MapPin className="h-4 w-4" />
+                          <span>{event.location}</span>
+                        </div>
+                      </CardHeader>
+                    </Link>
                     <CardContent>
                       <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{event.description}</p>
                       <div className="flex justify-between items-center">
@@ -492,7 +494,9 @@ const EventsPage = () => {
                         )}
                         <span className="font-medium">{event.price || 'Free'}</span>
                       </div>
-                      <Button className="w-full mt-4">View Details</Button>
+                      <Link to={`/events/${event.id}`}>
+                        <Button className="w-full mt-4">View Details</Button>
+                      </Link>
                     </CardContent>
                   </Card>
                 ))}

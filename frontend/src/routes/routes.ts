@@ -63,6 +63,10 @@ export const APP_ROUTES: Record<string, AppRoute> = {
     label: 'events',
     isNavItem: true,
   },
+  EVENT_DETAILS: {
+    path: '/events/:id',
+    label: 'Event Details',
+  },
   GUIDES: {
     path: '/guides',
     label: 'travelGuides',
