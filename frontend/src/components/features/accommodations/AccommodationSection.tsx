@@ -231,19 +231,19 @@ export function AccommodationSection({ countryName, location }: AccommodationSec
         {/* Accommodations list */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredAccommodations.map(accommodation => (
-            <Card 
-              key={accommodation.id} 
+            <Card
+              key={accommodation.id}
               className="group overflow-hidden transition-all duration-300 hover:shadow-lg dark:bg-card dark:hover:shadow-primary/5"
             >
               <div className="relative w-full h-48 overflow-hidden">
-                <img 
-                  src={accommodation.image} 
+                <img
+                  src={accommodation.image}
                   alt={accommodation.name}
                   className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                 />
-                <Button 
-                  size="icon" 
-                  variant="ghost" 
+                <Button
+                  size="icon"
+                  variant="ghost"
                   className="absolute z-10 top-2 right-2 h-8 w-8 bg-black/20 hover:bg-black/30 text-white backdrop-blur-sm"
                 >
                   <Heart className="w-4 h-4" />
@@ -257,7 +257,7 @@ export function AccommodationSection({ countryName, location }: AccommodationSec
                   </h3>
                 </div>
               </div>
-              
+
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-1 text-yellow-500">
@@ -269,7 +269,7 @@ export function AccommodationSection({ countryName, location }: AccommodationSec
                     <span className="block text-xs text-muted-foreground">per night</span>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-1 mb-3 text-xs text-muted-foreground">
                   <MapPin className="w-3 h-3" />
                   <span>{accommodation.location}</span>
@@ -277,11 +277,11 @@ export function AccommodationSection({ countryName, location }: AccommodationSec
                     <span className="ml-1 text-xs">({accommodation.distance})</span>
                   )}
                 </div>
-                
+
                 <p className="mb-3 text-sm text-muted-foreground line-clamp-2">
                   {accommodation.description}
                 </p>
-                
+
                 <div className="flex flex-wrap items-center gap-2 pt-2 text-xs border-t border-border">
                   {accommodation.amenities.slice(0, 4).map((amenity, index) => (
                     <Badge key={index} variant="secondary" className="flex items-center gap-1 bg-muted/50">

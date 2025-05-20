@@ -28,6 +28,12 @@ const GuideDetailsPage = lazy(() => import('@/pages/GuideDetailsPage'));
 const ProfilePage = lazy(() => import('@/pages/ProfilePage'));
 const FavoritesPage = lazy(() => import('@/pages/FavoritesPage'));
 
+// Detail pages
+const LocationDetailPage = lazy(() => import('@/pages/LocationDetailPage'));
+const AccommodationDetailPage = lazy(() => import('@/pages/AccommodationDetailPage'));
+const FoodDetailPage = lazy(() => import('@/pages/FoodDetailPage'));
+const ArticleDetailPage = lazy(() => import('@/pages/ArticleDetailPage'));
+
 // Auth pages
 const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
 const RegisterPage = lazy(() => import('@/pages/auth/RegisterPage'));
@@ -49,9 +55,6 @@ const GuideDashboard = lazy(() => import('@/pages/guide/Dashboard'));
 const CreateGuidePage = lazy(() => import('@/pages/guide/CreateGuidePage'));
 const MyGuidesPage = lazy(() => import('@/pages/guide/MyGuidesPage'));
 const EditGuidePage = lazy(() => import('@/pages/guide/EditGuidePage'));
-
-// Location detail page
-const LocationDetailPage = lazy(() => import('@/pages/LocationDetailPage'));
 
 // Wrap each component with PageTransition
 const withPageTransition =
@@ -107,15 +110,27 @@ function App() {
                 path="accommodations" 
                 element={withPageTransition(AccommodationsPage)()} 
               />
-              <Route 
+              <Route
+                path="accommodations/:id"
+                element={withPageTransition(AccommodationDetailPage)()}
+              />
+              <Route
                 path="food" 
                 element={withPageTransition(FoodPage)()} 
               />
-              <Route 
+              <Route
+                path="food/:id"
+                element={withPageTransition(FoodDetailPage)()}
+              />
+              <Route
                 path="articles" 
                 element={withPageTransition(ArticlesPage)()} 
               />
-              <Route 
+              <Route
+                path="articles/:id"
+                element={withPageTransition(ArticleDetailPage)()}
+              />
+              <Route
                 path="events" 
                 element={withPageTransition(EventsPage)()} 
               />

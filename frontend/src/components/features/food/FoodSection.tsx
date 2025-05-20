@@ -202,13 +202,13 @@ export function FoodSection({ countryName, location }: FoodSectionProps) {
         {/* Food list */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredFoods.map(food => (
-            <Card 
-              key={food.id} 
+            <Card
+              key={food.id}
               className="group overflow-hidden transition-all duration-300 hover:shadow-lg dark:bg-card dark:hover:shadow-primary/5"
             >
               <div className="relative w-full h-48 overflow-hidden">
-                <img 
-                  src={food.image} 
+                <img
+                  src={food.image}
                   alt={food.name}
                   className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                 />
@@ -221,7 +221,7 @@ export function FoodSection({ countryName, location }: FoodSectionProps) {
                   </h3>
                 </div>
               </div>
-              
+
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-1 text-yellow-500">
@@ -230,11 +230,11 @@ export function FoodSection({ countryName, location }: FoodSectionProps) {
                   </div>
                   <Badge variant="outline">{food.price}</Badge>
                 </div>
-                
+
                 <p className="mb-3 text-sm text-muted-foreground line-clamp-2">
                   {food.description}
                 </p>
-                
+
                 <div className="flex flex-col gap-1 pt-2 text-xs text-muted-foreground border-t border-border">
                   <div className="flex items-center gap-1">
                     <MapPin className="w-3 h-3" />

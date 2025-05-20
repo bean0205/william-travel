@@ -158,10 +158,10 @@ export function ArticleSection({ countryName, location }: ArticleSectionProps) {
 
   // Format date function
   const formatDate = (dateString: string) => {
-    const options: Intl.DateTimeFormatOptions = { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric' 
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
     };
     return new Date(dateString).toLocaleDateString('en-US', options);
   };
@@ -181,11 +181,11 @@ export function ArticleSection({ countryName, location }: ArticleSectionProps) {
               {location ? `Read about experiences in ${location}` : `Articles and guides about ${countryName}`}
             </p>
           </div>
-          
+
           <div className="flex flex-wrap gap-2">
-            <Button 
-              variant={showFilters ? "secondary" : "outline"} 
-              size="sm" 
+            <Button
+              variant={showFilters ? "secondary" : "outline"}
+              size="sm"
               className="flex items-center gap-1"
               onClick={() => setShowFilters(!showFilters)}
             >
@@ -203,7 +203,7 @@ export function ArticleSection({ countryName, location }: ArticleSectionProps) {
                 <h3 className="mb-3 text-sm font-medium">Browse by Category</h3>
                 <div className="flex flex-wrap gap-2">
                   {articleCategories.map(category => (
-                    <Badge 
+                    <Badge
                       key={category}
                       variant={activeCategory === category ? "default" : "outline"}
                       className="cursor-pointer"
@@ -221,13 +221,13 @@ export function ArticleSection({ countryName, location }: ArticleSectionProps) {
         {/* Articles list */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredArticles.map(article => (
-            <Card 
-              key={article.id} 
+            <Card
+              key={article.id}
               className="group overflow-hidden transition-all duration-300 hover:shadow-lg dark:bg-card dark:hover:shadow-primary/5"
             >
               <div className="relative w-full h-48 overflow-hidden">
-                <img 
-                  src={article.image} 
+                <img
+                  src={article.image}
                   alt={article.title}
                   className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                 />
@@ -236,20 +236,20 @@ export function ArticleSection({ countryName, location }: ArticleSectionProps) {
                     {article.category}
                   </Badge>
                 </div>
-                <Button 
-                  size="icon" 
-                  variant="ghost" 
+                <Button
+                  size="icon"
+                  variant="ghost"
                   className="absolute z-10 top-4 right-4 h-8 w-8 bg-black/20 hover:bg-black/30 text-white backdrop-blur-sm"
                 >
                   <BookmarkPlus className="w-4 h-4" />
                 </Button>
               </div>
-              
+
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="flex items-center gap-2">
-                    <img 
-                      src={article.author.avatar} 
+                    <img
+                      src={article.author.avatar}
                       alt={article.author.name}
                       className="w-6 h-6 rounded-full border border-muted"
                     />
@@ -261,15 +261,15 @@ export function ArticleSection({ countryName, location }: ArticleSectionProps) {
                     <span>{formatDate(article.publishedAt)}</span>
                   </div>
                 </div>
-                
+
                 <h3 className="mb-2 text-lg font-bold line-clamp-2 group-hover:text-primary transition-colors">
                   {article.title}
                 </h3>
-                
+
                 <p className="mb-4 text-sm text-muted-foreground line-clamp-2">
                   {article.excerpt}
                 </p>
-                
+
                 <div className="flex items-center justify-between pt-2 text-xs border-t border-border">
                   <div className="flex gap-3">
                     <div className="flex items-center gap-1 text-muted-foreground">
@@ -285,7 +285,7 @@ export function ArticleSection({ countryName, location }: ArticleSectionProps) {
                       <span>{article.likes}</span>
                     </div>
                   </div>
-                  
+
                   <div className="flex flex-wrap gap-2">
                     {article.tags.slice(0, 1).map((tag, index) => (
                       <Badge key={index} variant="outline" className="text-xs">
@@ -303,7 +303,7 @@ export function ArticleSection({ countryName, location }: ArticleSectionProps) {
             </Card>
           ))}
         </div>
-        
+
         <div className="flex justify-center mt-8">
           <Button variant="outline" className="group">
             Read More Articles
@@ -314,3 +314,6 @@ export function ArticleSection({ countryName, location }: ArticleSectionProps) {
     </section>
   );
 }
+
+
+
