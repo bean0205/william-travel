@@ -5,6 +5,24 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthStore } from '@/store/authStore';
 
+// UI components
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import {
+  AlertCircle,
+  CheckCircle2,
+  Compass,
+  Loader2,
+  User,
+  Mail,
+  Lock,
+  ShieldCheck,
+  ArrowLeft
+} from 'lucide-react';
+
 // Define the validation schema
 const registerSchema = z.object({
   name: z.string().min(2, 'Tên phải có ít nhất 2 ký tự').optional(),
@@ -51,201 +69,210 @@ const RegisterPage = () => {
     }
   };
 
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4 py-12 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8">
-        <div className="text-center">
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">Đăng ký tài khoản</h2>
-          <p className="mt-2 text-sm text-gray-600">
-            Hoặc{' '}
-            <Link to="/login" className="font-medium text-primary-600 hover:text-primary-500">
-              đăng nhập nếu bạn đã có tài khoản
-            </Link>
-          </p>
-        </div>
+  // Background image URLs for travel inspiration
+  const bgImageUrl = '/images/halong_wal.jpg';
 
-        {error && (
-          <div className="rounded-md bg-red-50 p-4">
-            <div className="flex">
-              <div className="flex-shrink-0">
-                <svg
-                  className="h-5 w-5 text-red-400"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <div className="ml-3">
-                <p className="text-sm text-red-700">{error}</p>
-              </div>
-              <div className="ml-auto pl-3">
-                <div className="-mx-1.5 -my-1.5">
-                  <button
-                    type="button"
+  return (
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 relative">
+      {/* Background section with travel image */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-background/90 via-background/80 to-background/70 dark:from-background/95 dark:via-background/90 dark:to-background/80 z-10"></div>
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-30 dark:opacity-20"
+          style={{ backgroundImage: `url(${bgImageUrl})` }}
+        ></div>
+      </div>
+
+      <div className="w-full max-w-md relative">
+        {/* Background decorative elements */}
+        <div className="absolute -z-10 -top-12 -left-12 w-24 h-24 bg-primary-200 dark:bg-primary-800 rounded-full opacity-50 blur-2xl"></div>
+        <div className="absolute -z-10 -bottom-12 -right-12 w-32 h-32 bg-primary-200 dark:bg-primary-800 rounded-full opacity-50 blur-3xl"></div>
+
+        <Card className="border-primary-100 dark:border-primary-900 shadow-xl backdrop-blur-sm">
+          <CardHeader className="space-y-1 text-center">
+            <div className="mx-auto bg-primary-100 dark:bg-primary-900/50 p-2 rounded-full w-12 h-12 flex items-center justify-center mb-2">
+              <Compass className="h-6 w-6 text-primary-600 dark:text-primary-400" />
+            </div>
+            <CardTitle className="text-2xl font-bold tracking-tight">Đăng Ký Tài Khoản</CardTitle>
+            <CardDescription>
+              Bắt đầu hành trình khám phá thế giới cùng chúng tôi
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {error && (
+              <Alert variant="destructive" className="animate-in fade-in-50 slide-in-from-top-5">
+                <AlertCircle className="h-4 w-4" />
+                <AlertTitle>Lỗi đăng ký</AlertTitle>
+                <AlertDescription className="flex justify-between items-center">
+                  <span>{error}</span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     onClick={clearError}
-                    className="inline-flex rounded-md p-1.5 text-red-500 hover:bg-red-100"
+                    className="h-auto p-0 hover:bg-transparent"
                   >
                     <span className="sr-only">Đóng</span>
-                    <svg
-                      className="h-5 w-5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </button>
+                    <span aria-hidden="true">&times;</span>
+                  </Button>
+                </AlertDescription>
+              </Alert>
+            )}
+
+            {successMessage && (
+              <Alert className="bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 border-green-200 dark:border-green-900 animate-in fade-in-50 slide-in-from-top-5">
+                <CheckCircle2 className="h-4 w-4 text-green-500 dark:text-green-400" />
+                <AlertTitle>Thành công</AlertTitle>
+                <AlertDescription>
+                  {successMessage}
+                </AlertDescription>
+              </Alert>
+            )}
+
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+              {/* Tên */}
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <User size={16} className="text-gray-500 dark:text-gray-400 group-focus-within:text-primary" aria-hidden="true" />
                 </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {successMessage && (
-          <div className="rounded-md bg-green-50 p-4">
-            <div className="flex">
-              <div className="flex-shrink-0">
-                <svg
-                  className="h-5 w-5 text-green-400"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
+                <Input
+                  id="name"
+                  {...register('name')}
+                  placeholder="Tên của bạn"
+                  className={`pl-10 h-12 transition-all bg-background border-muted group-hover:border-primary/50 ${errors.name ? 'border-red-500 focus-visible:ring-red-500' : 'focus-visible:ring-primary/20'}`}
+                />
+                <Label
+                  htmlFor="name"
+                  className="absolute left-10 -top-2.5 px-1 text-xs text-muted-foreground bg-background rounded-sm"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                  Tên
+                  <span className="text-muted-foreground font-light ml-1">(tùy chọn)</span>
+                </Label>
+                {errors.name && (
+                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
+                    {errors.name.message}
+                  </p>
+                )}
               </div>
-              <div className="ml-3">
-                <p className="text-sm font-medium text-green-800">{successMessage}</p>
+
+              {/* Email */}
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <Mail size={16} className="text-gray-500 dark:text-gray-400 group-focus-within:text-primary" aria-hidden="true" />
+                </div>
+                <Input
+                  id="email"
+                  type="email"
+                  {...register('email')}
+                  placeholder="email@example.com"
+                  className={`pl-10 h-12 transition-all bg-background border-muted group-hover:border-primary/50 ${errors.email ? 'border-red-500 focus-visible:ring-red-500' : 'focus-visible:ring-primary/20'}`}
+                />
+                <Label
+                  htmlFor="email"
+                  className="absolute left-10 -top-2.5 px-1 text-xs text-muted-foreground bg-background rounded-sm"
+                >
+                  Email
+                </Label>
+                {errors.email && (
+                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
-            </div>
-          </div>
-        )}
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <div className="space-y-4 rounded-md shadow-sm">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Tên hiển thị (tùy chọn)
-              </label>
-              <input
-                id="name"
-                type="text"
-                {...register('name')}
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
-              />
-              {errors.name && (
-                <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
-              )}
+              {/* Mật khẩu */}
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <Lock className="h-4 w-4 text-gray-500 dark:text-gray-400 group-focus-within:text-primary" />
+                </div>
+                <Input
+                  id="password"
+                  type="password"
+                  {...register('password')}
+                  placeholder="Tối thiểu 6 ký tự"
+                  className={`pl-10 h-12 transition-all bg-background border-muted group-hover:border-primary/50 ${errors.password ? 'border-red-500 focus-visible:ring-red-500' : 'focus-visible:ring-primary/20'}`}
+                />
+                <Label
+                  htmlFor="password"
+                  className="absolute left-10 -top-2.5 px-1 text-xs text-muted-foreground bg-background rounded-sm"
+                >
+                  Mật khẩu
+                </Label>
+                {errors.password && (
+                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
+                    {errors.password.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Xác nhận mật khẩu */}
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <ShieldCheck className="h-4 w-4 text-gray-500 dark:text-gray-400 group-focus-within:text-primary" />
+                </div>
+                <Input
+                  id="confirmPassword"
+                  type="password"
+                  {...register('confirmPassword')}
+                  placeholder="Nhập lại mật khẩu của bạn"
+                  className={`pl-10 h-12 transition-all bg-background border-muted group-hover:border-primary/50 ${errors.confirmPassword ? 'border-red-500 focus-visible:ring-red-500' : 'focus-visible:ring-primary/20'}`}
+                />
+                <Label
+                  htmlFor="confirmPassword"
+                  className="absolute left-10 -top-2.5 px-1 text-xs text-muted-foreground bg-background rounded-sm"
+                >
+                  Xác nhận mật khẩu
+                </Label>
+                {errors.confirmPassword && (
+                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                    <AlertCircle className="h-3 w-3" />
+                    {errors.confirmPassword.message}
+                  </p>
+                )}
+              </div>
+
+              <Button
+                type="submit"
+                className="w-full h-12 mt-2 font-medium text-base transition-all relative overflow-hidden group"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Đang xử lý...
+                  </span>
+                ) : (
+                  <span className="flex items-center justify-center gap-2">
+                    Đăng Ký
+                    <span className="absolute right-4 opacity-0 transform translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                      →
+                    </span>
+                  </span>
+                )}
+                <span className="absolute inset-0 rounded-md bg-gradient-to-r from-primary-400/0 via-primary-400/10 to-primary-400/0 opacity-0 group-hover:animate-travel-gradient"></span>
+              </Button>
+            </form>
+          </CardContent>
+
+          <CardFooter className="flex flex-col space-y-4 border-t px-6 py-4">
+            <div className="text-center text-sm">
+              <span className="text-muted-foreground">Đã có tài khoản? </span>
+              <Link to="/login" className="font-medium text-primary hover:text-primary/90 transition-colors hover:underline">
+                Đăng nhập
+              </Link>
             </div>
 
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                autoComplete="email"
-                required
-                {...register('email')}
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
-              />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
-              )}
-            </div>
-
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Mật khẩu
-              </label>
-              <input
-                id="password"
-                type="password"
-                autoComplete="new-password"
-                required
-                {...register('password')}
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
-              />
-              {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
-              )}
-            </div>
-
-            <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                Xác nhận mật khẩu
-              </label>
-              <input
-                id="confirmPassword"
-                type="password"
-                autoComplete="new-password"
-                required
-                {...register('confirmPassword')}
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
-              />
-              {errors.confirmPassword && (
-                <p className="mt-1 text-sm text-red-600">{errors.confirmPassword.message}</p>
-              )}
-            </div>
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="group relative flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-70"
+            <Link
+              to="/"
+              className="flex items-center justify-center text-xs text-muted-foreground hover:text-foreground transition-colors gap-1 group"
             >
-              {isLoading ? (
-                <span className="flex items-center">
-                  <svg
-                    className="mr-2 h-4 w-4 animate-spin text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                  Đang xử lý...
-                </span>
-              ) : (
-                'Đăng ký'
-              )}
-            </button>
-          </div>
-        </form>
-
-        <div className="mt-6 text-center">
-          <Link to="/" className="text-sm text-gray-600 hover:text-primary-500">
-            Quay lại trang chủ
-          </Link>
-        </div>
+              <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
+              Quay lại trang chủ
+            </Link>
+          </CardFooter>
+        </Card>
       </div>
     </div>
   );

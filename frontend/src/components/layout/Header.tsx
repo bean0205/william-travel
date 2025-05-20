@@ -223,15 +223,8 @@ const Header = () => {
               {/* Settings toggle */}
               <ThemeToggleButton />
 
-              {/* Book Now button (call-to-action) */}
-              <Button
-                variant="default"
-                size="sm"
-                className="flex items-center gap-1 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white shadow-md hover:shadow-lg transition-all"
-              >
-                <CameraIcon className="h-3.5 w-3.5" />
-                <span>{t('header.bookNow')}</span>
-              </Button>
+
+
 
               {/* User menu / login */}
               <div className="relative">
@@ -329,15 +322,8 @@ const Header = () => {
                       <span>{t('search')}</span>
                     </Button>
 
-                    {/* Book Now Button */}
-                    <Button
-                      variant="default"
-                      size="sm"
-                      className="flex items-center justify-start gap-2 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600"
-                    >
-                      <CameraIcon className="h-4 w-4" />
-                      <span>{t('header.bookNow')}</span>
-                    </Button>
+
+
 
                     {/* Theme Toggle Button - Manual implementation */}
                     <ThemeToggleButton />
