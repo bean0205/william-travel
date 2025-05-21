@@ -32,6 +32,14 @@ const ShoppingPage = lazy(() => import('@/pages/ShoppingPage'));
 const TipsWarningsPage = lazy(() => import('@/pages/TipsWarningsPage'));
 const GalleryPage = lazy(() => import('@/pages/GalleryPage'));
 
+// New features pages
+const TripPlannerPage = lazy(() => import('@/pages/TripPlannerPage'));
+const ReviewsPage = lazy(() => import('@/pages/ReviewsPage'));
+const CommunityForumPage = lazy(() => import('@/pages/CommunityForumPage'));
+const RecommendationsPage = lazy(() => import('@/pages/RecommendationsPage'));
+const AnalyticsPage = lazy(() => import('@/pages/AnalyticsPage'));
+const SupportPage = lazy(() => import('@/pages/SupportPage'));
+
 // Detail pages
 const LocationDetailPage = lazy(() => import('@/pages/LocationDetailPage'));
 const AccommodationDetailPage = lazy(() => import('@/pages/AccommodationDetailPage'));
@@ -41,6 +49,9 @@ const EventDetailPage = lazy(() => import('@/pages/EventDetailPage'));
 const TransportationDetailPage = lazy(() => import('@/pages/TransportationDetailPage'));
 const ShoppingDetailPage = lazy(() => import('@/pages/ShoppingDetailPage'));
 const TipsWarningsDetailPage = lazy(() => import('@/pages/TipsWarningsDetailPage'));
+const SupportDetailPage = lazy(() => import('@/pages/SupportDetailPage'));
+const RecommendationDetailPage = lazy(() => import('@/pages/RecommendationDetailPage'));
+const CommunityForumDetailPage = lazy(() => import('@/pages/CommunityForumDetailPage'));
 
 // Auth pages
 const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
@@ -177,6 +188,44 @@ function App() {
               <Route
                 path="gallery"
                 element={withPageTransition(GalleryPage)()}
+              />
+
+              {/* New feature routes */}
+              <Route
+                path="trip-planner"
+                element={withPageTransition(TripPlannerPage)()}
+              />
+              <Route
+                path="reviews"
+                element={withPageTransition(ReviewsPage)()}
+              />
+              <Route
+                path="community"
+                element={withPageTransition(CommunityForumPage)()}
+              />
+              <Route
+                path="community/:id"
+                element={withPageTransition(CommunityForumDetailPage)()}
+              />
+              <Route
+                path="recommendations"
+                element={withPageTransition(RecommendationsPage)()}
+              />
+              <Route
+                path="recommendations/:id"
+                element={withPageTransition(RecommendationDetailPage)()}
+              />
+              <Route
+                path="analytics"
+                element={withPageTransition(AnalyticsPage)()}
+              />
+              <Route
+                path="support"
+                element={withPageTransition(SupportPage)()}
+              />
+              <Route
+                path="support/:id"
+                element={withPageTransition(SupportDetailPage)()}
               />
 
               {/* Auth routes */}

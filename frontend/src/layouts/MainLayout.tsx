@@ -3,6 +3,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import CountryDisplay from '@/components/common/CountryDisplay';
 import { useCountryStore } from '@/store/countryStore';
+import { TravelChatbot } from '@/components/features/chatbot/TravelChatbot';
 
 const MainLayout = () => {
   const { isCountrySelected } = useCountryStore();
@@ -20,6 +21,8 @@ const MainLayout = () => {
         <Outlet />
       </main>
       <Footer />
+      {/* Add chatbot to layout so it appears on all pages */}
+      <TravelChatbot initialMinimized={true} />
     </div>
   );
 };

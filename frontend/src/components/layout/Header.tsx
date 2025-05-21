@@ -19,7 +19,12 @@ import {
   CalendarIcon,
   GlobeIcon,
   CameraIcon,
-  HeartIcon
+  HeartIcon,
+  StarIcon,
+  UsersIcon,
+  ThumbsUpIcon,
+  BarChartIcon,
+  HelpCircleIcon
 } from 'lucide-react';
 import { ThemeToggleButton } from '@/components/common/ThemeToggleButton';
 import { LanguageButton } from '@/components/common/LanguageButton';
@@ -108,6 +113,19 @@ const Header = () => {
         return <CalendarIcon className="h-4 w-4 mr-2" />;
       case 'favorites':
         return <HeartIcon className="h-4 w-4 mr-2" />;
+      // New feature icons
+      case 'tripPlanner':
+        return <CalendarIcon className="h-4 w-4 mr-2" />;
+      case 'reviews':
+        return <StarIcon className="h-4 w-4 mr-2" />;
+      case 'community':
+        return <UsersIcon className="h-4 w-4 mr-2" />;
+      case 'recommendations':
+        return <ThumbsUpIcon className="h-4 w-4 mr-2" />;
+      case 'analytics':
+        return <BarChartIcon className="h-4 w-4 mr-2" />;
+      case 'support':
+        return <HelpCircleIcon className="h-4 w-4 mr-2" />;
       default:
         return <GlobeIcon className="h-4 w-4 mr-2" />;
     }

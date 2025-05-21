@@ -120,6 +120,48 @@ export const APP_ROUTES: Record<string, AppRoute> = {
     path: '*',
     label: 'Not Found',
   },
+  TRIP_PLANNER: {
+    path: '/trip-planner',
+    label: 'tripPlanner',
+    isNavItem: true,
+  },
+  REVIEWS: {
+    path: '/reviews',
+    label: 'reviews',
+    isNavItem: true,
+  },
+  COMMUNITY: {
+    path: '/community',
+    label: 'community',
+    isNavItem: true,
+  },
+  COMMUNITY_DETAILS: {
+    path: '/community/:id',
+    label: 'Community Post Details',
+  },
+  RECOMMENDATIONS: {
+    path: '/recommendations',
+    label: 'recommendations',
+    isNavItem: true,
+  },
+  RECOMMENDATION_DETAILS: {
+    path: '/recommendations/:id',
+    label: 'Recommendation Details',
+  },
+  ANALYTICS: {
+    path: '/analytics',
+    label: 'analytics',
+    isNavItem: true,
+  },
+  SUPPORT: {
+    path: '/support',
+    label: 'support',
+    isNavItem: true,
+  },
+  SUPPORT_DETAILS: {
+    path: '/support/:id',
+    label: 'Support Ticket Details',
+  },
 };
 
 // Helper to get route paths
