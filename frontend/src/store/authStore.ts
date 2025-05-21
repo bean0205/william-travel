@@ -1,12 +1,6 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { 
-  loginUser, 
-  registerUser, 
-  requestPasswordReset, 
-  resetPassword, 
-  verifyToken 
-} from '@/services/api/authService';
+import authService from '@/services/api/authService';
 
 export interface AuthUser {
   id: string;
@@ -53,8 +47,9 @@ export const useAuthStore = create<AuthState>()(
         login: async (email: string, password: string) => {
           try {
             set({ isLoading: true, error: null });
-            const { user, token } = await loginUser(email, password);
-            set({ 
+            const response = await authService.login({ username: email, password });
+            const { user, access_token: token } = response;
+            set({
               user, 
               token, 
               isAuthenticated: true,
@@ -72,13 +67,14 @@ export const useAuthStore = create<AuthState>()(
         register: async (email: string, password: string, name?: string) => {
           try {
             set({ isLoading: true, error: null });
-            const { user, token } = await registerUser(email, password, name);
-            set({ 
-              user, 
-              token, 
-              isAuthenticated: true,
-              isLoading: false 
+            const user = await authService.register({
+              email,
+              password,
+              full_name: name || '',
+              role: 'user'
             });
+            // After registration, proceed with login
+            await get().login(email, password);
           } catch (error) {
             set({ 
               error: error instanceof Error ? error.message : 'Registration failed',
@@ -99,7 +95,7 @@ export const useAuthStore = create<AuthState>()(
         requestResetPassword: async (email: string) => {
           try {
             set({ isLoading: true, error: null });
-            await requestPasswordReset(email);
+            await authService.requestPasswordReset(email);
             set({ isLoading: false });
           } catch (error) {
             set({ 
@@ -113,7 +109,7 @@ export const useAuthStore = create<AuthState>()(
         resetUserPassword: async (token: string, newPassword: string) => {
           try {
             set({ isLoading: true, error: null });
-            await resetPassword(token, newPassword);
+            await authService.resetPassword(token, newPassword);
             set({ isLoading: false });
           } catch (error) {
             set({ 
@@ -133,8 +129,8 @@ export const useAuthStore = create<AuthState>()(
           
           try {
             set({ isLoading: true, error: null });
-            const user = await verifyToken(token);
-            set({ 
+            const user = await authService.verifyToken(token);
+            set({
               user, 
               isAuthenticated: true,
               isLoading: false 
