@@ -8,7 +8,11 @@ import { useAuthStore } from '@/store/authStore';
 // Define the validation schema
 const resetPasswordSchema = z
   .object({
-    password: z.string().min(6, 'Mật khẩu phải có ít nhất 6 ký tự'),
+    password: z
+      .string()
+      .min(8, 'Mật khẩu phải có ít nhất 8 ký tự')
+      .regex(/[0-9]/, 'Mật khẩu phải chứa ít nhất 1 chữ số')
+      .regex(/[a-zA-Z]/, 'Mật khẩu phải chứa ít nhất 1 chữ cái'),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {

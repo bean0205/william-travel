@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthStore } from '@/store/authStore';
+import authService from '@/services/api/authService';
 
 // UI components
 import { Button } from '@/components/ui/button';
@@ -28,7 +29,11 @@ import {
 const registerSchema = z.object({
   name: z.string().min(2, 'Tên phải có ít nhất 2 ký tự').optional(),
   email: z.string().email('Email không hợp lệ'),
-  password: z.string().min(6, 'Mật khẩu phải có ít nhất 6 ký tự'),
+  password: z
+    .string()
+    .min(8, 'Mật khẩu phải có ít nhất 8 ký tự')
+    .regex(/[0-9]/, 'Mật khẩu phải chứa ít nhất 1 chữ số')
+    .regex(/[a-zA-Z]/, 'Mật khẩu phải chứa ít nhất 1 chữ cái'),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: 'Mật khẩu xác nhận không khớp',
@@ -38,7 +43,7 @@ const registerSchema = z.object({
 type RegisterFormInputs = z.infer<typeof registerSchema>;
 
 const RegisterPage = () => {
-  const { register: registerUser, isLoading, error, clearError } = useAuthStore();
+  const { isLoading, error, clearError } = useAuthStore();
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
@@ -58,15 +63,23 @@ const RegisterPage = () => {
 
   const onSubmit = async (data: RegisterFormInputs) => {
     try {
-      await registerUser(data.email, data.password, data.name);
-      setSuccessMessage('Đăng ký thành công!');
-      
-      // Navigate to home page after a short delay
+      // Using the new authService instead of direct store registration
+      await authService.register({
+        email: data.email,
+        password: data.password,
+        full_name: data.name || '', // Use name if provided, otherwise empty string
+        role: 'user' // Default role
+      });
+
+      setSuccessMessage('Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.');
+
+      // Navigate to login page after a short delay
       setTimeout(() => {
-        navigate('/');
-      }, 1500);
-    } catch (error) {
-      // Error is handled by the store
+        navigate('/login');
+      }, 2000);
+    } catch (error: any) {
+      // The error is handled by the authService, but you can add additional handling here
+      console.error('Registration failed:', error);
     }
   };
 
@@ -199,7 +212,7 @@ const RegisterPage = () => {
                   id="password"
                   type="password"
                   {...register('password')}
-                  placeholder="Tối thiểu 6 ký tự"
+                  placeholder="Tối thiểu 8 ký tự, ít nhất 1 chữ số và 1 chữ cái"
                   className={`pl-10 h-12 transition-all bg-background border-muted group-hover:border-primary/50 ${errors.password ? 'border-red-500 focus-visible:ring-red-500' : 'focus-visible:ring-primary/20'}`}
                 />
                 <Label

@@ -1,163 +1,207 @@
-import apiClient from './apiClient';
-import { AuthUser, UserRole } from '@/store/authStore';
+import httpClient from './httpClient';
+import { useAuthStore } from '@/store/authStore';
 
-// For demo purposes, we'll use this mock users data
-// In a real application, you would replace this with actual API calls
-const mockUsers = [
-  {
-    id: '1',
-    email: 'user@example.com',
-    password: 'password123', // In real app, password would be hashed server-side
-    name: 'Demo User',
-    role: 'user',
-    permissions: ['view_locations', 'view_guides', 'add_favorite']
-  },
-  {
-    id: '2',
-    email: 'guide@example.com',
-    password: 'password123',
-    name: 'Demo Guide',
-    role: 'guide',
-    permissions: ['view_locations', 'view_guides', 'add_favorite', 'create_guide', 'edit_own_guide']
-  },
-  {
-    id: '3',
-    email: 'admin@example.com',
-    password: 'password123',
-    name: 'Admin User',
-    role: 'admin',
-    permissions: ['view_locations', 'view_guides', 'add_favorite', 'create_guide', 'edit_any_guide', 'add_location', 'edit_location', 'delete_location', 'manage_users']
-  }
-];
-
-interface AuthResponse {
-  user: AuthUser;
-  token: string;
+// Types for authentication
+export interface RegisterRequest {
+  email: string;
+  password: string;
+  full_name: string;
+  role?: string;
 }
 
-// Login user
-export const loginUser = async (email: string, password: string): Promise<AuthResponse> => {
-  // In a real app, you would do:
-  // const { data } = await apiClient.post('/auth/login', { email, password });
-  // return data;
-  
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulated delay
-  
-  const user = mockUsers.find(
-    (u) => u.email.toLowerCase() === email.toLowerCase() && u.password === password
-  );
-  
-  if (!user) {
-    throw new Error('Invalid email or password');
-  }
-  
-  const { password: _, ...userData } = user;
-  
-  return {
-    user: userData,
-    token: 'mock-jwt-token-' + Math.random().toString(36).substring(2, 10),
-  };
-};
+export interface RegisterResponse {
+  id: number;
+  email: string;
+  full_name: string;
+  is_active: boolean;
+  role: string;
+  created_at: string;
+}
 
-// Register user
-export const registerUser = async (
-  email: string, 
-  password: string, 
-  name?: string
-): Promise<AuthResponse> => {
-  // In a real app, you would do:
-  // const { data } = await apiClient.post('/auth/register', { email, password, name });
-  // return data;
-  
-  await new Promise((resolve) => setTimeout(resolve, 1200)); // Simulated delay
-  
-  // Check if user already exists
-  const userExists = mockUsers.some(
-    (u) => u.email.toLowerCase() === email.toLowerCase()
-  );
-  
-  if (userExists) {
-    throw new Error('User with this email already exists');
-  }
-  
-  // In a real app, you would not be modifying this array
-  // This is just for demo purposes
-  const newUser = {
-    id: (mockUsers.length + 1).toString(),
-    email,
-    password,
-    name: name || email.split('@')[0], // Use part of email as name if not provided
-    role: UserRole.USER, // Default role for new users
-    permissions: ['view_locations', 'view_guides', 'add_favorite'] // Default permissions
-  };
-  
-  mockUsers.push(newUser);
-  
-  const { password: _, ...userData } = newUser;
-  
-  return {
-    user: userData,
-    token: 'mock-jwt-token-' + Math.random().toString(36).substring(2, 10),
-  };
-};
+export interface LoginRequest {
+  username: string; // API uses 'username' field for email
+  password: string;
+}
 
-// Request password reset
-export const requestPasswordReset = async (email: string): Promise<void> => {
-  // In a real app, you would do:
-  // await apiClient.post('/auth/reset-password/request', { email });
-  
-  await new Promise((resolve) => setTimeout(resolve, 800)); // Simulated delay
-  
-  const user = mockUsers.find(
-    (u) => u.email.toLowerCase() === email.toLowerCase()
-  );
-  
-  if (!user) {
-    throw new Error('No user found with this email');
+export interface LoginResponse {
+  access_token: string;
+  token_type: string;
+  user: {
+    id: number;
+    email: string;
+    full_name: string;
+    is_active: boolean;
+    role: string;
+    created_at: string;
   }
-  
-  // In a real app, this would trigger an email with a reset link
-  // This is just for demo purposes
-};
+}
 
-// Reset password with token
-export const resetPassword = async (token: string, newPassword: string): Promise<void> => {
-  // In a real app, you would do:
-  // await apiClient.post('/auth/reset-password/confirm', { token, newPassword });
-  
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulated delay
-  
-  // This would validate the token and update the password in a real app
-  // For demo, we'll just validate the token format
-  if (!token || !token.includes('-')) {
-    throw new Error('Invalid reset token');
-  }
-  
-  // We would update the user's password here in a real app
-};
+export interface ForgotPasswordRequest {
+  email: string;
+}
 
-// Verify JWT token
-export const verifyToken = async (token: string): Promise<AuthUser> => {
-  // In a real app, you would do:
-  // const { data } = await apiClient.get('/auth/me', {
-  //   headers: { Authorization: `Bearer ${token}` }
-  // });
-  // return data;
-  
-  await new Promise((resolve) => setTimeout(resolve, 500)); // Simulated delay
-  
-  // For demo, we'll assume the token is valid if it starts with our prefix
-  if (!token.startsWith('mock-jwt-token-')) {
-    throw new Error('Invalid token');
+export interface ResetPasswordRequest {
+  token: string;
+  new_password: string;
+}
+
+export interface MessageResponse {
+  message: string;
+}
+
+/**
+ * Authentication Service for William Travel API
+ * Handles all authentication-related API calls
+ */
+class AuthService {
+  private apiVersion = '/v1';
+  private authEndpoint = `${this.apiVersion}/auth`;
+
+  /**
+   * Register a new user
+   * @param userData User registration data
+   * @returns Promise with user data
+   */
+  async register(userData: RegisterRequest): Promise<RegisterResponse> {
+    try {
+      const response = await httpClient.post<RegisterResponse>(
+        `${this.authEndpoint}/register`,
+        userData
+      );
+      return response;
+    } catch (error) {
+      console.error('Registration failed:', error);
+      throw error;
+    }
   }
-  
-  // In a real app, the server would decode the token and return the user data
-  // For demo, return a default user
-  return {
-    id: '1',
-    email: 'user@example.com',
-    name: 'Demo User',
-    role: UserRole.USER,
-    permissions: ['view_locations', 'view_guides', 'add_favorite']
-  };
-};
+
+  /**
+   * Log in a user and store authentication token
+   * @param credentials User login credentials
+   * @returns Promise with login response including token
+   */
+  async login(credentials: LoginRequest): Promise<LoginResponse> {
+    try {
+      // Create form data as the API expects form-urlencoded data
+      const formData = new URLSearchParams();
+      formData.append('username', credentials.username); // API uses 'username' for email
+      formData.append('password', credentials.password);
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      };
+
+      const response = await httpClient.post<LoginResponse>(
+        `${this.authEndpoint}/login`,
+        formData.toString(),
+        config
+      );
+
+      // Store auth data in the store
+      if (response && response.access_token) {
+        const { access_token, user } = response;
+        const authStore = useAuthStore.getState();
+        authStore.login(access_token, user);
+      }
+
+      return response;
+    } catch (error) {
+      console.error('Login failed:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Log out the current user
+   * @returns Promise with logout message
+   */
+  async logout(): Promise<MessageResponse> {
+    try {
+      const response = await httpClient.post<MessageResponse>(
+        `${this.authEndpoint}/logout`
+      );
+
+      // Clean up auth store regardless of API response
+      const authStore = useAuthStore.getState();
+      authStore.logout();
+
+      return response;
+    } catch (error) {
+      console.error('Logout failed:', error);
+
+      // Still clean up auth store on error
+      const authStore = useAuthStore.getState();
+      authStore.logout();
+
+      throw error;
+    }
+  }
+
+  /**
+   * Request password reset email
+   * @param email User's email address
+   * @returns Promise with message response
+   */
+  async forgotPassword(email: string): Promise<MessageResponse> {
+    try {
+      const response = await httpClient.post<MessageResponse>(
+        `${this.authEndpoint}/forgot-password`,
+        { email }
+      );
+      return response;
+    } catch (error) {
+      console.error('Password reset request failed:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Reset password using token from email
+   * @param resetData Token and new password
+   * @returns Promise with message response
+   */
+  async resetPassword(resetData: ResetPasswordRequest): Promise<MessageResponse> {
+    try {
+      const response = await httpClient.post<MessageResponse>(
+        `${this.authEndpoint}/reset-password`,
+        resetData
+      );
+      return response;
+    } catch (error) {
+      console.error('Password reset failed:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Check if user is authenticated
+   * @returns True if user is authenticated
+   */
+  isAuthenticated(): boolean {
+    const authStore = useAuthStore.getState();
+    return !!authStore.token;
+  }
+
+  /**
+   * Get current user's token
+   * @returns The auth token or null
+   */
+  getToken(): string | null {
+    const authStore = useAuthStore.getState();
+    return authStore.token;
+  }
+
+  /**
+   * Get current user data
+   * @returns User data or null if not logged in
+   */
+  getCurrentUser() {
+    const authStore = useAuthStore.getState();
+    return authStore.user;
+  }
+}
+
+export const authService = new AuthService();
+export default authService;

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthStore } from '@/store/authStore';
+import authService from '@/services/api/authService';
 
 // UI components
 import { Button } from '@/components/ui/button';
@@ -58,10 +59,18 @@ const LoginPage = () => {
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {
-      await login(data.email, data.password);
+      // Using the new authService instead of direct store login
+      await authService.login({
+        username: data.email, // API expects 'username' for email field
+        password: data.password
+      });
+
+      // If successful, navigate to the redirect path
       navigate(from, { replace: true });
-    } catch (error) {
-      // Error is handled by the store
+    } catch (error: any) {
+      // The error handling is already done in authService
+      // If you need additional client-side handling, you can add it here
+      console.error('Login failed:', error);
     }
   };
 
@@ -207,7 +216,6 @@ const LoginPage = () => {
                     <span className="absolute right-4 opacity-0 transform translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
                       →
                     </span>
-                  </span>
                 )}
                 {/* Shimmer effect on hover */}
                 <span className="absolute inset-0 rounded-md bg-gradient-to-r from-primary-400/0 via-primary-400/10 to-primary-400/0 opacity-0 group-hover:animate-travel-gradient"></span>
