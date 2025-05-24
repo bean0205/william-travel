@@ -1,8 +1,9 @@
 // filepath: /Users/williamnguyen/Documents/william travel/frontend/src/App.tsx
 import { Suspense, lazy, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate, Outlet } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import MainLayout from '@/layouts/MainLayout';
+import AdminLayout from '@/layouts/AdminLayout';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import ProtectedRoute from '@/routes/ProtectedRoute';
 import { UserRole, useAuthStore } from '@/store/authStore';
@@ -56,17 +57,13 @@ const CommunityForumDetailPage = lazy(() => import('@/pages/CommunityForumDetail
 // Auth pages
 const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
 const RegisterPage = lazy(() => import('@/pages/auth/RegisterPage'));
-const ForgotPasswordPage = lazy(
-  () => import('@/pages/auth/ForgotPasswordPage')
-);
+const ForgotPasswordPage = lazy(() => import('@/pages/auth/ForgotPasswordPage'));
 const ResetPasswordPage = lazy(() => import('@/pages/auth/ResetPasswordPage'));
 
 // Admin pages
 const ModernDashboard = lazy(() => import('@/pages/admin/ModernDashboard'));
 const UserManagement = lazy(() => import('@/pages/admin/UserManagement'));
-const LocationManagement = lazy(
-  () => import('@/pages/admin/LocationManagement')
-);
+const LocationManagement = lazy(() => import('@/pages/admin/LocationManagement'));
 const GuideManagement = lazy(() => import('@/pages/admin/GuideManagement'));
 const ArticleManagement = lazy(() => import('@/pages/admin/ArticleManagement'));
 const EventManagement = lazy(() => import('@/pages/admin/EventManagement'));
@@ -77,12 +74,47 @@ const MediaManagement = lazy(() => import('@/pages/admin/MediaManagement'));
 const RolesManagement = lazy(() => import('@/pages/admin/RolesManagement'));
 const PermissionsManagement = lazy(() => import('@/pages/admin/PermissionsManagement'));
 const ContentManagement = lazy(() => import('@/pages/admin/ContentManagement'));
+const AdminTest = lazy(() => import('@/pages/AdminTest'));
+
+// Location Management Admin Pages
+const ContinentManagement = lazy(() => import('@/pages/admin/ContinentManagement'));
+const CountryManagement = lazy(() => import('@/pages/admin/CountryManagement'));
+const RegionManagement = lazy(() => import('@/pages/admin/RegionManagement'));
+const DistrictManagement = lazy(() => import('@/pages/admin/DistrictManagement'));
+const WardManagement = lazy(() => import('@/pages/admin/WardManagement'));
+const LocationCategoryManagement = lazy(() => import('@/pages/admin/LocationCategoryManagement'));
+
+// Accommodation & Food Management Admin Pages
+const AccommodationManagement = lazy(() => import('@/pages/admin/AccommodationManagement'));
+const AccommodationCategoryManagement = lazy(() => import('@/pages/admin/AccommodationCategoryManagement'));
+const FoodManagement = lazy(() => import('@/pages/admin/FoodManagement'));
+const FoodCategoryManagement = lazy(() => import('@/pages/admin/FoodCategoryManagement'));
+const CommunityPostManagement = lazy(() => import('@/pages/admin/CommunityPostManagement'));
+const RatingManagement = lazy(() => import('@/pages/admin/RatingManagement'));
 
 // Guide pages
 const GuideDashboard = lazy(() => import('@/pages/guide/Dashboard'));
 const CreateGuidePage = lazy(() => import('@/pages/guide/CreateGuidePage'));
 const MyGuidesPage = lazy(() => import('@/pages/guide/MyGuidesPage'));
 const EditGuidePage = lazy(() => import('@/pages/guide/EditGuidePage'));
+
+// Admin Route Wrapper Component
+const AdminRouteWrapper = () => {
+  const { isAuthenticated, user } = useAuthStore();
+
+  // const isAdmin = isAuthenticated && user?.role === 'admin';
+  const isAdmin = true;
+
+  if (!isAuthenticated) {
+    return <Navigate to="/auth/login" replace />;
+  }
+
+  if (!isAdmin) {
+    return <Navigate to="/unauthorized" replace />;
+  }
+
+  return <AdminLayout><Outlet /></AdminLayout>;
+};
 
 // Wrap each component with PageTransition
 const withPageTransition =
@@ -92,7 +124,8 @@ const withPageTransition =
     </PageTransition>
   );
 
-function App() {
+// Main App Router component
+function AppRouter() {
   const { checkAuth } = useAuthStore();
   const location = useLocation();
 
@@ -256,6 +289,9 @@ function App() {
                 element={withPageTransition(UnauthorizedPage)()}
               />
 
+              {/* Test route for admin functionality */}
+              <Route path="/admin-test" element={withPageTransition(AdminTest)()} />
+
               {/* 404 route */}
               <Route path="*" element={withPageTransition(NotFoundPage)()} />
             </Route>
@@ -312,7 +348,7 @@ function App() {
                 />
               }
             >
-              <Route path="/admin" element={<MainLayout />}>
+              <Route path="/admin" element={<AdminRouteWrapper />}>
                 <Route
                   path=""
                   element={withPageTransition(ModernDashboard)()}
@@ -342,6 +378,30 @@ function App() {
                   element={withPageTransition(LocationManagement)()}
                 />
                 <Route
+                  path="locations/continents"
+                  element={withPageTransition(ContinentManagement)()}
+                />
+                <Route
+                  path="locations/countries"
+                  element={withPageTransition(CountryManagement)()}
+                />
+                <Route
+                  path="locations/regions"
+                  element={withPageTransition(RegionManagement)()}
+                />
+                <Route
+                  path="locations/districts"
+                  element={withPageTransition(DistrictManagement)()}
+                />
+                <Route
+                  path="locations/wards"
+                  element={withPageTransition(WardManagement)()}
+                />
+                <Route
+                  path="locations/categories"
+                  element={withPageTransition(LocationCategoryManagement)()}
+                />
+                <Route
                   path="media"
                   element={withPageTransition(MediaManagement)()}
                 />
@@ -350,7 +410,23 @@ function App() {
                   element={withPageTransition(ArticleManagement)()}
                 />
                 <Route
+                  path="articles/create"
+                  element={withPageTransition(ArticleManagement)()}
+                />
+                <Route
+                  path="articles/edit/:id"
+                  element={withPageTransition(ArticleManagement)()}
+                />
+                <Route
                   path="events"
+                  element={withPageTransition(EventManagement)()}
+                />
+                <Route
+                  path="events/create"
+                  element={withPageTransition(EventManagement)()}
+                />
+                <Route
+                  path="events/edit/:id"
                   element={withPageTransition(EventManagement)()}
                 />
                 <Route
@@ -373,6 +449,46 @@ function App() {
                   path="guides/manage"
                   element={withPageTransition(GuideManagement)()}
                 />
+                <Route
+                  path="accommodations"
+                  element={withPageTransition(AccommodationManagement)()}
+                />
+                <Route
+                  path="accommodations/categories"
+                  element={withPageTransition(AccommodationCategoryManagement)()}
+                />
+                <Route
+                  path="accommodations/create"
+                  element={withPageTransition(ContentManagement)()}
+                />
+                <Route
+                  path="accommodations/edit/:id"
+                  element={withPageTransition(ContentManagement)()}
+                />
+                <Route
+                  path="foods"
+                  element={withPageTransition(FoodManagement)()}
+                />
+                <Route
+                  path="foods/categories"
+                  element={withPageTransition(FoodCategoryManagement)()}
+                />
+                <Route
+                  path="foods/create"
+                  element={withPageTransition(ContentManagement)()}
+                />
+                <Route
+                  path="foods/edit/:id"
+                  element={withPageTransition(ContentManagement)()}
+                />
+                <Route
+                  path="community-posts"
+                  element={withPageTransition(CommunityPostManagement)()}
+                />
+                <Route
+                  path="ratings"
+                  element={withPageTransition(RatingManagement)()}
+                />
               </Route>
             </Route>
           </Routes>
@@ -380,6 +496,11 @@ function App() {
       </Suspense>
     </ThemeProvider>
   );
+}
+
+// Main App component - uses the router context from main.tsx
+function App() {
+  return <AppRouter />;
 }
 
 export default App;

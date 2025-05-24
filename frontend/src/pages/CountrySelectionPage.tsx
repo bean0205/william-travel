@@ -262,15 +262,17 @@ const CountrySelectionPage = () => {
       : true;
     return matchesSearch && (selectedContinent ? matchesContinent : true);
   });
-console.log(filteredCountries);
   // Handle country selection
   const handleCountrySelect = (country: Country) => {
     setLoadingCountry(country);
     setShowWelcomeLoading(true);
+    // Fix: align timeout with the actual duration of WelcomeLoadingScreen
+    // Use a slightly longer time to ensure animation completes
+    const loadingDuration = 3500; // match the default duration in WelcomeLoadingScreen
     setTimeout(() => {
       setSelectedCountry(country);
       navigate('/home');
-    }, 2000);
+    }, loadingDuration);
   };
 
   // Reset when going back to continent selection

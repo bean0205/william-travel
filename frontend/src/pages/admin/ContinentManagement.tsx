@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {
   Table, Button, Space, Typography, Input, Modal, Form, Card, message,
-  Row, Col, Tabs, Skeleton, Upload, Image, Tag, Select
+  Row, Col, Tabs, Skeleton, Image, Tag, Select
 } from 'antd';
 import {
   EditOutlined, DeleteOutlined, PlusOutlined, EyeOutlined, GlobalOutlined,
-  TableOutlined, ReloadOutlined, SearchOutlined, UploadOutlined
+  TableOutlined, ReloadOutlined
 } from '@ant-design/icons';
 import { Permission } from '@/utils/permissions';
 import { PermissionGuard } from '@/components/common/PermissionGuards';
