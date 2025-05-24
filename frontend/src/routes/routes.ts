@@ -162,11 +162,14 @@ export const APP_ROUTES: Record<string, AppRoute> = {
     path: '/support/:id',
     label: 'Support Ticket Details',
   },
-
   // Admin Dashboard Routes
   ADMIN_DASHBOARD: {
     path: '/admin',
     label: 'Admin Dashboard',
+  },
+  ADMIN_MODERN_DASHBOARD: {
+    path: '/admin/modern',
+    label: 'Modern Dashboard',
   },
   ADMIN_USERS: {
     path: '/admin/users',
@@ -187,6 +190,30 @@ export const APP_ROUTES: Record<string, AppRoute> = {
   ADMIN_LOCATIONS: {
     path: '/admin/locations',
     label: 'Location Management',
+  },
+  ADMIN_LOCATIONS_CONTINENTS: {
+    path: '/admin/locations/continents',
+    label: 'Continent Management',
+  },
+  ADMIN_LOCATIONS_COUNTRIES: {
+    path: '/admin/locations/countries',
+    label: 'Country Management',
+  },
+  ADMIN_LOCATIONS_REGIONS: {
+    path: '/admin/locations/regions',
+    label: 'Region Management',
+  },
+  ADMIN_LOCATIONS_DISTRICTS: {
+    path: '/admin/locations/districts',
+    label: 'District Management',
+  },
+  ADMIN_LOCATIONS_WARDS: {
+    path: '/admin/locations/wards',
+    label: 'Ward Management',
+  },
+  ADMIN_LOCATIONS_CATEGORIES: {
+    path: '/admin/locations/categories',
+    label: 'Location Categories',
   },
   ADMIN_MEDIA: {
     path: '/admin/media',
@@ -217,6 +244,40 @@ export const APP_ROUTES: Record<string, AppRoute> = {
     path: '/admin/guides',
     label: 'Guide Management',
   },
+  // Accommodation management routes
+  ADMIN_ACCOMMODATIONS: {
+    path: '/admin/accommodations',
+    label: 'Accommodation Management',
+  },
+  ADMIN_ACCOMMODATION_CATEGORIES: {
+    path: '/admin/accommodations/categories',
+    label: 'Accommodation Categories',
+  },
+  ADMIN_ACCOMMODATION_CREATE: {
+    path: '/admin/accommodations/create',
+    label: 'Create Accommodation',
+  },
+  ADMIN_ACCOMMODATION_EDIT: {
+    path: '/admin/accommodations/edit/:id',
+    label: 'Edit Accommodation',
+  },
+  // Food management routes
+  ADMIN_FOODS: {
+    path: '/admin/foods',
+    label: 'Food & Restaurant Management',
+  },
+  ADMIN_FOOD_CATEGORIES: {
+    path: '/admin/foods/categories',
+    label: 'Food Categories',
+  },
+  ADMIN_FOOD_CREATE: {
+    path: '/admin/foods/create',
+    label: 'Create Food Listing',
+  },
+  ADMIN_FOOD_EDIT: {
+    path: '/admin/foods/edit/:id',
+    label: 'Edit Food Listing',
+  },
   // Article management routes
   ADMIN_ARTICLE_CREATE: {
     path: '/admin/articles/create',
@@ -234,24 +295,6 @@ export const APP_ROUTES: Record<string, AppRoute> = {
   ADMIN_EVENT_EDIT: {
     path: '/admin/events/edit/:id',
     label: 'Edit Event',
-  },
-  // Accommodation management routes
-  ADMIN_ACCOMMODATION_CREATE: {
-    path: '/admin/accommodations/create',
-    label: 'Create Accommodation',
-  },
-  ADMIN_ACCOMMODATION_EDIT: {
-    path: '/admin/accommodations/edit/:id',
-    label: 'Edit Accommodation',
-  },
-  // Food management routes
-  ADMIN_FOOD_CREATE: {
-    path: '/admin/foods/create',
-    label: 'Create Food Listing',
-  },
-  ADMIN_FOOD_EDIT: {
-    path: '/admin/foods/edit/:id',
-    label: 'Edit Food Listing',
   },
 };
 

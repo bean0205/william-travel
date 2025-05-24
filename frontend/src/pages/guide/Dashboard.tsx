@@ -93,8 +93,7 @@ const GuideDashboard: React.FC = () => {
       </Row>
       
       <Divider orientation="left">Your Tours</Divider>
-      
-      <Row>
+        <Row>
         <Col span={24}>
           {tours.length > 0 ? (
             <List
@@ -116,6 +115,9 @@ const GuideDashboard: React.FC = () => {
                 </List.Item>
               )}
             />
+          ) : (
+            <Empty description="No tours created yet" />
+          )}
         </Col>
       </Row>
       

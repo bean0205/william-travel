@@ -56,7 +56,7 @@ export const TravelChatbot = ({ initialMinimized = true }: ChatbotProps) => {
     const welcomeMessage = {
       id: `bot-${Date.now()}`,
       type: 'bot' as const,
-      text: t('chatbot.welcome', { username: user?.name || t('traveler') }),
+      text: t('chatbot.welcome', { username: user?.full_name || t('traveler') }),
       timestamp: new Date()
     };
     setMessages([welcomeMessage]);
@@ -107,7 +107,7 @@ export const TravelChatbot = ({ initialMinimized = true }: ChatbotProps) => {
         botResponse = commonQuestions[3].answer;
       }
       else if (lowerCaseInput.includes('chào') || lowerCaseInput.includes('xin chào') || lowerCaseInput.includes('hello')) {
-        botResponse = t('chatbot.greeting', { username: user?.name || t('traveler') });
+        botResponse = t('chatbot.greeting', { username: user?.full_name || t('traveler') });
       }
       else if (lowerCaseInput.includes('cảm ơn') || lowerCaseInput.includes('thank')) {
         botResponse = t('chatbot.thankResponse');

@@ -7,10 +7,10 @@ import { getDashboardStats, getSystemStatus, getRecentActivity } from '@/service
 import type { DashboardStats, SystemStatus, RecentActivity } from '@/services/api/dashboardService';
 import UsersManagement from './components/UsersManagement';
 import RolesManagement from './components/RolesManagement';
-import PermissionsManagement from './components/PermissionsManagement';
 import ContentManagement from './components/ContentManagement';
 import LocationsManagement from './components/LocationsManagement';
 import MediaManagement from './components/MediaManagement';
+import PermissionsManagement from './components/PermissionsManagement';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -44,9 +44,25 @@ const AdminDashboard = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-        <Button onClick={() => navigate('/')}>Return to Website</Button>
+        
+        <div className="flex flex-wrap gap-2">
+          <Button variant="outline" size="sm" onClick={() => navigate('/admin')}>Dashboard</Button>
+          <Button variant="outline" size="sm" onClick={() => navigate('/admin/users')}>Users</Button>
+          <Button variant="outline" size="sm" onClick={() => navigate('/admin/roles')}>Roles</Button>
+          <Button variant="outline" size="sm" onClick={() => navigate('/admin/permissions')}>Permissions</Button>
+          <Button variant="outline" size="sm" onClick={() => navigate('/admin/content')}>Content</Button>
+          <Button variant="outline" size="sm" onClick={() => navigate('/admin/locations')}>Locations</Button>
+          <Button variant="outline" size="sm" onClick={() => navigate('/admin/media')}>Media</Button>
+          <Button variant="outline" size="sm" onClick={() => navigate('/admin/articles')}>Articles</Button>
+          <Button variant="outline" size="sm" onClick={() => navigate('/admin/events')}>Events</Button>
+          <Button variant="outline" size="sm" onClick={() => navigate('/admin/reviews')}>Reviews</Button>
+          <Button variant="outline" size="sm" onClick={() => navigate('/admin/guides')}>Guides</Button>
+          <Button variant="outline" size="sm" onClick={() => navigate('/admin/reports')}>Reports</Button>
+          <Button variant="outline" size="sm" onClick={() => navigate('/admin/settings')}>Settings</Button>
+          <Button onClick={() => navigate('/')}>Return to Website</Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
@@ -97,13 +113,20 @@ const AdminDashboard = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid grid-cols-2 md:grid-cols-6 mb-4">
+        <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 mb-4 overflow-x-auto">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="users">Users</TabsTrigger>
           <TabsTrigger value="roles">Roles</TabsTrigger>
+          <TabsTrigger value="permissions">Permissions</TabsTrigger>
           <TabsTrigger value="content">Content</TabsTrigger>
           <TabsTrigger value="locations">Locations</TabsTrigger>
           <TabsTrigger value="media">Media</TabsTrigger>
+          <TabsTrigger value="articles">Articles</TabsTrigger>
+          <TabsTrigger value="events">Events</TabsTrigger>
+          <TabsTrigger value="reviews">Reviews</TabsTrigger>
+          <TabsTrigger value="guides">Guides</TabsTrigger>
+          <TabsTrigger value="reports">Reports</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4">
@@ -116,10 +139,19 @@ const AdminDashboard = () => {
             </CardHeader>
             <CardContent>
               <p>Quick actions:</p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
                 <Button onClick={() => setActiveTab('users')}>Manage Users</Button>
+                <Button onClick={() => setActiveTab('roles')}>Manage Roles</Button>
+                <Button onClick={() => setActiveTab('permissions')}>Manage Permissions</Button>
                 <Button onClick={() => setActiveTab('content')}>Manage Content</Button>
                 <Button onClick={() => setActiveTab('locations')}>Manage Locations</Button>
+                <Button onClick={() => setActiveTab('media')}>Manage Media</Button>
+                <Button onClick={() => setActiveTab('articles')}>Manage Articles</Button>
+                <Button onClick={() => setActiveTab('events')}>Manage Events</Button>
+                <Button onClick={() => setActiveTab('reviews')}>Manage Reviews</Button>
+                <Button onClick={() => setActiveTab('guides')}>Manage Guides</Button>
+                <Button onClick={() => setActiveTab('reports')}>View Reports</Button>
+                <Button onClick={() => setActiveTab('settings')}>System Settings</Button>
               </div>
             </CardContent>
           </Card>
@@ -216,6 +248,10 @@ const AdminDashboard = () => {
           <RolesManagement />
         </TabsContent>
 
+        <TabsContent value="permissions">
+          <PermissionsManagement />
+        </TabsContent>
+
         <TabsContent value="content">
           <ContentManagement />
         </TabsContent>
@@ -226,6 +262,123 @@ const AdminDashboard = () => {
 
         <TabsContent value="media">
           <MediaManagement />
+        </TabsContent>
+
+        <TabsContent value="articles">
+          <Card>
+            <CardHeader>
+              <CardTitle>Article Management</CardTitle>
+              <CardDescription>
+                Manage all articles in the travel application.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex justify-end space-x-2">
+                <Button variant="outline" onClick={() => navigate('/admin/articles')}>Open Full Article Management</Button>
+                <Button onClick={() => navigate('/admin/articles/create')}>Create New Article</Button>
+              </div>
+              <p className="text-muted-foreground text-center py-12">
+                Navigate to the full Article Management page for complete functionality.
+              </p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="events">
+          <Card>
+            <CardHeader>
+              <CardTitle>Event Management</CardTitle>
+              <CardDescription>
+                Manage all events in the travel application.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex justify-end space-x-2">
+                <Button variant="outline" onClick={() => navigate('/admin/events')}>Open Full Event Management</Button>
+                <Button onClick={() => navigate('/admin/events/create')}>Create New Event</Button>
+              </div>
+              <p className="text-muted-foreground text-center py-12">
+                Navigate to the full Event Management page for complete functionality.
+              </p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="reviews">
+          <Card>
+            <CardHeader>
+              <CardTitle>Review Management</CardTitle>
+              <CardDescription>
+                Manage user reviews across the platform.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex justify-end">
+                <Button onClick={() => navigate('/admin/reviews')}>Open Full Review Management</Button>
+              </div>
+              <p className="text-muted-foreground text-center py-12">
+                Navigate to the full Review Management page for complete functionality.
+              </p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="guides">
+          <Card>
+            <CardHeader>
+              <CardTitle>Guide Management</CardTitle>
+              <CardDescription>
+                Manage travel guides and guide profiles.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex justify-end space-x-2">
+                <Button variant="outline" onClick={() => navigate('/admin/guides')}>Open Full Guide Management</Button>
+                <Button>Create New Guide</Button>
+              </div>
+              <p className="text-muted-foreground text-center py-12">
+                Navigate to the full Guide Management page for complete functionality.
+              </p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="reports">
+          <Card>
+            <CardHeader>
+              <CardTitle>Reports & Analytics</CardTitle>
+              <CardDescription>
+                View detailed reports and analytics about the platform.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex justify-end">
+                <Button onClick={() => navigate('/admin/reports')}>Open Full Reports Dashboard</Button>
+              </div>
+              <p className="text-muted-foreground text-center py-12">
+                Navigate to the full Reports & Analytics page for complete functionality.
+              </p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="settings">
+          <Card>
+            <CardHeader>
+              <CardTitle>System Settings</CardTitle>
+              <CardDescription>
+                Configure system-wide settings for the travel application.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex justify-end">
+                <Button onClick={() => navigate('/admin/settings')}>Open System Settings</Button>
+              </div>
+              <p className="text-muted-foreground text-center py-12">
+                Navigate to the full System Settings page for complete functionality.
+              </p>
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>

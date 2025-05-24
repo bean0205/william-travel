@@ -126,7 +126,7 @@ const EditGuidePage: React.FC = () => {
           onFinish={onFinish}
           initialValues={{
             guideId: user?.id,
-            guideName: user?.name,
+            guideName: user?.full_name,
           }}
         >
           <Divider orientation="left">Basic Information</Divider>

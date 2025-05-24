@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getNavItems } from '@/routes/routes';
 import { Button } from '@/components/ui/button';
@@ -24,10 +24,17 @@ import {
   UsersIcon,
   ThumbsUpIcon,
   BarChartIcon,
-  HelpCircleIcon
+  HelpCircleIcon,
+  LogOutIcon,
+  SettingsIcon,
+  ShieldIcon,
+  BookmarkIcon,
+  ChefHatIcon
 } from 'lucide-react';
 import { ThemeToggleButton } from '@/components/common/ThemeToggleButton';
 import { LanguageButton } from '@/components/common/LanguageButton';
+import { useAuthStore } from '@/store/authStore';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -39,11 +46,26 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 const Header = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const navItems = getNavItems();
   const { t } = useTranslation();
+  const { user, isAuthenticated, logout, checkAuth } = useAuthStore();
+
+  // Check if the user is authenticated on component mount
+  useEffect(() => {
+    const verifyAuth = async () => {
+      try {
+        await checkAuth();
+      } catch (error) {
+        console.error('Auth verification failed:', error);
+      }
+    };
+    
+    verifyAuth();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Handle scroll event to change header appearance
   useEffect(() => {
@@ -239,24 +261,101 @@ const Header = () => {
               <LanguageButton />
 
               {/* Settings toggle */}
-              <ThemeToggleButton />
-
-
-
-
-              {/* User menu / login */}
+              <ThemeToggleButton />              {/* User menu / login */}
               <div className="relative">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  asChild
-                  className="gap-2 rounded-full bg-transparent border-muted-foreground/20"
-                >
-                  <Link to="/login">
-                    <UserIcon className="h-4 w-4" />
-                    <span>{t('navigation.login')}</span>
-                  </Link>
-                </Button>
+                {isAuthenticated ? (
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-2 rounded-full bg-transparent border-muted-foreground/20"
+                      >
+                        <Avatar className="h-6 w-6">
+                          <AvatarImage src={user?.avatar || ''} alt={user?.full_name || 'User'} />
+                          <AvatarFallback className="bg-primary-100 text-primary-700 dark:bg-primary-800 dark:text-primary-300">
+                            {user?.full_name?.charAt(0) || 'U'}
+                          </AvatarFallback>
+                        </Avatar>
+                        <span className="hidden sm:inline-block">{user?.full_name || 'User'}</span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-56">                      <DropdownMenuLabel>
+                        <div className="flex flex-col">
+                          <span>{user?.full_name}</span>
+                          <span className="text-xs text-muted-foreground">{user?.email}</span>
+                          {user?.role && (
+                            <span className="text-xs mt-1 px-2 py-0.5 bg-primary-100 text-primary-700 dark:bg-primary-900/20 dark:text-primary-400 rounded-full inline-block w-fit">
+                              {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                            </span>
+                          )}
+                        </div>
+                      </DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem asChild>
+                        <Link to="/profile" className="flex items-center">
+                          <UserIcon className="mr-2 h-4 w-4" />
+                          <span>{t('navigation.profile')}</span>
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link to="/favorites" className="flex items-center">
+                          <HeartIcon className="mr-2 h-4 w-4" />
+                          <span>{t('navigation.favorites')}</span>
+                        </Link>
+                      </DropdownMenuItem>
+                        {/* Admin panel link - only show if user is admin */}
+                      {(user?.role === 'admin' || user?.is_superuser) && (
+                        <DropdownMenuItem asChild>
+                          <Link to="/admin" className="flex items-center">
+                            <ShieldIcon className="mr-2 h-4 w-4" />
+                            <span>{t('navigation.adminPanel')}</span>
+                          </Link>
+                        </DropdownMenuItem>
+                      )}
+                      
+                      {/* Guide panel link - only show if user is guide */}
+                      {user?.role === 'guide' && (
+                        <DropdownMenuItem asChild>
+                          <Link to="/guides/my-guides" className="flex items-center">
+                            <ChefHatIcon className="mr-2 h-4 w-4" />
+                            <span>{t('navigation.guidePanel')}</span>
+                          </Link>
+                        </DropdownMenuItem>
+                      )}
+                      
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem asChild>
+                        <Link to="/settings" className="flex items-center">
+                          <SettingsIcon className="mr-2 h-4 w-4" />
+                          <span>{t('navigation.settings')}</span>
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem 
+                        className="flex items-center text-red-600 focus:text-red-600" 
+                        onClick={() => {
+                          logout();
+                          navigate('/login');
+                        }}
+                      >
+                        <LogOutIcon className="mr-2 h-4 w-4" />
+                        <span>{t('navigation.logout')}</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                ) : (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    asChild
+                    className="gap-2 rounded-full bg-transparent border-muted-foreground/20"
+                  >
+                    <Link to="auth/login">
+                      <UserIcon className="h-4 w-4" />
+                      <span>{t('navigation.login')}</span>
+                    </Link>
+                  </Button>
+                )}
               </div>
             </div>
 
@@ -310,25 +409,47 @@ const Header = () => {
                   >
                     <XIcon className="h-5 w-5" />
                   </Button>
-                </div>
-
-                {/* User Profile and Actions Section */}
+                </div>                {/* User Profile and Actions Section */}
                 <div className="mb-8 py-4 px-3 bg-muted/30 rounded-xl">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-100 dark:bg-primary-900/30">
-                      <UserIcon className="h-6 w-6 text-primary-600 dark:text-primary-400" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium">{t('header.welcome')}</h3>
-                      <Button asChild variant="link" className="p-0 h-auto font-semibold text-primary-600">
-                        <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
-                          {t('navigation.login')}
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="flex items-center gap-4 mb-4">                    {isAuthenticated ? (
+                      <>
+                        <Avatar className="h-12 w-12">
+                          <AvatarImage src={user?.avatar || ''} alt={user?.full_name || ''} />
+                          <AvatarFallback className="bg-primary-100 text-primary-600 dark:bg-primary-900/30 dark:text-primary-400">
+                            {user?.full_name?.charAt(0) || 'U'}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <h3 className="font-medium">{t('header.welcomeBack')}</h3>
+                          <p className="text-sm text-muted-foreground">{user?.full_name}</p>
+                          <Button
+                            variant="link"
+                            className="p-0 h-auto font-semibold text-primary-600"
+                            onClick={() => {
+                              logout();
+                              setMobileMenuOpen(false);
+                            }}
+                          >
+                            {t('navigation.logout')}
+                          </Button>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-100 dark:bg-primary-900/30">
+                          <UserIcon className="h-6 w-6 text-primary-600 dark:text-primary-400" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium">{t('header.welcome')}</h3>
+                          <Button asChild variant="link" className="p-0 h-auto font-semibold text-primary-600">
+                            <Link to="auth/login" onClick={() => setMobileMenuOpen(false)}>
+                              {t('navigation.login')}
+                            </Link>
+                          </Button>
+                        </div>
+                      </>
+                    )}
+                  </div>                  <div className="grid grid-cols-2 gap-2">
                     {/* Search Button */}
                     <Button
                       variant="outline"
@@ -339,15 +460,40 @@ const Header = () => {
                       <SearchIcon className="h-4 w-4" />
                       <span>{t('search')}</span>
                     </Button>
+                    
+                    {isAuthenticated && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        asChild
+                        className="flex items-center justify-start gap-2 rounded-lg"
+                      >
+                        <Link to="/profile">
+                          <UserIcon className="h-4 w-4" />
+                          <span>{t('navigation.profile')}</span>
+                        </Link>
+                      </Button>
+                    )}
 
-
-
-
-                    {/* Theme Toggle Button - Manual implementation */}
+                    {/* Theme Toggle Button */}
                     <ThemeToggleButton />
 
-                    {/* Language Switcher Button - Manual implementation */}
+                    {/* Language Switcher Button */}
                     <LanguageButton />
+                    
+                    {isAuthenticated && (user?.role === 'admin' || user?.is_superuser) && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        asChild
+                        className="flex items-center justify-start gap-2 rounded-lg"
+                      >
+                        <Link to="/admin">
+                          <ShieldIcon className="h-4 w-4" />
+                          <span>{t('navigation.adminPanel')}</span>
+                        </Link>
+                      </Button>
+                    )}
                   </div>
                 </div>
 

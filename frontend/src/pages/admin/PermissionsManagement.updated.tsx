@@ -1,4 +1,3 @@
-// filepath: /Users/williamnguyen/Documents/william travel/frontend/src/pages/admin/PermissionsManagement.tsx
 import React, { useState, useEffect } from 'react';
 import {
   Table, Button, Space, Typography, Input, Modal, Form, Card,
@@ -8,8 +7,6 @@ import {
   EditOutlined, DeleteOutlined, PlusOutlined, SafetyCertificateOutlined, EyeOutlined,
   TableOutlined, ReloadOutlined, SearchOutlined, KeyOutlined
 } from '@ant-design/icons';
-import { Permission as PermissionEnum } from '@/utils/permissions';
-import { PermissionGuard } from '@/components/common/PermissionGuards';
 import {
   Permission,
   getPermissions,
@@ -177,26 +174,24 @@ const PermissionsManagement: React.FC = () => {
       title: 'Actions',
       key: 'actions',
       render: (_: any, record: Permission) => (
-        <PermissionGuard requiredPermissions={[PermissionEnum.PERMISSION_MANAGE]}>
-          <Space size="middle">
-            <Button
-              type="text"
-              icon={<EyeOutlined />}
-              onClick={() => showViewModal(record.id)}
-            />
-            <Button
-              type="text"
-              icon={<EditOutlined />}
-              onClick={() => showEditModal(record)}
-            />
-            <Button
-              type="text"
-              danger
-              icon={<DeleteOutlined />}
-              onClick={() => handleDelete(record.id)}
-            />
-          </Space>
-        </PermissionGuard>
+        <Space size="middle">
+          <Button
+            type="text"
+            icon={<EyeOutlined />}
+            onClick={() => showViewModal(record.id)}
+          />
+          <Button
+            type="text"
+            icon={<EditOutlined />}
+            onClick={() => showEditModal(record)}
+          />
+          <Button
+            type="text"
+            danger
+            icon={<DeleteOutlined />}
+            onClick={() => handleDelete(record.id)}
+          />
+        </Space>
       ),
     },
   ];
@@ -226,15 +221,13 @@ const PermissionsManagement: React.FC = () => {
                   style={{ width: 250 }}
                   allowClear
                 />
-                <PermissionGuard requiredPermissions={[PermissionEnum.PERMISSION_CREATE]}>
-                  <Button
-                    type="primary"
-                    icon={<PlusOutlined />}
-                    onClick={showCreateModal}
-                  >
-                    Add Permission
-                  </Button>
-                </PermissionGuard>
+                <Button
+                  type="primary"
+                  icon={<PlusOutlined />}
+                  onClick={showCreateModal}
+                >
+                  Add Permission
+                </Button>
                 <Button
                   icon={<ReloadOutlined />}
                   onClick={() => fetchPermissions()}

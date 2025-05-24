@@ -40,6 +40,8 @@ export const authService: AuthService = {
       formData.append('username', data.username);
       formData.append('password', data.password);
       
+      console.log('Login request data:', { username: data.username, password: '***' });
+      console.log('FormData:', formData.toString());
 
       const response = await apiClient.post(API_ENDPOINTS.AUTH.LOGIN, formData.toString(), {
         headers: {
@@ -47,19 +49,29 @@ export const authService: AuthService = {
         },
       });
 
+      console.log('Login success response:', response);
       return {
         success: true,
         data: response.data,
         error: null,
         status: response.status,
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Login error:', error);
+      const axiosError = error as any;
+      console.error('Error response:', axiosError.response);
+      console.error('Error response data:', axiosError.response?.data);
+      console.error('Error detail:', axiosError.response?.data?.detail);
+      console.error('Error status:', axiosError.response?.status);
+      
+      const errorMessage = axiosError.response?.data?.detail || 'An unexpected error occurred during login';
+      console.error('Final error message:', errorMessage);
+      
       return {
         success: false,
         data: null,
-        error: error.response?.data?.detail || 'An unexpected error occurred during login',
-        status: error.response?.status || 500,
+        error: errorMessage,
+        status: axiosError.response?.status || 500,
       };
     }
   },
@@ -74,13 +86,14 @@ export const authService: AuthService = {
         error: null,
         status: response.status,
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Password reset request error:', error);
+      const axiosError = error as any;
       return {
         success: false,
         data: null,
-        error: error.response?.data?.detail || 'An unexpected error occurred during password reset request',
-        status: error.response?.status || 500,
+        error: axiosError.response?.data?.detail || 'An unexpected error occurred during password reset request',
+        status: axiosError.response?.status || 500,
       };
     }
   },
@@ -95,13 +108,14 @@ export const authService: AuthService = {
         error: null,
         status: response.status,
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Password reset error:', error);
+      const axiosError = error as any;
       return {
         success: false,
         data: null,
-        error: error.response?.data?.detail || 'An unexpected error occurred during password reset',
-        status: error.response?.status || 500,
+        error: axiosError.response?.data?.detail || 'An unexpected error occurred during password reset',
+        status: axiosError.response?.status || 500,
       };
     }
   },
@@ -116,13 +130,14 @@ export const authService: AuthService = {
         error: null,
         status: response.status,
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Logout error:', error);
+      const axiosError = error as any;
       return {
         success: false,
         data: null,
-        error: error.response?.data?.detail || 'An unexpected error occurred during logout',
-        status: error.response?.status || 500,
+        error: axiosError.response?.data?.detail || 'An unexpected error occurred during logout',
+        status: axiosError.response?.status || 500,
       };
     }
   },

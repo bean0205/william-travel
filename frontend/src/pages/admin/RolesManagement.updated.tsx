@@ -1,4 +1,3 @@
-// filepath: /Users/williamnguyen/Documents/william travel/frontend/src/pages/admin/RolesManagement.tsx
 import React, { useState, useEffect } from 'react';
 import {
   Table, Button, Space, Typography, Input, Modal, Form, Card,
@@ -9,10 +8,8 @@ import {
   EditOutlined, DeleteOutlined, PlusOutlined, TeamOutlined, EyeOutlined,
   TableOutlined, ReloadOutlined, SearchOutlined, SafetyCertificateOutlined
 } from '@ant-design/icons';
-import { Permission } from '@/utils/permissions';
-import { PermissionGuard } from '@/components/common/PermissionGuards';
 import { Role, getRoles, getRoleById, createRole, updateRole, deleteRole } from '@/services/api/roleService';
-import { Permission as PermissionType, getPermissions } from '@/services/api/permissionService';
+import { Permission, getPermissions } from '@/services/api/permissionService';
 
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
@@ -21,7 +18,7 @@ const { Search } = Input;
 const RolesManagement: React.FC = () => {
   // State
   const [roles, setRoles] = useState<Role[]>([]);
-  const [permissions, setPermissions] = useState<PermissionType[]>([]);
+  const [permissions, setPermissions] = useState<Permission[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [editingRole, setEditingRole] = useState<Role | null>(null);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
@@ -224,26 +221,24 @@ const RolesManagement: React.FC = () => {
       title: 'Actions',
       key: 'actions',
       render: (_: any, record: Role) => (
-        <PermissionGuard requiredPermissions={[Permission.ROLE_MANAGE]}>
-          <Space size="middle">
-            <Button
-              type="text"
-              icon={<EyeOutlined />}
-              onClick={() => showViewModal(record.id)}
-            />
-            <Button
-              type="text"
-              icon={<EditOutlined />}
-              onClick={() => showEditModal(record)}
-            />
-            <Button
-              type="text"
-              danger
-              icon={<DeleteOutlined />}
-              onClick={() => handleDelete(record.id)}
-            />
-          </Space>
-        </PermissionGuard>
+        <Space size="middle">
+          <Button
+            type="text"
+            icon={<EyeOutlined />}
+            onClick={() => showViewModal(record.id)}
+          />
+          <Button
+            type="text"
+            icon={<EditOutlined />}
+            onClick={() => showEditModal(record)}
+          />
+          <Button
+            type="text"
+            danger
+            icon={<DeleteOutlined />}
+            onClick={() => handleDelete(record.id)}
+          />
+        </Space>
       ),
     },
   ];
@@ -272,15 +267,13 @@ const RolesManagement: React.FC = () => {
                   style={{ width: 250 }}
                   allowClear
                 />
-                <PermissionGuard requiredPermissions={[Permission.ROLE_CREATE]}>
-                  <Button
-                    type="primary"
-                    icon={<PlusOutlined />}
-                    onClick={showCreateModal}
-                  >
-                    Add Role
-                  </Button>
-                </PermissionGuard>
+                <Button
+                  type="primary"
+                  icon={<PlusOutlined />}
+                  onClick={showCreateModal}
+                >
+                  Add Role
+                </Button>
                 <Button
                   icon={<ReloadOutlined />}
                   onClick={() => fetchRoles()}

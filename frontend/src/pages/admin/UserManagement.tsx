@@ -1,437 +1,459 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Space, Tag, Typography, Input, Avatar, Tabs, Card, Spin, message } from 'antd';
 import {
-  EditOutlined,
-  DeleteOutlined,
-  PlusOutlined,
-  UserOutlined,
-  BarChartOutlined,
-  TableOutlined
+  Table, Button, Space, Tag, Typography, Input, Modal, Form,
+  Select, Switch, message, Card, Tabs, Row, Col, Skeleton
+} from 'antd';
+import {
+  EditOutlined, DeleteOutlined, PlusOutlined, UserOutlined, EyeOutlined,
+  BarChartOutlined, TableOutlined, SearchOutlined, ReloadOutlined
 } from '@ant-design/icons';
 import { Permission } from '@/utils/permissions';
 import { PermissionGuard } from '@/components/common/PermissionGuards';
-import UserStatistics from '@/components/admin/UserStatistics';
-import UserForm from '@/components/admin/UserForm';
-import { getUsers, createUser, updateUser, deleteUser, User } from '@/services/api/userService';
-import { getRoles } from '@/services/api/roleService';
+import { User, getUsers, getUserById, createUser, updateUser, deleteUser } from '@/services/api/userService';
+import { getRoles, Role } from '@/services/api/roleService';
 
-const { Search } = Input;
+const { Title, Text } = Typography;
 const { TabPane } = Tabs;
-
-interface UserStats {
-  totalUsers: number;
-  activeUsers: number;
-  newUsersThisMonth: number;
-  verifiedUsers: number;
-  usersByRole: Array<{ name: string; value: number }>;
-  usersByStatus: Array<{ name: string; value: number }>;
-  usersByCountry: Array<{ name: string; value: number }>;
-  userRegistrations: Array<{ date: string; count: number }>;
-  loginActivity: Array<{ date: string; count: number }>;
-}
+const { Search } = Input;
 
 const UserManagement: React.FC = () => {
+  // State
   const [users, setUsers] = useState<User[]>([]);
-  const [roles, setRoles] = useState<any[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [activeTab, setActiveTab] = useState('table');
-  const [formLoading, setFormLoading] = useState(false);
-  const [roleFilter, setRoleFilter] = useState<string | null>(null);
-  const [totalItems, setTotalItems] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
-
-  const [stats, setStats] = useState<UserStats>({
-    totalUsers: 0,
-    activeUsers: 0,
-    newUsersThisMonth: 0,
-    verifiedUsers: 0,
-    usersByRole: [],
-    usersByStatus: [],
-    usersByCountry: [],
-    userRegistrations: [],
-    loginActivity: [],
+  const [roles, setRoles] = useState<Role[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [modalType, setModalType] = useState<'create' | 'edit'>('create');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [form] = Form.useForm();
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+    total: 0,
   });
+  const [viewUserModalVisible, setViewUserModalVisible] = useState<boolean>(false);
+  const [viewUser, setViewUser] = useState<User | null>(null);
 
+  // Fetch users and roles
   useEffect(() => {
     fetchUsers();
     fetchRoles();
-  }, [currentPage, pageSize]);
+  }, []);
 
   const fetchUsers = async () => {
     try {
-      setIsLoading(true);
-      const data = await getUsers({
-        skip: (currentPage - 1) * pageSize,
-        limit: pageSize
-      });
-
-      if (Array.isArray(data)) {
-        setUsers(data);
-        setTotalItems(data.length);
-      } else if (data && Array.isArray(data.items)) {
-        setUsers(data.items);
-        setTotalItems(data.total || data.items.length);
-      } else {
-        setUsers([]);
-        setTotalItems(0);
-      }
-
-      calculateStatistics(Array.isArray(data) ? data : (data?.items || []));
-      setIsLoading(false);
+      setLoading(true);
+      const skip = (pagination.current - 1) * pagination.pageSize;
+      const data = await getUsers(skip, pagination.pageSize);
+      setUsers(data);
+      setPagination({ ...pagination, total: data.length * 10 }); // Just a placeholder, actual backend should return total count
+      setLoading(false);
     } catch (error) {
-      console.error('Error fetching users:', error);
       message.error('Failed to fetch users');
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
   const fetchRoles = async () => {
     try {
-      const rolesData = await getRoles();
-      if (Array.isArray(rolesData)) {
-        setRoles(rolesData);
-      } else if (rolesData && Array.isArray(rolesData.items)) {
-        setRoles(rolesData.items);
-      }
+      const data = await getRoles();
+      setRoles(data);
     } catch (error) {
-      console.error('Error fetching roles:', error);
+      message.error('Failed to fetch roles');
     }
   };
 
-  const calculateStatistics = (data: User[]) => {
-    const activeCount = data.filter(user => user.is_active).length;
-    const verifiedCount = data.filter(user => user.is_active).length;
-
-    const roleMap = new Map();
-    data.forEach(user => {
-      const role = user.role || 'unknown';
-      roleMap.set(role, (roleMap.get(role) || 0) + 1);
+  const handleTableChange = (newPagination: any) => {
+    setPagination({
+      ...pagination,
+      current: newPagination.current,
+      pageSize: newPagination.pageSize,
     });
-
-    const roleStats = Array.from(roleMap.entries()).map(([name, value]) => ({
-      name,
-      value,
-    }));
-
-    const statusMap = new Map([
-      ['active', data.filter(user => user.is_active).length],
-      ['inactive', data.filter(user => !user.is_active).length]
-    ]);
-
-    const statusStats = Array.from(statusMap.entries()).map(([name, value]) => ({
-      name,
-      value,
-    }));
-
-    const countryMap = new Map();
-    data.forEach(user => {
-      const country = 'Unknown';
-      countryMap.set(country, (countryMap.get(country) || 0) + 1);
-    });
-
-    const countryStats = Array.from(countryMap.entries()).map(([name, value]) => ({
-      name,
-      value,
-    }));
-
-    const registrationMap = new Map();
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-    data.forEach(user => {
-      if (user.created_at) {
-        const date = new Date(user.created_at);
-        const monthName = months[date.getMonth()];
-        registrationMap.set(monthName, (registrationMap.get(monthName) || 0) + 1);
-      }
-    });
-
-    const registrationData = months.map(month => ({
-      date: month,
-      count: registrationMap.get(month) || 0,
-    }));
-
-    const loginActivity = [
-      { date: '05-01', count: 42 },
-      { date: '05-02', count: 38 },
-      { date: '05-03', count: 45 },
-      { date: '05-04', count: 50 },
-      { date: '05-05', count: 55 },
-      { date: '05-06', count: 48 },
-      { date: '05-07', count: 52 },
-    ];
-
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
-    const newUsersThisMonth = data.filter(user => {
-      if (!user.created_at) return false;
-      const creationDate = new Date(user.created_at);
-      return creationDate.getMonth() === currentMonth && creationDate.getFullYear() === currentYear;
-    }).length;
-
-    setStats({
-      totalUsers: totalItems,
-      activeUsers: activeCount,
-      newUsersThisMonth,
-      verifiedUsers: verifiedCount,
-      usersByRole: roleStats,
-      usersByStatus: statusStats,
-      usersByCountry: countryStats,
-      userRegistrations: registrationData,
-      loginActivity: loginActivity,
-    });
+    fetchUsers();
   };
 
   const handleSearch = (value: string) => {
-    setSearchTerm(value);
-    setCurrentPage(1);
-    const filtered = users.filter(user =>
-      user.full_name?.toLowerCase().includes(value.toLowerCase()) ||
-      user.email?.toLowerCase().includes(value.toLowerCase())
-    );
-    calculateStatistics(filtered);
-  };
-
-  const handleCreateUser = () => {
-    setSelectedUser(null);
-    setIsModalVisible(true);
-  };
-
-  const handleEditUser = (user: User) => {
-    setSelectedUser(user);
-    setIsModalVisible(true);
-  };
-
-  const handleDeleteUser = async (id: number) => {
-    try {
-      await deleteUser(id);
-      message.success('User deleted successfully');
+    setSearchQuery(value);
+    // In a real app, you would call fetchUsers with the search parameter
+    // For now, we'll just filter locally
+    if (value.trim() === '') {
       fetchUsers();
-    } catch (error) {
-      console.error(`Error deleting user with ID ${id}:`, error);
-      message.error('Failed to delete user');
     }
   };
 
-  const handleFormSubmit = async (userData: Partial<User>) => {
-    try {
-      setFormLoading(true);
+  const showCreateModal = () => {
+    form.resetFields();
+    setModalType('create');
+    setIsModalVisible(true);
+  };
 
-      if (selectedUser) {
-        await updateUser(selectedUser.id, userData);
-        message.success('User updated successfully');
-      } else {
-        await createUser(userData as any);
+  const showEditModal = (user: User) => {
+    setEditingUser(user);
+    form.setFieldsValue({
+      email: user.email,
+      full_name: user.full_name,
+      role: user.role,
+      is_active: user.is_active,
+      is_superuser: user.is_superuser,
+    });
+    setModalType('edit');
+    setIsModalVisible(true);
+  };
+
+  const showViewModal = async (userId: number) => {
+    try {
+      setLoading(true);
+      const user = await getUserById(userId);
+      setViewUser(user);
+      setViewUserModalVisible(true);
+      setLoading(false);
+    } catch (error) {
+      message.error('Failed to fetch user details');
+      setLoading(false);
+    }
+  };
+
+  const handleModalOk = async () => {
+    try {
+      const values = await form.validateFields();
+      if (modalType === 'create') {
+        await createUser({
+          ...values,
+          password: values.password || 'defaultPassword123', // In real app, you might want to generate a random password
+        });
         message.success('User created successfully');
+      } else if (modalType === 'edit' && editingUser) {
+        await updateUser(editingUser.id, values);
+        message.success('User updated successfully');
       }
-
       setIsModalVisible(false);
-      setFormLoading(false);
       fetchUsers();
     } catch (error) {
-      console.error('Error saving user:', error);
-      message.error('Failed to save user');
-      setFormLoading(false);
+      message.error('Operation failed');
     }
   };
 
-  const handleRoleFilter = (role: string | null) => {
-    setRoleFilter(role);
-    setCurrentPage(1);
+  const handleDelete = async (userId: number) => {
+    Modal.confirm({
+      title: 'Are you sure you want to delete this user?',
+      content: 'This action cannot be undone',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk: async () => {
+        try {
+          await deleteUser(userId);
+          message.success('User deleted successfully');
+          fetchUsers();
+        } catch (error) {
+          message.error('Failed to delete user');
+        }
+      },
+    });
   };
 
   const columns = [
     {
-      title: 'User',
-      key: 'user',
-      render: (text: string, record: User) => (
-        <div className="flex items-center">
-          <Avatar
-            icon={<UserOutlined />}
-            src={record.avatar}
-            className="mr-2"
-          />
-          <div>
-            <div className="font-medium">{record.full_name}</div>
-            <div className="text-gray-500 text-sm">{record.email}</div>
-          </div>
-        </div>
-      ),
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+      sorter: (a: User, b: User) => a.id - b.id,
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+      sorter: (a: User, b: User) => a.email.localeCompare(b.email),
+    },
+    {
+      title: 'Name',
+      dataIndex: 'full_name',
+      key: 'full_name',
+      sorter: (a: User, b: User) => a.full_name.localeCompare(b.full_name),
     },
     {
       title: 'Role',
       dataIndex: 'role',
       key: 'role',
-      render: (role: string) => {
-        let color = 'default';
-        switch (role) {
-          case 'admin':
-            color = 'red';
-            break;
-          case 'moderator':
-            color = 'orange';
-            break;
-          case 'guide':
-            color = 'green';
-            break;
-          case 'partner':
-            color = 'purple';
-            break;
-          default:
-            color = 'blue';
-        }
-        return <Tag color={color}>{role}</Tag>;
-      },
+      render: (role: string) => (
+        <Tag color={role === 'admin' ? 'red' : role === 'moderator' ? 'blue' : 'green'}>
+          {role.toUpperCase()}
+        </Tag>
+      ),
       filters: roles.map(role => ({ text: role.name, value: role.name })),
       onFilter: (value: string, record: User) => record.role === value,
     },
     {
       title: 'Status',
+      dataIndex: 'is_active',
       key: 'status',
-      render: (text: string, record: User) => (
-        <Tag color={record.is_active ? 'green' : 'red'}>
-          {record.is_active ? 'Active' : 'Inactive'}
+      render: (isActive: boolean) => (
+        <Tag color={isActive ? 'green' : 'red'}>
+          {isActive ? 'ACTIVE' : 'INACTIVE'}
         </Tag>
       ),
+      filters: [
+        { text: 'Active', value: true },
+        { text: 'Inactive', value: false },
+      ],
+      onFilter: (value: boolean, record: User) => record.is_active === value,
     },
     {
-      title: 'Admin',
-      key: 'is_superuser',
-      render: (text: string, record: User) => (
-        record.is_superuser && <Tag color="purple">Superuser</Tag>
-      ),
-    },
-    {
-      title: 'Created At',
+      title: 'Created',
       dataIndex: 'created_at',
       key: 'created_at',
       render: (date: string) => new Date(date).toLocaleDateString(),
+      sorter: (a: User, b: User) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
     },
     {
-      title: 'Action',
-      key: 'action',
-      render: (text: string, record: User) => (
+      title: 'Actions',
+      key: 'actions',
+      render: (_: any, record: User) => (
         <Space size="middle">
           <Button
-            icon={<EditOutlined />}
-            onClick={() => handleEditUser(record)}
-            type="link"
+            type="text"
+            icon={<EyeOutlined />}
+            onClick={() => showViewModal(record.id)}
           />
           <Button
-            icon={<DeleteOutlined />}
-            onClick={() => handleDeleteUser(record.id)}
-            type="link"
+            type="text"
+            icon={<EditOutlined />}
+            onClick={() => showEditModal(record)}
+          />
+          <Button
+            type="text"
             danger
+            icon={<DeleteOutlined />}
+            onClick={() => handleDelete(record.id)}
           />
         </Space>
       ),
     },
   ];
 
-  const filteredUsers = users.filter(user => {
-    const matchesSearch = searchTerm ?
-      (user.full_name && user.full_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (user.email && user.email.toLowerCase().includes(searchTerm.toLowerCase())) :
-      true;
-
-    const matchesRole = roleFilter ? user.role === roleFilter : true;
-
-    return matchesSearch && matchesRole;
-  });
+  const filteredUsers = searchQuery
+    ? users.filter(
+        user =>
+          user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          user.full_name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : users;
 
   return (
-    <div className="p-6">
-      <Typography.Title level={2}>
-        <UserOutlined /> User Management
-      </Typography.Title>
+    <div className="user-management-container">
+      <Card>
+        <div className="user-management-header" style={{ marginBottom: 16 }}>
+          <Row justify="space-between" align="middle">
+            <Col>
+              <Title level={2}>User Management</Title>
+            </Col>
+            <Col>
+              <Space>
+                <Search
+                  placeholder="Search users..."
+                  onSearch={handleSearch}
+                  style={{ width: 250 }}
+                  allowClear
+                />
+                <Button
+                  type="primary"
+                  icon={<PlusOutlined />}
+                  onClick={showCreateModal}
+                >
+                  Add User
+                </Button>
+                <Button
+                  icon={<ReloadOutlined />}
+                  onClick={() => fetchUsers()}
+                >
+                  Refresh
+                </Button>
+              </Space>
+            </Col>
+          </Row>
+        </div>
 
-      <Tabs activeKey={activeTab} onChange={setActiveTab} className="mb-6">
-        <TabPane
-          tab={<span><TableOutlined /> Users List</span>}
-          key="table"
-        >
-          <div className="mb-4 flex justify-between flex-wrap">
-            <Search
-              placeholder="Search users by name or email"
-              onSearch={handleSearch}
-              onChange={(e) => handleSearch(e.target.value)}
-              style={{ width: 300, marginBottom: 16 }}
-            />
-
-            <PermissionGuard permission={Permission.CreateUser}>
-              <Button
-                type="primary"
-                icon={<PlusOutlined />}
-                onClick={handleCreateUser}
-              >
-                Add User
-              </Button>
-            </PermissionGuard>
-          </div>
-
-          {isLoading ? (
-            <div className="flex justify-center items-center h-60">
-              <Spin size="large" />
-            </div>
-          ) : (
+        <Tabs defaultActiveKey="table">
+          <TabPane
+            tab={
+              <span>
+                <TableOutlined />
+                User List
+              </span>
+            }
+            key="table"
+          >
             <Table
               columns={columns}
               dataSource={filteredUsers}
               rowKey="id"
-              pagination={{
-                current: currentPage,
-                onChange: (page) => setCurrentPage(page),
-                pageSize: pageSize,
-                total: totalItems,
-                showSizeChanger: true,
-                onShowSizeChange: (current, size) => {
-                  setCurrentPage(1);
-                  setPageSize(size);
-                },
-                showTotal: (total) => `Total ${total} users`,
-              }}
+              loading={loading}
+              pagination={pagination}
+              onChange={handleTableChange}
             />
-          )}
-        </TabPane>
-        <TabPane
-          tab={<span><BarChartOutlined /> Statistics</span>}
-          key="statistics"
-        >
-          {isLoading ? (
-            <div className="flex justify-center items-center h-60">
-              <Spin size="large" />
+          </TabPane>
+          <TabPane
+            tab={
+              <span>
+                <BarChartOutlined />
+                Statistics
+              </span>
+            }
+            key="statistics"
+          >
+            <div className="statistics-content">
+              <Row gutter={[16, 16]}>
+                <Col span={6}>
+                  <Card>
+                    <Skeleton loading={loading} active>
+                      <Title level={4}>Total Users</Title>
+                      <Title level={2}>{users.length}</Title>
+                    </Skeleton>
+                  </Card>
+                </Col>
+                <Col span={6}>
+                  <Card>
+                    <Skeleton loading={loading} active>
+                      <Title level={4}>Active Users</Title>
+                      <Title level={2}>{users.filter(u => u.is_active).length}</Title>
+                    </Skeleton>
+                  </Card>
+                </Col>
+                <Col span={6}>
+                  <Card>
+                    <Skeleton loading={loading} active>
+                      <Title level={4}>Admins</Title>
+                      <Title level={2}>{users.filter(u => u.role === 'admin').length}</Title>
+                    </Skeleton>
+                  </Card>
+                </Col>
+                <Col span={6}>
+                  <Card>
+                    <Skeleton loading={loading} active>
+                      <Title level={4}>Regular Users</Title>
+                      <Title level={2}>{users.filter(u => u.role === 'user').length}</Title>
+                    </Skeleton>
+                  </Card>
+                </Col>
+              </Row>
             </div>
-          ) : (
-            <UserStatistics stats={stats} />
-          )}
-        </TabPane>
-      </Tabs>
+          </TabPane>
+        </Tabs>
+      </Card>
 
-      {isModalVisible && (
-        <Card
-          title={selectedUser ? "Edit User" : "Create User"}
-          className="fixed inset-0 z-50 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto my-16 overflow-auto"
-          extra={
-            <Button
-              type="text"
-              onClick={() => setIsModalVisible(false)}
+      {/* Create/Edit User Modal */}
+      <Modal
+        title={modalType === 'create' ? 'Create New User' : 'Edit User'}
+        open={isModalVisible}
+        onOk={handleModalOk}
+        onCancel={() => setIsModalVisible(false)}
+        width={600}
+      >
+        <Form form={form} layout="vertical">
+          <Form.Item
+            name="email"
+            label="Email"
+            rules={[
+              { required: true, message: 'Please enter email' },
+              { type: 'email', message: 'Please enter a valid email' },
+            ]}
+          >
+            <Input prefix={<UserOutlined />} placeholder="Email" />
+          </Form.Item>
+
+          {modalType === 'create' && (
+            <Form.Item
+              name="password"
+              label="Password"
+              rules={[{ required: true, message: 'Please enter password' }]}
             >
-              Close
-            </Button>
-          }
-        >
-          <UserForm
-            user={selectedUser || undefined}
-            onSubmit={handleFormSubmit}
-            onCancel={() => setIsModalVisible(false)}
-            loading={formLoading}
-          />
-        </Card>
-      )}
+              <Input.Password placeholder="Password" />
+            </Form.Item>
+          )}
+
+          <Form.Item
+            name="full_name"
+            label="Full Name"
+            rules={[{ required: true, message: 'Please enter full name' }]}
+          >
+            <Input placeholder="Full Name" />
+          </Form.Item>
+
+          <Form.Item
+            name="role"
+            label="Role"
+            rules={[{ required: true, message: 'Please select role' }]}
+          >
+            <Select placeholder="Select role">
+              {roles.map(role => (
+                <Select.Option key={role.id} value={role.name}>{role.name}</Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name="is_active"
+            label="Active"
+            valuePropName="checked"
+          >
+            <Switch />
+          </Form.Item>
+
+          <Form.Item
+            name="is_superuser"
+            label="Superuser"
+            valuePropName="checked"
+          >
+            <Switch />
+          </Form.Item>
+        </Form>
+      </Modal>
+
+      {/* View User Modal */}
+      <Modal
+        title="User Details"
+        open={viewUserModalVisible}
+        onCancel={() => setViewUserModalVisible(false)}
+        footer={[
+          <Button key="back" onClick={() => setViewUserModalVisible(false)}>
+            Close
+          </Button>,
+        ]}
+        width={600}
+      >
+        {loading ? (
+          <Skeleton active paragraph={{ rows: 6 }} />
+        ) : viewUser ? (
+          <div>
+            <Row gutter={[16, 16]}>
+              <Col span={24}>
+                <Card title="Basic Information">
+                  <p><strong>ID:</strong> {viewUser.id}</p>
+                  <p><strong>Email:</strong> {viewUser.email}</p>
+                  <p><strong>Full Name:</strong> {viewUser.full_name}</p>
+                  <p><strong>Role:</strong> {viewUser.role}</p>
+                  <p>
+                    <strong>Status:</strong>
+                    <Tag color={viewUser.is_active ? 'green' : 'red'} style={{ marginLeft: 8 }}>
+                      {viewUser.is_active ? 'ACTIVE' : 'INACTIVE'}
+                    </Tag>
+                  </p>
+                  <p>
+                    <strong>Superuser:</strong>
+                    <Tag color={viewUser.is_superuser ? 'red' : 'default'} style={{ marginLeft: 8 }}>
+                      {viewUser.is_superuser ? 'YES' : 'NO'}
+                    </Tag>
+                  </p>
+                  <p><strong>Created At:</strong> {new Date(viewUser.created_at).toLocaleString()}</p>
+                  <p><strong>Updated At:</strong> {new Date(viewUser.updated_at).toLocaleString()}</p>
+                </Card>
+              </Col>
+            </Row>
+          </div>
+        ) : (
+          <p>No user data available</p>
+        )}
+      </Modal>
     </div>
   );
 };

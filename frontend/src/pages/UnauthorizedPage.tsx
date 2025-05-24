@@ -34,7 +34,7 @@ const UnauthorizedPage = () => {
             Về trang chủ
           </Link>
           <Link
-            to="/login"
+            to="auth/login"
             className="rounded-md border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
           >
             Đăng nhập với tài khoản khác

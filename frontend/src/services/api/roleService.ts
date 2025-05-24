@@ -1,77 +1,59 @@
-import apiClient from './apiClient';
+// Role service for API communication
+import axios from 'axios';
 import { API_ENDPOINTS } from '@/constants/apiEndpoints';
-
-export interface Permission {
-  id: string;
-  name: string;
-  code: string;
-  description?: string;
-  category?: string;
-  isSystem?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-}
+import { Permission } from './permissionService';
 
 export interface Role {
-  id: string;
+  id: number;
   name: string;
   description: string;
-  isSystem?: boolean;
-  permissionIds?: string[];
-  permissions?: Permission[];
-  userCount?: number;
-  createdAt?: string;
-  updatedAt?: string;
+  is_default: boolean;
+  permissions: Permission[];
+  created_at: string;
+  updated_at: string;
 }
 
-// Role API endpoints
-export const getRoles = async (params?: { skip?: number; limit?: number }) => {
-  const response = await apiClient.get(API_ENDPOINTS.ROLES.BASE, { params });
+export interface RoleCreatePayload {
+  name: string;
+  description: string;
+  is_default: boolean;
+  permission_ids: number[];
+}
+
+export interface RoleUpdatePayload {
+  name?: string;
+  description?: string;
+  is_default?: boolean;
+  permission_ids?: number[];
+}
+
+// Get all roles
+export const getRoles = async (skip = 0, limit = 100): Promise<Role[]> => {
+  const response = await axios.get(API_ENDPOINTS.roles.list, {
+    params: { skip, limit },
+  });
   return response.data;
 };
 
-export const getRoleById = async (id: string) => {
-  const response = await apiClient.get(`${API_ENDPOINTS.ROLES.BASE}/${id}`);
+// Get role by ID
+export const getRoleById = async (roleId: number): Promise<Role> => {
+  const response = await axios.get(API_ENDPOINTS.roles.detail(roleId));
   return response.data;
 };
 
-export const createRole = async (roleData: Partial<Role>) => {
-  const response = await apiClient.post(API_ENDPOINTS.ROLES.BASE, roleData);
+// Create a new role
+export const createRole = async (payload: RoleCreatePayload): Promise<Role> => {
+  const response = await axios.post(API_ENDPOINTS.roles.list, payload);
   return response.data;
 };
 
-export const updateRole = async (id: string, roleData: Partial<Role>) => {
-  const response = await apiClient.put(`${API_ENDPOINTS.ROLES.BASE}/${id}`, roleData);
+// Update a role
+export const updateRole = async (roleId: number, payload: RoleUpdatePayload): Promise<Role> => {
+  const response = await axios.put(API_ENDPOINTS.roles.detail(roleId), payload);
   return response.data;
 };
 
-export const deleteRole = async (id: string) => {
-  const response = await apiClient.delete(`${API_ENDPOINTS.ROLES.BASE}/${id}`);
-  return response.data;
-};
-
-// Permission API endpoints
-export const getPermissions = async (params?: { skip?: number; limit?: number }) => {
-  const response = await apiClient.get(API_ENDPOINTS.PERMISSIONS.BASE, { params });
-  return response.data;
-};
-
-export const getPermissionById = async (id: string) => {
-  const response = await apiClient.get(`${API_ENDPOINTS.PERMISSIONS.BASE}/${id}`);
-  return response.data;
-};
-
-export const createPermission = async (permissionData: Partial<Permission>) => {
-  const response = await apiClient.post(API_ENDPOINTS.PERMISSIONS.BASE, permissionData);
-  return response.data;
-};
-
-export const updatePermission = async (id: string, permissionData: Partial<Permission>) => {
-  const response = await apiClient.put(`${API_ENDPOINTS.PERMISSIONS.BASE}/${id}`, permissionData);
-  return response.data;
-};
-
-export const deletePermission = async (id: string) => {
-  const response = await apiClient.delete(`${API_ENDPOINTS.PERMISSIONS.BASE}/${id}`);
-  return response.data;
+// Delete a role
+export const deleteRole = async (roleId: number): Promise<void> => {
+  await axios.delete(API_ENDPOINTS.roles.detail(roleId));
 };

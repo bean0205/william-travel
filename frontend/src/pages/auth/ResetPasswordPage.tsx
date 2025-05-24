@@ -240,7 +240,7 @@ const ResetPasswordPage = () => {
         )}
 
         <div className="mt-6 flex items-center justify-center space-x-4">
-          <Link to="/login" className="text-sm text-gray-600 hover:text-primary-500">
+          <Link to="auth/login" className="text-sm text-gray-600 hover:text-primary-500">
             Quay lại đăng nhập
           </Link>
           <span className="text-gray-500">•</span>

@@ -63,11 +63,21 @@ const ResetPasswordPage = lazy(() => import('@/pages/auth/ResetPasswordPage'));
 
 // Admin pages
 const AdminDashboard = lazy(() => import('@/pages/admin/Dashboard'));
+const ModernDashboard = lazy(() => import('@/pages/admin/ModernDashboard'));
 const UserManagement = lazy(() => import('@/pages/admin/UserManagement'));
 const LocationManagement = lazy(
   () => import('@/pages/admin/LocationManagement')
 );
 const GuideManagement = lazy(() => import('@/pages/admin/GuideManagement'));
+const ArticleManagement = lazy(() => import('@/pages/admin/ArticleManagement'));
+const EventManagement = lazy(() => import('@/pages/admin/EventManagement'));
+const ReviewManagement = lazy(() => import('@/pages/admin/ReviewManagement'));
+const ReportsAnalytics = lazy(() => import('@/pages/admin/ReportsAnalytics'));
+const SystemSettings = lazy(() => import('@/pages/admin/SystemSettings'));
+const MediaManagement = lazy(() => import('@/pages/admin/MediaManagement'));
+const RolesManagement = lazy(() => import('@/pages/admin/RolesManagement'));
+const PermissionsManagement = lazy(() => import('@/pages/admin/PermissionsManagement'));
+const ContentManagement = lazy(() => import('@/pages/admin/ContentManagement'));
 
 // Guide pages
 const GuideDashboard = lazy(() => import('@/pages/guide/Dashboard'));
@@ -77,9 +87,9 @@ const EditGuidePage = lazy(() => import('@/pages/guide/EditGuidePage'));
 
 // Wrap each component with PageTransition
 const withPageTransition =
-  (Component: React.ComponentType<any>) => (props: any) => (
+  (Component: React.ComponentType) => () => (
     <PageTransition>
-      <Component {...props} />
+      <Component />
     </PageTransition>
   );
 
@@ -306,12 +316,60 @@ function App() {
               <Route path="/admin" element={<MainLayout />}>
                 <Route index element={withPageTransition(AdminDashboard)()} />
                 <Route
+                  path="modern"
+                  element={withPageTransition(ModernDashboard)()}
+                />
+                <Route
                   path="users"
                   element={withPageTransition(UserManagement)()}
                 />
                 <Route
+                  path="roles"
+                  element={withPageTransition(RolesManagement)()}
+                />
+                <Route
+                  path="permissions"
+                  element={withPageTransition(PermissionsManagement)()}
+                />
+                <Route
+                  path="content"
+                  element={withPageTransition(ContentManagement)()}
+                />
+                <Route
+                  path="locations"
+                  element={withPageTransition(LocationManagement)()}
+                />
+                <Route
                   path="locations/manage"
                   element={withPageTransition(LocationManagement)()}
+                />
+                <Route
+                  path="media"
+                  element={withPageTransition(MediaManagement)()}
+                />
+                <Route
+                  path="articles"
+                  element={withPageTransition(ArticleManagement)()}
+                />
+                <Route
+                  path="events"
+                  element={withPageTransition(EventManagement)()}
+                />
+                <Route
+                  path="reviews"
+                  element={withPageTransition(ReviewManagement)()}
+                />
+                <Route
+                  path="reports"
+                  element={withPageTransition(ReportsAnalytics)()}
+                />
+                <Route
+                  path="settings"
+                  element={withPageTransition(SystemSettings)()}
+                />
+                <Route
+                  path="guides"
+                  element={withPageTransition(GuideManagement)()}
                 />
                 <Route
                   path="guides/manage"

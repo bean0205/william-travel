@@ -31,7 +31,7 @@ const ProtectedRoute = ({ requiredPermissions, requiredRoles }: ProtectedRoutePr
   // Check if user is authenticated
   if (!isAuthenticated) {
     // Redirect to login page and save the location they were trying to access
-    return <Navigate to="/login" state={{ from: location.pathname }} replace />;
+    return <Navigate to="auth/login" state={{ from: location.pathname }} replace />;
   }
 
   // Check for required permissions if specified

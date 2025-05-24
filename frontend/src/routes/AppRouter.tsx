@@ -1,16 +1,16 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { APP_ROUTES } from './routes';
-import ProtectedRoute from './ProtectedRoute';
+import AdminRouteWrapper from './AdminRouteWrapper';
 
 // Page imports
 import HomePage from '@/pages/HomePage';
 import CountrySelectionPage from '@/pages/CountrySelectionPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import UnauthorizedPage from '@/pages/UnauthorizedPage';
+import AdminTest from '@/pages/AdminTest';
 
 // Admin pages
 import AdminDashboard from '@/pages/admin/AdminDashboard';
-// Import các trang admin mới
 import ContentManagement from '@/pages/admin/ContentManagement';
 import ArticleManagement from '@/pages/admin/ArticleManagement';
 import EventManagement from '@/pages/admin/EventManagement';
@@ -20,21 +20,33 @@ import SystemSettings from '@/pages/admin/SystemSettings';
 import UserManagement from '@/pages/admin/UserManagement';
 import LocationManagement from '@/pages/admin/LocationManagement';
 import GuideManagement from '@/pages/admin/GuideManagement';
+import MediaManagement from '@/pages/admin/MediaManagement';
+import RolesManagement from '@/pages/admin/RolesManagement';
+import PermissionsManagement from '@/pages/admin/PermissionsManagement';
 
-// Auth is needed for admin routes
-import { useAuthStore } from '@/store/authStore';
+// Location Management Pages
+import ContinentManagement from '@/pages/admin/ContinentManagement';
+import CountryManagement from '@/pages/admin/CountryManagement';
+import RegionManagement from '@/pages/admin/RegionManagement';
+import DistrictManagement from '@/pages/admin/DistrictManagement';
+import WardManagement from '@/pages/admin/WardManagement';
+import LocationCategoryManagement from '@/pages/admin/LocationCategoryManagement';
+// Accommodation & Food Management Pages
+import AccommodationManagement from '@/pages/admin/AccommodationManagement';
+import AccommodationCategoryManagement from '@/pages/admin/AccommodationCategoryManagement';
+import FoodManagement from '@/pages/admin/FoodManagement';
+import FoodCategoryManagement from '@/pages/admin/FoodCategoryManagement';
 
 const AppRouter = () => {
-  const { isAuthenticated, user } = useAuthStore();
-
-  const isAdmin = isAuthenticated && user?.role === 'admin';
-
   return (
     <BrowserRouter>
       <Routes>
         {/* Public Routes */}
         <Route path={APP_ROUTES.COUNTRY_SELECTION.path} element={<CountrySelectionPage />} />
         <Route path={APP_ROUTES.HOME.path} element={<HomePage />} />
+        
+        {/* Test route for admin functionality */}
+        <Route path="/admin-test" element={<AdminTest />} />
 
         {/* Add other public routes... */}
 
@@ -42,91 +54,283 @@ const AppRouter = () => {
         <Route
           path={APP_ROUTES.ADMIN_DASHBOARD.path}
           element={
-            <ProtectedRoute isAllowed={isAdmin} redirectPath="/unauthorized">
+            <AdminRouteWrapper>
               <AdminDashboard />
-            </ProtectedRoute>
+            </AdminRouteWrapper>
           }
         />
 
-        {/* Routes cho các trang admin */}
         <Route
           path={APP_ROUTES.ADMIN_CONTENT.path}
           element={
-            <ProtectedRoute isAllowed={isAdmin} redirectPath="/unauthorized">
+            <AdminRouteWrapper>
               <ContentManagement />
-            </ProtectedRoute>
+            </AdminRouteWrapper>
           }
         />
 
         <Route
           path={APP_ROUTES.ADMIN_ARTICLES.path}
           element={
-            <ProtectedRoute isAllowed={isAdmin} redirectPath="/unauthorized">
+            <AdminRouteWrapper>
               <ArticleManagement />
-            </ProtectedRoute>
+            </AdminRouteWrapper>
           }
         />
 
         <Route
           path={APP_ROUTES.ADMIN_EVENTS.path}
           element={
-            <ProtectedRoute isAllowed={isAdmin} redirectPath="/unauthorized">
+            <AdminRouteWrapper>
               <EventManagement />
-            </ProtectedRoute>
+            </AdminRouteWrapper>
           }
         />
 
         <Route
           path={APP_ROUTES.ADMIN_REVIEWS.path}
           element={
-            <ProtectedRoute isAllowed={isAdmin} redirectPath="/unauthorized">
+            <AdminRouteWrapper>
               <ReviewManagement />
-            </ProtectedRoute>
+            </AdminRouteWrapper>
           }
         />
 
         <Route
           path={APP_ROUTES.ADMIN_REPORTS.path}
           element={
-            <ProtectedRoute isAllowed={isAdmin} redirectPath="/unauthorized">
+            <AdminRouteWrapper>
               <ReportsAnalytics />
-            </ProtectedRoute>
+            </AdminRouteWrapper>
           }
         />
 
         <Route
           path={APP_ROUTES.ADMIN_SYSTEM_SETTINGS.path}
           element={
-            <ProtectedRoute isAllowed={isAdmin} redirectPath="/unauthorized">
+            <AdminRouteWrapper>
               <SystemSettings />
-            </ProtectedRoute>
+            </AdminRouteWrapper>
           }
         />
 
         <Route
           path={APP_ROUTES.ADMIN_USERS.path}
           element={
-            <ProtectedRoute isAllowed={isAdmin} redirectPath="/unauthorized">
+            <AdminRouteWrapper>
               <UserManagement />
-            </ProtectedRoute>
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_ROLES.path}
+          element={
+            <AdminRouteWrapper>
+              <RolesManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_PERMISSIONS.path}
+          element={
+            <AdminRouteWrapper>
+              <PermissionsManagement />
+            </AdminRouteWrapper>
           }
         />
 
         <Route
           path={APP_ROUTES.ADMIN_LOCATIONS.path}
           element={
-            <ProtectedRoute isAllowed={isAdmin} redirectPath="/unauthorized">
+            <AdminRouteWrapper>
               <LocationManagement />
-            </ProtectedRoute>
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_MEDIA.path}
+          element={
+            <AdminRouteWrapper>
+              <MediaManagement />
+            </AdminRouteWrapper>
           }
         />
 
         <Route
           path={APP_ROUTES.ADMIN_GUIDES.path}
           element={
-            <ProtectedRoute isAllowed={isAdmin} redirectPath="/unauthorized">
+            <AdminRouteWrapper>
               <GuideManagement />
-            </ProtectedRoute>
+            </AdminRouteWrapper>
+          }
+        />
+
+        {/* Location Management Routes */}
+        <Route
+          path={APP_ROUTES.ADMIN_LOCATIONS_CONTINENTS.path}
+          element={
+            <AdminRouteWrapper>
+              <ContinentManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_LOCATIONS_COUNTRIES.path}
+          element={
+            <AdminRouteWrapper>
+              <CountryManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_LOCATIONS_REGIONS.path}
+          element={
+            <AdminRouteWrapper>
+              <RegionManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_LOCATIONS_DISTRICTS.path}
+          element={
+            <AdminRouteWrapper>
+              <DistrictManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_LOCATIONS_WARDS.path}
+          element={
+            <AdminRouteWrapper>
+              <WardManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_LOCATIONS_CATEGORIES.path}
+          element={
+            <AdminRouteWrapper>
+              <LocationCategoryManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        {/* Accommodation Management Routes */}
+        <Route
+          path={APP_ROUTES.ADMIN_ACCOMMODATIONS.path}
+          element={
+            <AdminRouteWrapper>
+              <AccommodationManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_ACCOMMODATION_CATEGORIES.path}
+          element={
+            <AdminRouteWrapper>
+              <AccommodationCategoryManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        {/* Food Management Routes */}
+        <Route
+          path={APP_ROUTES.ADMIN_FOODS.path}
+          element={
+            <AdminRouteWrapper>
+              <FoodManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_FOOD_CATEGORIES.path}
+          element={
+            <AdminRouteWrapper>
+              <FoodCategoryManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        {/* Admin Detail/Edit Routes */}
+        <Route
+          path={APP_ROUTES.ADMIN_ARTICLE_CREATE.path}
+          element={
+            <AdminRouteWrapper>
+              <ArticleManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_ARTICLE_EDIT.path}
+          element={
+            <AdminRouteWrapper>
+              <ArticleManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_EVENT_CREATE.path}
+          element={
+            <AdminRouteWrapper>
+              <EventManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_EVENT_EDIT.path}
+          element={
+            <AdminRouteWrapper>
+              <EventManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_ACCOMMODATION_CREATE.path}
+          element={
+            <AdminRouteWrapper>
+              <ContentManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_ACCOMMODATION_EDIT.path}
+          element={
+            <AdminRouteWrapper>
+              <ContentManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_FOOD_CREATE.path}
+          element={
+            <AdminRouteWrapper>
+              <ContentManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        <Route
+          path={APP_ROUTES.ADMIN_FOOD_EDIT.path}
+          element={
+            <AdminRouteWrapper>
+              <ContentManagement />
+            </AdminRouteWrapper>
           }
         />
 

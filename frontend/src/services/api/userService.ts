@@ -1,31 +1,19 @@
-import apiClient from './apiClient';
+// User service for API communication
+import axios from 'axios';
 import { API_ENDPOINTS } from '@/constants/apiEndpoints';
-import { ApiResponse } from '@/types/api';
 
 export interface User {
   id: number;
   email: string;
   full_name: string;
   is_active: boolean;
-  role_id?: number; // Added role_id as the API returns role_id, not role
-  role?: string;    // Keep role for backward compatibility
+  role: string;
   is_superuser: boolean;
   created_at: string;
-  updated_at: string | null; // Updated to match API response that can be null
+  updated_at: string;
 }
 
-export interface UpdateUserRequest {
-  email?: string;
-  full_name?: string;
-  is_active?: boolean;
-}
-
-export interface UpdatePasswordRequest {
-  current_password: string;
-  new_password: string;
-}
-
-export interface CreateUserRequest {
+export interface UserCreatePayload {
   email: string;
   password: string;
   full_name: string;
@@ -34,76 +22,64 @@ export interface CreateUserRequest {
   is_active: boolean;
 }
 
-// User API endpoints based on documentation
-const getCurrentUser = async (): Promise<ApiResponse<User>> => {
-  try {
-    const response = await apiClient.get(API_ENDPOINTS.USERS.ME);
-    return {
-      success: true,
-      data: response.data,
-    };
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : 'Failed to fetch user profile',
-    };
-  }
-};
+export interface UserUpdatePayload {
+  email?: string;
+  full_name?: string;
+  is_active?: boolean;
+  role?: string;
+  is_superuser?: boolean;
+}
 
-const updateCurrentUser = async (userData: UpdateUserRequest): Promise<User> => {
-  const response = await apiClient.put(API_ENDPOINTS.USERS.ME, userData);
+export interface PasswordUpdatePayload {
+  current_password: string;
+  new_password: string;
+}
+
+// Get current user profile
+export const getCurrentUser = async (): Promise<User> => {
+  const response = await axios.get(API_ENDPOINTS.users.me);
   return response.data;
 };
 
-const updatePassword = async (passwordData: UpdatePasswordRequest): Promise<User> => {
-  const response = await apiClient.put(API_ENDPOINTS.USERS.PASSWORD, passwordData);
+// Get all users
+export const getUsers = async (skip = 0, limit = 100): Promise<User[]> => {
+  const response = await axios.get(API_ENDPOINTS.users.list, {
+    params: { skip, limit },
+  });
   return response.data;
 };
 
-const getUserById = async (id: number): Promise<User> => {
-  const response = await apiClient.get(`${API_ENDPOINTS.USERS.BASE}/${id}`);
+// Get user by ID
+export const getUserById = async (userId: number): Promise<User> => {
+  const response = await axios.get(API_ENDPOINTS.users.detail(userId));
   return response.data;
 };
 
-const getUsers = async (params?: { skip?: number; limit?: number }): Promise<User[]> => {
-  const response = await apiClient.get(API_ENDPOINTS.USERS.BASE, { params });
+// Create a new user
+export const createUser = async (payload: UserCreatePayload): Promise<User> => {
+  const response = await axios.post(API_ENDPOINTS.users.list, payload);
   return response.data;
 };
 
-const createUser = async (userData: CreateUserRequest): Promise<User> => {
-  const response = await apiClient.post(API_ENDPOINTS.USERS.BASE, userData);
+// Update a user
+export const updateUser = async (userId: number, payload: UserUpdatePayload): Promise<User> => {
+  const response = await axios.put(API_ENDPOINTS.users.detail(userId), payload);
   return response.data;
 };
 
-const updateUser = async (id: number, userData: Partial<CreateUserRequest>): Promise<User> => {
-  const response = await apiClient.put(`${API_ENDPOINTS.USERS.BASE}/${id}`, userData);
+// Update current user
+export const updateCurrentUser = async (payload: UserUpdatePayload): Promise<User> => {
+  const response = await axios.put(API_ENDPOINTS.users.me, payload);
   return response.data;
 };
 
-const deleteUser = async (id: number): Promise<void> => {
-  await apiClient.delete(`${API_ENDPOINTS.USERS.BASE}/${id}`);
+// Update current user's password
+export const updateCurrentUserPassword = async (payload: PasswordUpdatePayload): Promise<User> => {
+  const response = await axios.put(API_ENDPOINTS.users.password, payload);
+  return response.data;
 };
 
-// Export all functions as a service object
-export const userService = {
-  getCurrentUser,
-  updateCurrentUser,
-  updatePassword,
-  getUserById,
-  getUsers,
-  createUser,
-  updateUser,
-  deleteUser
-};
-
-// Export individual functions as well for direct import
-export {
-  getCurrentUser,
-  updateCurrentUser,
-  updatePassword,
-  getUserById,
-  getUsers,
-  createUser,
-  updateUser,
-  deleteUser
+// Delete a user
+export const deleteUser = async (userId: number): Promise<void> => {
+  await axios.delete(API_ENDPOINTS.users.detail(userId));
 };

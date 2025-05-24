@@ -569,7 +569,7 @@ export const SupportAndFeedback = () => {
                   <Input
                     id="name"
                     placeholder={t('yourName')}
-                    defaultValue={user?.name || ''}
+                    defaultValue={user?.full_name || ''}
                   />
                 </div>
                 <div className="space-y-2">
