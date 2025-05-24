@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthStore } from '@/store/authStore';
-import authService from '@/services/api/authService';
 
 // UI components
 import { Button } from '@/components/ui/button';
@@ -59,17 +58,12 @@ const LoginPage = () => {
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {
-      // Using the new authService instead of direct store login
-      await authService.login({
-        username: data.email, // API expects 'username' for email field
-        password: data.password
-      });
-
+      clearError();
+      await login(data.email, data.password);
       // If successful, navigate to the redirect path
       navigate(from, { replace: true });
     } catch (error: any) {
-      // The error handling is already done in authService
-      // If you need additional client-side handling, you can add it here
+      // Error handling is done in the store
       console.error('Login failed:', error);
     }
   };
@@ -99,145 +93,92 @@ const LoginPage = () => {
               <MapPin className="h-6 w-6 text-primary-600 dark:text-primary-400" aria-hidden="true" />
             </div>
             <CardTitle className="text-2xl font-bold tracking-tight">Đăng Nhập</CardTitle>
-            <CardDescription>
-              Đăng nhập để khám phá những điểm đến tuyệt vời
-            </CardDescription>
+            <CardDescription>Nhập thông tin đăng nhập của bạn</CardDescription>
           </CardHeader>
-
-          <CardContent className="space-y-6">
-            {error && (
-              <Alert variant="destructive" className="animate-in fade-in-50 slide-in-from-top-5">
-                <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Lỗi đăng nhập</AlertTitle>
-                <AlertDescription className="flex justify-between items-center">
-                  <span>{error}</span>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={clearError}
-                    className="h-auto p-0 hover:bg-transparent"
-                  >
-                    <span className="sr-only">Đóng</span>
-                    <span aria-hidden="true">&times;</span>
-                  </Button>
-                </AlertDescription>
-              </Alert>
-            )}
-
-            <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
-              {/* Email */}
-              <div className="relative group">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <Mail className="h-4 w-4 text-gray-500 dark:text-gray-400 group-focus-within:text-primary" aria-hidden="true" />
+          <CardContent>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              {error && (
+                <Alert variant="destructive" className="mb-4">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertTitle>Lỗi</AlertTitle>
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              )}
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="yourname@example.com"
+                    className="pl-10"
+                    {...register('email')}
+                  />
                 </div>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="email@example.com"
-                  autoComplete="email"
-                  {...register('email')}
-                  className={`pl-10 h-12 transition-all bg-background border-muted group-hover:border-primary/50 ${errors.email ? 'border-red-500 focus-visible:ring-red-500' : 'focus-visible:ring-primary/20'}`}
-                />
-                <Label
-                  htmlFor="email"
-                  className="absolute left-10 -top-2.5 px-1 text-xs text-muted-foreground bg-background rounded-sm"
-                >
-                  Email
-                </Label>
                 {errors.email && (
-                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                    <AlertCircle className="h-3 w-3" />
-                    {errors.email.message}
-                  </p>
+                  <p className="text-sm text-destructive">{errors.email.message}</p>
                 )}
               </div>
-
-              {/* Mật khẩu */}
-              <div className="relative group">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <Lock className="h-4 w-4 text-gray-500 dark:text-gray-400 group-focus-within:text-primary" aria-hidden="true" />
-                </div>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Mật khẩu của bạn"
-                  autoComplete="current-password"
-                  {...register('password')}
-                  className={`pl-10 h-12 transition-all bg-background border-muted group-hover:border-primary/50 ${errors.password ? 'border-red-500 focus-visible:ring-red-500' : 'focus-visible:ring-primary/20'}`}
-                />
-                <Label
-                  htmlFor="password"
-                  className="absolute left-10 -top-2.5 px-1 text-xs text-muted-foreground bg-background rounded-sm"
-                >
-                  Mật khẩu
-                </Label>
-                {errors.password && (
-                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                    <AlertCircle className="h-3 w-3" />
-                    {errors.password.message}
-                  </p>
-                )}
-
-                <div className="absolute right-3 top-full mt-1">
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <Label htmlFor="password">Mật khẩu</Label>
                   <Link
-                    to="/forgot-password"
-                    className="text-xs text-primary hover:text-primary/90 font-medium"
+                    to="/auth/forgot-password"
+                    className="text-sm text-primary hover:underline"
                   >
                     Quên mật khẩu?
                   </Link>
                 </div>
-              </div>
-
-              {/* Remember me checkbox */}
-              <div className="flex items-center space-x-2 pt-4">
-                <Checkbox id="remember" className="data-[state=checked]:bg-primary data-[state=checked]:border-primary" />
-                <label
-                  htmlFor="remember"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Ghi nhớ đăng nhập
-                </label>
-              </div>
-
-              {/* Login button */}
-              <Button
-                type="submit"
-                className="w-full h-12 mt-2 font-medium text-base transition-all relative overflow-hidden group"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Đang xử lý...
-                  </span>
-                ) : (
-                  <span className="flex items-center justify-center gap-2">
-                    Đăng nhập
-                    <span className="absolute right-4 opacity-0 transform translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                      →
-                    </span>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="••••••••"
+                    className="pl-10"
+                    {...register('password')}
+                  />
+                </div>
+                {errors.password && (
+                  <p className="text-sm text-destructive">{errors.password.message}</p>
                 )}
-                {/* Shimmer effect on hover */}
-                <span className="absolute inset-0 rounded-md bg-gradient-to-r from-primary-400/0 via-primary-400/10 to-primary-400/0 opacity-0 group-hover:animate-travel-gradient"></span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox id="remember" />
+                <Label htmlFor="remember" className="text-sm">Ghi nhớ đăng nhập</Label>
+              </div>
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Đang xử lý
+                  </>
+                ) : (
+                  'Đăng nhập'
+                )}
               </Button>
             </form>
           </CardContent>
-
-          <CardFooter className="flex flex-col space-y-4 border-t px-6 py-4">
+          <CardFooter className="flex flex-col space-y-4">
             <div className="text-center text-sm">
-              <span className="text-muted-foreground">Chưa có tài khoản? </span>
-              <Link to="/register" className="font-medium text-primary hover:text-primary/90 transition-colors hover:underline">
-                Đăng ký ngay
+              Chưa có tài khoản?{' '}
+              <Link
+                to="/auth/register"
+                className="text-primary hover:underline"
+              >
+                Đăng ký
               </Link>
             </div>
-
-            <Link
-              to="/"
-              className="flex items-center justify-center text-xs text-muted-foreground hover:text-foreground transition-colors gap-1 group"
-            >
-              <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
-              Quay lại trang chủ
-            </Link>
+            <div className="text-center">
+              <Link
+                to="/"
+                className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
+              >
+                <ArrowLeft className="mr-1 h-4 w-4" />
+                Trở về trang chủ
+              </Link>
+            </div>
           </CardFooter>
         </Card>
       </div>

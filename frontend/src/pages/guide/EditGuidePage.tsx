@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Form, Input, Select, Button, Typography, Upload, Card, message, Divider, Spin, Popconfirm } from 'antd';
 import { UploadOutlined, SaveOutlined, DeleteOutlined, EnvironmentOutlined } from '@ant-design/icons';
 import { useAuthStore } from '@/store/authStore';
+import { getTourById, updateTour, deleteTour, Tour } from '@/services/api/tourService';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -14,52 +15,92 @@ const EditGuidePage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   const [form] = Form.useForm();
+  const [tour, setTour] = useState<Tour | null>(null);
+  const [error, setError] = useState<string | null>(null);
   
-  // Mock guide data
-  const mockGuideData = {
-    id: guideId,
-    tourTitle: 'Historic City Walking Tour',
-    location: 'paris',
-    duration: '3',
-    categories: ['historical', 'cultural'],
-    description: 'Explore the rich history of Paris with a knowledgeable local guide. Visit hidden spots and major landmarks while learning about the city\'s fascinating past.',
-    highlights: 'Notre-Dame Cathedral, Latin Quarter, Seine River views, Hidden passages',
-    itinerary: '1. Meet at Notre-Dame Cathedral\n2. Explore Latin Quarter\n3. Visit Sainte-Chapelle\n4. Walk along Seine River\n5. Discover hidden passages\n6. End at Louvre Museum',
-    includedItems: 'Expert guide, Small group experience, Personalized attention',
-    notIncludedItems: 'Food and drinks, Museum entrance fees, Transportation',
-    meetingPoint: 'In front of Notre-Dame Cathedral, main entrance',
-    groupSize: '10',
-    price: '35',
-  };
-  
-  // Simulate API loading
-  React.useEffect(() => {
-    setTimeout(() => {
-      form.setFieldsValue(mockGuideData);
-      setInitialLoading(false);
-    }, 800);
-  }, [form, guideId]);
-  
-  const onFinish = (values: any) => {
-    setLoading(true);
-    console.log('Updated values:', values);
+  useEffect(() => {
+    const fetchTour = async () => {
+      if (!guideId) return;
+      
+      try {
+        setInitialLoading(true);
+        const tourData = await getTourById(guideId);
+        setTour(tourData);
+        
+        // Transform tour data to match form fields
+        form.setFieldsValue({
+          tourTitle: tourData.title,
+          location: tourData.location,
+          duration: tourData.duration,
+          categories: tourData.categories,
+          description: tourData.description,
+          highlights: tourData.highlights,
+          itinerary: tourData.itinerary,
+          includedItems: tourData.includedItems,
+          notIncludedItems: tourData.notIncludedItems,
+          meetingPoint: tourData.meetingPoint,
+          groupSize: tourData.groupSize?.toString(),
+          price: tourData.price?.toString(),
+        });
+        
+        setInitialLoading(false);
+        setError(null);
+      } catch (error) {
+        console.error('Error fetching tour:', error);
+        setError('Failed to load tour data. Please try again.');
+        setInitialLoading(false);
+      }
+    };
     
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
+    fetchTour();
+  }, [guideId, form]);
+  
+  const onFinish = async (values: any) => {
+    if (!guideId) return;
+    
+    try {
+      setLoading(true);
+      
+      // Transform form values to match API expectations
+      const tourData: Partial<Tour> = {
+        title: values.tourTitle,
+        description: values.description,
+        location: values.location,
+        duration: values.duration,
+        price: parseFloat(values.price),
+        categories: values.categories,
+        highlights: values.highlights,
+        itinerary: values.itinerary,
+        includedItems: values.includedItems,
+        notIncludedItems: values.notIncludedItems,
+        meetingPoint: values.meetingPoint,
+        groupSize: parseInt(values.groupSize, 10),
+      };
+      
+      await updateTour(guideId, tourData);
       message.success('Tour updated successfully!');
-    }, 1500);
+      navigate('/guides/my-guides');
+    } catch (error) {
+      console.error('Error updating tour:', error);
+      message.error('Failed to update tour. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
   
-  const handleDelete = () => {
-    setLoading(true);
+  const handleDelete = async () => {
+    if (!guideId) return;
     
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      setLoading(true);
+      await deleteTour(guideId);
       message.success('Tour deleted successfully!');
       navigate('/guides/my-guides');
-    }, 1500);
+    } catch (error) {
+      console.error('Error deleting tour:', error);
+      message.error('Failed to delete tour. Please try again.');
+      setLoading(false);
+    }
   };
   
   if (initialLoading) {

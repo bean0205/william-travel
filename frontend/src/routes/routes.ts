@@ -162,6 +162,97 @@ export const APP_ROUTES: Record<string, AppRoute> = {
     path: '/support/:id',
     label: 'Support Ticket Details',
   },
+
+  // Admin Dashboard Routes
+  ADMIN_DASHBOARD: {
+    path: '/admin',
+    label: 'Admin Dashboard',
+  },
+  ADMIN_USERS: {
+    path: '/admin/users',
+    label: 'User Management',
+  },
+  ADMIN_ROLES: {
+    path: '/admin/roles',
+    label: 'Role Management',
+  },
+  ADMIN_PERMISSIONS: {
+    path: '/admin/permissions',
+    label: 'Permission Management',
+  },
+  ADMIN_CONTENT: {
+    path: '/admin/content',
+    label: 'Content Management',
+  },
+  ADMIN_LOCATIONS: {
+    path: '/admin/locations',
+    label: 'Location Management',
+  },
+  ADMIN_MEDIA: {
+    path: '/admin/media',
+    label: 'Media Management',
+  },
+  // Các routes cho các trang admin mới
+  ADMIN_ARTICLES: {
+    path: '/admin/articles',
+    label: 'Article Management',
+  },
+  ADMIN_EVENTS: {
+    path: '/admin/events',
+    label: 'Event Management',
+  },
+  ADMIN_REVIEWS: {
+    path: '/admin/reviews',
+    label: 'Review Management',
+  },
+  ADMIN_REPORTS: {
+    path: '/admin/reports',
+    label: 'Reports & Analytics',
+  },
+  ADMIN_SYSTEM_SETTINGS: {
+    path: '/admin/settings',
+    label: 'System Settings',
+  },
+  ADMIN_GUIDES: {
+    path: '/admin/guides',
+    label: 'Guide Management',
+  },
+  // Article management routes
+  ADMIN_ARTICLE_CREATE: {
+    path: '/admin/articles/create',
+    label: 'Create Article',
+  },
+  ADMIN_ARTICLE_EDIT: {
+    path: '/admin/articles/edit/:id',
+    label: 'Edit Article',
+  },
+  // Event management routes
+  ADMIN_EVENT_CREATE: {
+    path: '/admin/events/create',
+    label: 'Create Event',
+  },
+  ADMIN_EVENT_EDIT: {
+    path: '/admin/events/edit/:id',
+    label: 'Edit Event',
+  },
+  // Accommodation management routes
+  ADMIN_ACCOMMODATION_CREATE: {
+    path: '/admin/accommodations/create',
+    label: 'Create Accommodation',
+  },
+  ADMIN_ACCOMMODATION_EDIT: {
+    path: '/admin/accommodations/edit/:id',
+    label: 'Edit Accommodation',
+  },
+  // Food management routes
+  ADMIN_FOOD_CREATE: {
+    path: '/admin/foods/create',
+    label: 'Create Food Listing',
+  },
+  ADMIN_FOOD_EDIT: {
+    path: '/admin/foods/edit/:id',
+    label: 'Edit Food Listing',
+  },
 };
 
 // Helper to get route paths

@@ -229,17 +229,17 @@ function App() {
               />
 
               {/* Auth routes */}
-              <Route path="login" element={withPageTransition(LoginPage)()} />
+              <Route path="auth/login" element={withPageTransition(LoginPage)()} />
               <Route
-                path="register"
+                path="auth/register"
                 element={withPageTransition(RegisterPage)()}
               />
               <Route
-                path="forgot-password"
+                path="auth/forgot-password"
                 element={withPageTransition(ForgotPasswordPage)()}
               />
               <Route
-                path="reset-password/:token"
+                path="auth/reset-password/:token"
                 element={withPageTransition(ResetPasswordPage)()}
               />
               <Route

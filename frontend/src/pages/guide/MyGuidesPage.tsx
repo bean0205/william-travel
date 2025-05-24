@@ -1,84 +1,20 @@
-import React, { useState } from 'react';
-import { Table, Button, Space, Tag, Typography, Card, Tabs, Statistic, Row, Col } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Table, Button, Space, Tag, Typography, Card, Tabs, Statistic, Row, Col, Spin, Empty, message } from 'antd';
 import { EditOutlined, EyeOutlined, CalendarOutlined, TeamOutlined, DollarOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
+import { getToursByGuideId, getTourStatsByGuideId, Tour } from '@/services/api/tourService';
+import { getBookingsByGuideId, Booking } from '@/services/api/bookingService';
 
 const { TabPane } = Tabs;
-
-// Mock data
-const mockMyGuides = [
-  {
-    id: '1',
-    title: 'Historic City Walking Tour',
-    location: 'Paris, France',
-    duration: '3 hours',
-    price: 35,
-    categories: ['historical', 'cultural'],
-    bookings: 12,
-    rating: 4.8,
-    status: 'active',
-  },
-  {
-    id: '2',
-    title: 'Local Food Experience',
-    location: 'Paris, France',
-    duration: '4 hours',
-    price: 45,
-    categories: ['food', 'cultural'],
-    bookings: 8,
-    rating: 4.9,
-    status: 'active',
-  },
-  {
-    id: '3',
-    title: 'Secret Gardens Tour',
-    location: 'Paris, France',
-    duration: '2 hours',
-    price: 25,
-    categories: ['nature', 'historical'],
-    bookings: 3,
-    rating: 4.6,
-    status: 'inactive',
-  },
-];
-
-const mockBookings = [
-  {
-    id: '1',
-    tourId: '1',
-    tourName: 'Historic City Walking Tour',
-    customerName: 'John Smith',
-    bookingDate: '2025-05-20',
-    participants: 2,
-    status: 'confirmed',
-    totalAmount: 70,
-  },
-  {
-    id: '2',
-    tourId: '1',
-    tourName: 'Historic City Walking Tour',
-    customerName: 'Alice Brown',
-    bookingDate: '2025-05-23',
-    participants: 4,
-    status: 'confirmed',
-    totalAmount: 140,
-  },
-  {
-    id: '3',
-    tourId: '2',
-    tourName: 'Local Food Experience',
-    customerName: 'David Wilson',
-    bookingDate: '2025-05-21',
-    participants: 2,
-    status: 'pending',
-    totalAmount: 90,
-  },
-];
 
 const MyGuidesPage: React.FC = () => {
   const { user } = useAuthStore();
   const [activeTab, setActiveTab] = useState('1');
+  const [tours, setTours] = useState<Tour[]>([]);
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
   // Tours table columns
   const toursColumns = [
@@ -191,12 +127,57 @@ const MyGuidesPage: React.FC = () => {
       },
     },
   ];
+    useEffect(() => {
+    const fetchData = async () => {
+      if (!user?.id) {
+        return;
+      }
+      
+      try {
+        setLoading(true);
+        const [toursData, bookingsData] = await Promise.all([
+          getToursByGuideId(user.id.toString()),
+          getBookingsByGuideId(user.id.toString())
+        ]);
+        
+        setTours(Array.isArray(toursData) ? toursData : toursData.items || []);
+        setBookings(Array.isArray(bookingsData) ? bookingsData : bookingsData.items || []);
+      } catch (error) {
+        console.error('Error fetching guide data:', error);
+        setError('Failed to load tour and booking data');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, [user]);
   
+  if (loading) {
+    return (
+      <div style={{ textAlign: 'center', padding: '50px' }}>
+        <Spin size="large" />
+        <p>Loading your tours and bookings...</p>
+      </div>
+    );
+  }
+  
+  if (error) {
+    return (
+      <div style={{ textAlign: 'center', padding: '50px' }}>
+        <Empty description={error} />
+        <Button type="primary" onClick={() => window.location.reload()}>
+          Try Again
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className="my-guides-page">
       <Typography.Title level={2}>My Tours & Bookings</Typography.Title>
       <Typography.Paragraph>
-        Welcome, {user?.name}! Manage your tours and bookings here.
+        Welcome, {user?.full_name || 'Guide'}! Manage your tours and bookings here.
       </Typography.Paragraph>
       
       <Card style={{ marginBottom: '24px' }}>
@@ -204,21 +185,21 @@ const MyGuidesPage: React.FC = () => {
           <Col span={8}>
             <Statistic
               title="Active Tours"
-              value={mockMyGuides.filter(g => g.status === 'active').length}
+              value={tours.filter(g => g.status === 'active').length}
               prefix={<TeamOutlined />}
             />
           </Col>
           <Col span={8}>
             <Statistic
               title="Upcoming Bookings"
-              value={mockBookings.filter(b => b.status === 'confirmed').length}
+              value={bookings.filter(b => b.status === 'confirmed').length}
               prefix={<CalendarOutlined />}
             />
           </Col>
           <Col span={8}>
             <Statistic
               title="Total Earnings"
-              value={mockBookings.reduce((sum, b) => sum + b.totalAmount, 0)}
+              value={bookings.reduce((sum, b) => sum + b.totalAmount, 0)}
               prefix={<DollarOutlined />}
               precision={2}
               prefix="$"
@@ -237,17 +218,19 @@ const MyGuidesPage: React.FC = () => {
             </div>
             <Table 
               columns={toursColumns} 
-              dataSource={mockMyGuides} 
+              dataSource={tours} 
               rowKey="id"
               pagination={{ pageSize: 10 }}
+              loading={loading}
             />
           </TabPane>
           <TabPane tab="Bookings" key="2">
             <Table 
               columns={bookingsColumns} 
-              dataSource={mockBookings} 
+              dataSource={bookings} 
               rowKey="id"
               pagination={{ pageSize: 10 }}
+              loading={loading}
             />
           </TabPane>
         </Tabs>

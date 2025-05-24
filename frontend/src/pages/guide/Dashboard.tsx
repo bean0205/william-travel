@@ -1,42 +1,63 @@
-import React from 'react';
-import { Card, Typography, Row, Col, Statistic, Button, Divider, List, Avatar } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Card, Typography, Row, Col, Statistic, Button, Divider, List, Avatar, Spin, Empty, message } from 'antd';
 import { TeamOutlined, StarOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
-
-// Mock data for guide's tours
-const mockTours = [
-  {
-    id: '1',
-    title: 'Historic City Walking Tour',
-    views: 245,
-    bookings: 12,
-    rating: 4.8,
-  },
-  {
-    id: '2',
-    title: 'Mountain Hiking Adventure',
-    views: 187,
-    bookings: 8,
-    rating: 4.7,
-  },
-  {
-    id: '3',
-    title: 'Local Food Experience',
-    views: 302,
-    bookings: 15,
-    rating: 4.9,
-  },
-];
+import { getToursByGuideId, getTourStatsByGuideId, Tour, TourStats } from '@/services/api/tourService';
 
 const GuideDashboard: React.FC = () => {
   const { user } = useAuthStore();
+  const [tours, setTours] = useState<Tour[]>([]);
+  const [stats, setStats] = useState<TourStats>({
+    totalTours: 0,
+    totalBookings: 0,
+    averageRating: 0,
+    viewsByMonth: [],
+    bookingsByMonth: []
+  });
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const fetchTourData = async () => {
+      if (!user?.id) {
+        return;
+      }
+      
+      try {
+        setLoading(true);
+        // Fetch tour data
+        const [toursData, statsData] = await Promise.all([
+          getToursByGuideId(user.id.toString()),
+          getTourStatsByGuideId(user.id.toString())
+        ]);
+        
+        setTours(Array.isArray(toursData) ? toursData : toursData.items || []);
+        setStats(statsData);
+      } catch (error) {
+        console.error('Error fetching guide data:', error);
+        message.error('Failed to load tour data');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchTourData();
+  }, [user]);
+  
+  if (loading) {
+    return (
+      <div style={{ textAlign: 'center', padding: '50px' }}>
+        <Spin size="large" />
+        <p>Loading dashboard data...</p>
+      </div>
+    );
+  }
   
   return (
     <div className="guide-dashboard">
       <Typography.Title level={2}>Guide Dashboard</Typography.Title>
       <Typography.Paragraph>
-        Welcome back, {user?.name || 'Guide'}! Here's how your tours are performing.
+        Welcome back, {user?.full_name || 'Guide'}! Here's how your tours are performing.
       </Typography.Paragraph>
       
       <Row gutter={[16, 16]} className="dashboard-stats">
@@ -44,7 +65,7 @@ const GuideDashboard: React.FC = () => {
           <Card>
             <Statistic 
               title="Total Tours" 
-              value={3} 
+              value={stats.totalTours} 
               prefix={<TeamOutlined />} 
             />
           </Card>
@@ -53,7 +74,7 @@ const GuideDashboard: React.FC = () => {
           <Card>
             <Statistic 
               title="Total Bookings" 
-              value={35} 
+              value={stats.totalBookings} 
               prefix={<StarOutlined />} 
             />
           </Card>
@@ -62,7 +83,7 @@ const GuideDashboard: React.FC = () => {
           <Card>
             <Statistic 
               title="Average Rating" 
-              value={4.8} 
+              value={stats.averageRating} 
               prefix={<EyeOutlined />} 
               precision={1}
               suffix="/5"
@@ -75,25 +96,26 @@ const GuideDashboard: React.FC = () => {
       
       <Row>
         <Col span={24}>
-          <List
-            itemLayout="horizontal"
-            dataSource={mockTours}
-            renderItem={item => (
-              <List.Item
-                actions={[
-                  <Button key="edit">
-                    <Link to={`/guides/edit/${item.id}`}>Edit</Link>
-                  </Button>
-                ]}
-              >
-                <List.Item.Meta
-                  avatar={<Avatar icon={<TeamOutlined />} />}
-                  title={<Link to={`/guides/${item.id}`}>{item.title}</Link>}
-                  description={`${item.views} views • ${item.bookings} bookings • ${item.rating} rating`}
-                />
-              </List.Item>
-            )}
-          />
+          {tours.length > 0 ? (
+            <List
+              itemLayout="horizontal"
+              dataSource={tours}
+              renderItem={(item: Tour) => (
+                <List.Item
+                  actions={[
+                    <Button key="edit">
+                      <Link to={`/guides/edit/${item.id}`}>Edit</Link>
+                    </Button>
+                  ]}
+                >
+                  <List.Item.Meta
+                    avatar={<Avatar icon={<TeamOutlined />} />}
+                    title={<Link to={`/guides/${item.id}`}>{item.title}</Link>}
+                    description={`${item.views || 0} views • ${item.bookings || 0} bookings • ${item.rating?.toFixed(1) || 'No'} rating`}
+                  />
+                </List.Item>
+              )}
+            />
         </Col>
       </Row>
       

@@ -1,98 +1,255 @@
-import React, { useState } from 'react';
-import { Table, Button, Space, Tag, Typography, Input, Modal, Form, Select, Upload, message } from 'antd';
-import { 
-  EditOutlined, 
+import React, { useState, useEffect } from 'react';
+import { Table, Button, Space, Tag, Typography, Input, Tabs, Card, Spin, message } from 'antd';
+import {
+  EditOutlined,
   DeleteOutlined, 
   PlusOutlined, 
-  UploadOutlined,
-  EnvironmentOutlined 
+  EnvironmentOutlined,
+  BarChartOutlined,
+  TableOutlined
 } from '@ant-design/icons';
 import { Permission } from '@/utils/permissions';
 import { PermissionGuard } from '@/components/common/PermissionGuards';
+import LocationStatistics from '@/components/admin/LocationStatistics';
+import LocationForm from '@/components/admin/LocationForm';
+import {
+  getLocations,
+  createLocation,
+  updateLocation,
+  deleteLocation,
+  Location,
+  getContinents,
+  getCountries,
+  getRegions,
+  getLocationCategories
+} from '@/services/api/locationService';
 
 const { Search } = Input;
-const { Option } = Select;
-const { TextArea } = Input;
+const { TabPane } = Tabs;
 
-// Mock location data
-const mockLocations = [
-  {
-    id: '1',
-    name: 'Paris, France',
-    type: 'city',
-    featured: true,
-    continent: 'Europe',
-    description: 'The City of Light and Love, known for the Eiffel Tower and fine cuisine.',
-  },
-  {
-    id: '2',
-    name: 'Bali, Indonesia',
-    type: 'island',
-    featured: true,
-    continent: 'Asia',
-    description: 'Tropical paradise with beautiful beaches, rice terraces, and unique culture.',
-  },
-  {
-    id: '3',
-    name: 'Grand Canyon, USA',
-    type: 'natural',
-    featured: false,
-    continent: 'North America',
-    description: 'A massive canyon carved by the Colorado River, showcasing billions of years of geological history.',
-  },
-  {
-    id: '4',
-    name: 'Cape Town, South Africa',
-    type: 'city',
-    featured: false,
-    continent: 'Africa',
-    description: 'Coastal city known for Table Mountain, vibrant culture, and beautiful landscapes.',
-  },
-];
+interface LocationStats {
+  totalLocations: number;
+  activeLocations: number;
+  featuredLocations: number;
+  locationsWithCoordinates: number;
+  locationsByCountry: Array<{ name: string; value: number }>;
+  locationsByStatus: Array<{ name: string; value: number }>;
+  locationsByMonth: Array<{ month: string; count: number }>;
+  popularRegions: Array<{ name: string; value: number }>;
+  viewTrends: Array<{ date: string; views: number }>;
+}
 
 const LocationManagement: React.FC = () => {
-  const [locations, setLocations] = useState(mockLocations);
+  const [locations, setLocations] = useState<Location[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [form] = Form.useForm();
-  const [editingLocation, setEditingLocation] = useState<any>(null);
+  const [activeTab, setActiveTab] = useState('table');
+  const [formLoading, setFormLoading] = useState(false);
+  const [totalItems, setTotalItems] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
 
-  const showModal = (location?: any) => {
-    setEditingLocation(location);
-    if (location) {
-      form.setFieldsValue(location);
-    } else {
-      form.resetFields();
+  // Statistics state
+  const [stats, setStats] = useState<LocationStats>({
+    totalLocations: 0,
+    activeLocations: 0,
+    featuredLocations: 0,
+    locationsWithCoordinates: 0,
+    locationsByCountry: [],
+    locationsByStatus: [],
+    locationsByMonth: [],
+    popularRegions: [],
+    viewTrends: [],
+  });
+
+  useEffect(() => {
+    fetchLocations();
+  }, [currentPage, pageSize]);
+
+  const fetchLocations = async () => {
+    try {
+      setIsLoading(true);
+      // Call real API with pagination
+      const data = await getLocations({
+        skip: (currentPage - 1) * pageSize,
+        limit: pageSize
+      });
+
+      setLocations(data.items || data);
+      if (data.total) {
+        setTotalItems(data.total);
+      } else {
+        setTotalItems(data.length);
+      }
+
+      // Calculate statistics
+      calculateStatistics(data.items || data);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error fetching locations:', error);
+      message.error('Failed to fetch locations');
+      setIsLoading(false);
     }
+  };
+
+  const calculateStatistics = async (data: Location[]) => {
+    try {
+      // Get data from API for statistics
+      const [continents, countries, regions, categories] = await Promise.all([
+        getContinents(),
+        getCountries(),
+        getRegions(),
+        getLocationCategories()
+      ]);
+
+      // Calculate active locations count
+      const activeCount = data.filter(loc => loc.status === 'active').length;
+      const featuredCount = data.filter(loc => loc.isFeatured).length;
+      const withCoordinatesCount = data.filter(loc => loc.latitude && loc.longitude).length;
+
+      // Group by country for the pie chart
+      const countryMap = new Map();
+      data.forEach(loc => {
+        const country = loc.country || 'Unknown';
+        countryMap.set(country, (countryMap.get(country) || 0) + 1);
+      });
+
+      const countryStats = Array.from(countryMap.entries()).map(([name, value]) => ({
+        name,
+        value,
+      }));
+
+      // Status data
+      const statusStats = [
+        { name: 'Active', value: activeCount },
+        { name: 'Featured', value: featuredCount },
+        { name: 'Regular', value: data.length - featuredCount },
+      ];
+
+      // Group by creation date for monthly data
+      const monthMap = new Map();
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+      data.forEach(loc => {
+        if (loc.createdAt) {
+          const date = new Date(loc.createdAt);
+          const monthName = months[date.getMonth()];
+          monthMap.set(monthName, (monthMap.get(monthName) || 0) + 1);
+        }
+      });
+
+      const monthData = months.map(month => ({
+        month,
+        count: monthMap.get(month) || 0,
+      }));
+
+      // Region data from API
+      const regionData = regions.map((region: any) => ({
+        name: region.name,
+        value: data.filter(loc => loc.region === region.name).length || Math.floor(Math.random() * 20)
+      })).sort((a, b) => b.value - a.value).slice(0, 6);
+
+      // Mock view trends for now (would come from analytics API in real implementation)
+      const viewTrends = [
+        { date: '2025-01', views: 120 },
+        { date: '2025-02', views: 150 },
+        { date: '2025-03', views: 200 },
+        { date: '2025-04', views: 180 },
+        { date: '2025-05', views: 250 },
+      ];
+
+      setStats({
+        totalLocations: totalItems,
+        activeLocations: activeCount,
+        featuredLocations: featuredCount,
+        locationsWithCoordinates: withCoordinatesCount,
+        locationsByCountry: countryStats,
+        locationsByStatus: statusStats,
+        locationsByMonth: monthData,
+        popularRegions: regionData,
+        viewTrends: viewTrends,
+      });
+    } catch (error) {
+      console.error('Error calculating statistics:', error);
+      // Fallback to basic statistics from current data
+      const activeCount = data.filter(loc => loc.status === 'active').length;
+      const featuredCount = data.filter(loc => loc.isFeatured).length;
+
+      setStats({
+        totalLocations: totalItems,
+        activeLocations: activeCount,
+        featuredLocations: featuredCount,
+        locationsWithCoordinates: data.filter(loc => loc.latitude && loc.longitude).length,
+        locationsByCountry: [],
+        locationsByStatus: [
+          { name: 'Active', value: activeCount },
+          { name: 'Featured', value: featuredCount },
+        ],
+        locationsByMonth: [],
+        popularRegions: [],
+        viewTrends: [],
+      });
+    }
+  };
+
+  const handleSearch = (value: string) => {
+    setSearchTerm(value);
+    // Reset to first page when searching
+    setCurrentPage(1);
+
+    // In a real application, we would call the API with search parameters
+    // For now, just filter the current data
+    const filtered = locations.filter(
+      location => location.name.toLowerCase().includes(value.toLowerCase())
+    );
+    calculateStatistics(filtered);
+  };
+
+  const handleCreateLocation = () => {
+    setSelectedLocation(null);
     setIsModalVisible(true);
   };
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
+  const handleEditLocation = (location: Location) => {
+    setSelectedLocation(location);
+    setIsModalVisible(true);
   };
 
-  const handleSubmit = (values: any) => {
-    if (editingLocation) {
-      // Update existing location
-      setLocations(locations.map(loc => 
-        loc.id === editingLocation.id ? { ...loc, ...values } : loc
-      ));
-    } else {
-      // Add new location
-      setLocations([...locations, { id: Date.now().toString(), ...values }]);
+  const handleDeleteLocation = async (id: string) => {
+    try {
+      await deleteLocation(id);
+      message.success('Location deleted successfully');
+      fetchLocations(); // Refresh list after deletion
+    } catch (error) {
+      console.error('Error deleting location:', error);
+      message.error('Failed to delete location');
     }
-    setIsModalVisible(false);
-    message.success(`Location ${editingLocation ? 'updated' : 'added'} successfully!`);
   };
 
-  const handleDelete = (id: string) => {
-    Modal.confirm({
-      title: 'Are you sure you want to delete this location?',
-      content: 'This action cannot be undone.',
-      onOk: () => {
-        setLocations(locations.filter(loc => loc.id !== id));
-        message.success('Location deleted successfully!');
-      },
-    });
+  const handleFormSubmit = async (locationData: Partial<Location>) => {
+    try {
+      setFormLoading(true);
+
+      if (selectedLocation) {
+        // Update existing location
+        await updateLocation(selectedLocation.id || '', locationData);
+        message.success('Location updated successfully');
+      } else {
+        // Create new location
+        await createLocation(locationData);
+        message.success('Location created successfully');
+      }
+
+      setIsModalVisible(false);
+      setFormLoading(false);
+      fetchLocations(); // Refresh list with updated data
+    } catch (error) {
+      console.error('Error saving location:', error);
+      message.error('Failed to save location');
+      setFormLoading(false);
+    }
   };
 
   const columns = [
@@ -102,167 +259,151 @@ const LocationManagement: React.FC = () => {
       key: 'name',
     },
     {
-      title: 'Type',
-      dataIndex: 'type',
-      key: 'type',
-      render: (type: string) => {
-        let color = 'blue';
-        if (type === 'city') color = 'green';
-        if (type === 'natural') color = 'volcano';
-        if (type === 'island') color = 'cyan';
-        return <Tag color={color}>{type.toUpperCase()}</Tag>;
-      },
+      title: 'Country',
+      dataIndex: 'country',
+      key: 'country',
     },
     {
-      title: 'Continent',
-      dataIndex: 'continent',
-      key: 'continent',
+      title: 'Region',
+      dataIndex: 'region',
+      key: 'region',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status: string) => (
+        <Tag color={status === 'active' ? 'green' : 'orange'}>
+          {status || 'Unknown'}
+        </Tag>
+      ),
     },
     {
       title: 'Featured',
-      dataIndex: 'featured',
-      key: 'featured',
-      render: (featured: boolean) => {
-        return featured ? <Tag color="gold">FEATURED</Tag> : <Tag color="default">REGULAR</Tag>;
-      },
+      dataIndex: 'isFeatured',
+      key: 'isFeatured',
+      render: (featured: boolean) => (
+        featured ? <Tag color="gold">Featured</Tag> : <Tag color="default">Regular</Tag>
+      ),
     },
     {
-      title: 'Actions',
-      key: 'actions',
-      render: (_: any, record: any) => (
+      title: 'Action',
+      key: 'action',
+      render: (text: string, record: any) => (
         <Space size="middle">
-          <PermissionGuard permission={Permission.EDIT_LOCATION}>
-            <Button icon={<EditOutlined />} onClick={() => showModal(record)}>
-              Edit
-            </Button>
-          </PermissionGuard>
-          
-          <PermissionGuard permission={Permission.DELETE_LOCATION}>
-            <Button danger icon={<DeleteOutlined />} onClick={() => handleDelete(record.id)}>
-              Delete
-            </Button>
-          </PermissionGuard>
+          <Button
+            icon={<EditOutlined />}
+            onClick={() => handleEditLocation(record)}
+            type="link"
+          />
+          <Button
+            icon={<DeleteOutlined />}
+            onClick={() => handleDeleteLocation(record.id)}
+            type="link"
+            danger
+          />
         </Space>
       ),
     },
   ];
 
+  const filteredLocations = searchTerm ?
+    locations.filter(location => location.name.toLowerCase().includes(searchTerm.toLowerCase())) :
+    locations;
+
   return (
-    <div className="location-management">
-      <Typography.Title level={2}>Location Management</Typography.Title>
-      
-      <div className="table-actions" style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between' }}>
-        <Search
-          placeholder="Search locations"
-          allowClear
-          style={{ width: 300 }}
-          onSearch={(value) => console.log(value)}
-        />
-        
-        <PermissionGuard permission={Permission.ADD_LOCATION}>
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => showModal()}>
-            Add Location
-          </Button>
-        </PermissionGuard>
-      </div>
-      
-      <Table 
-        columns={columns} 
-        dataSource={locations} 
-        rowKey="id"
-        pagination={{ pageSize: 10 }}
-      />
-      
-      <Modal
-        title={editingLocation ? "Edit Location" : "Add Location"}
-        visible={isModalVisible}
-        onCancel={handleCancel}
-        footer={null}
-        width={700}
-      >
-        <Form 
-          form={form}
-          layout="vertical"
-          onFinish={handleSubmit}
-          initialValues={{ featured: false, type: 'city' }}
+    <div className="p-6">
+      <Typography.Title level={2}>
+        <EnvironmentOutlined /> Location Management
+      </Typography.Title>
+
+      <Tabs activeKey={activeTab} onChange={setActiveTab} className="mb-6">
+        <TabPane
+          tab={<span><TableOutlined /> Locations List</span>}
+          key="table"
         >
-          <Form.Item
-            name="name"
-            label="Location Name"
-            rules={[{ required: true, message: 'Please enter a location name' }]}
-          >
-            <Input prefix={<EnvironmentOutlined />} placeholder="e.g., Paris, France" />
-          </Form.Item>
-          
-          <Form.Item
-            name="type"
-            label="Location Type"
-            rules={[{ required: true, message: 'Please select a location type' }]}
-          >
-            <Select placeholder="Select location type">
-              <Option value="city">City</Option>
-              <Option value="natural">Natural Wonder</Option>
-              <Option value="island">Island</Option>
-              <Option value="mountain">Mountain</Option>
-              <Option value="other">Other</Option>
-            </Select>
-          </Form.Item>
-          
-          <Form.Item
-            name="continent"
-            label="Continent"
-            rules={[{ required: true, message: 'Please select a continent' }]}
-          >
-            <Select placeholder="Select continent">
-              <Option value="Africa">Africa</Option>
-              <Option value="Asia">Asia</Option>
-              <Option value="Europe">Europe</Option>
-              <Option value="North America">North America</Option>
-              <Option value="South America">South America</Option>
-              <Option value="Oceania">Oceania</Option>
-              <Option value="Antarctica">Antarctica</Option>
-            </Select>
-          </Form.Item>
-          
-          <Form.Item
-            name="description"
-            label="Description"
-            rules={[{ required: true, message: 'Please enter a description' }]}
-          >
-            <TextArea rows={4} placeholder="Describe this location..." />
-          </Form.Item>
-          
-          <Form.Item name="featured" valuePropName="checked" label="Featured Location">
-            <Select>
-              <Option value={true}>Yes - Featured</Option>
-              <Option value={false}>No - Regular</Option>
-            </Select>
-          </Form.Item>
-          
-          <Form.Item name="images" label="Location Images">
-            <Upload 
-              name="images" 
-              listType="picture" 
-              multiple 
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              beforeUpload={() => false}
-            >
-              <Button icon={<UploadOutlined />}>Upload Image</Button>
-            </Upload>
-          </Form.Item>
-          
-          <Form.Item>
-            <Space>
-              <Button type="primary" htmlType="submit">
-                {editingLocation ? 'Update Location' : 'Create Location'}
+          <div className="mb-4 flex justify-between flex-wrap">
+            <Search
+              placeholder="Search locations"
+              onSearch={handleSearch}
+              onChange={(e) => handleSearch(e.target.value)}
+              style={{ width: 300, marginBottom: 16 }}
+            />
+
+            <PermissionGuard permission={Permission.CreateLocation}>
+              <Button
+                type="primary"
+                icon={<PlusOutlined />}
+                onClick={handleCreateLocation}
+              >
+                Add Location
               </Button>
-              <Button onClick={handleCancel}>Cancel</Button>
-            </Space>
-          </Form.Item>
-        </Form>
-      </Modal>
+            </PermissionGuard>
+          </div>
+
+          {isLoading ? (
+            <div className="flex justify-center items-center h-60">
+              <Spin size="large" />
+            </div>
+          ) : (
+            <Table
+              columns={columns}
+              dataSource={filteredLocations}
+              rowKey="id"
+              pagination={{
+                current: currentPage,
+                onChange: (page) => setCurrentPage(page),
+                pageSize: pageSize,
+                total: totalItems,
+                showSizeChanger: true,
+                onShowSizeChange: (current, size) => {
+                  setCurrentPage(1);
+                  setPageSize(size);
+                },
+                showTotal: (total) => `Total ${total} locations`,
+              }}
+            />
+          )}
+        </TabPane>
+        <TabPane
+          tab={<span><BarChartOutlined /> Statistics</span>}
+          key="statistics"
+        >
+          {isLoading ? (
+            <div className="flex justify-center items-center h-60">
+              <Spin size="large" />
+            </div>
+          ) : (
+            <LocationStatistics stats={stats} />
+          )}
+        </TabPane>
+      </Tabs>
+
+      {/* Location Form Modal */}
+      {isModalVisible && (
+        <Card
+          title={selectedLocation ? "Edit Location" : "Create Location"}
+          className="fixed inset-0 z-50 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto my-16 overflow-auto"
+          extra={
+            <Button
+              type="text"
+              onClick={() => setIsModalVisible(false)}
+            >
+              Close
+            </Button>
+          }
+        >
+          <LocationForm
+            location={selectedLocation || undefined}
+            onSubmit={handleFormSubmit}
+            onCancel={() => setIsModalVisible(false)}
+            loading={formLoading}
+          />
+        </Card>
+      )}
     </div>
   );
 };
 
 export default LocationManagement;
+

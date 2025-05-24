@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthStore } from '@/store/authStore';
-import authService from '@/services/api/authService';
 
 // UI components
 import { Button } from '@/components/ui/button';
@@ -43,7 +42,7 @@ const registerSchema = z.object({
 type RegisterFormInputs = z.infer<typeof registerSchema>;
 
 const RegisterPage = () => {
-  const { isLoading, error, clearError } = useAuthStore();
+  const { register: registerUser, isLoading, error, clearError } = useAuthStore();
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
@@ -63,22 +62,15 @@ const RegisterPage = () => {
 
   const onSubmit = async (data: RegisterFormInputs) => {
     try {
-      // Using the new authService instead of direct store registration
-      await authService.register({
-        email: data.email,
-        password: data.password,
-        full_name: data.name || '', // Use name if provided, otherwise empty string
-        role: 'user' // Default role
-      });
-
+      clearError();
+      await registerUser(data.email, data.password, data.name);
       setSuccessMessage('Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.');
 
       // Navigate to login page after a short delay
       setTimeout(() => {
-        navigate('/login');
+        navigate('/auth/login');
       }, 2000);
     } catch (error: any) {
-      // The error is handled by the authService, but you can add additional handling here
       console.error('Registration failed:', error);
     }
   };
@@ -206,13 +198,13 @@ const RegisterPage = () => {
               {/* Mật khẩu */}
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <Lock className="h-4 w-4 text-gray-500 dark:text-gray-400 group-focus-within:text-primary" />
+                  <Lock size={16} className="text-gray-500 dark:text-gray-400 group-focus-within:text-primary" aria-hidden="true" />
                 </div>
                 <Input
                   id="password"
                   type="password"
                   {...register('password')}
-                  placeholder="Tối thiểu 8 ký tự, ít nhất 1 chữ số và 1 chữ cái"
+                  placeholder="••••••••"
                   className={`pl-10 h-12 transition-all bg-background border-muted group-hover:border-primary/50 ${errors.password ? 'border-red-500 focus-visible:ring-red-500' : 'focus-visible:ring-primary/20'}`}
                 />
                 <Label
@@ -232,13 +224,13 @@ const RegisterPage = () => {
               {/* Xác nhận mật khẩu */}
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <ShieldCheck className="h-4 w-4 text-gray-500 dark:text-gray-400 group-focus-within:text-primary" />
+                  <ShieldCheck size={16} className="text-gray-500 dark:text-gray-400 group-focus-within:text-primary" aria-hidden="true" />
                 </div>
                 <Input
                   id="confirmPassword"
                   type="password"
                   {...register('confirmPassword')}
-                  placeholder="Nhập lại mật khẩu của bạn"
+                  placeholder="••••••••"
                   className={`pl-10 h-12 transition-all bg-background border-muted group-hover:border-primary/50 ${errors.confirmPassword ? 'border-red-500 focus-visible:ring-red-500' : 'focus-visible:ring-primary/20'}`}
                 />
                 <Label
@@ -255,44 +247,37 @@ const RegisterPage = () => {
                 )}
               </div>
 
-              <Button
-                type="submit"
-                className="w-full h-12 mt-2 font-medium text-base transition-all relative overflow-hidden group"
-                disabled={isLoading}
-              >
+              <Button type="submit" className="w-full h-12" disabled={isLoading}>
                 {isLoading ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Đang xử lý...
-                  </span>
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Đang xử lý
+                  </>
                 ) : (
-                  <span className="flex items-center justify-center gap-2">
-                    Đăng Ký
-                    <span className="absolute right-4 opacity-0 transform translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                      →
-                    </span>
-                  </span>
+                  'Đăng ký'
                 )}
-                <span className="absolute inset-0 rounded-md bg-gradient-to-r from-primary-400/0 via-primary-400/10 to-primary-400/0 opacity-0 group-hover:animate-travel-gradient"></span>
               </Button>
             </form>
           </CardContent>
-
-          <CardFooter className="flex flex-col space-y-4 border-t px-6 py-4">
+          <CardFooter className="flex flex-col space-y-4">
             <div className="text-center text-sm">
-              <span className="text-muted-foreground">Đã có tài khoản? </span>
-              <Link to="/login" className="font-medium text-primary hover:text-primary/90 transition-colors hover:underline">
+              Đã có tài khoản?{' '}
+              <Link
+                to="/auth/login"
+                className="text-primary-600 dark:text-primary-400 hover:underline font-medium"
+              >
                 Đăng nhập
               </Link>
             </div>
-
-            <Link
-              to="/"
-              className="flex items-center justify-center text-xs text-muted-foreground hover:text-foreground transition-colors gap-1 group"
-            >
-              <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
-              Quay lại trang chủ
-            </Link>
+            <div className="text-center">
+              <Link
+                to="/"
+                className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
+              >
+                <ArrowLeft className="mr-1 h-4 w-4" />
+                Trở về trang chủ
+              </Link>
+            </div>
           </CardFooter>
         </Card>
       </div>

@@ -1,207 +1,129 @@
-import httpClient from './httpClient';
-import { useAuthStore } from '@/store/authStore';
-
-// Types for authentication
-export interface RegisterRequest {
-  email: string;
-  password: string;
-  full_name: string;
-  role?: string;
-}
-
-export interface RegisterResponse {
-  id: number;
-  email: string;
-  full_name: string;
-  is_active: boolean;
-  role: string;
-  created_at: string;
-}
+import { ApiResponse } from '@/types/api';
+import apiClient from './apiClient';
+import { API_ENDPOINTS } from '@/constants/apiEndpoints';
 
 export interface LoginRequest {
-  username: string; // API uses 'username' field for email
+  username: string; // Email is used as username
   password: string;
 }
 
 export interface LoginResponse {
   access_token: string;
   token_type: string;
-  user: {
-    id: number;
-    email: string;
-    full_name: string;
-    is_active: boolean;
-    role: string;
-    created_at: string;
-  }
 }
 
-export interface ForgotPasswordRequest {
+export interface PasswordResetRequest {
   email: string;
 }
 
-export interface ResetPasswordRequest {
-  token: string;
-  new_password: string;
-}
-
-export interface MessageResponse {
+export interface PasswordResetResponse {
   message: string;
 }
 
-/**
- * Authentication Service for William Travel API
- * Handles all authentication-related API calls
- */
-class AuthService {
-  private apiVersion = '/v1';
-  private authEndpoint = `${this.apiVersion}/auth`;
+export interface PasswordResetConfirmRequest {
+  token: string;
+  password: string;
+}
 
-  /**
-   * Register a new user
-   * @param userData User registration data
-   * @returns Promise with user data
-   */
-  async register(userData: RegisterRequest): Promise<RegisterResponse> {
-    try {
-      const response = await httpClient.post<RegisterResponse>(
-        `${this.authEndpoint}/register`,
-        userData
-      );
-      return response;
-    } catch (error) {
-      console.error('Registration failed:', error);
-      throw error;
-    }
-  }
+interface AuthService {
+  login: (data: LoginRequest) => Promise<ApiResponse<LoginResponse>>;
+  logout: () => Promise<ApiResponse<{ message: string }>>;
+  requestPasswordReset: (data: PasswordResetRequest) => Promise<ApiResponse<PasswordResetResponse>>;
+  resetPassword: (data: PasswordResetConfirmRequest) => Promise<ApiResponse<LoginResponse>>;
+}
 
-  /**
-   * Log in a user and store authentication token
-   * @param credentials User login credentials
-   * @returns Promise with login response including token
-   */
-  async login(credentials: LoginRequest): Promise<LoginResponse> {
+export const authService: AuthService = {
+  login: async (data) => {
     try {
-      // Create form data as the API expects form-urlencoded data
+      // Create form data
       const formData = new URLSearchParams();
-      formData.append('username', credentials.username); // API uses 'username' for email
-      formData.append('password', credentials.password);
+      formData.append('username', data.username);
+      formData.append('password', data.password);
+      
 
-      const config = {
+      const response = await apiClient.post(API_ENDPOINTS.AUTH.LOGIN, formData.toString(), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
+      });
+
+      return {
+        success: true,
+        data: response.data,
+        error: null,
+        status: response.status,
       };
-
-      const response = await httpClient.post<LoginResponse>(
-        `${this.authEndpoint}/login`,
-        formData.toString(),
-        config
-      );
-
-      // Store auth data in the store
-      if (response && response.access_token) {
-        const { access_token, user } = response;
-        const authStore = useAuthStore.getState();
-        authStore.login(access_token, user);
-      }
-
-      return response;
-    } catch (error) {
-      console.error('Login failed:', error);
-      throw error;
+    } catch (error: any) {
+      console.error('Login error:', error);
+      return {
+        success: false,
+        data: null,
+        error: error.response?.data?.detail || 'An unexpected error occurred during login',
+        status: error.response?.status || 500,
+      };
     }
-  }
+  },
 
-  /**
-   * Log out the current user
-   * @returns Promise with logout message
-   */
-  async logout(): Promise<MessageResponse> {
+  requestPasswordReset: async (data) => {
     try {
-      const response = await httpClient.post<MessageResponse>(
-        `${this.authEndpoint}/logout`
-      );
+      const response = await apiClient.post(API_ENDPOINTS.AUTH.RESET_PASSWORD, data);
 
-      // Clean up auth store regardless of API response
-      const authStore = useAuthStore.getState();
-      authStore.logout();
-
-      return response;
-    } catch (error) {
-      console.error('Logout failed:', error);
-
-      // Still clean up auth store on error
-      const authStore = useAuthStore.getState();
-      authStore.logout();
-
-      throw error;
+      return {
+        success: true,
+        data: response.data,
+        error: null,
+        status: response.status,
+      };
+    } catch (error: any) {
+      console.error('Password reset request error:', error);
+      return {
+        success: false,
+        data: null,
+        error: error.response?.data?.detail || 'An unexpected error occurred during password reset request',
+        status: error.response?.status || 500,
+      };
     }
-  }
+  },
 
-  /**
-   * Request password reset email
-   * @param email User's email address
-   * @returns Promise with message response
-   */
-  async forgotPassword(email: string): Promise<MessageResponse> {
+  resetPassword: async (data) => {
     try {
-      const response = await httpClient.post<MessageResponse>(
-        `${this.authEndpoint}/forgot-password`,
-        { email }
-      );
-      return response;
-    } catch (error) {
-      console.error('Password reset request failed:', error);
-      throw error;
-    }
-  }
+      const response = await apiClient.post(`${API_ENDPOINTS.AUTH.RESET_PASSWORD}/confirm`, data);
 
-  /**
-   * Reset password using token from email
-   * @param resetData Token and new password
-   * @returns Promise with message response
-   */
-  async resetPassword(resetData: ResetPasswordRequest): Promise<MessageResponse> {
+      return {
+        success: true,
+        data: response.data,
+        error: null,
+        status: response.status,
+      };
+    } catch (error: any) {
+      console.error('Password reset error:', error);
+      return {
+        success: false,
+        data: null,
+        error: error.response?.data?.detail || 'An unexpected error occurred during password reset',
+        status: error.response?.status || 500,
+      };
+    }
+  },
+  
+  logout: async () => {
     try {
-      const response = await httpClient.post<MessageResponse>(
-        `${this.authEndpoint}/reset-password`,
-        resetData
-      );
-      return response;
-    } catch (error) {
-      console.error('Password reset failed:', error);
-      throw error;
+      const response = await apiClient.post(API_ENDPOINTS.AUTH.LOGOUT);
+      
+      return {
+        success: true,
+        data: response.data,
+        error: null,
+        status: response.status,
+      };
+    } catch (error: any) {
+      console.error('Logout error:', error);
+      return {
+        success: false,
+        data: null,
+        error: error.response?.data?.detail || 'An unexpected error occurred during logout',
+        status: error.response?.status || 500,
+      };
     }
-  }
-
-  /**
-   * Check if user is authenticated
-   * @returns True if user is authenticated
-   */
-  isAuthenticated(): boolean {
-    const authStore = useAuthStore.getState();
-    return !!authStore.token;
-  }
-
-  /**
-   * Get current user's token
-   * @returns The auth token or null
-   */
-  getToken(): string | null {
-    const authStore = useAuthStore.getState();
-    return authStore.token;
-  }
-
-  /**
-   * Get current user data
-   * @returns User data or null if not logged in
-   */
-  getCurrentUser() {
-    const authStore = useAuthStore.getState();
-    return authStore.user;
-  }
-}
-
-export const authService = new AuthService();
-export default authService;
+  },
+};

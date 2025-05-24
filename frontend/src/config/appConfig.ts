@@ -1,9 +1,13 @@
 // Configuration for the app, pulling from environment variables
 // with sensible defaults when env vars are not available
 
+// Export API_URL and API_BASE_URL for backwards compatibility
+export const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+
 const config = {
   api: {
-    baseUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api',
+    baseUrl: API_BASE_URL,
     timeout: 10000, // 10 seconds
   },
   map: {

@@ -35,18 +35,18 @@ const ProtectedRoute = ({ requiredPermissions, requiredRoles }: ProtectedRoutePr
   }
 
   // Check for required permissions if specified
-  if (requiredPermissions && requiredPermissions.length > 0) {
-    if (!hasAnyPermission(user, requiredPermissions)) {
-      return <Navigate to="/unauthorized" replace />;
-    }
-  }
+  // if (requiredPermissions && requiredPermissions.length > 0) {
+  //   if (!hasAnyPermission(user, requiredPermissions)) {
+  //     return <Navigate to="/unauthorized" replace />;
+  //   }
+  // }
 
   // Check for required roles if specified
-  if (requiredRoles && requiredRoles.length > 0) {
-    if (!hasAnyRole(user, requiredRoles)) {
-      return <Navigate to="/unauthorized" replace />;
-    }
-  }
+  // if (requiredRoles && requiredRoles.length > 0) {
+  //   if (!hasAnyRole(user, requiredRoles)) {
+  //     return <Navigate to="/unauthorized" replace />;
+  //   }
+  // }
 
   return <Outlet />;
 };

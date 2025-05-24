@@ -14,7 +14,7 @@ apiClient.interceptors.request.use(
     // Get token from Zustand store
     const state = useAuthStore.getState();
     const token = state.token;
-    
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -28,16 +28,17 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     const { response } = error;
-    
+
     // Handle unauthorized errors (401)
     if (response && response.status === 401) {
       const state = useAuthStore.getState();
       // Clear authentication in store
       state.logout();
     }
-    
+
     return Promise.reject(error);
   }
 );
 
 export default apiClient;
+
