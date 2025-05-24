@@ -5,6 +5,7 @@ import { useCountryStore, Country } from '@/store/countryStore';
 import { useTheme } from '@/providers/ThemeProvider';
 import { AnimateElement } from '@/components/common/PageTransition';
 import { SettingsToggle } from '@/components/common/SettingsToggle';
+import WelcomeLoadingScreen from '@/components/common/WelcomeLoadingScreen';
 import {
   Search,
   ChevronRight,
@@ -106,6 +107,8 @@ const CountrySelectionPage = () => {
   const [selectedCountryCard, setSelectedCountryCard] = useState<string | null>(null);
   const [selectedContinent, setSelectedContinent] = useState<string | null>(null);
   const [showSearch, setShowSearch] = useState(false);
+  const [showWelcomeLoading, setShowWelcomeLoading] = useState(false);
+  const [loadingCountry, setLoadingCountry] = useState<Country | null>(null);
   const navigate = useNavigate();
   const isDark = theme === 'dark';
 
@@ -262,8 +265,12 @@ const CountrySelectionPage = () => {
 console.log(filteredCountries);
   // Handle country selection
   const handleCountrySelect = (country: Country) => {
-    setSelectedCountry(country);
-    navigate('/home');
+    setLoadingCountry(country);
+    setShowWelcomeLoading(true);
+    setTimeout(() => {
+      setSelectedCountry(country);
+      navigate('/home');
+    }, 2000);
   };
 
   // Reset when going back to continent selection
@@ -301,6 +308,18 @@ console.log(filteredCountries);
         backgroundSize: "cover",
       }}
     >
+      {/* Welcome Loading Screen */}
+      {showWelcomeLoading && loadingCountry && (
+        <WelcomeLoadingScreen
+          country={loadingCountry}
+          onComplete={() => {
+            setShowWelcomeLoading(false);
+            navigate('/home');
+          }}
+          duration={3500}
+        />
+      )}
+
       {/* Custom styles */}
       <style>{scrollbarStyles}</style>
 
