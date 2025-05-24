@@ -8,6 +8,8 @@ export interface User {
   id: number;
   email: string;
   full_name: string;
+  avatar?: string;
+  profile_picture?: string;
   is_active: boolean;
   role?: string;
   role_id?: number;

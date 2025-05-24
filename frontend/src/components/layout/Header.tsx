@@ -29,7 +29,8 @@ import {
   SettingsIcon,
   ShieldIcon,
   BookmarkIcon,
-  ChefHatIcon
+  ChefHatIcon,
+  BellIcon
 } from 'lucide-react';
 import { ThemeToggleButton } from '@/components/common/ThemeToggleButton';
 import { LanguageButton } from '@/components/common/LanguageButton';
@@ -44,9 +45,17 @@ import {
   DropdownMenuGroup,
   DropdownMenuLabel
 } from '@/components/ui/dropdown-menu';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import { Badge } from '@/components/ui/badge';
 
 const Header = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const navItems = getNavItems();
@@ -83,105 +92,128 @@ const Header = () => {
     };
   }, []);
 
-  // Control body scroll when mobile menu is open
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      // Prevent scrolling on body when mobile menu is open
-      document.body.style.overflow = 'hidden';
-    } else {
-      // Re-enable scrolling when mobile menu is closed
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      // Cleanup - ensure scrolling is re-enabled when component unmounts
-      document.body.style.overflow = '';
-    };
-  }, [mobileMenuOpen]);
-
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
-  };
-
   const isActive = (path: string) => {
     return location.pathname === path;
   };
 
-  // Define primary navigation items to always show
-  const primaryNavItems = navItems.slice(0, 4); // Show first 4 items
+  // Define primary navigation items to always show - adjusted for different screen sizes
+  const primaryNavItems = navItems.slice(0, 4);
 
   // Define secondary navigation items for the dropdown
   const secondaryNavItems = navItems.slice(4);
 
-  // Map icons to navigation items
+  // Map icons to navigation items with margin-right
   const getNavIcon = (label: string) => {
     switch (label) {
       case 'home':
-        return <HomeIcon className="h-4 w-4 mr-2" />;
+        return <HomeIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
       case 'mapExplorer':
-        return <MapIcon className="h-4 w-4 mr-2" />;
+        return <MapIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
       case 'locations':
-        return <CompassIcon className="h-4 w-4 mr-2" />;
+        return <CompassIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
       case 'travelGuides':
       case 'guides':
-        return <BookOpenIcon className="h-4 w-4 mr-2" />;
+        return <BookOpenIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
       case 'accommodations':
-        return <BedIcon className="h-4 w-4 mr-2" />;
+        return <BedIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
       case 'food':
-        return <UtensilsIcon className="h-4 w-4 mr-2" />;
+        return <UtensilsIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
       case 'articles':
-        return <FileTextIcon className="h-4 w-4 mr-2" />;
+        return <FileTextIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
       case 'events':
-        return <CalendarIcon className="h-4 w-4 mr-2" />;
+        return <CalendarIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
       case 'favorites':
-        return <HeartIcon className="h-4 w-4 mr-2" />;
+        return <HeartIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
       // New feature icons
       case 'tripPlanner':
-        return <CalendarIcon className="h-4 w-4 mr-2" />;
+        return <CalendarIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
       case 'reviews':
-        return <StarIcon className="h-4 w-4 mr-2" />;
+        return <StarIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
       case 'community':
-        return <UsersIcon className="h-4 w-4 mr-2" />;
+        return <UsersIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
       case 'recommendations':
-        return <ThumbsUpIcon className="h-4 w-4 mr-2" />;
+        return <ThumbsUpIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
       case 'analytics':
-        return <BarChartIcon className="h-4 w-4 mr-2" />;
+        return <BarChartIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
       case 'support':
-        return <HelpCircleIcon className="h-4 w-4 mr-2" />;
+        return <HelpCircleIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
       default:
-        return <GlobeIcon className="h-4 w-4 mr-2" />;
+        return <GlobeIcon className="h-4 w-4 mr-2 flex-shrink-0" />;
+    }
+  };
+
+  // Get just the icon without margin for compact displays
+  const getNavIconCompact = (label: string) => {
+    switch (label) {
+      case 'home':
+        return <HomeIcon className="h-4 w-4 flex-shrink-0" />;
+      case 'mapExplorer':
+        return <MapIcon className="h-4 w-4 flex-shrink-0" />;
+      case 'locations':
+        return <CompassIcon className="h-4 w-4 flex-shrink-0" />;
+      case 'travelGuides':
+      case 'guides':
+        return <BookOpenIcon className="h-4 w-4 flex-shrink-0" />;
+      case 'accommodations':
+        return <BedIcon className="h-4 w-4 flex-shrink-0" />;
+      case 'food':
+        return <UtensilsIcon className="h-4 w-4 flex-shrink-0" />;
+      case 'articles':
+        return <FileTextIcon className="h-4 w-4 flex-shrink-0" />;
+      case 'events':
+        return <CalendarIcon className="h-4 w-4 flex-shrink-0" />;
+      case 'favorites':
+        return <HeartIcon className="h-4 w-4 flex-shrink-0" />;
+      // New feature icons
+      case 'tripPlanner':
+        return <CalendarIcon className="h-4 w-4 flex-shrink-0" />;
+      case 'reviews':
+        return <StarIcon className="h-4 w-4 flex-shrink-0" />;
+      case 'community':
+        return <UsersIcon className="h-4 w-4 flex-shrink-0" />;
+      case 'recommendations':
+        return <ThumbsUpIcon className="h-4 w-4 flex-shrink-0" />;
+      case 'analytics':
+        return <BarChartIcon className="h-4 w-4 flex-shrink-0" />;
+      case 'support':
+        return <HelpCircleIcon className="h-4 w-4 flex-shrink-0" />;
+      default:
+        return <GlobeIcon className="h-4 w-4 flex-shrink-0" />;
     }
   };
 
   return (
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled && !mobileMenuOpen 
-          ? 'bg-white/90 dark:bg-slate-900/90 shadow-md backdrop-blur-md' 
-          : 'bg-gradient-to-r from-blue-50/90 via-white/80 to-emerald-50/90 dark:from-slate-900/90 dark:via-slate-900/80 dark:to-slate-800/90'
+        scrolled 
+          ? 'bg-background/95 shadow-md backdrop-blur-md' 
+          : 'bg-gradient-to-r from-blue-50/90 via-white/80 to-emerald-50/90 dark:from-slate-900/95 dark:via-slate-900/90 dark:to-slate-800/95'
       }`}
     >
-      {/* Travel-themed decorative banner */}
-      <div className="hidden md:block h-1 w-full bg-gradient-to-r from-blue-500 via-teal-500 to-emerald-500"></div>
+      {/* Decorative top border - visible on all devices */}
+      <div className="h-1 w-full bg-gradient-to-r from-blue-500 via-teal-500 to-emerald-500"></div>
 
-      <div className="container mx-auto px-4 py-3 md:px-6">
+      <div className="container mx-auto px-2 py-2 sm:px-3 sm:py-3 md:px-4 2xl:px-6">
         <div className="flex items-center justify-between">
           {/* Logo and brand */}
           <div className="flex items-center">
-            <Link to="/home" className="flex items-center group">
-              <div>
-                <span className="text-lg font-extrabold tracking-tight text-primary-700 dark:text-primary-500">
-                  {t('appName')}
-                </span>
-                {/*<span className="hidden md:inline-block text-xs font-medium ml-1 text-muted-foreground">*/}
-                {/*  | {t('header.tagline')}*/}
-                {/*</span>*/}
+            <Link
+              to="/home"
+              className="flex items-center group"
+              aria-label={t('appName')}
+            >
+              <div className="hidden sm:flex relative mr-2 h-9 w-9 overflow-hidden rounded-full bg-primary-600 text-white shadow-md">
+                <GlobeIcon className="m-auto h-5 w-5" />
+                <div className="absolute -bottom-2 -right-2 h-4 w-4 rounded-full bg-amber-500"></div>
               </div>
+              <span className="text-lg font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary-700 to-primary-500 dark:from-primary-400 dark:to-primary-600">
+                {t('appName')}
+              </span>
             </Link>
           </div>
 
-          {/* Desktop navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
+          {/* Desktop large navigation (>=1536px) - show all primary items with text */}
+          <nav className="hidden 2xl:flex items-center space-x-1">
             {/* Primary nav items always visible */}
             {primaryNavItems.map((item) => (
               <Link
@@ -192,6 +224,7 @@ const Header = () => {
                     ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400 font-semibold'
                     : 'text-foreground hover:text-primary-600 hover:bg-muted/50'
                 }`}
+                aria-current={isActive(item.path) ? 'page' : undefined}
               >
                 {getNavIcon(item.label)}
                 {t(`navigation.${item.label}`)}
@@ -243,175 +276,327 @@ const Header = () => {
             )}
           </nav>
 
-          {/* User actions */}
-          <div className="flex items-center space-x-2">
-            {/* Desktop only actions */}
-            <div className="hidden md:flex items-center space-x-2">
-              {/* Search button */}
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full border-muted-foreground/20 text-muted-foreground hover:bg-muted hover:text-foreground"
-                aria-label={t('search')}
+          {/* Desktop medium navigation (1280px - 1536px) - show 3 primary items with text, more compact */}
+          <nav className="hidden xl:flex 2xl:hidden items-center space-x-0.5">
+            {/* Show first 3 items on xl screens */}
+            {primaryNavItems.slice(0, 3).map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`flex items-center text-sm font-medium transition-colors rounded-full px-2.5 py-2 ${
+                  isActive(item.path)
+                    ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400 font-semibold'
+                    : 'text-foreground hover:text-primary-600 hover:bg-muted/50'
+                }`}
+                aria-current={isActive(item.path) ? 'page' : undefined}
               >
-                <SearchIcon className="h-4 w-4" />
-              </Button>
+                {getNavIcon(item.label)}
+                <span className="text-xs whitespace-nowrap">{t(`navigation.${item.label}`)}</span>
+              </Link>
+            ))}
 
-              {/* Language switcher - compact mode */}
+            {/* More dropdown for all remaining items */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="flex items-center text-sm font-medium transition-colors rounded-full px-2.5 py-2"
+                >
+                  <MoreHorizontalIcon className="h-4 w-4 mr-1" />
+                  <span className="text-xs">{t('navigation.more')}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuGroup>
+                  {[...primaryNavItems.slice(3), ...secondaryNavItems].map((item) => (
+                    <DropdownMenuItem key={item.path} asChild>
+                      <Link
+                        to={item.path}
+                        className={`w-full flex items-center ${
+                          isActive(item.path) ? 'text-primary-600 font-medium' : ''
+                        }`}
+                      >
+                        {getNavIcon(item.label)}
+                        {t(`navigation.${item.label}`)}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </nav>
+
+          {/* Tablet navigation - only icons for efficient space usage (md-lg-xl) */}
+          <nav className="hidden md:flex xl:hidden items-center space-x-0.5">
+            {/* Only show first 3 items as icons */}
+            {primaryNavItems.slice(0, 3).map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`flex items-center justify-center text-sm font-medium transition-colors rounded-full w-9 h-9 ${
+                  isActive(item.path)
+                    ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400 font-semibold'
+                    : 'text-foreground hover:text-primary-600 hover:bg-muted/50'
+                }`}
+                aria-current={isActive(item.path) ? 'page' : undefined}
+                title={t(`navigation.${item.label}`)}
+              >
+                {getNavIconCompact(item.label)}
+                <span className="sr-only">{t(`navigation.${item.label}`)}</span>
+              </Link>
+            ))}
+
+            {/* More dropdown for all remaining items */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="flex items-center justify-center rounded-full w-9 h-9"
+                  title={t('navigation.more')}
+                >
+                  <MoreHorizontalIcon className="h-4 w-4" />
+                  <span className="sr-only">{t('navigation.more')}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuGroup>
+                  {[...primaryNavItems.slice(3), ...secondaryNavItems].map((item) => (
+                    <DropdownMenuItem key={item.path} asChild>
+                      <Link
+                        to={item.path}
+                        className={`w-full flex items-center ${
+                          isActive(item.path) ? 'text-primary-600 font-medium' : ''
+                        }`}
+                      >
+                        {getNavIcon(item.label)}
+                        {t(`navigation.${item.label}`)}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </nav>
+
+          {/* User actions */}
+          <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2">
+            {/* Search button - Always visible */}
+            <Button
+              variant="outline"
+              size="icon"
+              className="rounded-full border-muted-foreground/20 text-muted-foreground hover:bg-muted hover:text-foreground h-9 w-9"
+              aria-label={t('search')}
+            >
+              <SearchIcon className="h-4 w-4" />
+            </Button>
+
+            {/* Desktop/Tablet only actions */}
+            <div className="hidden sm:flex items-center gap-1">
+              {/* Language switcher */}
               <LanguageButton />
 
-              {/* Settings toggle */}
-              <ThemeToggleButton />              {/* User menu / login */}
-              <div className="relative">
-                {isAuthenticated ? (
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="gap-2 rounded-full bg-transparent border-muted-foreground/20"
-                      >
-                        <Avatar className="h-6 w-6">
-                          <AvatarImage src={user?.avatar || ''} alt={user?.full_name || 'User'} />
-                          <AvatarFallback className="bg-primary-100 text-primary-700 dark:bg-primary-800 dark:text-primary-300">
-                            {user?.full_name?.charAt(0) || 'U'}
-                          </AvatarFallback>
-                        </Avatar>
-                        <span className="hidden sm:inline-block">{user?.full_name || 'User'}</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-56">                      <DropdownMenuLabel>
-                        <div className="flex flex-col">
-                          <span>{user?.full_name}</span>
-                          <span className="text-xs text-muted-foreground">{user?.email}</span>
-                          {user?.role && (
-                            <span className="text-xs mt-1 px-2 py-0.5 bg-primary-100 text-primary-700 dark:bg-primary-900/20 dark:text-primary-400 rounded-full inline-block w-fit">
-                              {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
-                            </span>
-                          )}
+              {/* Theme toggle */}
+              <ThemeToggleButton />
+
+              {/* Notifications button - only for authenticated users */}
+              {isAuthenticated && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="rounded-full border-muted-foreground/20 text-muted-foreground hover:bg-muted hover:text-foreground relative h-9 w-9"
+                      aria-label={t('notifications')}
+                    >
+                      <BellIcon className="h-4 w-4" />
+                      <Badge className="absolute -top-1 -right-1 h-4 w-4 p-0 flex items-center justify-center text-[10px]">
+                        2
+                      </Badge>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-80">
+                    <DropdownMenuLabel>{t('notifications')}</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {/* Sample notifications - would come from a notifications store */}
+                    <DropdownMenuItem className="flex flex-col items-start py-2">
+                      <div className="flex gap-2 items-center w-full">
+                        <div className="bg-primary-100 dark:bg-primary-900/30 p-2 rounded-full">
+                          <CalendarIcon className="h-3 w-3 text-primary-700 dark:text-primary-400" />
                         </div>
-                      </DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem asChild>
-                        <Link to="/profile" className="flex items-center">
-                          <UserIcon className="mr-2 h-4 w-4" />
-                          <span>{t('navigation.profile')}</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link to="/favorites" className="flex items-center">
-                          <HeartIcon className="mr-2 h-4 w-4" />
-                          <span>{t('navigation.favorites')}</span>
-                        </Link>
-                      </DropdownMenuItem>
-                        {/* Admin panel link - only show if user is admin */}
-                      {(user?.role === 'admin' || user?.is_superuser) && (
-                        <DropdownMenuItem asChild>
-                          <Link to="/admin" className="flex items-center">
-                            <ShieldIcon className="mr-2 h-4 w-4" />
-                            <span>{t('navigation.adminPanel')}</span>
-                          </Link>
-                        </DropdownMenuItem>
-                      )}
-                      
-                      {/* Guide panel link - only show if user is guide */}
-                      {user?.role === 'guide' && (
-                        <DropdownMenuItem asChild>
-                          <Link to="/guides/my-guides" className="flex items-center">
-                            <ChefHatIcon className="mr-2 h-4 w-4" />
-                            <span>{t('navigation.guidePanel')}</span>
-                          </Link>
-                        </DropdownMenuItem>
-                      )}
-                      
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem asChild>
-                        <Link to="/settings" className="flex items-center">
-                          <SettingsIcon className="mr-2 h-4 w-4" />
-                          <span>{t('navigation.settings')}</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem 
-                        className="flex items-center text-red-600 focus:text-red-600" 
-                        onClick={() => {
-                          logout();
-                          navigate('/login');
-                        }}
-                      >
-                        <LogOutIcon className="mr-2 h-4 w-4" />
-                        <span>{t('navigation.logout')}</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                ) : (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    asChild
-                    className="gap-2 rounded-full bg-transparent border-muted-foreground/20"
-                  >
-                    <Link to="auth/login">
-                      <UserIcon className="h-4 w-4" />
-                      <span>{t('navigation.login')}</span>
-                    </Link>
-                  </Button>
-                )}
-              </div>
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">
+                            {t('notifications.tripReminder')}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {t('notifications.tripReminderContent')}
+                          </p>
+                        </div>
+                        <div className="text-xs text-muted-foreground">30m</div>
+                      </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="flex flex-col items-start py-2">
+                      <div className="flex gap-2 items-center w-full">
+                        <div className="bg-amber-100 dark:bg-amber-900/30 p-2 rounded-full">
+                          <UsersIcon className="h-3 w-3 text-amber-700 dark:text-amber-400" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">
+                            {t('notifications.newComment')}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {t('notifications.newCommentContent')}
+                          </p>
+                        </div>
+                        <div className="text-xs text-muted-foreground">2h</div>
+                      </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="flex justify-center">
+                      <Button variant="ghost" size="sm">
+                        {t('seeAll')}
+                      </Button>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
             </div>
 
-            {/* Book Now button visible on mobile */}
-            <Button
-              variant="default"
-              size="sm"
-              className="md:hidden flex items-center gap-1 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white shadow-md hover:shadow-lg transition-all"
-            >
-              <CameraIcon className="h-3.5 w-3.5" />
-            </Button>
+            {/* User menu / login */}
+            <div className="relative">
+              {isAuthenticated ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="gap-2 rounded-full bg-transparent border-muted-foreground/20 h-9"
+                    >
+                      <Avatar className="h-6 w-6">
+                        <AvatarImage src={user?.avatar || ''} alt={user?.full_name || 'User'} />
+                        <AvatarFallback className="bg-primary-100 text-primary-700 dark:bg-primary-800 dark:text-primary-300">
+                          {user?.full_name?.charAt(0) || 'U'}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="hidden sm:inline-block max-w-16 md:max-w-24 truncate text-xs sm:text-sm">
+                        {user?.full_name || 'User'}
+                      </span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuLabel>
+                      <div className="flex flex-col">
+                        <span>{user?.full_name}</span>
+                        <span className="text-xs text-muted-foreground">{user?.email}</span>
+                        {user?.role && (
+                          <span className="text-xs mt-1 px-2 py-0.5 bg-primary-100 text-primary-700 dark:bg-primary-900/20 dark:text-primary-400 rounded-full inline-block w-fit">
+                            {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                          </span>
+                        )}
+                      </div>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link to="/profile" className="flex items-center">
+                        <UserIcon className="mr-2 h-4 w-4" />
+                        <span>{t('navigation.profile')}</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/favorites" className="flex items-center">
+                        <HeartIcon className="mr-2 h-4 w-4" />
+                        <span>{t('navigation.favorites')}</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    {/* Admin panel link - only show if user is admin */}
+                    {(user?.role === 'admin' || user?.is_superuser) && (
+                      <DropdownMenuItem asChild>
+                        <Link to="/admin" className="flex items-center">
+                          <ShieldIcon className="mr-2 h-4 w-4" />
+                          <span>{t('navigation.adminPanel')}</span>
+                        </Link>
+                      </DropdownMenuItem>
+                    )}
+
+                    {/* Guide panel link - only show if user is guide */}
+                    {user?.role === 'guide' && (
+                      <DropdownMenuItem asChild>
+                        <Link to="/guides/my-guides" className="flex items-center">
+                          <ChefHatIcon className="mr-2 h-4 w-4" />
+                          <span>{t('navigation.guidePanel')}</span>
+                        </Link>
+                      </DropdownMenuItem>
+                    )}
+
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link to="/settings" className="flex items-center">
+                        <SettingsIcon className="mr-2 h-4 w-4" />
+                        <span>{t('navigation.settings')}</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="flex items-center text-red-600 focus:text-red-600"
+                      onClick={() => {
+                        logout();
+                        navigate('/login');
+                      }}
+                    >
+                      <LogOutIcon className="mr-2 h-4 w-4" />
+                      <span>{t('navigation.logout')}</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  asChild
+                  className="gap-2 rounded-full bg-transparent border-muted-foreground/20 h-9"
+                >
+                  <Link to="/auth/login">
+                    <UserIcon className="h-4 w-4" />
+                    <span className="hidden sm:inline-block text-xs sm:text-sm">{t('navigation.login')}</span>
+                  </Link>
+                </Button>
+              )}
+            </div>
 
             {/* Mobile menu button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden text-muted-foreground"
-              onClick={toggleMobileMenu}
-              aria-label={t('toggleMenu')}
-            >
-              {mobileMenuOpen ? (
-                <XIcon className="h-5 w-5" />
-              ) : (
-                <MenuIcon className="h-5 w-5" />
-              )}
-            </Button>
-          </div>
-        </div>
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="md:hidden text-muted-foreground"
+                  aria-label={t('toggleMenu')}
+                >
+                  <MenuIcon className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-full sm:max-w-sm">
+                <SheetHeader className="text-left pb-4 border-b">
+                  <SheetTitle>
+                    <Link
+                      to="/home"
+                      className="flex items-center gap-2"
+                    >
+                      <div className="relative flex h-8 w-8 overflow-hidden rounded-full bg-primary-600 text-white shadow-md">
+                        <GlobeIcon className="m-auto h-5 w-5" />
+                        <div className="absolute -bottom-2 -right-2 h-4 w-4 rounded-full bg-amber-500"></div>
+                      </div>
+                      <span className="text-lg font-extrabold tracking-tight text-primary-700 dark:text-primary-500">
+                        {t('appName')}
+                      </span>
+                    </Link>
+                  </SheetTitle>
+                </SheetHeader>
 
-        {/* Mobile navigation - Redesigned with beautiful animation */}
-        {mobileMenuOpen && (
-          <div className="md:hidden">
-            <div className="animate-in slide-in-from-top-5 fade-in-20 fixed inset-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm">
-              <div className="container mx-auto px-4 py-4 h-full overflow-y-auto">
-                <div className="flex justify-between items-center mb-6">
-                  <Link to="/home" className="flex items-center group" onClick={() => setMobileMenuOpen(false)}>
-                    <div className="relative mr-2 flex h-8 w-8 overflow-hidden rounded-full bg-primary-600 text-white shadow-md">
-                      <GlobeIcon className="m-auto h-5 w-5" />
-                      <div className="absolute -bottom-2 -right-2 h-4 w-4 rounded-full bg-amber-500"></div>
-                    </div>
-                    <span className="text-lg font-extrabold tracking-tight text-primary-700 dark:text-primary-500">
-                      {t('appName')}
-                    </span>
-                  </Link>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={toggleMobileMenu}
-                    aria-label={t('close')}
-                    className="text-muted-foreground hover:bg-muted"
-                  >
-                    <XIcon className="h-5 w-5" />
-                  </Button>
-                </div>                {/* User Profile and Actions Section */}
-                <div className="mb-8 py-4 px-3 bg-muted/30 rounded-xl">
-                  <div className="flex items-center gap-4 mb-4">                    {isAuthenticated ? (
+                {/* Mobile User Profile */}
+                <div className="py-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    {isAuthenticated ? (
                       <>
                         <Avatar className="h-12 w-12">
                           <AvatarImage src={user?.avatar || ''} alt={user?.full_name || ''} />
@@ -427,7 +612,6 @@ const Header = () => {
                             className="p-0 h-auto font-semibold text-primary-600"
                             onClick={() => {
                               logout();
-                              setMobileMenuOpen(false);
                             }}
                           >
                             {t('navigation.logout')}
@@ -442,15 +626,17 @@ const Header = () => {
                         <div>
                           <h3 className="font-medium">{t('header.welcome')}</h3>
                           <Button asChild variant="link" className="p-0 h-auto font-semibold text-primary-600">
-                            <Link to="auth/login" onClick={() => setMobileMenuOpen(false)}>
+                            <Link to="/auth/login">
                               {t('navigation.login')}
                             </Link>
                           </Button>
                         </div>
                       </>
                     )}
-                  </div>                  <div className="grid grid-cols-2 gap-2">
-                    {/* Search Button */}
+                  </div>
+
+                  {/* Quick actions grid */}
+                  <div className="grid grid-cols-2 gap-2 mb-6">
                     <Button
                       variant="outline"
                       size="sm"
@@ -475,10 +661,7 @@ const Header = () => {
                       </Button>
                     )}
 
-                    {/* Theme Toggle Button */}
                     <ThemeToggleButton />
-
-                    {/* Language Switcher Button */}
                     <LanguageButton />
                     
                     {isAuthenticated && (user?.role === 'admin' || user?.is_superuser) && (
@@ -497,7 +680,8 @@ const Header = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {/* Mobile Navigation List */}
+                <div className="space-y-6">
                   <div>
                     <h3 className="mb-3 text-sm uppercase text-muted-foreground font-semibold tracking-wider">
                       {t('header.mainNavigation')}
@@ -507,12 +691,11 @@ const Header = () => {
                         <Link
                           key={item.path}
                           to={item.path}
-                          className={`flex items-center rounded-lg px-4 py-3 text-base transition-colors ${
+                          className={`flex items-center rounded-lg px-3 py-2 text-sm transition-colors ${
                             isActive(item.path)
                               ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/20 dark:text-primary-400 font-medium'
                               : 'hover:bg-muted/60'
                           }`}
-                          onClick={() => setMobileMenuOpen(false)}
                         >
                           {getNavIcon(item.label)}
                           {t(`navigation.${item.label}`)}
@@ -530,12 +713,11 @@ const Header = () => {
                         <Link
                           key={item.path}
                           to={item.path}
-                          className={`flex items-center rounded-lg px-4 py-3 text-base transition-colors ${
+                          className={`flex items-center rounded-lg px-3 py-2 text-sm transition-colors ${
                             isActive(item.path)
                               ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/20 dark:text-primary-400 font-medium'
                               : 'hover:bg-muted/60'
                           }`}
-                          onClick={() => setMobileMenuOpen(false)}
                         >
                           {getNavIcon(item.label)}
                           {t(`navigation.${item.label}`)}
@@ -545,25 +727,24 @@ const Header = () => {
                   </div>
                 </div>
 
+                {/* Footer links */}
                 <div className="mt-8 border-t pt-6 border-muted/20">
-                  <div className="mt-6 flex items-center justify-center space-x-4">
+                  <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
                     <a href="#" className="text-muted-foreground hover:text-foreground text-sm">
                       {t('footer.privacyPolicy')}
                     </a>
-                    <span className="text-muted-foreground">•</span>
                     <a href="#" className="text-muted-foreground hover:text-foreground text-sm">
                       {t('footer.termsOfService')}
                     </a>
-                    <span className="text-muted-foreground">•</span>
                     <a href="#" className="text-muted-foreground hover:text-foreground text-sm">
                       {t('footer.contactUs')}
                     </a>
                   </div>
                 </div>
-              </div>
-            </div>
+              </SheetContent>
+            </Sheet>
           </div>
-        )}
+        </div>
       </div>
     </header>
   );
