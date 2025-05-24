@@ -23,6 +23,8 @@ import GuideManagement from '@/pages/admin/GuideManagement';
 import MediaManagement from '@/pages/admin/MediaManagement';
 import RolesManagement from '@/pages/admin/RolesManagement';
 import PermissionsManagement from '@/pages/admin/PermissionsManagement';
+import CommunityPostManagement from '@/pages/admin/CommunityPostManagement';
+import RatingManagement from '@/pages/admin/RatingManagement';
 
 // Location Management Pages
 import ContinentManagement from '@/pages/admin/ContinentManagement';
@@ -330,6 +332,26 @@ const AppRouter = () => {
           element={
             <AdminRouteWrapper>
               <ContentManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        {/* Community Posts Management Route */}
+        <Route
+          path={APP_ROUTES.ADMIN_COMMUNITY_POSTS.path}
+          element={
+            <AdminRouteWrapper>
+              <CommunityPostManagement />
+            </AdminRouteWrapper>
+          }
+        />
+
+        {/* Ratings Management Route */}
+        <Route
+          path={APP_ROUTES.ADMIN_RATINGS.path}
+          element={
+            <AdminRouteWrapper>
+              <RatingManagement />
             </AdminRouteWrapper>
           }
         />

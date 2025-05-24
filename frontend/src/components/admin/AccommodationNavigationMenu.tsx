@@ -2,8 +2,7 @@ import React from 'react';
 import { Button, Typography, Card } from 'antd';
 import {
   HomeOutlined,
-  AppstoreOutlined,
-  DatabaseOutlined
+  AppstoreOutlined
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { Permission } from '@/utils/permissions';
@@ -27,7 +26,7 @@ const AccommodationNavigationMenu: React.FC = () => {
     <Card style={{ marginBottom: 24 }}>
       <Title level={4}>Accommodation Management Sections</Title>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: 16 }}>
-        <PermissionGuard requiredPermissions={[Permission.CONTENT_VIEW]}>
+        <PermissionGuard permission={Permission.CONTENT_VIEW}>
           <Button
             type="primary"
             icon={<HomeOutlined />}

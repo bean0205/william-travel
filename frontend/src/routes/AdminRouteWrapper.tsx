@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
+import AdminLayout from '@/layouts/AdminLayout';
 
 interface AdminRouteWrapperProps {
   children: React.ReactNode;
@@ -19,7 +20,7 @@ const AdminRouteWrapper: React.FC<AdminRouteWrapperProps> = ({ children }) => {
     return <Navigate to="/unauthorized" replace />;
   }
 
-  return <>{children}</>;
+  return <AdminLayout>{children}</AdminLayout>;
 };
 
 export default AdminRouteWrapper;

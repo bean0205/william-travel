@@ -286,8 +286,7 @@ export const APP_ROUTES: Record<string, AppRoute> = {
   ADMIN_ARTICLE_EDIT: {
     path: '/admin/articles/edit/:id',
     label: 'Edit Article',
-  },
-  // Event management routes
+  },  // Event management routes
   ADMIN_EVENT_CREATE: {
     path: '/admin/events/create',
     label: 'Create Event',
@@ -295,6 +294,16 @@ export const APP_ROUTES: Record<string, AppRoute> = {
   ADMIN_EVENT_EDIT: {
     path: '/admin/events/edit/:id',
     label: 'Edit Event',
+  },
+  // Community Posts management route
+  ADMIN_COMMUNITY_POSTS: {
+    path: '/admin/community-posts',
+    label: 'Community Posts Management',
+  },
+  // Ratings management route
+  ADMIN_RATINGS: {
+    path: '/admin/ratings',
+    label: 'Ratings Management',
   },
 };
 

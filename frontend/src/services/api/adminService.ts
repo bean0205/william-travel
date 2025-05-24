@@ -4,7 +4,7 @@ import { API_ENDPOINTS } from '@/constants/apiEndpoints';
 // Interface for the admin dashboard statistics
 export interface AdminStats {
   usersCount: number;
-  contentrCount: number;
+  contentCount: number;
   locationsCount: number;
   bookingsCount: number;
   newUsers: {
@@ -26,7 +26,7 @@ export interface SystemLog {
   message: string;
   timestamp: string;
   ip?: string;
-  details?: Record<string, any>;
+  details?: Record<string, unknown>;
 }
 
 // Get admin dashboard statistics
@@ -95,10 +95,10 @@ export const runSystemMaintenance = async (task: string): Promise<{
 };
 
 // Update system settings
-export const updateSystemSettings = async (settings: Record<string, any>): Promise<{
+export const updateSystemSettings = async (settings: Record<string, unknown>): Promise<{
   success: boolean;
   message: string;
-  settings: Record<string, any>;
+  settings: Record<string, unknown>;
 }> => {
   try {
     const response = await apiClient.put(`${API_ENDPOINTS.SYSTEM.SETTINGS}`, settings);

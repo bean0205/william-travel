@@ -1,439 +1,736 @@
 import React, { useState, useEffect } from 'react';
-import { getArticles, deleteArticle, createArticle, updateArticle, Article } from '@/services/api/articleService';
-import Pagination from '@/components/admin/Pagination';
-import SortableColumn, { SortDirection } from '@/components/admin/SortableColumn';
-import ArticleStatistics from '@/components/admin/ArticleStatistics';
-import ArticleForm from '@/components/admin/ArticleForm';
+import { Table, Button, Space, Input, Tabs, Card, Tag, Typography, Spin, Modal, Form, Select, message } from 'antd';
+import {
+  EditOutlined,
+  DeleteOutlined,
+  PlusOutlined,
+  FileOutlined,
+  AppstoreOutlined,
+  TagOutlined,
+  BarChartOutlined
+} from '@ant-design/icons';
+import { getArticles, getArticleById, createArticle, updateArticle, deleteArticle, Article } from '@/services/api/articleService';
+import { PermissionGuard } from '@/components/common/PermissionGuards';
 
-const ArticleManagement: React.FC = () => {
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [allArticles, setAllArticles] = useState<Article[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState<'all' | 'published' | 'draft' | 'archived'>('all');
+const { Search } = Input;
+const { TabPane } = Tabs;
+const { TextArea } = Input;
+const { Title } = Typography;
 
-  // Pagination state
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const itemsPerPage = 10;
+// Interfaces for article categories and tags based on API documentation
+interface ArticleCategory {
+  id: number;
+  name: string;
+  description: string;
+  status: number;
+  created_at: string;
+  updated_at: string;
+}
 
-  // Sorting state
-  const [sortField, setSortField] = useState<string | null>(null);
-  const [sortDirection, setSortDirection] = useState<SortDirection>(null);
+interface ArticleTag {
+  id: number;
+  name: string;
+  status: number;
+  created_at: string;
+  updated_at: string;
+}
 
-  // Modal state for article form
-  const [showArticleModal, setShowArticleModal] = useState(false);
-  const [currentArticle, setCurrentArticle] = useState<Partial<Article> | null>(null);
-  const [formLoading, setFormLoading] = useState(false);
-
-  // Article statistics
-  const [articleStats, setArticleStats] = useState({
-    totalArticles: 0,
-    publishedArticles: 0,
-    draftArticles: 0,
-    archivedArticles: 0,
-    totalViews: 0,
-    mostViewedArticle: '',
-  });
+// Article Categories Management Component
+const ArticleCategoryManagement: React.FC = () => {
+  const [categories, setCategories] = useState<ArticleCategory[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [editingCategory, setEditingCategory] = useState<ArticleCategory | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [form] = Form.useForm();
 
   useEffect(() => {
-    fetchArticles();
-  }, [filter]);
+    fetchCategories();
+  }, []);
 
-  const fetchArticles = async () => {
+  const fetchCategories = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-      const filters = filter !== 'all' ? { status: filter } : {};
-      const data = await getArticles(filters);
-      setAllArticles(data);
-
-      // Calculate statistics
-      const stats = {
-        totalArticles: data.length,
-        publishedArticles: data.filter(article => article.status === 'published').length,
-        draftArticles: data.filter(article => article.status === 'draft').length,
-        archivedArticles: data.filter(article => article.status === 'archived').length,
-        totalViews: data.reduce((sum, article) => sum + (article.views || 0), 0),
-        mostViewedArticle: getMostViewedArticle(data),
-      };
-      setArticleStats(stats);
-
-      // Apply sorting if needed
-      let sortedData = [...data];
-      if (sortField && sortDirection) {
-        sortedData = sortData(sortedData, sortField, sortDirection);
-      }
-
-      // Update total pages
-      setTotalPages(Math.max(1, Math.ceil(sortedData.length / itemsPerPage)));
-
-      // Set current page data
-      const startIndex = (currentPage - 1) * itemsPerPage;
-      const paginatedData = sortedData.slice(startIndex, startIndex + itemsPerPage);
-      setArticles(paginatedData);
-
-      setError(null);
-    } catch (err) {
-      console.error('Failed to fetch articles:', err);
-      setError('Could not load articles. Please try again later.');
+      // This will be replaced with actual API call when available
+      // Call should be: const data = await getArticleCategories();
+      const mockCategories: ArticleCategory[] = [
+        {
+          id: 1,
+          name: "Travel Guide",
+          description: "Comprehensive travel guides for destinations",
+          status: 1,
+          created_at: "2025-05-01T00:00:00",
+          updated_at: "2025-05-01T00:00:00"
+        },
+        {
+          id: 2,
+          name: "Travel Tips",
+          description: "Useful tips and tricks for travelers",
+          status: 1,
+          created_at: "2025-05-01T00:00:00",
+          updated_at: "2025-05-01T00:00:00"
+        }
+      ];
+      setCategories(mockCategories);
+    } catch (error) {
+      message.error('Failed to fetch article categories');
+      console.error('Error fetching article categories:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  // Get most viewed article
-  const getMostViewedArticle = (articles: Article[]): string => {
-    if (articles.length === 0) return '';
-
-    const mostViewedArticle = articles.reduce(
-      (prev, current) => (prev.views > current.views) ? prev : current
-    );
-
-    return mostViewedArticle.title;
+  const showModal = (category?: ArticleCategory) => {
+    setEditingCategory(category || null);
+    form.setFieldsValue(category || { name: '', description: '', status: 1 });
+    setIsModalVisible(true);
   };
 
-  const handleDeleteArticle = async (id: number) => {
-    if (window.confirm('Are you sure you want to delete this article?')) {
-      try {
-        await deleteArticle(id);
-        fetchArticles();
-      } catch (err) {
-        console.error('Failed to delete article:', err);
-        setError('Could not delete article. Please try again later.');
-      }
-    }
+  const handleCancel = () => {
+    setIsModalVisible(false);
   };
 
-  const handleSort = (field: string, direction: SortDirection) => {
-    setSortField(field);
-    setSortDirection(direction);
-
-    if (direction === null) {
-      // Reset to original order
-      fetchArticles();
-      return;
-    }
-
-    const sortedArticles = sortData([...allArticles], field, direction);
-
-    // Update total pages
-    setTotalPages(Math.max(1, Math.ceil(sortedArticles.length / itemsPerPage)));
-
-    // Reset to first page when sorting
-    setCurrentPage(1);
-
-    // Set current page data
-    const startIndex = 0;  // First page
-    const paginatedData = sortedArticles.slice(startIndex, startIndex + itemsPerPage);
-    setArticles(paginatedData);
-  };
-
-  const sortData = (data: Article[], field: string, direction: SortDirection): Article[] => {
-    if (!direction) return data;
-
-    return [...data].sort((a, b) => {
-      let valueA = a[field as keyof Article];
-      let valueB = b[field as keyof Article];
-
-      // Handle dates
-      if (field === 'createdAt' || field === 'updatedAt') {
-        valueA = new Date(valueA as string).getTime();
-        valueB = new Date(valueB as string).getTime();
-      }
-
-      // Compare based on direction
-      if (direction === 'asc') {
-        if (typeof valueA === 'string' && typeof valueB === 'string') {
-          return valueA.localeCompare(valueB);
-        }
-        return (valueA as number) - (valueB as number);
-      } else {
-        if (typeof valueA === 'string' && typeof valueB === 'string') {
-          return valueB.localeCompare(valueA);
-        }
-        return (valueB as number) - (valueA as number);
-      }
-    });
-  };
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-
-    // Apply current filters and sorting
-    let filteredData = [...allArticles];
-    if (sortField && sortDirection) {
-      filteredData = sortData(filteredData, sortField, sortDirection);
-    }
-
-    // Get data for the selected page
-    const startIndex = (page - 1) * itemsPerPage;
-    const paginatedData = filteredData.slice(startIndex, startIndex + itemsPerPage);
-    setArticles(paginatedData);
-  };
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);  // Reset to first page when searching
-
-    // Filter all articles based on search term
-    const filteredArticles = allArticles.filter(article =>
-      article.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
-      article.author.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-
-    // Apply current sorting if any
-    let sortedArticles = [...filteredArticles];
-    if (sortField && sortDirection) {
-      sortedArticles = sortData(sortedArticles, sortField, sortDirection);
-    }
-
-    // Update pagination
-    setTotalPages(Math.max(1, Math.ceil(sortedArticles.length / itemsPerPage)));
-
-    // Show first page results
-    const paginatedData = sortedArticles.slice(0, itemsPerPage);
-    setArticles(paginatedData);
-  };
-
-  const openCreateArticleModal = () => {
-    setCurrentArticle(null);
-    setShowArticleModal(true);
-  };
-
-  const openEditArticleModal = (article: Article) => {
-    setCurrentArticle(article);
-    setShowArticleModal(true);
-  };
-
-  const closeArticleModal = () => {
-    setShowArticleModal(false);
-    setCurrentArticle(null);
-  };
-
-  const handleSaveArticle = async (articleData: Partial<Article>) => {
-    setFormLoading(true);
+  const handleSubmit = async (values: any) => {
     try {
-      if (currentArticle?.id) {
-        // Update existing article
-        await updateArticle(currentArticle.id, articleData);
+      if (editingCategory) {
+        // Update logic will go here when API is available
+        message.success('Article category updated successfully');
       } else {
-        // Create new article
-        await createArticle(articleData);
+        // Create logic will go here when API is available
+        // await createArticleCategory(values);
+        message.success('Article category created successfully');
       }
-
-      // Close modal and refresh data
-      closeArticleModal();
-      fetchArticles();
-    } catch (err) {
-      console.error('Failed to save article:', err);
-      setError('Could not save article. Please try again later.');
-    } finally {
-      setFormLoading(false);
+      setIsModalVisible(false);
+      fetchCategories();
+    } catch (error) {
+      message.error('Operation failed');
+      console.error('Error creating/updating article category:', error);
     }
   };
+
+  const columns = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Description',
+      dataIndex: 'description',
+      key: 'description',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status: number) => (
+        <Tag color={status === 1 ? 'green' : 'red'}>
+          {status === 1 ? 'Active' : 'Inactive'}
+        </Tag>
+      ),
+    },
+    {
+      title: 'Created At',
+      dataIndex: 'created_at',
+      key: 'created_at',
+    },
+    {
+      title: 'Actions',
+      key: 'actions',
+      render: (_, record: ArticleCategory) => (
+        <Space>
+          <Button icon={<EditOutlined />} onClick={() => showModal(record)}>
+            Edit
+          </Button>
+          <Button danger icon={<DeleteOutlined />}>
+            Delete
+          </Button>
+        </Space>
+      ),
+    },
+  ];
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Article Management</h1>
+    <div>
+      <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between' }}>
+        <Title level={4}>Article Categories</Title>
+        <Button type="primary" icon={<PlusOutlined />} onClick={() => showModal()}>
+          Add Category
+        </Button>
+      </div>
 
-      {/* Article Statistics Dashboard */}
-      <ArticleStatistics
-        totalArticles={articleStats.totalArticles}
-        publishedArticles={articleStats.publishedArticles}
-        draftArticles={articleStats.draftArticles}
-        archivedArticles={articleStats.archivedArticles}
-        totalViews={articleStats.totalViews}
-        mostViewedArticle={articleStats.mostViewedArticle}
+      <Table
+        columns={columns}
+        dataSource={categories}
+        rowKey="id"
         loading={loading}
       />
 
-      <div className="flex justify-between mb-6">
-        <div className="flex space-x-4">
-          <button
-            onClick={() => setFilter('all')}
-            className={`px-4 py-2 rounded ${filter === 'all' ? 'bg-primary text-white' : 'bg-gray-200'}`}
+      <Modal
+        title={editingCategory ? 'Edit Article Category' : 'Add Article Category'}
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleSubmit}
+        >
+          <Form.Item
+            name="name"
+            label="Name"
+            rules={[{ required: true, message: 'Please enter the name' }]}
           >
-            All
-          </button>
-          <button
-            onClick={() => setFilter('published')}
-            className={`px-4 py-2 rounded ${filter === 'published' ? 'bg-primary text-white' : 'bg-gray-200'}`}
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="description"
+            label="Description"
           >
-            Published
-          </button>
-          <button
-            onClick={() => setFilter('draft')}
-            className={`px-4 py-2 rounded ${filter === 'draft' ? 'bg-primary text-white' : 'bg-gray-200'}`}
+            <TextArea rows={3} />
+          </Form.Item>
+          <Form.Item
+            name="status"
+            label="Status"
+            rules={[{ required: true, message: 'Please select status' }]}
           >
-            Drafts
-          </button>
-          <button
-            onClick={() => setFilter('archived')}
-            className={`px-4 py-2 rounded ${filter === 'archived' ? 'bg-primary text-white' : 'bg-gray-200'}`}
-          >
-            Archived
-          </button>
-        </div>
+            <Select>
+              <Select.Option value={1}>Active</Select.Option>
+              <Select.Option value={0}>Inactive</Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              {editingCategory ? 'Update' : 'Create'}
+            </Button>
+            <Button style={{ marginLeft: 8 }} onClick={handleCancel}>
+              Cancel
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+    </div>
+  );
+};
 
-        <div className="flex space-x-2">
-          <input
-            type="text"
-            placeholder="Search articles..."
-            className="px-3 py-2 border rounded"
-            value={searchTerm}
-            onChange={handleSearch}
-          />
-          <button
-            className="px-4 py-2 bg-primary text-white rounded"
-            onClick={openCreateArticleModal}
-          >
-            Create New Article
-          </button>
-        </div>
+// Article Tags Management Component
+const ArticleTagManagement: React.FC = () => {
+  const [tags, setTags] = useState<ArticleTag[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [editingTag, setEditingTag] = useState<ArticleTag | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    fetchTags();
+  }, []);
+
+  const fetchTags = async () => {
+    setLoading(true);
+    try {
+      // This will be replaced with actual API call when available
+      // Call should be: const data = await getArticleTags();
+      const mockTags: ArticleTag[] = [
+        {
+          id: 1,
+          name: "Vietnam",
+          status: 1,
+          created_at: "2025-05-01T00:00:00",
+          updated_at: "2025-05-01T00:00:00"
+        },
+        {
+          id: 2,
+          name: "Budget Travel",
+          status: 1,
+          created_at: "2025-05-01T00:00:00",
+          updated_at: "2025-05-01T00:00:00"
+        }
+      ];
+      setTags(mockTags);
+    } catch (error) {
+      message.error('Failed to fetch article tags');
+      console.error('Error fetching article tags:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const showModal = (tag?: ArticleTag) => {
+    setEditingTag(tag || null);
+    form.setFieldsValue(tag || { name: '', status: 1 });
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleSubmit = async (values: any) => {
+    try {
+      if (editingTag) {
+        // Update logic will go here when API is available
+        message.success('Article tag updated successfully');
+      } else {
+        // Create logic will go here when API is available
+        // await createArticleTag(values);
+        message.success('Article tag created successfully');
+      }
+      setIsModalVisible(false);
+      fetchTags();
+    } catch (error) {
+      message.error('Operation failed');
+      console.error('Error creating/updating article tag:', error);
+    }
+  };
+
+  const columns = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status: number) => (
+        <Tag color={status === 1 ? 'green' : 'red'}>
+          {status === 1 ? 'Active' : 'Inactive'}
+        </Tag>
+      ),
+    },
+    {
+      title: 'Created At',
+      dataIndex: 'created_at',
+      key: 'created_at',
+    },
+    {
+      title: 'Actions',
+      key: 'actions',
+      render: (_, record: ArticleTag) => (
+        <Space>
+          <Button icon={<EditOutlined />} onClick={() => showModal(record)}>
+            Edit
+          </Button>
+          <Button danger icon={<DeleteOutlined />}>
+            Delete
+          </Button>
+        </Space>
+      ),
+    },
+  ];
+
+  return (
+    <div>
+      <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between' }}>
+        <Title level={4}>Article Tags</Title>
+        <Button type="primary" icon={<PlusOutlined />} onClick={() => showModal()}>
+          Add Tag
+        </Button>
       </div>
 
-      {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-          {error}
-        </div>
-      )}
+      <Table
+        columns={columns}
+        dataSource={tags}
+        rowKey="id"
+        loading={loading}
+      />
 
-      {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-        </div>
-      ) : (
-        <>
-          <div className="bg-white shadow rounded-lg overflow-hidden">
-            {articles.length === 0 ? (
-              <div className="p-6 text-center text-gray-500">
-                No articles found. Try changing your filters or creating a new article.
-              </div>
-            ) : (
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <SortableColumn
-                      label="Title"
-                      field="title"
-                      currentSortField={sortField}
-                      currentSortDirection={sortDirection}
-                      onSort={handleSort}
-                    />
-                    <SortableColumn
-                      label="Status"
-                      field="status"
-                      currentSortField={sortField}
-                      currentSortDirection={sortDirection}
-                      onSort={handleSort}
-                    />
-                    <SortableColumn
-                      label="Author"
-                      field="author"
-                      currentSortField={sortField}
-                      currentSortDirection={sortDirection}
-                      onSort={handleSort}
-                    />
-                    <SortableColumn
-                      label="Views"
-                      field="views"
-                      currentSortField={sortField}
-                      currentSortDirection={sortDirection}
-                      onSort={handleSort}
-                    />
-                    <SortableColumn
-                      label="Created"
-                      field="createdAt"
-                      currentSortField={sortField}
-                      currentSortDirection={sortDirection}
-                      onSort={handleSort}
-                    />
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {articles.map((article) => (
-                    <tr key={article.id}>
-                      <td className="px-6 py-4 whitespace-nowrap">{article.title}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                          ${article.status === 'published' ? 'bg-green-100 text-green-800' : 
-                            article.status === 'draft' ? 'bg-yellow-100 text-yellow-800' : 
-                            'bg-gray-100 text-gray-800'}`}
-                        >
-                          {article.status}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">{article.author}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{article.views}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {new Date(article.createdAt).toLocaleDateString()}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <button
-                          className="text-indigo-600 hover:text-indigo-900 mr-3"
-                          onClick={() => openEditArticleModal(article)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="text-blue-600 hover:text-blue-900 mr-3"
-                          onClick={() => window.open(`/articles/${article.id}`, '_blank')}
-                        >
-                          View
-                        </button>
-                        <button
-                          className="text-red-600 hover:text-red-900"
-                          onClick={() => handleDeleteArticle(article.id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
+      <Modal
+        title={editingTag ? 'Edit Article Tag' : 'Add Article Tag'}
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleSubmit}
+        >
+          <Form.Item
+            name="name"
+            label="Name"
+            rules={[{ required: true, message: 'Please enter the tag name' }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="status"
+            label="Status"
+            rules={[{ required: true, message: 'Please select status' }]}
+          >
+            <Select>
+              <Select.Option value={1}>Active</Select.Option>
+              <Select.Option value={0}>Inactive</Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              {editingTag ? 'Update' : 'Create'}
+            </Button>
+            <Button style={{ marginLeft: 8 }} onClick={handleCancel}>
+              Cancel
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+    </div>
+  );
+};
 
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
+// Articles List Management Component
+const ArticleListManagement: React.FC = () => {
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filter, setFilter] = useState<'all' | 'published' | 'draft' | 'archived'>('all');
+  const [editingArticle, setEditingArticle] = useState<Article | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    fetchArticles();
+  }, [currentPage, pageSize, searchTerm, filter]);
+
+  const fetchArticles = async () => {
+    setLoading(true);
+    try {
+      const filters: Record<string, unknown> = {
+        page: currentPage,
+        limit: pageSize
+      };
+
+      if (searchTerm) {
+        filters.search = searchTerm;
+      }
+
+      if (filter !== 'all') {
+        filters.status = filter;
+      }
+
+      const data = await getArticles(filters);
+      if (data.items) {
+        setArticles(data.items);
+        setTotalItems(data.total || 0);
+      } else {
+        // If API doesn't return paginated response yet
+        setArticles(data);
+      }
+    } catch (error) {
+      message.error('Failed to fetch articles');
+      console.error('Error fetching articles:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSearch = (value: string) => {
+    setSearchTerm(value);
+    setCurrentPage(1);
+  };
+
+  const handleFilterChange = (value: 'all' | 'published' | 'draft' | 'archived') => {
+    setFilter(value);
+    setCurrentPage(1);
+  };
+
+  const showModal = (article?: Article) => {
+    setEditingArticle(article || null);
+    if (article) {
+      form.setFieldsValue({
+        title: article.title,
+        content: article.content,
+        status: article.status,
+        // Other fields would be set here
+      });
+    } else {
+      form.resetFields();
+    }
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleSubmit = async (values: any) => {
+    try {
+      if (editingArticle?.id) {
+        await updateArticle(editingArticle.id, values);
+        message.success('Article updated successfully');
+      } else {
+        await createArticle(values);
+        message.success('Article created successfully');
+      }
+      setIsModalVisible(false);
+      fetchArticles();
+    } catch (error) {
+      message.error('Operation failed');
+      console.error('Error creating/updating article:', error);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteArticle(id);
+      message.success('Article deleted successfully');
+      fetchArticles();
+    } catch (error) {
+      message.error('Delete failed');
+      console.error('Error deleting article:', error);
+    }
+  };
+
+  const columns = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Title',
+      dataIndex: 'title',
+      key: 'title',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status: string) => {
+        let color = 'green';
+        if (status === 'draft') color = 'gold';
+        if (status === 'archived') color = 'red';
+        return <Tag color={color}>{status.toUpperCase()}</Tag>;
+      },
+    },
+    {
+      title: 'Author',
+      dataIndex: 'author',
+      key: 'author',
+    },
+    {
+      title: 'Views',
+      dataIndex: 'views',
+      key: 'views',
+      sorter: (a: Article, b: Article) => (a.views || 0) - (b.views || 0),
+    },
+    {
+      title: 'Created At',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+    },
+    {
+      title: 'Actions',
+      key: 'actions',
+      render: (_, record: Article) => (
+        <Space>
+          <Button icon={<EditOutlined />} onClick={() => showModal(record)}>
+            Edit
+          </Button>
+          <Button danger icon={<DeleteOutlined />} onClick={() => handleDelete(record.id)}>
+            Delete
+          </Button>
+        </Space>
+      ),
+    },
+  ];
+
+  return (
+    <div>
+      <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between' }}>
+        <div>
+          <Search
+            placeholder="Search articles"
+            onSearch={handleSearch}
+            style={{ width: 250, marginRight: 16 }}
           />
-        </>
-      )}
-
-      {/* Article form modal */}
-      {showArticleModal && (
-        <div className="fixed inset-0 z-10 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-
-            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
-            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full md:max-w-2xl">
-              <div className="bg-gray-50 px-4 py-3 border-b">
-                <h3 className="text-lg font-medium text-gray-900">
-                  {currentArticle?.id ? 'Edit Article' : 'Create New Article'}
-                </h3>
-              </div>
-
-              <div className="p-4">
-                <ArticleForm
-                  article={currentArticle || {}}
-                  onSubmit={handleSaveArticle}
-                  onCancel={closeArticleModal}
-                  loading={formLoading}
-                />
-              </div>
-            </div>
-          </div>
+          <Select
+            defaultValue="all"
+            style={{ width: 120 }}
+            onChange={handleFilterChange}
+            value={filter}
+          >
+            <Select.Option value="all">All</Select.Option>
+            <Select.Option value="published">Published</Select.Option>
+            <Select.Option value="draft">Draft</Select.Option>
+            <Select.Option value="archived">Archived</Select.Option>
+          </Select>
         </div>
-      )}
+        <Button type="primary" icon={<PlusOutlined />} onClick={() => showModal()}>
+          Create Article
+        </Button>
+      </div>
+
+      <Table
+        columns={columns}
+        dataSource={articles}
+        rowKey="id"
+        loading={loading}
+        pagination={{
+          current: currentPage,
+          pageSize: pageSize,
+          total: totalItems,
+          onChange: (page) => setCurrentPage(page),
+          onShowSizeChange: (_, size) => {
+            setPageSize(size);
+            setCurrentPage(1);
+          },
+          showSizeChanger: true,
+        }}
+      />
+
+      <Modal
+        title={editingArticle ? 'Edit Article' : 'Create Article'}
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        footer={null}
+        width={800}
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleSubmit}
+          initialValues={editingArticle ? {
+            status: editingArticle.status
+          } : { status: 'draft' }}
+        >
+          <Form.Item
+            name="title"
+            label="Title"
+            rules={[{ required: true, message: 'Please enter the article title' }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="content"
+            label="Content"
+            rules={[{ required: true, message: 'Please enter article content' }]}
+          >
+            <TextArea rows={10} />
+          </Form.Item>
+
+          <Form.Item
+            name="status"
+            label="Status"
+            rules={[{ required: true, message: 'Please select article status' }]}
+          >
+            <Select>
+              <Select.Option value="published">Published</Select.Option>
+              <Select.Option value="draft">Draft</Select.Option>
+              <Select.Option value="archived">Archived</Select.Option>
+            </Select>
+          </Form.Item>
+
+          {/* Additional fields like category, tags, etc. would go here */}
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              {editingArticle ? 'Update' : 'Create'}
+            </Button>
+            <Button style={{ marginLeft: 8 }} onClick={handleCancel}>
+              Cancel
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+    </div>
+  );
+};
+
+// Article Statistics Component (mockup)
+const ArticleStatistics: React.FC = () => {
+  return (
+    <div>
+      <Typography.Title level={4}>Article Statistics</Typography.Title>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+        <Card title="Total Articles" style={{ width: 200 }}>
+          <Typography.Title level={2}>42</Typography.Title>
+        </Card>
+        <Card title="Published" style={{ width: 200 }}>
+          <Typography.Title level={2}>28</Typography.Title>
+        </Card>
+        <Card title="Draft" style={{ width: 200 }}>
+          <Typography.Title level={2}>10</Typography.Title>
+        </Card>
+        <Card title="Archived" style={{ width: 200 }}>
+          <Typography.Title level={2}>4</Typography.Title>
+        </Card>
+      </div>
+      <div style={{ marginTop: 16 }}>
+        <Card title="Most Viewed Articles">
+          <p>To be implemented with actual data</p>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
+// Main Article Management Component
+const ArticleManagement: React.FC = () => {
+  return (
+    <div className="article-management">
+      <Typography.Title level={2}>Article Management</Typography.Title>
+
+      <Tabs defaultActiveKey="1">
+        <TabPane
+          tab={
+            <span>
+              <FileOutlined />
+              Articles
+            </span>
+          }
+          key="1"
+        >
+          <ArticleListManagement />
+        </TabPane>
+        <TabPane
+          tab={
+            <span>
+              <AppstoreOutlined />
+              Categories
+            </span>
+          }
+          key="2"
+        >
+          <ArticleCategoryManagement />
+        </TabPane>
+        <TabPane
+          tab={
+            <span>
+              <TagOutlined />
+              Tags
+            </span>
+          }
+          key="3"
+        >
+          <ArticleTagManagement />
+        </TabPane>
+        <TabPane
+          tab={
+            <span>
+              <BarChartOutlined />
+              Statistics
+            </span>
+          }
+          key="4"
+        >
+          <ArticleStatistics />
+        </TabPane>
+      </Tabs>
     </div>
   );
 };

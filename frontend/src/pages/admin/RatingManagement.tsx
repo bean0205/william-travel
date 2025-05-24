@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { getReviews, updateReviewStatus, deleteReview, respondToReview, Review } from '@/services/api/reviewService';
+import React, { useState, useEffect, useCallback } from 'react';
+import {
+  getRatings,
+  updateRatingStatus,
+  deleteRating, 
+  respondToReview,
+  RatingWithUser
+} from '@/services/api/ratingService';
 import Pagination from '@/components/admin/Pagination';
 import SortableColumn, { SortDirection } from '@/components/admin/SortableColumn';
-import ReviewStatistics from '@/components/admin/ReviewStatistics';
 
-const ReviewManagement: React.FC = () => {
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [allReviews, setAllReviews] = useState<Review[]>([]); // For statistics
+const RatingManagement: React.FC = () => {
+  const [ratings, setRatings] = useState<RatingWithUser[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState<'all' | 'published' | 'pending' | 'flagged'>('all');
-  const [ratingFilter, setRatingFilter] = useState<number | null>(null);
-  const [dateFilter, setDateFilter] = useState<{ start?: string; end?: string }>({});
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,21 +22,23 @@ const ReviewManagement: React.FC = () => {
   const itemsPerPage = 10;
 
   // Sorting state
-  const [sortField, setSortField] = useState<string | null>('created_at');
+  const [sortField, setSortField] = useState<string>('created_at');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
+
+  // Filtering state
+  const [showFilters, setShowFilters] = useState(false);
+  const [filter, setFilter] = useState<'all' | 'published' | 'pending' | 'flagged'>('all');
+  const [ratingFilter, setRatingFilter] = useState<number | undefined>(undefined);
+  const [locationFilter, setLocationFilter] = useState('');
+  const [userFilter, setUserFilter] = useState('');
+  const [dateFilter, setDateFilter] = useState<{start?: string, end?: string}>({});
 
   // Response modal state
   const [showResponseModal, setShowResponseModal] = useState(false);
-  const [currentReview, setCurrentReview] = useState<Review | null>(null);
+  const [currentReview, setCurrentReview] = useState<RatingWithUser | null>(null);
   const [responseText, setResponseText] = useState('');
-  const [respondLoading, setRespondLoading] = useState(false);
 
-  // Advanced filters state
-  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-  const [locationFilter, setLocationFilter] = useState<string>('');
-  const [userFilter, setUserFilter] = useState<string>('');
-
-  // Review statistics
+  // Statistics state
   const [reviewStats, setReviewStats] = useState({
     totalReviews: 0,
     publishedReviews: 0,
@@ -45,20 +48,7 @@ const ReviewManagement: React.FC = () => {
     mostReviewedLocation: '',
   });
 
-  useEffect(() => {
-    fetchReviews();
-  }, [filter, currentPage, sortField, sortDirection]);
-
-  useEffect(() => {
-    if (searchTerm) {
-      const delayDebounce = setTimeout(() => {
-        fetchReviews();
-      }, 500);
-      return () => clearTimeout(delayDebounce);
-    }
-  }, [searchTerm]);
-
-  const fetchReviews = async () => {
+  const fetchRatings = useCallback(async () => {
     try {
       setLoading(true);
       const params = {
@@ -68,23 +58,20 @@ const ReviewManagement: React.FC = () => {
         search: searchTerm || undefined,
         sort_by: sortField || undefined,
         sort_order: sortDirection || undefined,
-        rating: ratingFilter || undefined,
+        rating: ratingFilter,
         location: locationFilter || undefined,
-        user: userFilter || undefined,
+        user_id: userFilter || undefined,
         start_date: dateFilter.start || undefined,
         end_date: dateFilter.end || undefined,
       };
 
-      const data = await getReviews(params);
+      const response = await getRatings(params);
+      setRatings(response.items || []);
+      setTotalPages(response.pages || 1);
 
-      // Assuming data has items and pagination info
-      setReviews(data.items || data);
-      setTotalPages(data.pages || Math.ceil(data.total / itemsPerPage) || 1);
-
-      // Get all reviews for statistics (with limit 1000)
-      const allReviewsData = await getReviews({ limit: 1000 });
-      const allItems = allReviewsData.items || allReviewsData;
-      setAllReviews(allItems);
+      // Get all ratings for statistics
+      const allReviewsData = await getRatings({ limit: 1000 });
+      const allItems = allReviewsData.items || [];
 
       // Calculate statistics
       const stats = {
@@ -99,127 +86,65 @@ const ReviewManagement: React.FC = () => {
 
       setError(null);
     } catch (err) {
-      console.error('Failed to fetch reviews:', err);
-      setError('Could not load reviews. Please try again later.');
+      console.error('Failed to fetch ratings:', err);
+      setError('Could not load ratings. Please try again later.');
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, sortField, sortDirection, filter, searchTerm, ratingFilter, locationFilter, userFilter, dateFilter]);
+
+  useEffect(() => {
+    fetchRatings();
+  }, [fetchRatings]);
+
+  useEffect(() => {
+    if (searchTerm) {
+      const delayDebounce = setTimeout(() => {
+        setCurrentPage(1);
+        fetchRatings();
+      }, 500);
+      return () => clearTimeout(delayDebounce);
+    }
+  }, [searchTerm, fetchRatings]);
 
   // Calculate the average rating
-  const calculateAverageRating = (reviews: Review[]): number => {
+  const calculateAverageRating = (reviews: RatingWithUser[]): number => {
     if (reviews.length === 0) return 0;
     const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
     return parseFloat((totalRating / reviews.length).toFixed(1));
   };
 
   // Get most reviewed location
-  const getMostReviewedLocation = (reviews: Review[]): string => {
+  const getMostReviewedLocation = (reviews: RatingWithUser[]): string => {
     if (reviews.length === 0) return '';
 
     const locationCount: Record<string, number> = {};
     reviews.forEach((review) => {
-      const locationName =
-        typeof review.location === 'string' ? review.location : review.location?.name || 'Unknown';
+      const locationName = 
+        review.reference_type === 'location' ? `Location: ${review.reference_id}` :
+        review.reference_type === 'accommodation' ? `Accommodation: ${review.reference_id}` :
+        review.reference_type === 'food' ? `Food: ${review.reference_id}` :
+        `Event: ${review.reference_id}`;
 
       locationCount[locationName] = (locationCount[locationName] || 0) + 1;
     });
 
     let maxCount = 0;
-    let mostReviewed = '';
+    let mostReviewedLocation = '';
 
     Object.entries(locationCount).forEach(([location, count]) => {
       if (count > maxCount) {
-        mostReviewed = location;
+        mostReviewedLocation = location;
         maxCount = count;
       }
     });
 
-    return mostReviewed;
+    return mostReviewedLocation;
   };
 
-  // Sort data based on field and direction
-  const sortData = (data: Review[], field: string, direction: SortDirection): Review[] => {
-    return [...data].sort((a, b) => {
-      let aValue: any = a[field as keyof Review];
-      let bValue: any = b[field as keyof Review];
-
-      // Handle complex fields
-      if (field === 'user') {
-        aValue = typeof a.user === 'string' ? a.user : a.user?.name || '';
-        bValue = typeof b.user === 'string' ? b.user : b.user?.name || '';
-      } else if (field === 'location') {
-        aValue = typeof a.location === 'string' ? a.location : a.location?.name || '';
-        bValue = typeof b.location === 'string' ? b.location : b.location?.name || '';
-      }
-
-      if (aValue === bValue) return 0;
-
-      if (direction === 'asc') {
-        return aValue > bValue ? 1 : -1;
-      } else {
-        return aValue < bValue ? 1 : -1;
-      }
-    });
-  };
-
-  const handleDelete = async (id: number) => {
-    if (window.confirm('Are you sure you want to delete this review?')) {
-      try {
-        await deleteReview(id);
-        setSuccess('Review deleted successfully');
-        fetchReviews();
-        setTimeout(() => setSuccess(null), 3000);
-      } catch (err) {
-        console.error('Failed to delete review:', err);
-        setError('Failed to delete review');
-        setTimeout(() => setError(null), 3000);
-      }
-    }
-  };
-
-  const handleStatusChange = async (id: number, status: 'published' | 'pending' | 'flagged') => {
-    try {
-      await updateReviewStatus(id, status);
-      setSuccess(`Review status updated to ${status}`);
-      fetchReviews();
-      setTimeout(() => setSuccess(null), 3000);
-    } catch (err) {
-      console.error('Failed to update review status:', err);
-      setError('Failed to update review status');
-      setTimeout(() => setError(null), 3000);
-    }
-  };
-
-  const handleRespond = (review: Review) => {
-    setCurrentReview(review);
-    setResponseText(review.response || '');
-    setShowResponseModal(true);
-  };
-
-  const submitResponse = async () => {
-    if (!currentReview) return;
-
-    try {
-      setRespondLoading(true);
-      await respondToReview(currentReview.id, responseText);
-      setSuccess('Response submitted successfully');
-      setShowResponseModal(false);
-      fetchReviews();
-      setTimeout(() => setSuccess(null), 3000);
-    } catch (err) {
-      console.error('Failed to submit response:', err);
-      setError('Failed to submit response');
-      setTimeout(() => setError(null), 3000);
-    } finally {
-      setRespondLoading(false);
-    }
-  };
-
-  const handleSort = (field: string) => {
-    const isDesc = sortField === field && sortDirection === 'desc';
-    setSortDirection(isDesc ? 'asc' : 'desc');
+  const handleSort = (field: string, direction: SortDirection) => {
     setSortField(field);
+    setSortDirection(direction || 'asc');
   };
 
   const handleFilter = (filter: 'all' | 'published' | 'pending' | 'flagged') => {
@@ -227,24 +152,101 @@ const ReviewManagement: React.FC = () => {
     setCurrentPage(1); // Reset to first page when filter changes
   };
 
-  const handleRatingFilter = (rating: number | null) => {
+  const handleRatingFilter = (rating: number | undefined) => {
     setRatingFilter(rating);
     setCurrentPage(1);
-    fetchReviews();
   };
 
   const applyAdvancedFilters = () => {
     setCurrentPage(1);
-    fetchReviews();
+    fetchRatings();
   };
 
   const clearAdvancedFilters = () => {
     setLocationFilter('');
     setUserFilter('');
     setDateFilter({});
-    setRatingFilter(null);
+    setRatingFilter(undefined);
     setCurrentPage(1);
-    fetchReviews();
+    fetchRatings();
+  };
+
+  const handleStatusChange = async (id: number, status: 'published' | 'pending' | 'flagged') => {
+    try {
+      await updateRatingStatus(id, status);
+      
+      // Update the status in the local state
+      setRatings(ratings.map(rating => 
+        rating.id === id ? { ...rating, status } : rating
+      ));
+      
+      setSuccess(`Rating status updated to ${status}`);
+      setTimeout(() => setSuccess(null), 3000);
+    } catch (err) {
+      console.error('Failed to update rating status:', err);
+      setError('Could not update rating status');
+      setTimeout(() => setError(null), 3000);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    if (!window.confirm('Are you sure you want to delete this rating?')) {
+      return;
+    }
+    
+    try {
+      await deleteRating(id);
+      
+      // Remove the deleted rating from the list
+      setRatings(ratings.filter(rating => rating.id !== id));
+      
+      setSuccess('Rating deleted successfully');
+      setTimeout(() => setSuccess(null), 3000);
+    } catch (err) {
+      console.error('Failed to delete rating:', err);
+      setError('Could not delete rating');
+      setTimeout(() => setError(null), 3000);
+    }
+  };
+
+  const handleRespond = (review: RatingWithUser) => {
+    setCurrentReview(review);
+    setResponseText(''); // Clear previous response
+    setShowResponseModal(true);
+  };
+
+  const submitResponse = async () => {
+    if (!currentReview || !responseText.trim()) return;
+    
+    try {
+      await respondToReview(currentReview.id, responseText);
+      setSuccess('Response submitted successfully');
+      setShowResponseModal(false);
+      
+      // Refresh ratings list
+      fetchRatings();
+      
+      setTimeout(() => setSuccess(null), 3000);
+    } catch (err) {
+      console.error('Failed to submit response:', err);
+      setError('Could not submit response');
+      setTimeout(() => setError(null), 3000);
+    }
+  };
+
+  const renderReviewType = (review: RatingWithUser) => {
+    switch (review.reference_type) {
+      case 'location': 
+        return 'Location';
+      case 'accommodation': 
+        return 'Accommodation';
+      case 'food': 
+        return 'Food';
+      case 'event': 
+        return 'Event';
+      default: 
+        return review.reference_type;
+    }
   };
 
   return (
@@ -277,7 +279,7 @@ const ReviewManagement: React.FC = () => {
           </p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow">
-          <h3 className="text-base font-semibold text-purple-700">Top Location</h3>
+          <h3 className="text-base font-semibold text-purple-700">Top Reference</h3>
           <p className="text-base font-bold text-purple-600 truncate" title={reviewStats.mostReviewedLocation}>
             {reviewStats.mostReviewedLocation || 'N/A'}
           </p>
@@ -317,32 +319,17 @@ const ReviewManagement: React.FC = () => {
           <div className="relative">
             <input
               type="text"
-              placeholder="Search reviews..."
-              className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Search ratings..."
+              className="px-3 py-2 border rounded"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            {searchTerm && (
-              <button
-                onClick={() => setSearchTerm('')}
-                className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600"
-              >
-                ×
-              </button>
-            )}
           </div>
-
           <button
-            onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+            onClick={() => setShowFilters(!showFilters)}
             className="px-4 py-2 border rounded flex items-center"
           >
-            <svg
-              className="w-5 h-5 mr-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -350,27 +337,27 @@ const ReviewManagement: React.FC = () => {
                 d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
               />
             </svg>
-            {showAdvancedFilters ? 'Hide Filters' : 'Advanced Filters'}
+            {showFilters ? 'Hide Filters' : 'Advanced Filters'}
           </button>
         </div>
       </div>
 
       {/* Advanced Filters */}
-      {showAdvancedFilters && (
+      {showFilters && (
         <div className="bg-gray-50 p-4 rounded-lg mb-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Rating</label>
               <div className="flex space-x-2">
-                {[null, 5, 4, 3, 2, 1].map((rating) => (
+                {[undefined, 5, 4, 3, 2, 1].map((rating) => (
                   <button
-                    key={rating === null ? 'all' : rating}
+                    key={rating === undefined ? 'all' : rating}
                     onClick={() => handleRatingFilter(rating)}
                     className={`px-3 py-1 rounded ${
                       ratingFilter === rating ? 'bg-yellow-500 text-white' : 'bg-white border'
                     }`}
                   >
-                    {rating === null ? 'All' : `${rating}★`}
+                    {rating === undefined ? 'All' : `${rating}★`}
                   </button>
                 ))}
               </div>
@@ -413,7 +400,7 @@ const ReviewManagement: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-end space-x-2 mt-4">
+          <div className="flex justify-end mt-4 space-x-2">
             <button onClick={clearAdvancedFilters} className="px-4 py-2 border rounded">
               Clear Filters
             </button>
@@ -446,8 +433,8 @@ const ReviewManagement: React.FC = () => {
                 <SortableColumn
                   label="User"
                   field="user"
-                  currentField={sortField}
-                  direction={sortDirection}
+                  currentSortField={sortField}
+                  currentSortDirection={sortDirection}
                   onSort={handleSort}
                 />
               </th>
@@ -455,17 +442,17 @@ const ReviewManagement: React.FC = () => {
                 <SortableColumn
                   label="Rating"
                   field="rating"
-                  currentField={sortField}
-                  direction={sortDirection}
+                  currentSortField={sortField}
+                  currentSortDirection={sortDirection}
                   onSort={handleSort}
                 />
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <SortableColumn
-                  label="Location"
-                  field="location"
-                  currentField={sortField}
-                  direction={sortDirection}
+                  label="Type"
+                  field="reference_type"
+                  currentSortField={sortField}
+                  currentSortDirection={sortDirection}
                   onSort={handleSort}
                 />
               </th>
@@ -473,8 +460,8 @@ const ReviewManagement: React.FC = () => {
                 <SortableColumn
                   label="Date"
                   field="created_at"
-                  currentField={sortField}
-                  direction={sortDirection}
+                  currentSortField={sortField}
+                  currentSortDirection={sortDirection}
                   onSort={handleSort}
                 />
               </th>
@@ -493,20 +480,16 @@ const ReviewManagement: React.FC = () => {
                   Loading...
                 </td>
               </tr>
-            ) : reviews.length === 0 ? (
+            ) : ratings.length === 0 ? (
               <tr>
                 <td colSpan={6} className="px-6 py-4 text-center text-sm text-gray-500">
                   No reviews found.
                 </td>
               </tr>
             ) : (
-              reviews.map((review) => {
+              ratings.map((review) => {
                 const userName =
-                  typeof review.user === 'string' ? review.user : review.user?.name || 'Anonymous';
-                const locationName =
-                  typeof review.location === 'string'
-                    ? review.location
-                    : review.location?.name || 'Unknown';
+                  typeof review.user === 'string' ? review.user : review.user?.full_name || 'Anonymous';
 
                 return (
                   <tr key={review.id}>
@@ -521,7 +504,8 @@ const ReviewManagement: React.FC = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {locationName}
+                      {renderReviewType(review)}
+                      <span className="text-xs text-gray-400 ml-1">#{review.reference_id}</span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {new Date(review.created_at).toLocaleDateString()}
@@ -533,7 +517,7 @@ const ReviewManagement: React.FC = () => {
                           review.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 
                           'bg-red-100 text-red-800'}`}
                       >
-                        {review.status.charAt(0).toUpperCase() + review.status.slice(1)}
+                        {review.status ? review.status.charAt(0).toUpperCase() + review.status.slice(1) : 'Unknown'}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -602,14 +586,14 @@ const ReviewManagement: React.FC = () => {
                 Review by:{' '}
                 {typeof currentReview?.user === 'string'
                   ? currentReview?.user
-                  : currentReview?.user?.name || 'Anonymous'}
+                  : currentReview?.user?.full_name || 'Anonymous'}
               </p>
               <div className="flex items-center my-2">
                 <span className="text-yellow-500 mr-1">Rating: </span>
                 <span>{'★'.repeat(currentReview?.rating || 0)}</span>
                 <span className="text-gray-300">{'☆'.repeat(5 - (currentReview?.rating || 0))}</span>
               </div>
-              <p className="text-gray-700 bg-gray-50 p-3 rounded">{currentReview?.content}</p>
+              <p className="text-gray-700 bg-gray-50 p-3 rounded">{currentReview?.comment}</p>
             </div>
 
             <div className="mb-4">
@@ -633,9 +617,9 @@ const ReviewManagement: React.FC = () => {
               <button
                 onClick={submitResponse}
                 className="px-4 py-2 bg-blue-600 text-white rounded"
-                disabled={respondLoading || !responseText.trim()}
+                disabled={!responseText.trim()}
               >
-                {respondLoading ? 'Submitting...' : 'Submit Response'}
+                Submit Response
               </button>
             </div>
           </div>
@@ -645,4 +629,4 @@ const ReviewManagement: React.FC = () => {
   );
 };
 
-export default ReviewManagement;
+export default RatingManagement;

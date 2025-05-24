@@ -1,6 +1,8 @@
 // User service for API communication
-import axios from 'axios';
+import apiClient from './apiClient';
 import { API_ENDPOINTS } from '@/constants/apiEndpoints';
+import { ApiResponse } from '@/types/api';
+import { AxiosError } from 'axios';
 
 export interface User {
   id: number;
@@ -36,50 +38,110 @@ export interface PasswordUpdatePayload {
 }
 
 // Get current user profile
-export const getCurrentUser = async (): Promise<User> => {
-  const response = await axios.get(API_ENDPOINTS.users.me);
-  return response.data;
+const getCurrentUser = async (): Promise<ApiResponse<User>> => {
+  try {
+    const response = await apiClient.get(API_ENDPOINTS.users.me);
+    return {
+      success: true,
+      data: response.data,
+      error: null,
+      status: response.status,
+    };
+  } catch (error) {
+    const axiosError = error as AxiosError<{ detail?: string }>;
+    return {
+      success: false,
+      data: null,
+      error: axiosError.response?.data?.detail || axiosError.message || 'Failed to fetch user profile',
+      status: axiosError.response?.status || 500,
+    };
+  }
 };
 
 // Get all users
-export const getUsers = async (skip = 0, limit = 100): Promise<User[]> => {
-  const response = await axios.get(API_ENDPOINTS.users.list, {
+const getUsers = async (skip = 0, limit = 100): Promise<User[]> => {
+  const response = await apiClient.get(API_ENDPOINTS.users.list, {
     params: { skip, limit },
   });
   return response.data;
 };
 
 // Get user by ID
-export const getUserById = async (userId: number): Promise<User> => {
-  const response = await axios.get(API_ENDPOINTS.users.detail(userId));
+const getUserById = async (userId: number): Promise<User> => {
+  const response = await apiClient.get(API_ENDPOINTS.users.detail(userId));
   return response.data;
 };
 
 // Create a new user
-export const createUser = async (payload: UserCreatePayload): Promise<User> => {
-  const response = await axios.post(API_ENDPOINTS.users.list, payload);
+const createUser = async (payload: UserCreatePayload): Promise<User> => {
+  const response = await apiClient.post(API_ENDPOINTS.users.list, payload);
   return response.data;
 };
 
 // Update a user
-export const updateUser = async (userId: number, payload: UserUpdatePayload): Promise<User> => {
-  const response = await axios.put(API_ENDPOINTS.users.detail(userId), payload);
+const updateUser = async (userId: number, payload: UserUpdatePayload): Promise<User> => {
+  const response = await apiClient.put(API_ENDPOINTS.users.detail(userId), payload);
   return response.data;
 };
 
 // Update current user
-export const updateCurrentUser = async (payload: UserUpdatePayload): Promise<User> => {
-  const response = await axios.put(API_ENDPOINTS.users.me, payload);
-  return response.data;
+const updateCurrentUser = async (payload: UserUpdatePayload): Promise<ApiResponse<User>> => {
+  try {
+    const response = await apiClient.put(API_ENDPOINTS.users.me, payload);
+    return {
+      success: true,
+      data: response.data,
+      error: null,
+      status: response.status,
+    };
+  } catch (error) {
+    const axiosError = error as AxiosError<{ detail?: string }>;
+    return {
+      success: false,
+      data: null,
+      error: axiosError.response?.data?.detail || axiosError.message || 'Failed to update user profile',
+      status: axiosError.response?.status || 500,
+    };
+  }
 };
 
 // Update current user's password
-export const updateCurrentUserPassword = async (payload: PasswordUpdatePayload): Promise<User> => {
-  const response = await axios.put(API_ENDPOINTS.users.password, payload);
-  return response.data;
+const updateCurrentUserPassword = async (payload: PasswordUpdatePayload): Promise<ApiResponse<User>> => {
+  try {
+    const response = await apiClient.put(API_ENDPOINTS.users.password, payload);
+    return {
+      success: true,
+      data: response.data,
+      error: null,
+      status: response.status,
+    };
+  } catch (error) {
+    const axiosError = error as AxiosError<{ detail?: string }>;
+    return {
+      success: false,
+      data: null,
+      error: axiosError.response?.data?.detail || axiosError.message || 'Failed to update password',
+      status: axiosError.response?.status || 500,
+    };
+  }
 };
 
 // Delete a user
-export const deleteUser = async (userId: number): Promise<void> => {
-  await axios.delete(API_ENDPOINTS.users.detail(userId));
+const deleteUser = async (userId: number): Promise<void> => {
+  await apiClient.delete(API_ENDPOINTS.users.detail(userId));
+};
+
+// Alias for auth store compatibility
+const updatePassword = updateCurrentUserPassword;
+
+export const userService = {
+  getCurrentUser,
+  getUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  updateCurrentUser,
+  updateCurrentUserPassword,
+  updatePassword, // Alias for auth store
+  deleteUser,
 };

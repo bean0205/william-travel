@@ -1,3 +1,22 @@
+// Get all locations in parallel
+export const getLocations = async () => {
+  const [continents, countries, regions, districts, wards, categories] = await Promise.all([
+    getContinents(),
+    getCountries(),
+    getRegions(),
+    getDistricts(),
+    getWards(),
+    getLocationCategories(),
+  ]);
+  return {
+    continents,
+    countries,
+    regions,
+    districts,
+    wards,
+    categories,
+  };
+};
 // Location service for API communication
 import axios from 'axios';
 import { API_ENDPOINTS } from '@/constants/apiEndpoints';
@@ -203,6 +222,59 @@ export interface LocationCategoryUpdatePayload {
   status?: number;
 }
 
+// Location interface (for general locations/destinations)
+export interface Location {
+  id: number;
+  name: string;
+  slug?: string;
+  description: string;
+  country: string;
+  region?: string;
+  city?: string;
+  latitude: number | string;
+  longitude: number | string;
+  imageUrl?: string;
+  featuredImageUrl?: string;
+  category?: string;
+  status?: string;
+  isFeatured?: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+// Location Create/Update payloads
+export interface LocationCreatePayload {
+  name: string;
+  slug?: string;
+  description: string;
+  country: string;
+  region?: string;
+  city?: string;
+  latitude?: number | string;
+  longitude?: number | string;
+  imageUrl?: string;
+  featuredImageUrl?: string;
+  category?: string;
+  status?: string;
+  isFeatured?: boolean;
+}
+
+export interface LocationUpdatePayload {
+  name?: string;
+  slug?: string;
+  description?: string;
+  country?: string;
+  region?: string;
+  city?: string;
+  latitude?: number | string;
+  longitude?: number | string;
+  imageUrl?: string;
+  featuredImageUrl?: string;
+  category?: string;
+  status?: string;
+  isFeatured?: boolean;
+}
+
 // Continent API calls
 export const getContinents = async (skip = 0, limit = 100): Promise<Continent[]> => {
   const response = await axios.get(API_ENDPOINTS.locations.continents.list, {
@@ -232,7 +304,7 @@ export const deleteContinent = async (continentId: number): Promise<void> => {
 
 // Country API calls
 export const getCountries = async (skip = 0, limit = 100, continentId?: number): Promise<Country[]> => {
-  const params: any = { skip, limit };
+  const params: Record<string, number> = { skip, limit };
   if (continentId) {
     params.continent_id = continentId;
   }
@@ -261,7 +333,7 @@ export const deleteCountry = async (countryId: number): Promise<void> => {
 
 // Region API calls
 export const getRegions = async (skip = 0, limit = 100, countryId?: number): Promise<Region[]> => {
-  const params: any = { skip, limit };
+  const params: Record<string, number> = { skip, limit };
   if (countryId) {
     params.country_id = countryId;
   }
@@ -290,7 +362,7 @@ export const deleteRegion = async (regionId: number): Promise<void> => {
 
 // District API calls
 export const getDistricts = async (skip = 0, limit = 100, regionId?: number): Promise<District[]> => {
-  const params: any = { skip, limit };
+  const params: Record<string, number> = { skip, limit };
   if (regionId) {
     params.region_id = regionId;
   }
@@ -319,7 +391,7 @@ export const deleteDistrict = async (districtId: number): Promise<void> => {
 
 // Ward API calls
 export const getWards = async (skip = 0, limit = 100, districtId?: number): Promise<Ward[]> => {
-  const params: any = { skip, limit };
+  const params: Record<string, number> = { skip, limit };
   if (districtId) {
     params.district_id = districtId;
   }
@@ -374,4 +446,24 @@ export const updateLocationCategory = async (
 
 export const deleteLocationCategory = async (categoryId: number): Promise<void> => {
   await axios.delete(API_ENDPOINTS.locations.categories.detail(categoryId));
+};
+
+// General Location CRUD operations
+export const createLocation = async (payload: LocationCreatePayload): Promise<Location> => {
+  const response = await axios.post('/api/v1/locations/', payload);
+  return response.data;
+};
+
+export const updateLocation = async (locationId: number, payload: LocationUpdatePayload): Promise<Location> => {
+  const response = await axios.put(`/api/v1/locations/${locationId}`, payload);
+  return response.data;
+};
+
+export const deleteLocation = async (locationId: number): Promise<void> => {
+  await axios.delete(`/api/v1/locations/${locationId}`);
+};
+
+export const getLocationById = async (locationId: number): Promise<Location> => {
+  const response = await axios.get(`/api/v1/locations/${locationId}`);
+  return response.data;
 };

@@ -1,6 +1,7 @@
 import { ApiResponse } from '@/types/api';
 import apiClient from './apiClient';
 import { API_ENDPOINTS } from '@/constants/apiEndpoints';
+import { AxiosError } from 'axios';
 
 export interface LoginRequest {
   username: string; // Email is used as username
@@ -39,17 +40,14 @@ export const authService: AuthService = {
       const formData = new URLSearchParams();
       formData.append('username', data.username);
       formData.append('password', data.password);
-      
-      console.log('Login request data:', { username: data.username, password: '***' });
-      console.log('FormData:', formData.toString());
 
-      const response = await apiClient.post(API_ENDPOINTS.AUTH.LOGIN, formData.toString(), {
+      const response = await apiClient.post(API_ENDPOINTS.auth.login, formData.toString(), {
+      
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
 
-      console.log('Login success response:', response);
       return {
         success: true,
         data: response.data,
@@ -57,15 +55,9 @@ export const authService: AuthService = {
         status: response.status,
       };
     } catch (error: unknown) {
-      console.error('Login error:', error);
-      const axiosError = error as any;
-      console.error('Error response:', axiosError.response);
-      console.error('Error response data:', axiosError.response?.data);
-      console.error('Error detail:', axiosError.response?.data?.detail);
-      console.error('Error status:', axiosError.response?.status);
+      const axiosError = error as AxiosError<{ detail?: string }>;
       
       const errorMessage = axiosError.response?.data?.detail || 'An unexpected error occurred during login';
-      console.error('Final error message:', errorMessage);
       
       return {
         success: false,
@@ -78,7 +70,7 @@ export const authService: AuthService = {
 
   requestPasswordReset: async (data) => {
     try {
-      const response = await apiClient.post(API_ENDPOINTS.AUTH.RESET_PASSWORD, data);
+      const response = await apiClient.post(API_ENDPOINTS.auth.passwordReset, data);
 
       return {
         success: true,
@@ -87,8 +79,7 @@ export const authService: AuthService = {
         status: response.status,
       };
     } catch (error: unknown) {
-      console.error('Password reset request error:', error);
-      const axiosError = error as any;
+      const axiosError = error as AxiosError<{ detail?: string }>;
       return {
         success: false,
         data: null,
@@ -100,7 +91,7 @@ export const authService: AuthService = {
 
   resetPassword: async (data) => {
     try {
-      const response = await apiClient.post(`${API_ENDPOINTS.AUTH.RESET_PASSWORD}/confirm`, data);
+      const response = await apiClient.post(API_ENDPOINTS.auth.passwordResetConfirm, data);
 
       return {
         success: true,
@@ -109,8 +100,7 @@ export const authService: AuthService = {
         status: response.status,
       };
     } catch (error: unknown) {
-      console.error('Password reset error:', error);
-      const axiosError = error as any;
+      const axiosError = error as AxiosError<{ detail?: string }>;
       return {
         success: false,
         data: null,
@@ -122,7 +112,7 @@ export const authService: AuthService = {
   
   logout: async () => {
     try {
-      const response = await apiClient.post(API_ENDPOINTS.AUTH.LOGOUT);
+      const response = await apiClient.post(API_ENDPOINTS.auth.logout);
       
       return {
         success: true,
@@ -131,8 +121,7 @@ export const authService: AuthService = {
         status: response.status,
       };
     } catch (error: unknown) {
-      console.error('Logout error:', error);
-      const axiosError = error as any;
+      const axiosError = error as AxiosError<{ detail?: string }>;
       return {
         success: false,
         data: null,
