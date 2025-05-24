@@ -22,20 +22,19 @@ import {
   Clock,
   Eye,
   MessageSquare,
-  Download
+  Download,
+  UserCog,
+  Utensils,
+  Building,
+  MessageCircle,
+  Briefcase,
+  Globe,
+  Map
 } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 import { getDashboardStats } from '@/services/api/dashboardService';
 import type { DashboardStats } from '@/services/api/dashboardService';
-
-interface QuickAction {
-  title: string;
-  description: string;
-  icon: React.ElementType;
-  path: string;
-  color: string;
-  bgColor: string;
-}
+import { APP_ROUTES } from '@/routes/routes';
 
 interface SystemMetric {
   title: string;
@@ -75,73 +74,6 @@ const ModernDashboard: React.FC = () => {
 
     loadDashboardData();
   }, []);
-
-  const quickActions: QuickAction[] = [
-    {
-      title: 'User Management',
-      description: 'Manage users and permissions',
-      icon: Users,
-      path: '/admin/users',
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50'
-    },
-    {
-      title: 'Content Management',
-      description: 'Manage articles and content',
-      icon: FileText,
-      path: '/admin/content',
-      color: 'text-green-600',
-      bgColor: 'bg-green-50'
-    },
-    {
-      title: 'Location Management',
-      description: 'Manage destinations and places',
-      icon: MapPin,
-      path: '/admin/locations',
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-50'
-    },
-    {
-      title: 'Event Management',
-      description: 'Manage events and activities',
-      icon: Calendar,
-      path: '/admin/events',
-      color: 'text-orange-600',
-      bgColor: 'bg-orange-50'
-    },
-    {
-      title: 'Review Management',
-      description: 'Monitor and manage reviews',
-      icon: Star,
-      path: '/admin/reviews',
-      color: 'text-yellow-600',
-      bgColor: 'bg-yellow-50'
-    },
-    {
-      title: 'Media Management',
-      description: 'Manage images and media files',
-      icon: Image,
-      path: '/admin/media',
-      color: 'text-pink-600',
-      bgColor: 'bg-pink-50'
-    },
-    {
-      title: 'Reports & Analytics',
-      description: 'View detailed reports',
-      icon: BarChart3,
-      path: '/admin/reports',
-      color: 'text-indigo-600',
-      bgColor: 'bg-indigo-50'
-    },
-    {
-      title: 'System Settings',
-      description: 'Configure system settings',
-      icon: Settings,
-      path: '/admin/settings',
-      color: 'text-gray-600',
-      bgColor: 'bg-gray-50'
-    }
-  ];
 
   const systemMetrics: SystemMetric[] = [
     {
@@ -252,7 +184,7 @@ const ModernDashboard: React.FC = () => {
               </div>
               <Button 
                 variant="outline" 
-                onClick={() => navigate('/')}
+                onClick={() => navigate(APP_ROUTES.HOME.path)}
                 className="flex items-center space-x-2"
               >
                 <Eye className="h-4 w-4" />
@@ -298,34 +230,137 @@ const ModernDashboard: React.FC = () => {
             </div>
 
             {/* Quick Actions */}
-            <Card className="border-0 shadow-md">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Activity className="h-5 w-5" />
-                  <span>Quick Actions</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {quickActions.map((action, index) => (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card className="border-0 shadow-md">
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2">
+                    <Activity className="h-5 w-5" />
+                    <span>Quick Management</span>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <Button
-                      key={index}
                       variant="ghost"
-                      onClick={() => navigate(action.path)}
-                      className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-gray-50"
+                      onClick={() => navigate(APP_ROUTES.ADMIN_USERS.path)}
+                      className="h-auto p-3 flex items-center space-x-3 hover:bg-blue-50 justify-start"
                     >
-                      <div className={`p-2 rounded-lg ${action.bgColor}`}>
-                        <action.icon className={`h-6 w-6 ${action.color}`} />
+                      <div className="p-2 rounded-lg bg-blue-50">
+                        <Users className="h-5 w-5 text-blue-600" />
                       </div>
                       <div className="text-left">
-                        <p className="font-medium text-gray-900">{action.title}</p>
-                        <p className="text-sm text-gray-600">{action.description}</p>
+                        <p className="font-medium text-gray-900">Users</p>
+                        <p className="text-xs text-gray-600">Manage accounts</p>
                       </div>
                     </Button>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                    <Button
+                      variant="ghost"
+                      onClick={() => navigate(APP_ROUTES.ADMIN_LOCATIONS.path)}
+                      className="h-auto p-3 flex items-center space-x-3 hover:bg-purple-50 justify-start"
+                    >
+                      <div className="p-2 rounded-lg bg-purple-50">
+                        <MapPin className="h-5 w-5 text-purple-600" />
+                      </div>
+                      <div className="text-left">
+                        <p className="font-medium text-gray-900">Locations</p>
+                        <p className="text-xs text-gray-600">Manage places</p>
+                      </div>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      onClick={() => navigate(APP_ROUTES.ADMIN_ARTICLES.path)}
+                      className="h-auto p-3 flex items-center space-x-3 hover:bg-green-50 justify-start"
+                    >
+                      <div className="p-2 rounded-lg bg-green-50">
+                        <FileText className="h-5 w-5 text-green-600" />
+                      </div>
+                      <div className="text-left">
+                        <p className="font-medium text-gray-900">Articles</p>
+                        <p className="text-xs text-gray-600">Manage content</p>
+                      </div>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      onClick={() => navigate(APP_ROUTES.ADMIN_EVENTS.path)}
+                      className="h-auto p-3 flex items-center space-x-3 hover:bg-orange-50 justify-start"
+                    >
+                      <div className="p-2 rounded-lg bg-orange-50">
+                        <Calendar className="h-5 w-5 text-orange-600" />
+                      </div>
+                      <div className="text-left">
+                        <p className="font-medium text-gray-900">Events</p>
+                        <p className="text-xs text-gray-600">Manage activities</p>
+                      </div>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-md">
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2">
+                    <FileText className="h-5 w-5" />
+                    <span>Quick Create</span>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 gap-3">
+                    <Button
+                      variant="outline"
+                      onClick={() => navigate(APP_ROUTES.ADMIN_ARTICLE_CREATE.path)}
+                      className="h-auto p-3 flex items-center space-x-3 hover:bg-green-50 justify-start"
+                    >
+                      <div className="p-2 rounded-lg bg-green-50">
+                        <FileText className="h-5 w-5 text-green-600" />
+                      </div>
+                      <div className="text-left">
+                        <p className="font-medium text-gray-900">New Article</p>
+                        <p className="text-xs text-gray-600">Create travel article</p>
+                      </div>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => navigate(APP_ROUTES.ADMIN_EVENT_CREATE.path)}
+                      className="h-auto p-3 flex items-center space-x-3 hover:bg-orange-50 justify-start"
+                    >
+                      <div className="p-2 rounded-lg bg-orange-50">
+                        <Calendar className="h-5 w-5 text-orange-600" />
+                      </div>
+                      <div className="text-left">
+                        <p className="font-medium text-gray-900">New Event</p>
+                        <p className="text-xs text-gray-600">Create event</p>
+                      </div>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => navigate(APP_ROUTES.ADMIN_ACCOMMODATION_CREATE.path)}
+                      className="h-auto p-3 flex items-center space-x-3 hover:bg-cyan-50 justify-start"
+                    >
+                      <div className="p-2 rounded-lg bg-cyan-50">
+                        <Building className="h-5 w-5 text-cyan-600" />
+                      </div>
+                      <div className="text-left">
+                        <p className="font-medium text-gray-900">New Accommodation</p>
+                        <p className="text-xs text-gray-600">Add hotel/stay</p>
+                      </div>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => navigate(APP_ROUTES.ADMIN_FOOD_CREATE.path)}
+                      className="h-auto p-3 flex items-center space-x-3 hover:bg-red-50 justify-start"
+                    >
+                      <div className="p-2 rounded-lg bg-red-50">
+                        <Utensils className="h-5 w-5 text-red-600" />
+                      </div>
+                      <div className="text-left">
+                        <p className="font-medium text-gray-900">New Restaurant</p>
+                        <p className="text-xs text-gray-600">Add dining option</p>
+                      </div>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
 
             {/* Recent Activities */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -434,7 +469,7 @@ const ModernDashboard: React.FC = () => {
                 <div className="text-center py-12 text-gray-500">
                   <BarChart3 className="h-16 w-16 mx-auto mb-4" />
                   <p>Detailed analytics charts will be displayed here</p>
-                  <Button className="mt-4" onClick={() => navigate('/admin/reports')}>
+                  <Button className="mt-4" onClick={() => navigate(APP_ROUTES.ADMIN_REPORTS.path)}>
                     View Full Analytics
                   </Button>
                 </div>
@@ -443,20 +478,243 @@ const ModernDashboard: React.FC = () => {
           </TabsContent>
 
           <TabsContent value="management" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {quickActions.map((action, index) => (
-                <Card key={index} className="border-0 shadow-md hover:shadow-lg transition-shadow cursor-pointer"
-                      onClick={() => navigate(action.path)}>
-                  <CardContent className="p-6">
-                    <div className={`p-3 rounded-lg ${action.bgColor} w-fit mb-4`}>
-                      <action.icon className={`h-8 w-8 ${action.color}`} />
+            {/* User & Access Management */}
+            <Card className="border-0 shadow-md">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Users className="h-5 w-5" />
+                  <span>User & Access Management</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_USERS.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-blue-50"
+                  >
+                    <div className="p-2 rounded-lg bg-blue-50">
+                      <Users className="h-6 w-6 text-blue-600" />
                     </div>
-                    <h3 className="font-semibold text-lg mb-2">{action.title}</h3>
-                    <p className="text-gray-600 text-sm">{action.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">User Management</p>
+                      <p className="text-sm text-gray-600">Manage user accounts and profiles</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_ROLES.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-indigo-50"
+                  >
+                    <div className="p-2 rounded-lg bg-indigo-50">
+                      <UserCog className="h-6 w-6 text-indigo-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Roles & Permissions</p>
+                      <p className="text-sm text-gray-600">Configure access control</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_PERMISSIONS.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-purple-50"
+                  >
+                    <div className="p-2 rounded-lg bg-purple-50">
+                      <Shield className="h-6 w-6 text-purple-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Permissions</p>
+                      <p className="text-sm text-gray-600">Manage system permissions</p>
+                    </div>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Content Management */}
+            <Card className="border-0 shadow-md">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <FileText className="h-5 w-5" />
+                  <span>Content Management</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_ARTICLES.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-green-50"
+                  >
+                    <div className="p-2 rounded-lg bg-green-50">
+                      <FileText className="h-6 w-6 text-green-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Articles</p>
+                      <p className="text-sm text-gray-600">Manage travel articles</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_EVENTS.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-orange-50"
+                  >
+                    <div className="p-2 rounded-lg bg-orange-50">
+                      <Calendar className="h-6 w-6 text-orange-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Events</p>
+                      <p className="text-sm text-gray-600">Manage events & activities</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_GUIDES.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-teal-50"
+                  >
+                    <div className="p-2 rounded-lg bg-teal-50">
+                      <Briefcase className="h-6 w-6 text-teal-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Travel Guides</p>
+                      <p className="text-sm text-gray-600">Manage travel guides</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_MEDIA.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-pink-50"
+                  >
+                    <div className="p-2 rounded-lg bg-pink-50">
+                      <Image className="h-6 w-6 text-pink-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Media</p>
+                      <p className="text-sm text-gray-600">Manage images & files</p>
+                    </div>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Location & Services Management */}
+            <Card className="border-0 shadow-md">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <MapPin className="h-5 w-5" />
+                  <span>Location & Services Management</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_LOCATIONS.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-purple-50"
+                  >
+                    <div className="p-2 rounded-lg bg-purple-50">
+                      <MapPin className="h-6 w-6 text-purple-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Locations</p>
+                      <p className="text-sm text-gray-600">Manage destinations</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_ACCOMMODATIONS.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-cyan-50"
+                  >
+                    <div className="p-2 rounded-lg bg-cyan-50">
+                      <Building className="h-6 w-6 text-cyan-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Accommodations</p>
+                      <p className="text-sm text-gray-600">Manage hotels & stays</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_FOODS.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-red-50"
+                  >
+                    <div className="p-2 rounded-lg bg-red-50">
+                      <Utensils className="h-6 w-6 text-red-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Food & Restaurants</p>
+                      <p className="text-sm text-gray-600">Manage dining options</p>
+                    </div>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Community & Analytics */}
+            <Card className="border-0 shadow-md">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Activity className="h-5 w-5" />
+                  <span>Community & Analytics</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_COMMUNITY_POSTS.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-violet-50"
+                  >
+                    <div className="p-2 rounded-lg bg-violet-50">
+                      <MessageCircle className="h-6 w-6 text-violet-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Community Posts</p>
+                      <p className="text-sm text-gray-600">Manage user posts</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_REVIEWS.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-yellow-50"
+                  >
+                    <div className="p-2 rounded-lg bg-yellow-50">
+                      <Star className="h-6 w-6 text-yellow-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Reviews</p>
+                      <p className="text-sm text-gray-600">Monitor reviews</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_RATINGS.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-emerald-50"
+                  >
+                    <div className="p-2 rounded-lg bg-emerald-50">
+                      <Star className="h-6 w-6 text-emerald-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Ratings</p>
+                      <p className="text-sm text-gray-600">Manage rating system</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_REPORTS.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-indigo-50"
+                  >
+                    <div className="p-2 rounded-lg bg-indigo-50">
+                      <BarChart3 className="h-6 w-6 text-indigo-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Reports & Analytics</p>
+                      <p className="text-sm text-gray-600">View detailed analytics</p>
+                    </div>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="system" className="space-y-6">
@@ -493,19 +751,35 @@ const ModernDashboard: React.FC = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    <Button className="w-full justify-start" variant="outline">
+                    <Button 
+                      className="w-full justify-start" 
+                      variant="outline"
+                      onClick={() => navigate(APP_ROUTES.ADMIN_SYSTEM_SETTINGS.path)}
+                    >
                       <Download className="h-4 w-4 mr-2" />
                       Create Backup
                     </Button>
-                    <Button className="w-full justify-start" variant="outline">
+                    <Button 
+                      className="w-full justify-start" 
+                      variant="outline"
+                      onClick={() => navigate(APP_ROUTES.ADMIN_SYSTEM_SETTINGS.path)}
+                    >
                       <Activity className="h-4 w-4 mr-2" />
                       View System Logs
                     </Button>
-                    <Button className="w-full justify-start" variant="outline">
+                    <Button 
+                      className="w-full justify-start" 
+                      variant="outline"
+                      onClick={() => navigate(APP_ROUTES.ADMIN_SYSTEM_SETTINGS.path)}
+                    >
                       <Settings className="h-4 w-4 mr-2" />
                       System Configuration
                     </Button>
-                    <Button className="w-full justify-start" variant="outline">
+                    <Button 
+                      className="w-full justify-start" 
+                      variant="outline"
+                      onClick={() => navigate(APP_ROUTES.ADMIN_SYSTEM_SETTINGS.path)}
+                    >
                       <Shield className="h-4 w-4 mr-2" />
                       Security Settings
                     </Button>
@@ -513,6 +787,138 @@ const ModernDashboard: React.FC = () => {
                 </CardContent>
               </Card>
             </div>
+
+            {/* Location Management Hierarchy */}
+            <Card className="border-0 shadow-md">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Globe className="h-5 w-5" />
+                  <span>Location Management Hierarchy</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_LOCATIONS_CONTINENTS.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-blue-50"
+                  >
+                    <div className="p-2 rounded-lg bg-blue-50">
+                      <Globe className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Continents</p>
+                      <p className="text-sm text-gray-600">Manage continent data</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_LOCATIONS_COUNTRIES.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-green-50"
+                  >
+                    <div className="p-2 rounded-lg bg-green-50">
+                      <Map className="h-6 w-6 text-green-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Countries</p>
+                      <p className="text-sm text-gray-600">Manage country information</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_LOCATIONS_REGIONS.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-purple-50"
+                  >
+                    <div className="p-2 rounded-lg bg-purple-50">
+                      <MapPin className="h-6 w-6 text-purple-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Regions</p>
+                      <p className="text-sm text-gray-600">Manage regional areas</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_LOCATIONS_DISTRICTS.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-orange-50"
+                  >
+                    <div className="p-2 rounded-lg bg-orange-50">
+                      <MapPin className="h-6 w-6 text-orange-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Districts</p>
+                      <p className="text-sm text-gray-600">Manage district divisions</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_LOCATIONS_WARDS.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-pink-50"
+                  >
+                    <div className="p-2 rounded-lg bg-pink-50">
+                      <MapPin className="h-6 w-6 text-pink-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Wards</p>
+                      <p className="text-sm text-gray-600">Manage ward subdivisions</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_LOCATIONS_CATEGORIES.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-indigo-50"
+                  >
+                    <div className="p-2 rounded-lg bg-indigo-50">
+                      <Settings className="h-6 w-6 text-indigo-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Location Categories</p>
+                      <p className="text-sm text-gray-600">Manage location types</p>
+                    </div>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Service Categories Management */}
+            <Card className="border-0 shadow-md">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Settings className="h-5 w-5" />
+                  <span>Service Categories Management</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_ACCOMMODATION_CATEGORIES.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-cyan-50"
+                  >
+                    <div className="p-2 rounded-lg bg-cyan-50">
+                      <Building className="h-6 w-6 text-cyan-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Accommodation Categories</p>
+                      <p className="text-sm text-gray-600">Manage hotel & stay types</p>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate(APP_ROUTES.ADMIN_FOOD_CATEGORIES.path)}
+                    className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-red-50"
+                  >
+                    <div className="p-2 rounded-lg bg-red-50">
+                      <Utensils className="h-6 w-6 text-red-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">Food Categories</p>
+                      <p className="text-sm text-gray-600">Manage cuisine & restaurant types</p>
+                    </div>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>

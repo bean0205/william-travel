@@ -1,5 +1,5 @@
 // Food service for API communication
-import axios from 'axios';
+import apiClient from './apiClient';
 import { API_ENDPOINTS } from '@/constants/apiEndpoints';
 
 // Food Category interfaces
@@ -74,22 +74,22 @@ export interface FoodResponse {
 
 // Food Category API calls
 export const getFoodCategories = async (): Promise<FoodCategory[]> => {
-  const response = await axios.get(API_ENDPOINTS.foods.categories.list);
+  const response = await apiClient.get(API_ENDPOINTS.foods.categories.list);
   return response.data;
 };
 
 export const getFoodCategoryById = async (categoryId: number): Promise<FoodCategory> => {
-  const response = await axios.get(API_ENDPOINTS.foods.categories.detail(categoryId));
+  const response = await apiClient.get(API_ENDPOINTS.foods.categories.detail(categoryId));
   return response.data;
 };
 
 export const createFoodCategory = async (payload: FoodCategoryPayload): Promise<FoodCategory> => {
-  const response = await axios.post(API_ENDPOINTS.foods.categories.list, payload);
+  const response = await apiClient.post(API_ENDPOINTS.foods.categories.list, payload);
   return response.data;
 };
 
 export const updateFoodCategory = async (categoryId: number, payload: FoodCategoryPayload): Promise<FoodCategory> => {
-  const response = await axios.put(API_ENDPOINTS.foods.categories.detail(categoryId), payload);
+  const response = await apiClient.put(API_ENDPOINTS.foods.categories.detail(categoryId), payload);
   return response.data;
 };
 
@@ -105,7 +105,7 @@ export const getFoods = async (
   minPrice?: number,
   maxPrice?: number,
 ): Promise<FoodResponse> => {
-  const params: any = { page, limit };
+  const params: Record<string, any> = { page, limit };
 
   if (search) params.search = search;
   if (categoryId) params.category_id = categoryId;
@@ -115,25 +115,25 @@ export const getFoods = async (
   if (minPrice) params.min_price = minPrice;
   if (maxPrice) params.max_price = maxPrice;
 
-  const response = await axios.get(API_ENDPOINTS.foods.list, { params });
+  const response = await apiClient.get(API_ENDPOINTS.foods.list, { params });
   return response.data;
 };
 
 export const getFoodById = async (foodId: number): Promise<Food> => {
-  const response = await axios.get(API_ENDPOINTS.foods.detail(foodId));
+  const response = await apiClient.get(API_ENDPOINTS.foods.detail(foodId));
   return response.data;
 };
 
 export const createFood = async (payload: FoodPayload): Promise<Food> => {
-  const response = await axios.post(API_ENDPOINTS.foods.list, payload);
+  const response = await apiClient.post(API_ENDPOINTS.foods.list, payload);
   return response.data;
 };
 
 export const updateFood = async (foodId: number, payload: FoodPayload): Promise<Food> => {
-  const response = await axios.put(API_ENDPOINTS.foods.detail(foodId), payload);
+  const response = await apiClient.put(API_ENDPOINTS.foods.detail(foodId), payload);
   return response.data;
 };
 
 export const deleteFood = async (foodId: number): Promise<void> => {
-  await axios.delete(API_ENDPOINTS.foods.detail(foodId));
+  await apiClient.delete(API_ENDPOINTS.foods.detail(foodId));
 };

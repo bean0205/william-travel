@@ -3,6 +3,7 @@ import {
   Table, Button, Space, Tag, Typography, Input, Modal, Form,
   Select, Switch, message, Card, Tabs, Row, Col, Skeleton
 } from 'antd';
+import type { ColumnType } from 'antd/es/table';
 import {
   EditOutlined, DeleteOutlined, PlusOutlined, UserOutlined, EyeOutlined,
   BarChartOutlined, TableOutlined, SearchOutlined, ReloadOutlined
@@ -92,7 +93,10 @@ const UserManagement: React.FC = () => {
     form.setFieldsValue({
       email: user.email,
       full_name: user.full_name,
-      role: user.role,
+      // Handle both role and role_id
+      role_id: user.role_id !== undefined ? 
+        user.role_id : 
+        (user.role ? roles.find(r => r.name === user.role)?.id : undefined),
       is_active: user.is_active,
       is_superuser: user.is_superuser,
     });
@@ -116,14 +120,21 @@ const UserManagement: React.FC = () => {
   const handleModalOk = async () => {
     try {
       const values = await form.validateFields();
+      // Use role_id instead of role in the payload
+      const payload = {
+        ...values,
+        // Convert role_id (which we're now using) to a number if it's a string
+        role_id: values.role_id ? Number(values.role_id) : undefined,
+      };
+      
       if (modalType === 'create') {
         await createUser({
-          ...values,
+          ...payload,
           password: values.password || 'defaultPassword123', // In real app, you might want to generate a random password
         });
         message.success('User created successfully');
       } else if (modalType === 'edit' && editingUser) {
-        await updateUser(editingUser.id, values);
+        await updateUser(editingUser.id, payload);
         message.success('User updated successfully');
       }
       setIsModalVisible(false);
@@ -152,7 +163,7 @@ const UserManagement: React.FC = () => {
     });
   };
 
-  const columns = [
+  const columns: any = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -163,25 +174,51 @@ const UserManagement: React.FC = () => {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      sorter: (a: User, b: User) => a.email.localeCompare(b.email),
+      sorter: (a: User, b: User) => (a.email || '').localeCompare(b.email || ''),
     },
     {
       title: 'Name',
       dataIndex: 'full_name',
       key: 'full_name',
-      sorter: (a: User, b: User) => a.full_name.localeCompare(b.full_name),
+      sorter: (a: User, b: User) => (a.full_name || '').localeCompare(b.full_name || ''),
     },
     {
       title: 'Role',
       dataIndex: 'role',
       key: 'role',
-      render: (role: string) => (
-        <Tag color={role === 'admin' ? 'red' : role === 'moderator' ? 'blue' : 'green'}>
-          {role.toUpperCase()}
-        </Tag>
-      ),
+      render: (role: string | undefined, record: User) => {
+        // If we have a role string, use it directly
+        if (role) {
+          return (
+            <Tag color={role === 'admin' ? 'red' : role === 'moderator' ? 'blue' : 'green'}>
+              {role.toUpperCase()}
+            </Tag>
+          );
+        }
+        // Otherwise, look up the role name from role_id
+        if (record.role_id !== undefined) {
+          const foundRole = roles.find(r => r.id === record.role_id);
+          const roleName = foundRole?.name || 'Unknown';
+          return (
+            <Tag color={roleName === 'admin' ? 'red' : roleName === 'moderator' ? 'blue' : 'green'}>
+              {roleName.toUpperCase()}
+            </Tag>
+          );
+        }
+        return <Tag>N/A</Tag>;
+      },
       filters: roles.map(role => ({ text: role.name, value: role.name })),
-      onFilter: (value: string, record: User) => record.role === value,
+      onFilter: (value: string | number | boolean, record: User) => {
+        const stringValue = String(value);
+        if (record.role) {
+          return record.role === stringValue;
+        }
+        if (record.role_id !== undefined) {
+          const foundRole = roles.find(r => r.id === record.role_id);
+          return foundRole?.name === stringValue;
+        }
+        return false;
+      },
     },
     {
       title: 'Status',
@@ -196,19 +233,28 @@ const UserManagement: React.FC = () => {
         { text: 'Active', value: true },
         { text: 'Inactive', value: false },
       ],
-      onFilter: (value: boolean, record: User) => record.is_active === value,
+      onFilter: (value: string | number | boolean, record: User) => {
+        if (typeof value === 'boolean') {
+          return record.is_active === value;
+        }
+        return record.is_active === (value === 'true');
+      },
     },
     {
       title: 'Created',
       dataIndex: 'created_at',
       key: 'created_at',
-      render: (date: string) => new Date(date).toLocaleDateString(),
-      sorter: (a: User, b: User) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+      render: (date: string) => date ? new Date(date).toLocaleDateString() : 'N/A',
+      sorter: (a: User, b: User) => {
+        const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
+        const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
+        return dateA - dateB;
+      },
     },
     {
       title: 'Actions',
       key: 'actions',
-      render: (_: any, record: User) => (
+      render: (_: unknown, record: User) => (
         <Space size="middle">
           <Button
             type="text"
@@ -232,11 +278,22 @@ const UserManagement: React.FC = () => {
   ];
 
   const filteredUsers = searchQuery
-    ? users.filter(
-        user =>
-          user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          user.full_name.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+    ? users.filter(user => {
+        // Search by email and name
+        const emailMatch = user.email.toLowerCase().includes(searchQuery.toLowerCase());
+        const nameMatch = user.full_name.toLowerCase().includes(searchQuery.toLowerCase());
+        
+        // Search by role (either direct string or role_id mapping)
+        let roleMatch = false;
+        if (user.role) {
+          roleMatch = user.role.toLowerCase().includes(searchQuery.toLowerCase());
+        } else if (user.role_id !== undefined) {
+          const roleName = roles.find(r => r.id === user.role_id)?.name;
+          roleMatch = roleName ? roleName.toLowerCase().includes(searchQuery.toLowerCase()) : false;
+        }
+        
+        return emailMatch || nameMatch || roleMatch;
+      })
     : users;
 
   return (
@@ -323,7 +380,15 @@ const UserManagement: React.FC = () => {
                   <Card>
                     <Skeleton loading={loading} active>
                       <Title level={4}>Admins</Title>
-                      <Title level={2}>{users.filter(u => u.role === 'admin').length}</Title>
+                      <Title level={2}>{users.filter(u => {
+                        // Check both role string and role_id
+                        if (u.role === 'admin') return true;
+                        if (u.role_id !== undefined) {
+                          const adminRole = roles.find(r => r.id === u.role_id);
+                          return adminRole?.name === 'admin';
+                        }
+                        return false;
+                      }).length}</Title>
                     </Skeleton>
                   </Card>
                 </Col>
@@ -331,7 +396,15 @@ const UserManagement: React.FC = () => {
                   <Card>
                     <Skeleton loading={loading} active>
                       <Title level={4}>Regular Users</Title>
-                      <Title level={2}>{users.filter(u => u.role === 'user').length}</Title>
+                      <Title level={2}>{users.filter(u => {
+                        // Check both role string and role_id
+                        if (u.role === 'user') return true;
+                        if (u.role_id !== undefined) {
+                          const userRole = roles.find(r => r.id === u.role_id);
+                          return userRole?.name === 'user';
+                        }
+                        return false;
+                      }).length}</Title>
                     </Skeleton>
                   </Card>
                 </Col>
@@ -380,13 +453,13 @@ const UserManagement: React.FC = () => {
           </Form.Item>
 
           <Form.Item
-            name="role"
+            name="role_id"
             label="Role"
             rules={[{ required: true, message: 'Please select role' }]}
           >
             <Select placeholder="Select role">
               {roles.map(role => (
-                <Select.Option key={role.id} value={role.name}>{role.name}</Select.Option>
+                <Select.Option key={role.id} value={role.id}>{role.name}</Select.Option>
               ))}
             </Select>
           </Form.Item>
@@ -431,7 +504,13 @@ const UserManagement: React.FC = () => {
                   <p><strong>ID:</strong> {viewUser.id}</p>
                   <p><strong>Email:</strong> {viewUser.email}</p>
                   <p><strong>Full Name:</strong> {viewUser.full_name}</p>
-                  <p><strong>Role:</strong> {viewUser.role}</p>
+                  <p><strong>Role:</strong> {
+                    viewUser.role ? 
+                    viewUser.role : 
+                    (viewUser.role_id !== undefined ? 
+                      (roles.find(r => r.id === viewUser.role_id)?.name || 'Unknown') : 
+                      'N/A')
+                  }</p>
                   <p>
                     <strong>Status:</strong>
                     <Tag color={viewUser.is_active ? 'green' : 'red'} style={{ marginLeft: 8 }}>

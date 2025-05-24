@@ -10,7 +10,6 @@ import UnauthorizedPage from '@/pages/UnauthorizedPage';
 import AdminTest from '@/pages/AdminTest';
 
 // Admin pages
-import AdminDashboard from '@/pages/admin/AdminDashboard';
 import ContentManagement from '@/pages/admin/ContentManagement';
 import ArticleManagement from '@/pages/admin/ArticleManagement';
 import EventManagement from '@/pages/admin/EventManagement';
@@ -53,14 +52,7 @@ const AppRouter = () => {
         {/* Add other public routes... */}
 
         {/* Admin Routes - all protected requiring admin role */}
-        <Route
-          path={APP_ROUTES.ADMIN_DASHBOARD.path}
-          element={
-            <AdminRouteWrapper>
-              <AdminDashboard />
-            </AdminRouteWrapper>
-          }
-        />
+       
 
         <Route
           path={APP_ROUTES.ADMIN_CONTENT.path}

@@ -1,9 +1,8 @@
-// filepath: /Users/williamnguyen/Documents/william travel/frontend/src/pages/admin/RolesManagement.tsx
 import React, { useState, useEffect } from 'react';
 import {
   Table, Button, Space, Typography, Input, Modal, Form, Card,
   Select, Switch, message, Row, Col, Tag, Tabs, Skeleton, Tooltip,
-  Badge, Descriptions, Transfer
+  Badge, Descriptions, Transfer, TransferDirection
 } from 'antd';
 import {
   EditOutlined, DeleteOutlined, PlusOutlined, TeamOutlined, EyeOutlined,
@@ -13,10 +12,30 @@ import { Permission } from '@/utils/permissions';
 import { PermissionGuard } from '@/components/common/PermissionGuards';
 import { Role, getRoles, getRoleById, createRole, updateRole, deleteRole } from '@/services/api/roleService';
 import { Permission as PermissionType, getPermissions } from '@/services/api/permissionService';
+import type { TableProps } from 'antd/lib/table';
+import type { Key } from 'react';
 
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
 const { Search } = Input;
+
+// Define interfaces for the component
+interface RoleTransferItem {
+  key: string;
+  title: string;
+  description: string;
+}
+
+// Define API error interface
+interface ApiError {
+  response?: {
+    data?: {
+      detail?: string;
+    };
+    status?: number;
+  };
+  message?: string;
+}
 
 const RolesManagement: React.FC = () => {
   // State
@@ -39,14 +58,18 @@ const RolesManagement: React.FC = () => {
     fetchPermissions();
   }, []);
 
-  const fetchRoles = async () => {
+  const fetchRoles = async (skipVal: number = 0, limitVal: number = 100) => {
     try {
       setLoading(true);
-      const data = await getRoles();
+      const data = await getRoles(skipVal, limitVal);
       setRoles(data);
       setLoading(false);
-    } catch (error) {
-      message.error('Failed to fetch roles');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : ((error as ApiError)?.response?.data?.detail || 'Failed to fetch roles');
+      message.error(errorMessage);
+      console.error('Error fetching roles:', error);
       setLoading(false);
     }
   };
@@ -55,8 +78,12 @@ const RolesManagement: React.FC = () => {
     try {
       const data = await getPermissions();
       setPermissions(data);
-    } catch (error) {
-      message.error('Failed to fetch permissions');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : ((error as ApiError)?.response?.data?.detail || 'Failed to fetch permissions');
+      message.error(errorMessage);
+      console.error('Error fetching permissions:', error);
     }
   };
 
@@ -95,8 +122,11 @@ const RolesManagement: React.FC = () => {
       setModalType('edit');
       setIsModalVisible(true);
       setLoading(false);
-    } catch (error) {
-      message.error('Failed to fetch role details');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : 'Failed to fetch role details';
+      message.error(errorMessage);
       setLoading(false);
     }
   };
@@ -108,8 +138,11 @@ const RolesManagement: React.FC = () => {
       setViewRole(role);
       setViewRoleModalVisible(true);
       setLoading(false);
-    } catch (error) {
-      message.error('Failed to fetch role details');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : 'Failed to fetch role details';
+      message.error(errorMessage);
       setLoading(false);
     }
   };
@@ -136,9 +169,12 @@ const RolesManagement: React.FC = () => {
       }
       setIsModalVisible(false);
       fetchRoles();
-    } catch (error) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : ((error as ApiError)?.response?.data?.detail || 'Operation failed');
       console.error('Operation failed:', error);
-      message.error('Operation failed');
+      message.error(errorMessage);
     }
   };
 
@@ -154,26 +190,40 @@ const RolesManagement: React.FC = () => {
           await deleteRole(roleId);
           message.success('Role deleted successfully');
           fetchRoles();
-        } catch (error) {
-          if (error.response && error.response.status === 400) {
+        } catch (error: unknown) {
+          const apiError = error as ApiError;
+          if (apiError?.response?.status === 400) {
             message.error('Cannot delete: role is assigned to users');
           } else {
-            message.error('Failed to delete role');
+            const errorMessage = error instanceof Error 
+              ? error.message 
+              : 'Failed to delete role';
+            message.error(errorMessage);
           }
         }
       },
     });
   };
 
-  const handleTransferChange = (nextTargetKeys: string[]) => {
-    setTargetKeys(nextTargetKeys);
+  // Correctly typed Transfer component handlers
+  const handleTransferChange = (
+    nextTargetKeys: Key[], 
+    direction: TransferDirection, 
+    moveKeys: Key[]
+  ) => {
+    setTargetKeys(nextTargetKeys.map(key => key.toString()));
   };
 
-  const handleTransferSelectChange = (sourceSelectedKeys: string[], targetSelectedKeys: string[]) => {
-    setSelectedKeys([...sourceSelectedKeys, ...targetSelectedKeys]);
+  const handleTransferSelectChange = (
+    sourceSelectedKeys: Key[], 
+    targetSelectedKeys: Key[]
+  ) => {
+    const stringSourceKeys = sourceSelectedKeys.map(key => key.toString());
+    const stringTargetKeys = targetSelectedKeys.map(key => key.toString());
+    setSelectedKeys([...stringSourceKeys, ...stringTargetKeys]);
   };
 
-  const columns = [
+  const columns: TableProps<Role>['columns'] = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -185,9 +235,9 @@ const RolesManagement: React.FC = () => {
       dataIndex: 'name',
       key: 'name',
       sorter: (a: Role, b: Role) => a.name.localeCompare(b.name),
-      render: (text: string, record: Role) => (
+      render: (_: string, record: Role) => (
         <Space>
-          {text}
+          {record.name}
           {record.is_default && <Badge status="processing" text="Default" />}
         </Space>
       ),
@@ -201,7 +251,7 @@ const RolesManagement: React.FC = () => {
     {
       title: 'Permissions',
       key: 'permissions',
-      render: (text: string, record: Role) => (
+      render: (_: unknown, record: Role) => (
         <>
           {record.permissions?.length > 0 ? (
             <Tooltip title={record.permissions.map(p => p.name).join(', ')}>
@@ -223,8 +273,8 @@ const RolesManagement: React.FC = () => {
     {
       title: 'Actions',
       key: 'actions',
-      render: (_: any, record: Role) => (
-        <PermissionGuard requiredPermissions={[Permission.ROLE_MANAGE]}>
+      render: (_: unknown, record: Role) => (
+        <PermissionGuard permission={Permission.ROLE_MANAGE}>
           <Space size="middle">
             <Button
               type="text"
@@ -272,7 +322,7 @@ const RolesManagement: React.FC = () => {
                   style={{ width: 250 }}
                   allowClear
                 />
-                <PermissionGuard requiredPermissions={[Permission.ROLE_CREATE]}>
+                <PermissionGuard permission={Permission.ROLE_CREATE}>
                   <Button
                     type="primary"
                     icon={<PlusOutlined />}
@@ -346,7 +396,7 @@ const RolesManagement: React.FC = () => {
           </Form.Item>
 
           <Form.Item label="Permissions">
-            <Transfer
+            <Transfer<RoleTransferItem>
               dataSource={permissions.map(permission => ({
                 key: permission.id.toString(),
                 title: permission.name,

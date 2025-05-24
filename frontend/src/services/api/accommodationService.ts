@@ -1,5 +1,5 @@
 // Accommodation service for API communication
-import axios from 'axios';
+import apiClient from './apiClient';
 import { API_ENDPOINTS } from '@/constants/apiEndpoints';
 
 // Accommodation Category interfaces
@@ -72,22 +72,22 @@ export interface AccommodationResponse {
 
 // Accommodation Category API calls
 export const getAccommodationCategories = async (): Promise<AccommodationCategory[]> => {
-  const response = await axios.get(API_ENDPOINTS.accommodations.categories.list);
+  const response = await apiClient.get(API_ENDPOINTS.accommodations.categories.list);
   return response.data;
 };
 
 export const getAccommodationCategoryById = async (categoryId: number): Promise<AccommodationCategory> => {
-  const response = await axios.get(API_ENDPOINTS.accommodations.categories.detail(categoryId));
+  const response = await apiClient.get(API_ENDPOINTS.accommodations.categories.detail(categoryId));
   return response.data;
 };
 
 export const createAccommodationCategory = async (payload: AccommodationCategoryPayload): Promise<AccommodationCategory> => {
-  const response = await axios.post(API_ENDPOINTS.accommodations.categories.list, payload);
+  const response = await apiClient.post(API_ENDPOINTS.accommodations.categories.list, payload);
   return response.data;
 };
 
 export const updateAccommodationCategory = async (categoryId: number, payload: AccommodationCategoryPayload): Promise<AccommodationCategory> => {
-  const response = await axios.put(API_ENDPOINTS.accommodations.categories.detail(categoryId), payload);
+  const response = await apiClient.put(API_ENDPOINTS.accommodations.categories.detail(categoryId), payload);
   return response.data;
 };
 
@@ -103,7 +103,7 @@ export const getAccommodations = async (
   minPrice?: number,
   maxPrice?: number,
 ): Promise<AccommodationResponse> => {
-  const params: any = { page, limit };
+  const params: Record<string, any> = { page, limit };
 
   if (search) params.search = search;
   if (categoryId) params.category_id = categoryId;
@@ -113,25 +113,25 @@ export const getAccommodations = async (
   if (minPrice) params.min_price = minPrice;
   if (maxPrice) params.max_price = maxPrice;
 
-  const response = await axios.get(API_ENDPOINTS.accommodations.list, { params });
+  const response = await apiClient.get(API_ENDPOINTS.accommodations.list, { params });
   return response.data;
 };
 
 export const getAccommodationById = async (accommodationId: number): Promise<Accommodation> => {
-  const response = await axios.get(API_ENDPOINTS.accommodations.detail(accommodationId));
+  const response = await apiClient.get(API_ENDPOINTS.accommodations.detail(accommodationId));
   return response.data;
 };
 
 export const createAccommodation = async (payload: AccommodationPayload): Promise<Accommodation> => {
-  const response = await axios.post(API_ENDPOINTS.accommodations.list, payload);
+  const response = await apiClient.post(API_ENDPOINTS.accommodations.list, payload);
   return response.data;
 };
 
 export const updateAccommodation = async (accommodationId: number, payload: AccommodationPayload): Promise<Accommodation> => {
-  const response = await axios.put(API_ENDPOINTS.accommodations.detail(accommodationId), payload);
+  const response = await apiClient.put(API_ENDPOINTS.accommodations.detail(accommodationId), payload);
   return response.data;
 };
 
 export const deleteAccommodation = async (accommodationId: number): Promise<void> => {
-  await axios.delete(API_ENDPOINTS.accommodations.detail(accommodationId));
+  await apiClient.delete(API_ENDPOINTS.accommodations.detail(accommodationId));
 };

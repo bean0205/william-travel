@@ -9,7 +9,8 @@ export interface User {
   email: string;
   full_name: string;
   is_active: boolean;
-  role: string;
+  role?: string;
+  role_id?: number;
   is_superuser: boolean;
   created_at: string;
   updated_at: string;
@@ -19,7 +20,8 @@ export interface UserCreatePayload {
   email: string;
   password: string;
   full_name: string;
-  role: string;
+  role?: string;
+  role_id?: number;
   is_superuser: boolean;
   is_active: boolean;
 }
@@ -29,6 +31,7 @@ export interface UserUpdatePayload {
   full_name?: string;
   is_active?: boolean;
   role?: string;
+  role_id?: number;
   is_superuser?: boolean;
 }
 
@@ -133,6 +136,9 @@ const deleteUser = async (userId: number): Promise<void> => {
 
 // Alias for auth store compatibility
 const updatePassword = updateCurrentUserPassword;
+
+// Named exports for backward compatibility
+export { getCurrentUser, getUsers, getUserById, createUser, updateUser, updateCurrentUser, updateCurrentUserPassword, deleteUser };
 
 export const userService = {
   getCurrentUser,

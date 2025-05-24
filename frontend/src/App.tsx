@@ -62,7 +62,6 @@ const ForgotPasswordPage = lazy(
 const ResetPasswordPage = lazy(() => import('@/pages/auth/ResetPasswordPage'));
 
 // Admin pages
-const AdminDashboard = lazy(() => import('@/pages/admin/Dashboard'));
 const ModernDashboard = lazy(() => import('@/pages/admin/ModernDashboard'));
 const UserManagement = lazy(() => import('@/pages/admin/UserManagement'));
 const LocationManagement = lazy(
@@ -314,9 +313,8 @@ function App() {
               }
             >
               <Route path="/admin" element={<MainLayout />}>
-                <Route index element={withPageTransition(AdminDashboard)()} />
                 <Route
-                  path="modern"
+                  path=""
                   element={withPageTransition(ModernDashboard)()}
                 />
                 <Route
