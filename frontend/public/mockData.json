@@ -1,0 +1,63 @@
+{
+  "locations": [
+    {
+      "id": "1",
+      "name": "Eiffel Tower",
+      "category": "historical",
+      "description": "Iconic iron tower in Paris that offers breathtaking views of the city.",
+      "imageUrl": "https://images.unsplash.com/photo-1543349689-9a4d426bee8e",
+      "rating": 4.7,
+      "latitude": 48.8584,
+      "longitude": 2.2945,
+      "address": "Champ de Mars, 5 Avenue Anatole France, 75007 Paris, France",
+      "website": "https://www.toureiffel.paris/en",
+      "featured": true
+    },
+    {
+      "id": "2",
+      "name": "Bali Beach",
+      "category": "beach",
+      "description": "Beautiful beach with white sand and crystal clear water in Bali, Indonesia.",
+      "imageUrl": "https://images.unsplash.com/photo-1537996194471-e657df975ab4",
+      "rating": 4.5,
+      "latitude": -8.3405,
+      "longitude": 115.0920,
+      "address": "Kuta Beach, Bali, Indonesia",
+      "featured": true
+    },
+    {
+      "id": "3",
+      "name": "Swiss Alps",
+      "category": "mountain",
+      "description": "Majestic mountain range in Switzerland, offering incredible hiking and skiing opportunities.",
+      "imageUrl": "https://images.unsplash.com/photo-1531795951970-40c4d7cda2f7",
+      "rating": 4.9,
+      "latitude": 46.8182,
+      "longitude": 8.2275,
+      "address": "Swiss Alps, Switzerland",
+      "featured": true
+    },
+    {
+      "id": "4",
+      "name": "Tokyo Tower",
+      "category": "city",
+      "description": "Famous landmark in Tokyo with observation decks offering panoramic views of the city.",
+      "imageUrl": "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc",
+      "rating": 4.4,
+      "latitude": 35.6586,
+      "longitude": 139.7454,
+      "address": "4 Chome-2-8 Shibakoen, Minato City, Tokyo 105-0011, Japan"
+    },
+    {
+      "id": "5",
+      "name": "Grand Canyon",
+      "category": "countryside",
+      "description": "Stunning natural wonder in Arizona featuring layered bands of red rock.",
+      "imageUrl": "https://images.unsplash.com/photo-1527600478564-f82b361a3be2",
+      "rating": 4.8,
+      "latitude": 36.0544,
+      "longitude": -112.2401,
+      "address": "Grand Canyon National Park, Arizona, USA"
+    }
+  ]
+}

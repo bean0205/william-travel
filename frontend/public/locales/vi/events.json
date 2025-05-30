@@ -1,0 +1,90 @@
+{
+  "events": {
+    "pageTitle": "Sự kiện & Lễ hội",
+    "pageSubtitle": "Khám phá các lễ hội văn hóa và sự kiện đặc biệt tại Việt Nam",
+    "filterTitle": "Tìm sự kiện",
+    "searchPlaceholder": "Tìm theo tên, địa điểm hoặc loại",
+    "filters": {
+      "title": "Bộ lọc",
+      "category": "Danh mục",
+      "date": "Ngày",
+      "location": "Địa điểm",
+      "sortBy": "Sắp xếp theo",
+      "applyFilters": "Áp dụng bộ lọc",
+      "clearFilters": "Xóa tất cả",
+      "categories": {
+        "all": "Tất cả danh mục",
+        "cultural": "Văn hóa",
+        "music": "Âm nhạc",
+        "food": "Ẩm thực",
+        "art": "Nghệ thuật & Triển lãm",
+        "sports": "Thể thao",
+        "religious": "Tôn giáo",
+        "seasonal": "Mùa vụ"
+      },
+      "dates": {
+        "today": "Hôm nay",
+        "tomorrow": "Ngày mai",
+        "thisWeek": "Tuần này",
+        "thisMonth": "Tháng này",
+        "custom": "Khoảng thời gian tùy chỉnh"
+      },
+      "sortOptions": {
+        "dateAsc": "Ngày (Gần nhất trước)",
+        "dateDesc": "Ngày (Xa nhất trước)",
+        "popular": "Phổ biến nhất"
+      }
+    },
+    "tabs": {
+      "allEvents": "Tất cả sự kiện",
+      "ongoing": "Đang diễn ra",
+      "upcoming": "Sắp diễn ra",
+      "past": "Sự kiện đã qua"
+    },
+    "resultCount": "Tìm thấy {{count}} sự kiện",
+    "noResults": "Không tìm thấy sự kiện nào",
+    "viewDetails": "Xem chi tiết",
+    "eventDate": "Ngày diễn ra",
+    "location": "Địa điểm",
+    "organizer": "Nhà tổ chức",
+    "free": "Miễn phí",
+    "price": "Từ {{price}}",
+    "addToCalendar": "Thêm vào lịch",
+    "shareEvent": "Chia sẻ sự kiện",
+    "featuredEvents": "Sự kiện nổi bật",
+    "popularEvents": "Sự kiện phổ biến",
+    "thisWeek": "Tuần này",
+    "thisMonth": "Tháng này"
+  },
+  "eventDetail": {
+    "getTickets": "Mua vé",
+    "overview": "Tổng quan",
+    "schedule": "Lịch trình",
+    "location": "Địa điểm",
+    "organizer": "Nhà tổ chức",
+    "faqs": "Câu hỏi thường gặp",
+    "gallery": "Thư viện ảnh",
+    "relatedEvents": "Sự kiện liên quan",
+    "eventDetails": "Chi tiết sự kiện",
+    "date": "Ngày",
+    "time": "Thời gian",
+    "venue": "Địa điểm",
+    "ticketInfo": "Thông tin vé",
+    "ticketTypes": "Loại vé",
+    "pricing": "Giá vé",
+    "howToGet": "Cách đến đó",
+    "contactInfo": "Thông tin liên hệ",
+    "callNow": "Gọi ngay",
+    "emailUs": "Gửi email",
+    "visitWebsite": "Truy cập trang web",
+    "getDirections": "Chỉ đường",
+    "readMore": "Đọc thêm",
+    "readLess": "Thu gọn",
+    "viewOnMap": "Xem trên bản đồ",
+    "shareEvent": "Chia sẻ sự kiện",
+    "addToCalendar": "Thêm vào lịch",
+    "reportEvent": "Báo cáo sự kiện",
+    "upcomingEvents": "Sự kiện sắp tới"
+  }
+}
+

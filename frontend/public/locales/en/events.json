@@ -1,0 +1,90 @@
+{
+  "events": {
+    "pageTitle": "Events & Festivals",
+    "pageSubtitle": "Discover cultural celebrations and special events in Vietnam",
+    "filterTitle": "Find Events",
+    "searchPlaceholder": "Search by name, location, or type",
+    "filters": {
+      "title": "Filters",
+      "category": "Category",
+      "date": "Date",
+      "location": "Location",
+      "sortBy": "Sort By",
+      "applyFilters": "Apply Filters",
+      "clearFilters": "Clear All",
+      "categories": {
+        "all": "All Categories",
+        "cultural": "Cultural",
+        "music": "Music",
+        "food": "Food & Drink",
+        "art": "Art & Exhibition",
+        "sports": "Sports",
+        "religious": "Religious",
+        "seasonal": "Seasonal"
+      },
+      "dates": {
+        "today": "Today",
+        "tomorrow": "Tomorrow",
+        "thisWeek": "This Week",
+        "thisMonth": "This Month",
+        "custom": "Custom Date Range"
+      },
+      "sortOptions": {
+        "dateAsc": "Date (Nearest First)",
+        "dateDesc": "Date (Furthest First)",
+        "popular": "Most Popular"
+      }
+    },
+    "tabs": {
+      "allEvents": "All Events",
+      "ongoing": "Ongoing",
+      "upcoming": "Upcoming",
+      "past": "Past Events"
+    },
+    "resultCount": "{{count}} events found",
+    "noResults": "No events found",
+    "viewDetails": "View Details",
+    "eventDate": "Event Date",
+    "location": "Location",
+    "organizer": "Organizer",
+    "free": "Free",
+    "price": "From {{price}}",
+    "addToCalendar": "Add to Calendar",
+    "shareEvent": "Share Event",
+    "featuredEvents": "Featured Events",
+    "popularEvents": "Popular Events",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month"
+  },
+  "eventDetail": {
+    "getTickets": "Get Tickets",
+    "overview": "Overview",
+    "schedule": "Schedule",
+    "location": "Location",
+    "organizer": "Organizer",
+    "faqs": "FAQs",
+    "gallery": "Gallery",
+    "relatedEvents": "Related Events",
+    "eventDetails": "Event Details",
+    "date": "Date",
+    "time": "Time",
+    "venue": "Venue",
+    "ticketInfo": "Ticket Information",
+    "ticketTypes": "Ticket Types",
+    "pricing": "Pricing",
+    "howToGet": "How to Get There",
+    "contactInfo": "Contact Information",
+    "callNow": "Call Now",
+    "emailUs": "Email Us",
+    "visitWebsite": "Visit Website",
+    "getDirections": "Get Directions",
+    "readMore": "Read More",
+    "readLess": "Read Less",
+    "viewOnMap": "View on Map",
+    "shareEvent": "Share Event",
+    "addToCalendar": "Add to Calendar",
+    "reportEvent": "Report Event",
+    "upcomingEvents": "Upcoming Events"
+  }
+}
+

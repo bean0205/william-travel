@@ -1,0 +1,128 @@
+2025-05-27 22:20:59 - root - INFO - Starting Smart Web Scraper CLI
+2025-05-27 22:20:59 - root - INFO - Reading URLs from file: demo_urls.txt
+2025-05-27 22:20:59 - root - INFO - Reading URLs from file: demo_urls.txt
+2025-05-27 22:20:59 - root - DEBUG - Found valid URL [5]: https://vnexpress.net/
+2025-05-27 22:20:59 - root - DEBUG - Found valid URL [6]: https://dantri.com.vn/
+2025-05-27 22:20:59 - root - DEBUG - Found valid URL [7]: https://thanhnien.vn/
+2025-05-27 22:20:59 - root - DEBUG - Found valid URL [10]: https://techcrunch.com/
+2025-05-27 22:20:59 - root - DEBUG - Found valid URL [11]: https://news.bbc.co.uk/
+2025-05-27 22:20:59 - root - DEBUG - Found valid URL [14]: https://example.com/
+2025-05-27 22:20:59 - root - DEBUG - Found valid URL [15]: https://vnexpress.net/du-khach-tuong-chet-khi-di-xe-dia-hinh-o-bau-trang-4890341.html
+2025-05-27 22:20:59 - root - INFO - Successfully read 7 URLs from demo_urls.txt in 0.00s
+2025-05-27 22:20:59 - root - DEBUG - File statistics: 15 lines, 7 valid URLs, 5 comment lines, 3 empty lines
+2025-05-27 22:20:59 - root - INFO - Configuration: URLs=7, Selenium=False, Headless=True, Timeout=30s, Delay=1.0s
+2025-05-27 22:20:59 - root - INFO - Output format: json
+2025-05-27 22:20:59 - root - INFO - Output directory: scraped_data
+2025-05-27 22:20:59 - root - INFO - Beginning scraping process for 7 URL(s)
+2025-05-27 22:20:59 - root - INFO - [1/7] (14.3%) Processing: https://vnexpress.net/
+2025-05-27 22:20:59 - root - DEBUG - Performing full scrape for: https://vnexpress.net/
+2025-05-27 22:20:59 - smart_scraper.main - INFO - Retrieved https://vnexpress.net/ from cache
+2025-05-27 22:20:59 - root - INFO - Results retrieved from cache in 0.00s
+2025-05-27 22:20:59 - root - INFO - Successful scrape: https://vnexpress.net/ (type: unknown, confidence: 0.00)
+2025-05-27 22:20:59 - root - DEBUG - Extracted 15 content fields
+2025-05-27 22:20:59 - root - DEBUG - Waiting 1.0s before next request
+2025-05-27 22:21:00 - root - INFO - URL 1/7 processing completed in 1.01s
+2025-05-27 22:21:00 - root - INFO - [2/7] (28.6%) Processing: https://dantri.com.vn/
+2025-05-27 22:21:00 - root - DEBUG - Performing full scrape for: https://dantri.com.vn/
+2025-05-27 22:21:00 - smart_scraper.main - INFO - Retrieved https://dantri.com.vn/ from cache
+2025-05-27 22:21:00 - root - INFO - Results retrieved from cache in 0.00s
+2025-05-27 22:21:00 - root - INFO - Successful scrape: https://dantri.com.vn/ (type: unknown, confidence: 0.00)
+2025-05-27 22:21:00 - root - DEBUG - Extracted 15 content fields
+2025-05-27 22:21:00 - root - DEBUG - Waiting 1.0s before next request
+2025-05-27 22:21:01 - root - INFO - URL 2/7 processing completed in 1.00s
+2025-05-27 22:21:01 - root - INFO - [3/7] (42.9%) Processing: https://thanhnien.vn/
+2025-05-27 22:21:01 - root - DEBUG - Performing full scrape for: https://thanhnien.vn/
+2025-05-27 22:21:01 - smart_scraper.main - INFO - Retrieved https://thanhnien.vn/ from cache
+2025-05-27 22:21:01 - root - INFO - Results retrieved from cache in 0.00s
+2025-05-27 22:21:01 - root - INFO - Successful scrape: https://thanhnien.vn/ (type: unknown, confidence: 0.00)
+2025-05-27 22:21:01 - root - DEBUG - Extracted 9 content fields
+2025-05-27 22:21:01 - root - DEBUG - Waiting 1.0s before next request
+2025-05-27 22:21:02 - root - INFO - URL 3/7 processing completed in 1.00s
+2025-05-27 22:21:02 - root - INFO - [4/7] (57.1%) Processing: https://techcrunch.com/
+2025-05-27 22:21:02 - root - DEBUG - Performing full scrape for: https://techcrunch.com/
+2025-05-27 22:21:02 - smart_scraper.main - INFO - Retrieved https://techcrunch.com/ from cache
+2025-05-27 22:21:02 - root - INFO - Results retrieved from cache in 0.00s
+2025-05-27 22:21:02 - root - INFO - Successful scrape: https://techcrunch.com/ (type: unknown, confidence: 0.00)
+2025-05-27 22:21:02 - root - DEBUG - Extracted 6 content fields
+2025-05-27 22:21:02 - root - DEBUG - Waiting 1.0s before next request
+2025-05-27 22:21:03 - root - INFO - URL 4/7 processing completed in 1.00s
+2025-05-27 22:21:03 - root - INFO - [5/7] (71.4%) Processing: https://news.bbc.co.uk/
+2025-05-27 22:21:03 - root - DEBUG - Performing full scrape for: https://news.bbc.co.uk/
+2025-05-27 22:21:03 - smart_scraper.main - INFO - Starting scrape for URL: https://news.bbc.co.uk/
+2025-05-27 22:21:03 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): news.bbc.co.uk:443
+2025-05-27 22:21:04 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): news.bbc.co.uk:443
+2025-05-27 22:21:06 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): news.bbc.co.uk:443
+2025-05-27 22:21:06 - smart_scraper.main - ERROR - Error scraping https://news.bbc.co.uk/: Scraping error: HTTPSConnectionPool(host='news.bbc.co.uk', port=443): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x106a0d700>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2025-05-27 22:21:06 - root - INFO - Scraping completed in 3.03s
+2025-05-27 22:21:06 - root - WARNING - Failed scrape: https://news.bbc.co.uk/ - Error: Scraping error: HTTPSConnectionPool(host='news.bbc.co.uk', port=443): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x106a0d700>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2025-05-27 22:21:06 - root - DEBUG - Waiting 1.0s before next request
+2025-05-27 22:21:07 - root - INFO - URL 5/7 processing completed in 4.03s
+2025-05-27 22:21:07 - root - INFO - [6/7] (85.7%) Processing: https://example.com/
+2025-05-27 22:21:07 - root - DEBUG - Performing full scrape for: https://example.com/
+2025-05-27 22:21:07 - smart_scraper.main - INFO - Retrieved https://example.com/ from cache
+2025-05-27 22:21:07 - root - INFO - Results retrieved from cache in 0.00s
+2025-05-27 22:21:07 - root - INFO - Successful scrape: https://example.com/ (type: unknown, confidence: 0.00)
+2025-05-27 22:21:07 - root - DEBUG - Extracted 6 content fields
+2025-05-27 22:21:07 - root - DEBUG - Waiting 1.0s before next request
+2025-05-27 22:21:08 - root - INFO - URL 6/7 processing completed in 1.01s
+2025-05-27 22:21:08 - root - INFO - [7/7] (100.0%) Processing: https://vnexpress.net/du-khach-tuong-chet-khi-di-xe-dia-hinh-o-bau-trang-4890341.html
+2025-05-27 22:21:08 - root - DEBUG - Performing full scrape for: https://vnexpress.net/du-khach-tuong-chet-khi-di-xe-dia-hinh-o-bau-trang-4890341.html
+2025-05-27 22:21:08 - smart_scraper.main - INFO - Starting scrape for URL: https://vnexpress.net/du-khach-tuong-chet-khi-di-xe-dia-hinh-o-bau-trang-4890341.html
+2025-05-27 22:21:08 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): vnexpress.net:443
+2025-05-27 22:21:09 - urllib3.connectionpool - DEBUG - https://vnexpress.net:443 "GET /du-khach-tuong-chet-khi-di-xe-dia-hinh-o-bau-trang-4890341.html HTTP/11" 200 None
+2025-05-27 22:21:09 - smart_scraper.main - INFO - Classified as unknown with confidence 0.16
+2025-05-27 22:21:09 - smart_scraper.main - INFO - Extraction completed with confidence: 1.00
+2025-05-27 22:21:09 - smart_scraper.main - INFO - Successfully scraped https://vnexpress.net/du-khach-tuong-chet-khi-di-xe-dia-hinh-o-bau-trang-4890341.html
+2025-05-27 22:21:09 - root - INFO - Scraping completed in 0.32s
+2025-05-27 22:21:09 - root - INFO - Successful scrape: https://vnexpress.net/du-khach-tuong-chet-khi-di-xe-dia-hinh-o-bau-trang-4890341.html (type: unknown, confidence: 0.00)
+2025-05-27 22:21:09 - root - DEBUG - Extracted 13 content fields
+2025-05-27 22:21:09 - root - INFO - URL 7/7 processing completed in 0.32s
+2025-05-27 22:21:09 - root - INFO - Scraping complete. Success: 6, Failed: 1, Total time: 9.38s
+2025-05-27 22:21:09 - root - INFO - 5 results were retrieved from cache
+2025-05-27 22:21:09 - root - INFO - Saving final results
+2025-05-27 22:21:09 - root - INFO - Saving 7 result files to directory: scraped_data
+2025-05-27 22:21:09 - root - DEBUG - [1/7] Saving result for https://vnexpress.net/
+2025-05-27 22:21:09 - root - INFO - Saving results for URL: https://vnexpress.net/
+2025-05-27 22:21:09 - root - DEBUG - Generated filename: vnexpress.net_20250527_222109.json
+2025-05-27 22:21:09 - root - DEBUG - Saving results to scraped_data/vnexpress.net_20250527_222109.json in json format
+2025-05-27 22:21:09 - root - INFO - Results saved to scraped_data/vnexpress.net_20250527_222109.json (7.9 KB) in 0.00s
+2025-05-27 22:21:09 - root - INFO - Saved result to scraped_data/vnexpress.net_20250527_222109.json (7.9 KB) in 0.00s
+2025-05-27 22:21:09 - root - DEBUG - [2/7] Saving result for https://dantri.com.vn/
+2025-05-27 22:21:09 - root - INFO - Saving results for URL: https://dantri.com.vn/
+2025-05-27 22:21:09 - root - DEBUG - Generated filename: dantri.com.vn_20250527_222109.json
+2025-05-27 22:21:09 - root - DEBUG - Saving results to scraped_data/dantri.com.vn_20250527_222109.json in json format
+2025-05-27 22:21:09 - root - INFO - Results saved to scraped_data/dantri.com.vn_20250527_222109.json (21.8 KB) in 0.00s
+2025-05-27 22:21:09 - root - INFO - Saved result to scraped_data/dantri.com.vn_20250527_222109.json (21.8 KB) in 0.00s
+2025-05-27 22:21:09 - root - DEBUG - [3/7] Saving result for https://thanhnien.vn/
+2025-05-27 22:21:09 - root - INFO - Saving results for URL: https://thanhnien.vn/
+2025-05-27 22:21:09 - root - DEBUG - Generated filename: thanhnien.vn_20250527_222109.json
+2025-05-27 22:21:09 - root - DEBUG - Saving results to scraped_data/thanhnien.vn_20250527_222109.json in json format
+2025-05-27 22:21:09 - root - INFO - Results saved to scraped_data/thanhnien.vn_20250527_222109.json (2.9 KB) in 0.00s
+2025-05-27 22:21:09 - root - INFO - Saved result to scraped_data/thanhnien.vn_20250527_222109.json (2.9 KB) in 0.00s
+2025-05-27 22:21:09 - root - DEBUG - [4/7] Saving result for https://techcrunch.com/
+2025-05-27 22:21:09 - root - INFO - Saving results for URL: https://techcrunch.com/
+2025-05-27 22:21:09 - root - DEBUG - Generated filename: techcrunch.com_20250527_222109.json
+2025-05-27 22:21:09 - root - DEBUG - Saving results to scraped_data/techcrunch.com_20250527_222109.json in json format
+2025-05-27 22:21:09 - root - INFO - Results saved to scraped_data/techcrunch.com_20250527_222109.json (87.2 KB) in 0.00s
+2025-05-27 22:21:09 - root - INFO - Saved result to scraped_data/techcrunch.com_20250527_222109.json (87.2 KB) in 0.00s
+2025-05-27 22:21:09 - root - DEBUG - [5/7] Saving result for https://news.bbc.co.uk/
+2025-05-27 22:21:09 - root - INFO - Saving results for URL: https://news.bbc.co.uk/
+2025-05-27 22:21:09 - root - DEBUG - Generated filename: news.bbc.co.uk_20250527_222109.json
+2025-05-27 22:21:09 - root - DEBUG - Saving results to scraped_data/news.bbc.co.uk_20250527_222109.json in json format
+2025-05-27 22:21:09 - root - INFO - Results saved to scraped_data/news.bbc.co.uk_20250527_222109.json (0.4 KB) in 0.00s
+2025-05-27 22:21:09 - root - INFO - Saved result to scraped_data/news.bbc.co.uk_20250527_222109.json (0.4 KB) in 0.00s
+2025-05-27 22:21:09 - root - DEBUG - [6/7] Saving result for https://example.com/
+2025-05-27 22:21:09 - root - INFO - Saving results for URL: https://example.com/
+2025-05-27 22:21:09 - root - DEBUG - Generated filename: example.com_20250527_222109.json
+2025-05-27 22:21:09 - root - DEBUG - Saving results to scraped_data/example.com_20250527_222109.json in json format
+2025-05-27 22:21:09 - root - INFO - Results saved to scraped_data/example.com_20250527_222109.json (1.2 KB) in 0.00s
+2025-05-27 22:21:09 - root - INFO - Saved result to scraped_data/example.com_20250527_222109.json (1.2 KB) in 0.00s
+2025-05-27 22:21:09 - root - DEBUG - [7/7] Saving result for https://vnexpress.net/du-khach-tuong-chet-khi-di-xe-dia-hinh-o-bau-trang-4890341.html
+2025-05-27 22:21:09 - root - INFO - Saving results for URL: https://vnexpress.net/du-khach-tuong-chet-khi-di-xe-dia-hinh-o-bau-trang-4890341.html
+2025-05-27 22:21:09 - root - DEBUG - Generated filename: vnexpress.net_du-khach-tuong-chet-khi-di-xe-dia-hinh-o-bau-trang-4890341.html_20250527_222109.json
+2025-05-27 22:21:09 - root - DEBUG - Saving results to scraped_data/vnexpress.net_du-khach-tuong-chet-khi-di-xe-dia-hinh-o-bau-trang-4890341.html_20250527_222109.json in json format
+2025-05-27 22:21:09 - root - INFO - Results saved to scraped_data/vnexpress.net_du-khach-tuong-chet-khi-di-xe-dia-hinh-o-bau-trang-4890341.html_20250527_222109.json (23.1 KB) in 0.00s
+2025-05-27 22:21:09 - root - INFO - Saved result to scraped_data/vnexpress.net_du-khach-tuong-chet-khi-di-xe-dia-hinh-o-bau-trang-4890341.html_20250527_222109.json (23.1 KB) in 0.00s
+2025-05-27 22:21:09 - root - INFO - Saved 7 files in 0.00s to directory: scraped_data
+2025-05-27 22:21:09 - root - INFO - Closing scraper and resources
+2025-05-27 22:21:09 - root - INFO - Smart Web Scraper completed. Total runtime: 9.38s

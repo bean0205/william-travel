@@ -1,0 +1,38 @@
+{
+  "detail": {
+    "loading": "Đang tải thông tin địa điểm...",
+    "error": "Không thể tải thông tin địa điểm. Vui lòng thử lại sau.",
+    "notFound": "Không tìm thấy địa điểm",
+    "notFoundDescription": "Có thể địa điểm này không tồn tại hoặc đã bị xóa.",
+    "backToList": "Quay lại danh sách địa điểm",
+    "reviews": "đánh giá",
+    "tabs": {
+      "overview": "Tổng quan",
+      "photos": "Hình ảnh",
+      "reviews": "Đánh giá",
+      "map": "Bản đồ",
+      "nearbyAttractions": "Lân cận"
+    },
+    "info": {
+      "address": "Địa chỉ",
+      "phone": "Điện thoại",
+      "website": "Website",
+      "openingHours": "Giờ mở cửa",
+      "visitDuration": "Thời gian tham quan",
+      "bestTimeToVisit": "Thời điểm tốt nhất để tham quan",
+      "entranceFee": "Phí vào cửa",
+      "accessibility": "Khả năng tiếp cận"
+    },
+    "actions": {
+      "addToFavorites": "Thêm vào yêu thích",
+      "removeFromFavorites": "Xóa khỏi yêu thích",
+      "share": "Chia sẻ",
+      "bookNow": "Đặt ngay",
+      "readReviews": "Xem đánh giá",
+      "writeReview": "Viết đánh giá"
+    },
+    "nearbyPlaces": "Địa điểm lân cận",
+    "viewAllPhotos": "Xem tất cả hình ảnh"
+  }
+}
+

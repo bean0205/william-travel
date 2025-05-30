@@ -1,0 +1,74 @@
+{
+  "shopping": {
+    "pageTitle": "Shopping & Souvenirs",
+    "pageSubtitle": "Find unique treasures and gifts from Vietnam",
+    "filterTitle": "Find Shopping Destinations",
+    "searchPlaceholder": "Search for products, markets, or shopping areas",
+    "filters": {
+      "title": "Filters",
+      "category": "Category",
+      "location": "Location",
+      "priceRange": "Price Range",
+      "sortBy": "Sort By",
+      "applyFilters": "Apply Filters",
+      "clearFilters": "Clear All",
+      "categories": {
+        "all": "All Categories",
+        "markets": "Markets",
+        "malls": "Shopping Malls",
+        "boutiques": "Boutiques",
+        "artisans": "Artisan Workshops",
+        "souvenir": "Souvenir Shops",
+        "antiques": "Antiques",
+        "food": "Food Products",
+        "clothing": "Clothing & Textiles",
+        "handicrafts": "Handicrafts"
+      },
+      "sortOptions": {
+        "popular": "Most Popular",
+        "priceLow": "Price (Low to High)",
+        "priceHigh": "Price (High to Low)",
+        "rating": "Highest Rating"
+      }
+    },
+    "resultCount": "{{count}} shopping options found",
+    "noResults": "No shopping options found",
+    "viewDetails": "View Details",
+    "priceRange": "Price Range: {{range}}",
+    "showMap": "Show on Map",
+    "saveToFavorites": "Save to Favorites",
+    "savedToFavorites": "Saved to Favorites",
+    "mustBuy": "Must-Buy Items",
+    "bestMarkets": "Best Markets",
+    "artisanCrafts": "Artisan Crafts",
+    "localProducts": "Local Products"
+  },
+  "shoppingDetail": {
+    "shopNow": "Shop Now",
+    "overview": "Overview",
+    "products": "Products",
+    "location": "Location",
+    "openingHours": "Opening Hours",
+    "vendorInfo": "Vendor Information",
+    "gallery": "Gallery",
+    "relatedShops": "Related Shops",
+    "shopDetails": "Shop Details",
+    "bestSellingItems": "Best-Selling Items",
+    "priceRange": "Price Range",
+    "paymentOptions": "Payment Options",
+    "bargainingTips": "Bargaining Tips",
+    "shipping": "Shipping & Delivery",
+    "contactInfo": "Contact Information",
+    "callNow": "Call Now",
+    "emailUs": "Email Us",
+    "visitWebsite": "Visit Website",
+    "getDirections": "Get Directions",
+    "readMore": "Read More",
+    "readLess": "Read Less",
+    "viewAllPhotos": "View All Photos",
+    "viewOnMap": "View on Map",
+    "reviewsRatings": "Reviews & Ratings",
+    "similarShops": "Similar Shops"
+  }
+}
+

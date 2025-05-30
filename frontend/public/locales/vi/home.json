@@ -1,0 +1,111 @@
+{
+  "hero": {
+    "title": "Khám phá kho báu ẩn của Việt Nam",
+    "subtitle": "Trải nghiệm vẻ đẹp, văn hóa và những cuộc phiêu lưu khó quên",
+    "searchPlaceholder": "Tìm kiếm điểm đến, hoạt động hoặc trải nghiệm",
+    "searchButton": "Khám phá",
+    "popularSearches": "Tìm kiếm phổ biến:",
+    "continueExploring": "Tiếp tục khám phá",
+    "searchDestination": "Tìm kiếm điểm đến",
+    "locationsIn": "Địa điểm ở {{countryName}}...",
+    "popularDestinations": "Địa điểm phổ biến:",
+    "selectExactLocation": "Chọn địa điểm chính xác",
+    "province": "Tỉnh/Thành phố",
+    "district": "Quận/Huyện",
+    "ward": "Phường/Xã",
+    "chooseProvince": "Chọn tỉnh/thành phố",
+    "chooseDistrict": "Chọn quận/huyện",
+    "chooseWard": "Chọn phường/xã",
+    "explore": "Khám phá",
+    "exploreSelectedLocation": "Khám phá {{location}}"
+  },
+  "destinations": {
+    "title": "Điểm đến phổ biến",
+    "subtitle": "Khám phá những điểm du lịch được yêu thích nhất Việt Nam",
+    "viewAll": "Xem tất cả điểm đến",
+    "exploreNow": "Khám phá ngay"
+  },
+  "experiences": {
+    "title": "Trải nghiệm độc đáo",
+    "subtitle": "Khám phá những hoạt động làm cho chuyến đi của bạn đáng nhớ",
+    "viewAll": "Xem tất cả trải nghiệm"
+  },
+  "events": {
+    "title": "Sự kiện & Lễ hội sắp tới",
+    "subtitle": "Đừng bỏ lỡ những lễ hội văn hóa này",
+    "viewAll": "Xem tất cả sự kiện"
+  },
+  "food": {
+    "title": "Ẩm thực tuyệt vời",
+    "subtitle": "Thưởng thức hương vị đích thực của Việt Nam",
+    "viewAll": "Khám phá tất cả ẩm thực"
+  },
+  "accommodations": {
+    "title": "Nơi lưu trú",
+    "subtitle": "Từ khu nghỉ dưỡng sang trọng đến homestay đậm chất địa phương",
+    "viewAll": "Tìm nơi lưu trú"
+  },
+  "articles": {
+    "title": "Câu chuyện & Lời khuyên du lịch",
+    "subtitle": "Kinh nghiệm từ du khách và chuyên gia địa phương",
+    "viewAll": "Đọc tất cả bài viết"
+  },
+  "guides": {
+    "title": "Gặp gỡ hướng dẫn viên địa phương",
+    "subtitle": "Hướng dẫn viên chuyên nghiệp sẽ nâng tầm hành trình của bạn",
+    "viewAll": "Xem tất cả hướng dẫn viên"
+  },
+  "cta": {
+    "title": "Sẵn sàng cho cuộc phiêu lưu Việt Nam của bạn?",
+    "subtitle": "Lên kế hoạch cho chuyến đi hoàn hảo với lịch trình tùy chỉnh của chúng tôi",
+    "button": "Bắt đầu lập kế hoạch"
+  },
+  "filters": {
+    "dates": "Ngày du lịch",
+    "duration": "Thời gian",
+    "travelers": "Số người",
+    "budget": "Ngân sách",
+    "interests": "Sở thích",
+    "applyFilters": "Áp dụng bộ lọc"
+  },
+  "navigation": {
+    "explore": "Khám phá",
+    "accommodations": "Chỗ ở",
+    "foodAndDining": "Ẩm thực",
+    "articles": "Bài viết",
+    "events": "Sự kiện",
+    "transportation": "Giao thông",
+    "shoppingAndSouvenirs": "Mua sắm & Quà lưu niệm",
+    "tipsAndWarnings": "Mẹo & Cảnh báo",
+    "photoVideoAlbum": "Thư viện Ảnh/Video"
+  },
+  "eventTabs": {
+    "allEvents": "Tất cả Sự kiện",
+    "ongoing": "Đang diễn ra",
+    "upcoming": "Sắp diễn ra"
+  },
+  "transportation": {
+    "title": "Giao thông",
+    "subtitle": "Tìm cách di chuyển tốt nhất",
+    "viewAll": "Xem tất cả phương tiện giao thông"
+  },
+  "shopping": {
+    "title": "Mua sắm & Quà lưu niệm",
+    "subtitle": "Mang về nhà những món quà độc đáo",
+    "viewAll": "Xem tất cả địa điểm mua sắm"
+  },
+  "tipsWarnings": {
+    "title": "Mẹo & Cảnh báo Du lịch",
+    "subtitle": "An toàn và tận hưởng chuyến đi của bạn",
+    "viewAll": "Xem tất cả mẹo"
+  },
+  "gallery": {
+    "title": "Thư viện Ảnh & Video",
+    "subtitle": "Trải nghiệm vẻ đẹp qua hình ảnh",
+    "viewAll": "Xem toàn bộ thư viện"
+  },
+  "common": {
+    "discoverIn": "Khám phá điều đang diễn ra ở"
+  }
+}
+

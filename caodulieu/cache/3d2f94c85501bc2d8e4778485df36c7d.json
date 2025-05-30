@@ -1,0 +1,62 @@
+{
+  "url": "https://tuoitre.vn/",
+  "cached_at": "2025-05-27T21:55:09.697466",
+  "result": {
+    "url": "https://tuoitre.vn/",
+    "page_type": "unknown",
+    "classification_confidence": 0.15833333333333333,
+    "extraction_confidence": 0.44999999999999996,
+    "extractor_used": "blog",
+    "timestamp": "2025-05-27T21:55:09.697446",
+    "content": {
+      "title": "",
+      "meta_description": "Tin tức mới nhất trên các lĩnh vực chính trị, xã hội, văn hóa, thể thao ở Việt Nam và quốc tế. Tin tức thời sự mỗi ngày sẽ được Tuổi Trẻ Online liên tục cập nhật...",
+      "canonical_url": "https://tuoitre.vn/",
+      "language": "vi",
+      "author": "TUOI TRE ONLINE",
+      "categories": [],
+      "tags": [
+        "tin mới nhất",
+        "thời sự",
+        "thể thao"
+      ],
+      "comments_info": {
+        "has_comments": false,
+        "comment_count": 0,
+        "comments_enabled": false
+      },
+      "blog_info": {
+        "blog_title": "",
+        "rss_feed": "https://tuoitre.vn/rss/tin-moi-nhat.rss",
+        "platform": "Unknown"
+      }
+    },
+    "html_analysis": {
+      "structure_info": {
+        "has_header": true,
+        "has_nav": false,
+        "has_main": false,
+        "has_aside": false,
+        "has_footer": false,
+        "total_elements": 2461,
+        "total_text_length": 31694,
+        "has_forms": false,
+        "has_tables": false,
+        "script_count": 30,
+        "css_count": 1
+      },
+      "content_score": 179.97320670628181,
+      "metadata": {
+        "og:type": "website",
+        "og:site_name": "TUOI TRE ONLINE",
+        "og:title": "Báo Tuổi Trẻ - Tin tức mới nhất, tin nhanh, tin nóng 24h",
+        "og:url": "https://tuoitre.vn/",
+        "og:image": "https://static-tuoitre.tuoitre.vn/tuoitre/web_images/tto_default_avatar.png",
+        "og:description": "Tin tức mới nhất trên các lĩnh vực chính trị, xã hội, văn hóa, thể thao ở Việt Nam và quốc tế. Tin tức thời sự mỗi ngày sẽ được Tuổi Trẻ Online liên tục cập nhật...",
+        "author": "TUOI TRE ONLINE"
+      }
+    },
+    "success": true,
+    "from_cache": false
+  }
+}

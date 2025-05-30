@@ -1,0 +1,60 @@
+{
+  "url": "https://tiki.vn/",
+  "cached_at": "2025-05-27T21:55:17.729931",
+  "result": {
+    "url": "https://tiki.vn/",
+    "page_type": "unknown",
+    "classification_confidence": 0.0875,
+    "extraction_confidence": 0.7,
+    "extractor_used": "ecommerce",
+    "timestamp": "2025-05-27T21:55:17.729912",
+    "content": {
+      "title": "Tiki - Thật nhanh, thật chất lượng, thật rẻ",
+      "meta_description": "Tiện lợi mua sắm hàng triệu mặt hàng, dịch vụ. Vô vàn ưu đãi freeship, mã giảm giá. Hoàn tiền 15% tối đa 600k/tháng với thẻ tín dụng TikiCARD.",
+      "canonical_url": "https://tiki.vn",
+      "language": "vi",
+      "name": "Tiki - Thật nhanh, thật chất lượng, thật rẻ",
+      "current_price": "",
+      "currency": "",
+      "images": [],
+      "category": "Xem tất cả",
+      "availability": {
+        "in_stock": null,
+        "stock_quantity": null,
+        "availability_text": ""
+      },
+      "rating": {
+        "average_rating": null,
+        "rating_count": null,
+        "max_rating": 5
+      },
+      "reviews": [],
+      "specifications": {},
+      "seller": {},
+      "related_products": [],
+      "structured_data": {}
+    },
+    "html_analysis": {
+      "structure_info": {
+        "has_header": true,
+        "has_nav": false,
+        "has_main": true,
+        "has_aside": false,
+        "has_footer": true,
+        "total_elements": 986,
+        "total_text_length": 8212,
+        "has_forms": false,
+        "has_tables": false,
+        "script_count": 37,
+        "css_count": 1
+      },
+      "content_score": 0.091,
+      "metadata": {
+        "og:title": "Tiki - Mua hàng online giá tốt, hàng chuẩn, ship nhanh",
+        "og:description": "Tiện lợi mua sắm hàng triệu mặt hàng, dịch vụ. Vô vàn ưu đãi freeship, mã giảm giá. Hoàn tiền 15% tối đa 600k/tháng với thẻ tín dụng TikiCARD."
+      }
+    },
+    "success": true,
+    "from_cache": false
+  }
+}

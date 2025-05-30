@@ -1,0 +1,151 @@
+2025-05-27 21:24:57 - smart_scraper.main - INFO - Starting scrape for URL: https://example.com
+2025-05-27 21:24:58 - smart_scraper.main - INFO - Classified as unknown with confidence 0.00
+2025-05-27 21:24:58 - smart_scraper.main - INFO - Extraction completed with confidence: 0.50
+2025-05-27 21:24:58 - smart_scraper.main - INFO - Successfully scraped https://example.com
+2025-05-27 21:29:11 - smart_scraper.main - INFO - Starting scrape for URL: https://example.com
+2025-05-27 21:29:12 - smart_scraper.main - INFO - Classified as unknown with confidence 0.00
+2025-05-27 21:29:12 - smart_scraper.main - INFO - Extraction completed with confidence: 0.50
+2025-05-27 21:29:12 - smart_scraper.main - INFO - Successfully scraped https://example.com
+2025-05-27 21:32:10 - smart_scraper.main - INFO - Starting scrape for URL: https://httpbin.org/html
+2025-05-27 21:32:19 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/html: Scraping error: 503 Server Error: Service Temporarily Unavailable for url: https://httpbin.org/html
+2025-05-27 21:33:31 - smart_scraper.main - INFO - Starting scrape for URL: https://example.com
+2025-05-27 21:33:32 - smart_scraper.main - INFO - Classified as unknown with confidence 0.00
+2025-05-27 21:33:32 - smart_scraper.main - INFO - Extraction completed with confidence: 0.50
+2025-05-27 21:33:32 - smart_scraper.main - INFO - Successfully scraped https://example.com
+2025-05-27 21:35:28 - smart_scraper.main - INFO - Retrieved https://example.com from cache
+2025-05-27 21:35:29 - smart_scraper.main - INFO - Starting scrape for URL: https://httpbin.org/html
+2025-05-27 21:35:51 - smart_scraper.main - INFO - Classified as unknown with confidence 0.00
+2025-05-27 21:35:51 - smart_scraper.main - INFO - Extraction completed with confidence: 0.50
+2025-05-27 21:35:51 - smart_scraper.main - INFO - Successfully scraped https://httpbin.org/html
+2025-05-27 21:35:52 - smart_scraper.main - INFO - Retrieved https://example.com from cache
+2025-05-27 21:35:52 - smart_scraper.main - INFO - Retrieved https://example.com from cache
+2025-05-27 21:35:52 - smart_scraper.main - INFO - Retrieved https://example.com from cache
+2025-05-27 21:35:52 - smart_scraper.main - INFO - Starting scrape for URL: https://this-domain-does-not-exist-12345.com
+2025-05-27 21:35:55 - smart_scraper.main - ERROR - Error scraping https://this-domain-does-not-exist-12345.com: Scraping error: HTTPSConnectionPool(host='this-domain-does-not-exist-12345.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1046437a0>: Failed to resolve 'this-domain-does-not-exist-12345.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-05-27 21:35:55 - smart_scraper.main - INFO - Starting scrape for URL: invalid-url
+2025-05-27 21:35:58 - smart_scraper.main - ERROR - Error scraping invalid-url: Scraping error: Invalid URL 'invalid-url': No scheme supplied. Perhaps you meant https://invalid-url?
+2025-05-27 21:36:38 - smart_scraper.main - INFO - Retrieved https://example.com from cache
+2025-05-27 21:36:39 - smart_scraper.main - INFO - Retrieved https://httpbin.org/html from cache
+2025-05-27 21:36:40 - smart_scraper.main - INFO - Retrieved https://example.com from cache
+2025-05-27 21:36:40 - smart_scraper.main - INFO - Retrieved https://example.com from cache
+2025-05-27 21:36:40 - smart_scraper.main - INFO - Retrieved https://example.com from cache
+2025-05-27 21:36:40 - smart_scraper.main - INFO - Starting scrape for URL: https://this-domain-does-not-exist-12345.com
+2025-05-27 21:36:43 - smart_scraper.main - ERROR - Error scraping https://this-domain-does-not-exist-12345.com: Scraping error: HTTPSConnectionPool(host='this-domain-does-not-exist-12345.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x10b5f37d0>: Failed to resolve 'this-domain-does-not-exist-12345.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-05-27 21:36:43 - smart_scraper.main - INFO - Starting scrape for URL: invalid-url
+2025-05-27 21:36:46 - smart_scraper.main - ERROR - Error scraping invalid-url: Scraping error: Invalid URL 'invalid-url': No scheme supplied. Perhaps you meant https://invalid-url?
+2025-05-27 21:39:21 - smart_scraper.main - INFO - Retrieved https://example.com from cache
+2025-05-27 21:40:25 - smart_scraper.main - INFO - Retrieved https://example.com from cache
+2025-05-27 21:40:56 - smart_scraper.main - INFO - Retrieved https://example.com from cache
+2025-05-27 21:41:23 - smart_scraper.main - INFO - Retrieved https://example.com from cache
+2025-05-27 21:41:34 - smart_scraper.main - INFO - Starting scrape for URL: https://example.com
+2025-05-27 21:41:35 - smart_scraper.main - INFO - Using forced page type: test
+2025-05-27 21:41:35 - smart_scraper.main - INFO - Extraction completed with confidence: 0.80
+2025-05-27 21:41:35 - smart_scraper.main - INFO - Successfully scraped https://example.com
+2025-05-27 21:42:36 - smart_scraper.main - INFO - Starting scrape for URL: https://example.com
+2025-05-27 21:42:36 - smart_scraper.main - INFO - Classified as unknown with confidence 0.00
+2025-05-27 21:42:36 - smart_scraper.main - INFO - Extraction completed with confidence: 0.50
+2025-05-27 21:42:36 - smart_scraper.main - INFO - Successfully scraped https://example.com
+2025-05-27 21:42:38 - smart_scraper.main - INFO - Starting scrape for URL: https://httpbin.org/html
+2025-05-27 21:42:44 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/html: Scraping error: 503 Server Error: Service Temporarily Unavailable for url: https://httpbin.org/html
+2025-05-27 21:42:45 - smart_scraper.main - INFO - Starting scrape for URL: https://example.com
+2025-05-27 21:42:46 - smart_scraper.main - INFO - Using forced page type: test
+2025-05-27 21:42:47 - smart_scraper.main - INFO - Extraction completed with confidence: 0.80
+2025-05-27 21:42:47 - smart_scraper.main - INFO - Successfully scraped https://example.com
+2025-05-27 21:42:47 - smart_scraper.main - INFO - Retrieved https://example.com from cache
+2025-05-27 21:42:47 - smart_scraper.main - INFO - Retrieved https://example.com from cache
+2025-05-27 21:42:47 - smart_scraper.main - INFO - Starting scrape for URL: https://this-domain-does-not-exist-12345.com
+2025-05-27 21:42:50 - smart_scraper.main - ERROR - Error scraping https://this-domain-does-not-exist-12345.com: Scraping error: HTTPSConnectionPool(host='this-domain-does-not-exist-12345.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x109e98290>: Failed to resolve 'this-domain-does-not-exist-12345.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-05-27 21:42:50 - smart_scraper.main - INFO - Starting scrape for URL: invalid-url
+2025-05-27 21:42:53 - smart_scraper.main - ERROR - Error scraping invalid-url: Scraping error: Invalid URL 'invalid-url': No scheme supplied. Perhaps you meant https://invalid-url?
+2025-05-27 21:43:09 - smart_scraper.main - INFO - Starting scrape for URL: https://example.com
+2025-05-27 21:43:10 - smart_scraper.main - INFO - Using forced page type: custom
+2025-05-27 21:43:10 - smart_scraper.main - INFO - Extraction completed with confidence: 0.90
+2025-05-27 21:43:10 - smart_scraper.main - INFO - Successfully scraped https://example.com
+2025-05-27 21:44:50 - smart_scraper.main - INFO - Starting scrape for URL: https://example.com
+2025-05-27 21:44:51 - smart_scraper.main - INFO - Classified as unknown with confidence 0.00
+2025-05-27 21:44:51 - smart_scraper.main - INFO - Extraction completed with confidence: 0.50
+2025-05-27 21:44:51 - smart_scraper.main - INFO - Successfully scraped https://example.com
+2025-05-27 21:44:51 - smart_scraper.main - INFO - Starting scrape for URL: https://example.com
+2025-05-27 21:44:53 - smart_scraper.main - INFO - Using forced page type: test
+2025-05-27 21:44:53 - smart_scraper.main - INFO - Extraction completed with confidence: 0.90
+2025-05-27 21:44:53 - smart_scraper.main - INFO - Successfully scraped https://example.com
+2025-05-27 21:55:03 - smart_scraper.main - INFO - Starting scrape for URL: https://vnexpress.net/
+2025-05-27 21:55:04 - smart_scraper.main - INFO - Classified as unknown with confidence 0.16
+2025-05-27 21:55:04 - smart_scraper.main - INFO - Extraction completed with confidence: 0.85
+2025-05-27 21:55:04 - smart_scraper.main - INFO - Successfully scraped https://vnexpress.net/
+2025-05-27 21:55:05 - smart_scraper.main - INFO - Starting scrape for URL: https://dantri.com.vn/
+2025-05-27 21:55:05 - smart_scraper.main - INFO - Classified as unknown with confidence 0.23
+2025-05-27 21:55:06 - smart_scraper.main - INFO - Extraction completed with confidence: 0.80
+2025-05-27 21:55:06 - smart_scraper.main - INFO - Successfully scraped https://dantri.com.vn/
+2025-05-27 21:55:07 - smart_scraper.main - INFO - Starting scrape for URL: https://tuoitre.vn/
+2025-05-27 21:55:08 - smart_scraper.main - INFO - Classified as unknown with confidence 0.16
+2025-05-27 21:55:09 - smart_scraper.main - INFO - Extraction completed with confidence: 0.45
+2025-05-27 21:55:09 - smart_scraper.main - INFO - Successfully scraped https://tuoitre.vn/
+2025-05-27 21:55:10 - smart_scraper.main - INFO - Starting scrape for URL: https://kipalog.com/
+2025-05-27 21:55:12 - smart_scraper.main - INFO - Classified as unknown with confidence 0.12
+2025-05-27 21:55:12 - smart_scraper.main - INFO - Extraction completed with confidence: 0.70
+2025-05-27 21:55:12 - smart_scraper.main - INFO - Successfully scraped https://kipalog.com/
+2025-05-27 21:55:13 - smart_scraper.main - INFO - Starting scrape for URL: https://viblo.asia/
+2025-05-27 21:55:13 - smart_scraper.main - INFO - Classified as unknown with confidence 0.14
+2025-05-27 21:55:14 - smart_scraper.main - INFO - Extraction completed with confidence: 0.50
+2025-05-27 21:55:14 - smart_scraper.main - INFO - Successfully scraped https://viblo.asia/
+2025-05-27 21:55:15 - smart_scraper.main - INFO - Starting scrape for URL: https://shopee.vn/
+2025-05-27 21:55:15 - smart_scraper.main - INFO - Classified as unknown with confidence 0.03
+2025-05-27 21:55:15 - smart_scraper.main - INFO - Extraction completed with confidence: 0.50
+2025-05-27 21:55:15 - smart_scraper.main - INFO - Successfully scraped https://shopee.vn/
+2025-05-27 21:55:16 - smart_scraper.main - INFO - Starting scrape for URL: https://tiki.vn/
+2025-05-27 21:55:17 - smart_scraper.main - INFO - Classified as unknown with confidence 0.09
+2025-05-27 21:55:17 - smart_scraper.main - INFO - Extraction completed with confidence: 0.70
+2025-05-27 21:55:17 - smart_scraper.main - INFO - Successfully scraped https://tiki.vn/
+2025-05-27 21:55:18 - smart_scraper.main - INFO - Starting scrape for URL: https://vietnamnet.vn/
+2025-05-27 21:55:18 - smart_scraper.main - INFO - Classified as unknown with confidence 0.10
+2025-05-27 21:55:19 - smart_scraper.main - INFO - Extraction completed with confidence: 0.45
+2025-05-27 21:55:19 - smart_scraper.main - INFO - Successfully scraped https://vietnamnet.vn/
+2025-05-27 21:55:20 - smart_scraper.main - INFO - Starting scrape for URL: https://thanhnien.vn/
+2025-05-27 21:55:20 - smart_scraper.main - INFO - Classified as unknown with confidence 0.16
+2025-05-27 21:55:21 - smart_scraper.main - INFO - Extraction completed with confidence: 0.45
+2025-05-27 21:55:21 - smart_scraper.main - INFO - Successfully scraped https://thanhnien.vn/
+2025-05-27 21:55:22 - smart_scraper.main - INFO - Starting scrape for URL: https://techcrunch.com/
+2025-05-27 21:55:22 - smart_scraper.main - INFO - Classified as unknown with confidence 0.13
+2025-05-27 21:55:23 - smart_scraper.main - INFO - Extraction completed with confidence: 0.50
+2025-05-27 21:55:24 - smart_scraper.main - INFO - Successfully scraped https://techcrunch.com/
+2025-05-27 21:55:25 - smart_scraper.main - INFO - Starting scrape for URL: https://medium.com/
+2025-05-27 21:55:28 - smart_scraper.main - ERROR - Error scraping https://medium.com/: Scraping error: HTTPSConnectionPool(host='medium.com', port=443): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x10d90fb00>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2025-05-27 21:55:50 - smart_scraper.main - INFO - Retrieved https://vnexpress.net/ from cache
+2025-05-27 21:55:52 - smart_scraper.main - INFO - Retrieved https://dantri.com.vn/ from cache
+2025-05-27 21:55:54 - smart_scraper.main - INFO - Retrieved https://tuoitre.vn/ from cache
+2025-05-27 21:55:56 - smart_scraper.main - INFO - Retrieved https://kipalog.com/ from cache
+2025-05-27 21:55:58 - smart_scraper.main - INFO - Retrieved https://viblo.asia/ from cache
+2025-05-27 21:56:00 - smart_scraper.main - INFO - Retrieved https://shopee.vn/ from cache
+2025-05-27 21:56:02 - smart_scraper.main - INFO - Retrieved https://tiki.vn/ from cache
+2025-05-27 21:56:04 - smart_scraper.main - INFO - Retrieved https://vietnamnet.vn/ from cache
+2025-05-27 21:56:06 - smart_scraper.main - INFO - Retrieved https://thanhnien.vn/ from cache
+2025-05-27 21:56:08 - smart_scraper.main - INFO - Retrieved https://techcrunch.com/ from cache
+2025-05-27 21:56:10 - smart_scraper.main - INFO - Starting scrape for URL: https://medium.com/
+2025-05-27 21:56:13 - smart_scraper.main - ERROR - Error scraping https://medium.com/: Scraping error: HTTPSConnectionPool(host='medium.com', port=443): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x103252de0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2025-05-27 22:00:22 - smart_scraper.main - INFO - Retrieved https://vnexpress.net/ from cache
+2025-05-27 22:00:23 - smart_scraper.main - INFO - Retrieved https://dantri.com.vn/ from cache
+2025-05-27 22:00:24 - smart_scraper.main - INFO - Retrieved https://tuoitre.vn/ from cache
+2025-05-27 22:00:25 - smart_scraper.main - INFO - Retrieved https://kipalog.com/ from cache
+2025-05-27 22:00:26 - smart_scraper.main - INFO - Retrieved https://viblo.asia/ from cache
+2025-05-27 22:00:27 - smart_scraper.main - INFO - Retrieved https://shopee.vn/ from cache
+2025-05-27 22:00:28 - smart_scraper.main - INFO - Retrieved https://tiki.vn/ from cache
+2025-05-27 22:00:29 - smart_scraper.main - INFO - Retrieved https://vietnamnet.vn/ from cache
+2025-05-27 22:00:30 - smart_scraper.main - INFO - Retrieved https://thanhnien.vn/ from cache
+2025-05-27 22:00:31 - smart_scraper.main - INFO - Retrieved https://techcrunch.com/ from cache
+2025-05-27 22:00:32 - smart_scraper.main - INFO - Starting scrape for URL: https://medium.com/
+2025-05-27 22:00:35 - smart_scraper.main - ERROR - Error scraping https://medium.com/: Scraping error: HTTPSConnectionPool(host='medium.com', port=443): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x10309e5d0>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2025-05-27 22:02:55 - smart_scraper.main - INFO - Starting scrape for URL: https://vnexpress.net/trung-quoc-san-sang-day-manh-ket-noi-duong-sat-voi-viet-nam-4891295.html
+2025-05-27 22:02:55 - smart_scraper.main - INFO - Classified as unknown with confidence 0.16
+2025-05-27 22:02:55 - smart_scraper.main - INFO - Extraction completed with confidence: 1.00
+2025-05-27 22:02:55 - smart_scraper.main - INFO - Successfully scraped https://vnexpress.net/trung-quoc-san-sang-day-manh-ket-noi-duong-sat-voi-viet-nam-4891295.html
+2025-05-27 22:08:56 - smart_scraper.main - INFO - Retrieved https://vnexpress.net/ from cache
+2025-05-27 22:08:57 - smart_scraper.main - INFO - Retrieved https://dantri.com.vn/ from cache
+2025-05-27 22:08:58 - smart_scraper.main - INFO - Retrieved https://thanhnien.vn/ from cache
+2025-05-27 22:08:59 - smart_scraper.main - INFO - Retrieved https://techcrunch.com/ from cache
+2025-05-27 22:09:00 - smart_scraper.main - INFO - Starting scrape for URL: https://news.bbc.co.uk/
+2025-05-27 22:09:03 - smart_scraper.main - ERROR - Error scraping https://news.bbc.co.uk/: Scraping error: HTTPSConnectionPool(host='news.bbc.co.uk', port=443): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x102394080>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2025-05-27 22:09:04 - smart_scraper.main - INFO - Starting scrape for URL: https://example.com/
+2025-05-27 22:09:04 - smart_scraper.main - INFO - Classified as unknown with confidence 0.00
+2025-05-27 22:09:04 - smart_scraper.main - INFO - Extraction completed with confidence: 0.50
+2025-05-27 22:09:04 - smart_scraper.main - INFO - Successfully scraped https://example.com/

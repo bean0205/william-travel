@@ -1,0 +1,126 @@
+{
+  "extraction_info": {
+    "timestamp": "2025-05-28T22:26:48.058906",
+    "total_urls": 3,
+    "successful_extractions": 0,
+    "ai_enhanced_extractions": 0,
+    "tool_version": "Smart Scraper CLI v2.0",
+    "features_used": [
+      "AI Content Extraction",
+      "Mac GPU Acceleration",
+      "Anti-Detection"
+    ]
+  },
+  "results": [
+    {
+      "url": "https://httpbin.org/html",
+      "domain": "httpbin.org",
+      "success": false,
+      "error": "AI-enhanced async scraping error: 503, message='Service Temporarily Unavailable', url='https://httpbin.org/html'",
+      "timestamp": "2025-05-28T22:26:47.924923"
+    },
+    {
+      "url": "https://httpbin.org/json",
+      "domain": "httpbin.org",
+      "success": false,
+      "error": "AI-enhanced async scraping error: 503, message='Service Temporarily Unavailable', url='https://httpbin.org/json'",
+      "timestamp": "2025-05-28T22:26:48.057142"
+    },
+    {
+      "url": "https://example.com",
+      "domain": "example.com",
+      "page_type": "unknown",
+      "classification": {
+        "type": "unknown",
+        "confidence": 0.0
+      },
+      "extraction": {
+        "success": true,
+        "confidence": 0.7
+      },
+      "content": {
+        "title": "Example Domain",
+        "description": "This domain is for use in illustrative examples in documents. You may use this\n    domain in literature without prior coordination or asking for permission.",
+        "text_content": "Example Domain This domain is for use in illustrative examples in documents. You may use this\n    domain in literature without prior coordination or asking for permission. More information...",
+        "headings": {
+          "h1": [
+            "Example Domain"
+          ]
+        },
+        "links": [
+          {
+            "url": "https://www.iana.org/domains/example",
+            "text": "More information...",
+            "title": ""
+          }
+        ],
+        "images": [],
+        "meta_tags": {
+          "viewport": "width=device-width, initial-scale=1"
+        }
+      },
+      "metadata": {
+        "timestamp": "2025-05-28T22:26:42.456109",
+        "html_analysis": {
+          "title": "Example Domain",
+          "meta_description": "",
+          "main_content": "Example Domain This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission. More information...",
+          "images": [],
+          "links": [
+            {
+              "url": "https://www.iana.org/domains/example",
+              "text": "More information...",
+              "title": ""
+            }
+          ],
+          "headings": [
+            {
+              "level": 1,
+              "text": "Example Domain",
+              "id": ""
+            }
+          ],
+          "metadata": {},
+          "content_score": 2.1863544973544977,
+          "structure_info": {
+            "has_header": false,
+            "has_nav": false,
+            "has_main": false,
+            "has_aside": false,
+            "has_footer": false,
+            "total_elements": 13,
+            "total_text_length": 220,
+            "has_forms": false,
+            "has_tables": false,
+            "script_count": 0,
+            "css_count": 0
+          }
+        },
+        "scraper_version": "2.0.0",
+        "ai_metadata": {
+          "ai_modules_enabled": {
+            "content_extraction": true,
+            "anti_detection": true,
+            "async_processing": true
+          },
+          "extraction_enhancement": {
+            "applied": false,
+            "reason": "AI modules not available"
+          },
+          "performance_stats": {
+            "total_requests": 3,
+            "successful_requests": 0,
+            "failed_requests": 0,
+            "ai_enhanced_extractions": 0,
+            "anti_detection_activations": 0,
+            "async_requests": 3,
+            "success_rate": 0.0,
+            "failure_rate": 0.0,
+            "ai_enhancement_rate": 0.0
+          },
+          "scraper_version": "3.0.0-ai"
+        }
+      }
+    }
+  ]
+}

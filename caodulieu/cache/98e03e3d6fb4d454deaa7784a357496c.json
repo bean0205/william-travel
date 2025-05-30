@@ -1,0 +1,67 @@
+{
+  "url": "https://vietnamnet.vn/",
+  "cached_at": "2025-05-27T21:55:19.456882",
+  "result": {
+    "url": "https://vietnamnet.vn/",
+    "page_type": "unknown",
+    "classification_confidence": 0.1,
+    "extraction_confidence": 0.44999999999999996,
+    "extractor_used": "blog",
+    "timestamp": "2025-05-27T21:55:19.456863",
+    "content": {
+      "title": "",
+      "meta_description": "Tin tức mới nhất trên VietNamNet, tin nhanh Việt Nam và thế giới hôm nay. Đọc báo tin tức online các lĩnh vực chính trị, thời sự, kinh doanh, thể thao, giải trí...",
+      "canonical_url": "https://vietnamnet.vn",
+      "language": "vi",
+      "author": "VietNamNet News",
+      "categories": [],
+      "tags": [
+        "tin tức",
+        "tin tuc",
+        "tin tức mới nhất",
+        "tin tức online",
+        "đọc báo",
+        "báo",
+        "tin",
+        "tin nhanh",
+        "VietNamNet"
+      ],
+      "comments_info": {
+        "has_comments": false,
+        "comment_count": 0,
+        "comments_enabled": false
+      },
+      "blog_info": {
+        "blog_title": "",
+        "platform": "Unknown"
+      }
+    },
+    "html_analysis": {
+      "structure_info": {
+        "has_header": true,
+        "has_nav": true,
+        "has_main": false,
+        "has_aside": false,
+        "has_footer": true,
+        "total_elements": 1008,
+        "total_text_length": 9375,
+        "has_forms": true,
+        "has_tables": false,
+        "script_count": 21,
+        "css_count": 2
+      },
+      "content_score": 5.481438848920863,
+      "metadata": {
+        "og:description": "Tin tức mới nhất trên VietNamNet, tin nhanh Việt Nam và thế giới hôm nay. Đọc báo tin tức online các lĩnh vực chính trị, thời sự, kinh doanh, thể thao, giải trí...",
+        "og:title": "Báo VietNamNet - Tin tức mới nhất, tin nhanh Việt Nam và thế giới",
+        "og:type": "website",
+        "og:url": "https://vietnamnet.vn",
+        "og:image": "https://res-files.vnncdn.net/files/2024/1/2/thumb-share-muc.jpg?width=0&s=HSERQwEg5JJy06LMtSHMbw",
+        "og:site_name": "VietNamNet News",
+        "author": "VietNamNet News"
+      }
+    },
+    "success": true,
+    "from_cache": false
+  }
+}

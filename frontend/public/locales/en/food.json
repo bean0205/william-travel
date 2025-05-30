@@ -1,0 +1,84 @@
+{
+  "food": {
+    "pageTitle": "Food & Dining",
+    "pageSubtitle": "Discover Vietnamese cuisine and dining experiences",
+    "filterTitle": "Find Food & Restaurants",
+    "searchPlaceholder": "Search for dishes, restaurants, or cuisines",
+    "filters": {
+      "title": "Filters",
+      "cuisine": "Cuisine Type",
+      "price": "Price Range",
+      "features": "Features",
+      "sortBy": "Sort By",
+      "applyFilters": "Apply Filters",
+      "clearFilters": "Clear All",
+      "cuisineTypes": {
+        "all": "All Cuisines",
+        "vietnamese": "Vietnamese",
+        "regional": "Regional",
+        "fusion": "Fusion",
+        "international": "International",
+        "streetFood": "Street Food",
+        "vegetarian": "Vegetarian"
+      },
+      "priceRanges": {
+        "cheap": "Budget-friendly",
+        "moderate": "Moderate",
+        "expensive": "Fine Dining",
+        "luxury": "Luxury"
+      },
+      "featureOptions": {
+        "outdoorSeating": "Outdoor Seating",
+        "delivery": "Delivery",
+        "takeaway": "Takeaway",
+        "reservations": "Reservations",
+        "groupFriendly": "Group-friendly",
+        "liveMusic": "Live Music",
+        "views": "Scenic Views"
+      },
+      "sortOptions": {
+        "popular": "Most Popular",
+        "priceLow": "Price (Low to High)",
+        "priceHigh": "Price (High to Low)",
+        "rating": "Highest Rating"
+      }
+    },
+    "resultCount": "{{count}} food options found",
+    "noResults": "No food options found",
+    "viewDetails": "View Details",
+    "priceRange": "Price Range: {{range}}",
+    "cuisine": "Cuisine: {{type}}",
+    "showMap": "Show on Map",
+    "saveToFavorites": "Save to Favorites",
+    "savedToFavorites": "Saved to Favorites",
+    "featuredFoods": "Featured Foods",
+    "popularDishes": "Popular Dishes",
+    "mustTry": "Must-Try Dishes",
+    "localSpecialties": "Local Specialties"
+  },
+  "foodDetail": {
+    "findRestaurants": "Find Restaurants",
+    "overview": "Overview",
+    "ingredients": "Ingredients",
+    "howToEat": "How to Eat",
+    "whereToTry": "Where to Try",
+    "recipes": "Recipes",
+    "gallery": "Gallery",
+    "relatedDishes": "Related Dishes",
+    "dishDetails": "Dish Details",
+    "origin": "Origin",
+    "spiceLevel": "Spice Level",
+    "dietaryInfo": "Dietary Information",
+    "bestSeason": "Best Season",
+    "tipFromLocals": "Tip from Locals",
+    "readMore": "Read More",
+    "readLess": "Read Less",
+    "viewAllPhotos": "View All Photos",
+    "shareDish": "Share This Dish",
+    "restaurantOptions": "Restaurant Options",
+    "similarDishes": "Similar Dishes",
+    "seeMenu": "See Menu",
+    "reserveTable": "Reserve a Table"
+  }
+}
+

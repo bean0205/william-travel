@@ -1,0 +1,39 @@
+{
+  "url": "https://shopee.vn/",
+  "cached_at": "2025-05-27T21:55:15.835179",
+  "result": {
+    "url": "https://shopee.vn/",
+    "page_type": "unknown",
+    "classification_confidence": 0.03125,
+    "extraction_confidence": 0.5,
+    "extractor_used": "generic",
+    "timestamp": "2025-05-27T21:55:15.835161",
+    "content": {
+      "title": "",
+      "meta_description": "",
+      "main_content": "",
+      "images": [],
+      "links": [],
+      "headings": []
+    },
+    "html_analysis": {
+      "structure_info": {
+        "has_header": false,
+        "has_nav": false,
+        "has_main": false,
+        "has_aside": false,
+        "has_footer": false,
+        "total_elements": 49,
+        "total_text_length": 44,
+        "has_forms": false,
+        "has_tables": false,
+        "script_count": 25,
+        "css_count": 1
+      },
+      "content_score": 0.0,
+      "metadata": {}
+    },
+    "success": true,
+    "from_cache": false
+  }
+}

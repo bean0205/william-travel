@@ -1,0 +1,765 @@
+2025-05-28 02:23:30 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:23:30 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:29:53 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:29:53 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:31:25 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:31:25 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:31:48 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:31:48 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:32:25 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:32:25 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:32:32 - smart_scraper.main - INFO - Starting AI-enhanced scrape for URL: https://httpbin.org/html
+2025-05-28 02:32:35 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/html: AI-enhanced scraping error: 'timeout'
+2025-05-28 02:33:32 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:33:32 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:34:21 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:34:21 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:34:26 - smart_scraper.main - INFO - Starting AI-enhanced scrape for URL: https://example.com
+2025-05-28 02:34:29 - smart_scraper.main - ERROR - Error scraping https://example.com: AI-enhanced scraping error: 'timeout'
+2025-05-28 02:36:24 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:36:24 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:36:28 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 02:36:28 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 02:37:27 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 02:40:11 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 02:40:11 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 02:40:11 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 02:40:27 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:40:27 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:40:31 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 02:40:31 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 02:40:36 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 02:40:39 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 02:40:39 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 02:40:39 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 02:40:56 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:40:56 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:40:59 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 02:40:59 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 02:41:05 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 02:41:08 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 02:41:08 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 02:41:08 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 02:41:23 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:41:23 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:41:26 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 02:41:26 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 02:41:32 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 02:41:35 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 02:41:35 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 02:41:35 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 02:41:56 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:41:56 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:41:59 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 02:41:59 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 02:42:04 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 02:42:07 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 02:42:07 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 02:42:07 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 02:42:07 - smart_scraper.main - ERROR - Error initializing AI modules: AIContentExtractor.__init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 02:43:33 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:43:33 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:43:36 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 02:43:36 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 02:43:42 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 02:43:46 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 02:43:46 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 02:43:46 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 02:43:46 - smart_scraper.main - ERROR - Error initializing AI modules: AIContentExtractor.__init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 02:45:24 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:45:24 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:45:27 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 02:45:27 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 02:45:34 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 02:45:37 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 02:45:37 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 02:45:37 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 02:45:37 - smart_scraper.main - ERROR - Error initializing AI modules: AIContentExtractor.__init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 02:45:40 - smart_scraper.main - INFO - Starting AI-enhanced scrape for URL: https://httpbin.org/html
+2025-05-28 02:45:43 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/html: AI-enhanced scraping error: 'timeout'
+2025-05-28 02:45:59 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:45:59 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:46:03 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 02:46:03 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 02:46:09 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 02:46:12 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 02:46:12 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 02:46:12 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 02:46:12 - smart_scraper.main - ERROR - Error initializing AI modules: AIContentExtractor.__init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 02:46:17 - smart_scraper.main - INFO - Starting AI-enhanced scrape for URL: https://httpbin.org/html
+2025-05-28 02:46:20 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/html: AI-enhanced scraping error: 'timeout'
+2025-05-28 02:46:20 - smart_scraper.main - ERROR - Error initializing AI modules: AIContentExtractor.__init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 02:46:41 - numexpr.utils - INFO - Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-05-28 02:46:41 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-05-28 02:46:44 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 02:46:44 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 02:46:50 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 02:46:53 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 02:46:53 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 02:46:53 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 02:46:53 - smart_scraper.main - ERROR - Error initializing AI modules: AIContentExtractor.__init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 02:46:55 - smart_scraper.main - INFO - Starting AI-enhanced scrape for URL: https://httpbin.org/html
+2025-05-28 02:46:58 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/html: AI-enhanced scraping error: 'timeout'
+2025-05-28 02:46:58 - smart_scraper.main - ERROR - Error initializing AI modules: AIContentExtractor.__init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 02:46:59 - smart_scraper.main - INFO - Starting AI-enhanced scrape for URL: https://httpbin.org/html
+2025-05-28 02:47:00 - smart_scraper.main - INFO - Starting AI-enhanced scrape for URL: https://httpbin.org/json
+2025-05-28 02:47:02 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/html: AI-enhanced scraping error: 'timeout'
+2025-05-28 02:47:02 - smart_scraper.main - INFO - Starting AI-enhanced scrape for URL: https://httpbin.org/xml
+2025-05-28 02:47:03 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/json: AI-enhanced scraping error: 'timeout'
+2025-05-28 02:47:05 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/xml: AI-enhanced scraping error: 'timeout'
+2025-05-28 02:47:05 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 02:47:05 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 02:47:09 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 02:47:12 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 02:48:46 - smart_scraper.main - INFO - Starting AI-enhanced scrape for URL: https://httpbin.org/html
+2025-05-28 02:48:49 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/html: AI-enhanced scraping error: 'timeout'
+2025-05-28 02:51:19 - smart_scraper.main - INFO - Starting AI-enhanced scrape for URL: https://httpbin.org/html
+2025-05-28 02:51:22 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/html: AI-enhanced scraping error: 'timeout'
+2025-05-28 02:51:47 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 02:51:47 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 02:51:54 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 02:51:57 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 02:52:00 - smart_scraper.main - INFO - Starting AI-enhanced scrape for URL: https://httpbin.org/html
+2025-05-28 02:52:03 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/html: AI-enhanced scraping error: 'timeout'
+2025-05-28 02:53:22 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 02:53:22 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 02:53:29 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 02:53:32 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 02:53:34 - smart_scraper.main - INFO - Starting AI-enhanced scrape for URL: https://httpbin.org/html
+2025-05-28 02:53:37 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/html: AI-enhanced scraping error: 'timeout'
+2025-05-28 02:53:37 - smart_scraper.main - INFO - Starting AI-enhanced scrape for URL: https://httpbin.org/json
+2025-05-28 02:53:37 - smart_scraper.main - INFO - Starting AI-enhanced scrape for URL: https://httpbin.org/xml
+2025-05-28 02:53:40 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/json: AI-enhanced scraping error: 'timeout'
+2025-05-28 02:53:40 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/xml: AI-enhanced scraping error: 'timeout'
+2025-05-28 02:53:40 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 02:53:40 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 02:53:45 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 02:53:48 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 02:59:34 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 02:59:34 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 02:59:40 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 02:59:43 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:02:53 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:02:53 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:03:00 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:03:02 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:03:02 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/
+2025-05-28 03:03:02 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 03:03:02 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 03:03:02 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://kipalog.com/
+2025-05-28 03:03:02 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://viblo.asia/
+2025-05-28 03:03:02 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://shopee.vn/
+2025-05-28 03:03:02 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tiki.vn/
+2025-05-28 03:03:02 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vietnamnet.vn/
+2025-05-28 03:03:03 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://thanhnien.vn/
+2025-05-28 03:03:03 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://techcrunch.com/
+2025-05-28 03:03:34 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/destination/dat-tui-15-mon-ngon-da-nang-an-la-ghien/180936
+2025-05-28 03:04:14 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:04:14 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:04:20 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:04:23 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:05:43 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:05:43 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:05:51 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:05:54 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:05:54 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/
+2025-05-28 03:05:54 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 03:05:54 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 03:05:54 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://kipalog.com/
+2025-05-28 03:05:54 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://viblo.asia/
+2025-05-28 03:05:54 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://shopee.vn/
+2025-05-28 03:05:54 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tiki.vn/
+2025-05-28 03:05:54 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vietnamnet.vn/
+2025-05-28 03:05:54 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://thanhnien.vn/
+2025-05-28 03:05:54 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://techcrunch.com/
+2025-05-28 03:06:26 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/destination/dat-tui-15-mon-ngon-da-nang-an-la-ghien/180936
+2025-05-28 03:06:39 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:06:39 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:06:46 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:06:50 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:06:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/
+2025-05-28 03:06:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 03:06:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 03:06:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://kipalog.com/
+2025-05-28 03:06:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://viblo.asia/
+2025-05-28 03:06:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://shopee.vn/
+2025-05-28 03:06:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tiki.vn/
+2025-05-28 03:06:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vietnamnet.vn/
+2025-05-28 03:06:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://thanhnien.vn/
+2025-05-28 03:06:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://techcrunch.com/
+2025-05-28 03:06:54 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/destination/dat-tui-15-mon-ngon-da-nang-an-la-ghien/180936
+2025-05-28 03:07:27 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:07:27 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:07:34 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:07:37 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:08:14 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:08:14 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:08:21 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:08:24 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:08:24 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/
+2025-05-28 03:08:24 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 03:08:24 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 03:08:56 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://kipalog.com/
+2025-05-28 03:08:56 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://viblo.asia/
+2025-05-28 03:08:56 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://shopee.vn/
+2025-05-28 03:08:58 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tiki.vn/
+2025-05-28 03:08:58 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vietnamnet.vn/
+2025-05-28 03:08:58 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://thanhnien.vn/
+2025-05-28 03:08:59 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://techcrunch.com/
+2025-05-28 03:08:59 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/destination/dat-tui-15-mon-ngon-da-nang-an-la-ghien/180936
+2025-05-28 03:10:18 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:10:18 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:10:26 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:10:28 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:10:28 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 03:10:28 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 03:10:28 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/
+2025-05-28 03:10:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 03:10:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 03:10:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://kipalog.com/
+2025-05-28 03:10:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://viblo.asia/
+2025-05-28 03:10:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://shopee.vn/
+2025-05-28 03:10:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tiki.vn/
+2025-05-28 03:10:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vietnamnet.vn/
+2025-05-28 03:10:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://thanhnien.vn/
+2025-05-28 03:10:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://techcrunch.com/
+2025-05-28 03:10:32 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/destination/dat-tui-15-mon-ngon-da-nang-an-la-ghien/180936
+2025-05-28 03:10:56 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:10:56 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:11:03 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:11:06 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:11:06 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 03:11:06 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 03:11:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/
+2025-05-28 03:11:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 03:11:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 03:11:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://kipalog.com/
+2025-05-28 03:11:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://viblo.asia/
+2025-05-28 03:11:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://shopee.vn/
+2025-05-28 03:11:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tiki.vn/
+2025-05-28 03:11:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vietnamnet.vn/
+2025-05-28 03:11:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://thanhnien.vn/
+2025-05-28 03:11:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://techcrunch.com/
+2025-05-28 03:11:10 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/destination/dat-tui-15-mon-ngon-da-nang-an-la-ghien/180936
+2025-05-28 03:11:33 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:11:33 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:11:40 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:11:43 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:11:43 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 03:11:43 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 03:11:44 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/
+2025-05-28 03:11:44 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 03:11:44 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 03:11:44 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://kipalog.com/
+2025-05-28 03:11:44 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://viblo.asia/
+2025-05-28 03:11:44 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://shopee.vn/
+2025-05-28 03:11:44 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tiki.vn/
+2025-05-28 03:11:44 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vietnamnet.vn/
+2025-05-28 03:11:44 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://thanhnien.vn/
+2025-05-28 03:11:44 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://techcrunch.com/
+2025-05-28 03:11:49 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/destination/dat-tui-15-mon-ngon-da-nang-an-la-ghien/180936
+2025-05-28 03:12:11 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:12:11 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:12:18 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:12:21 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:12:21 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 03:12:21 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 03:12:21 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 03:12:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/
+2025-05-28 03:12:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 03:12:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 03:12:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://kipalog.com/
+2025-05-28 03:12:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://viblo.asia/
+2025-05-28 03:12:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://shopee.vn/
+2025-05-28 03:12:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tiki.vn/
+2025-05-28 03:12:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vietnamnet.vn/
+2025-05-28 03:12:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://thanhnien.vn/
+2025-05-28 03:12:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://techcrunch.com/
+2025-05-28 03:12:25 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/destination/dat-tui-15-mon-ngon-da-nang-an-la-ghien/180936
+2025-05-28 03:21:28 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 03:21:28 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:21:28 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:21:35 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:21:39 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:21:39 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 03:21:39 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 03:21:39 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 03:21:39 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/
+2025-05-28 03:21:39 - smart_scraper.main - ERROR - Error scraping https://vnexpress.net/: AI-enhanced async scraping error: 'SmartScraper' object has no attribute 'enable_anti_detection'
+2025-05-28 03:21:39 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 03:21:39 - smart_scraper.main - ERROR - Error scraping https://dantri.com.vn/: AI-enhanced async scraping error: 'SmartScraper' object has no attribute 'enable_anti_detection'
+2025-05-28 03:21:39 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 03:21:39 - smart_scraper.main - ERROR - Error scraping https://tuoitre.vn/: AI-enhanced async scraping error: 'SmartScraper' object has no attribute 'enable_anti_detection'
+2025-05-28 03:21:39 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://kipalog.com/
+2025-05-28 03:21:39 - smart_scraper.main - ERROR - Error scraping https://kipalog.com/: AI-enhanced async scraping error: 'SmartScraper' object has no attribute 'enable_anti_detection'
+2025-05-28 03:21:39 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://viblo.asia/
+2025-05-28 03:21:39 - smart_scraper.main - ERROR - Error scraping https://viblo.asia/: AI-enhanced async scraping error: 'SmartScraper' object has no attribute 'enable_anti_detection'
+2025-05-28 03:21:39 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://shopee.vn/
+2025-05-28 03:21:39 - smart_scraper.main - ERROR - Error scraping https://shopee.vn/: AI-enhanced async scraping error: 'SmartScraper' object has no attribute 'enable_anti_detection'
+2025-05-28 03:21:39 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tiki.vn/
+2025-05-28 03:21:39 - smart_scraper.main - ERROR - Error scraping https://tiki.vn/: AI-enhanced async scraping error: 'SmartScraper' object has no attribute 'enable_anti_detection'
+2025-05-28 03:21:39 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vietnamnet.vn/
+2025-05-28 03:21:39 - smart_scraper.main - ERROR - Error scraping https://vietnamnet.vn/: AI-enhanced async scraping error: 'SmartScraper' object has no attribute 'enable_anti_detection'
+2025-05-28 03:21:39 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://thanhnien.vn/
+2025-05-28 03:21:39 - smart_scraper.main - ERROR - Error scraping https://thanhnien.vn/: AI-enhanced async scraping error: 'SmartScraper' object has no attribute 'enable_anti_detection'
+2025-05-28 03:21:39 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://techcrunch.com/
+2025-05-28 03:21:39 - smart_scraper.main - ERROR - Error scraping https://techcrunch.com/: AI-enhanced async scraping error: 'SmartScraper' object has no attribute 'enable_anti_detection'
+2025-05-28 03:21:39 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/destination/dat-tui-15-mon-ngon-da-nang-an-la-ghien/180936
+2025-05-28 03:21:39 - smart_scraper.main - ERROR - Error scraping https://www.traveloka.com/vi-vn/explore/destination/dat-tui-15-mon-ngon-da-nang-an-la-ghien/180936: AI-enhanced async scraping error: 'SmartScraper' object has no attribute 'enable_anti_detection'
+2025-05-28 03:22:12 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 03:22:12 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:22:12 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:22:20 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:22:22 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:22:22 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 03:22:22 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 03:23:40 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 03:23:40 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:23:40 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:23:47 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:23:50 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:23:50 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 03:23:50 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 03:23:50 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 03:23:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/
+2025-05-28 03:23:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 03:23:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 03:23:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://kipalog.com/
+2025-05-28 03:23:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://viblo.asia/
+2025-05-28 03:23:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://shopee.vn/
+2025-05-28 03:23:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tiki.vn/
+2025-05-28 03:23:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vietnamnet.vn/
+2025-05-28 03:23:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://thanhnien.vn/
+2025-05-28 03:23:50 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://techcrunch.com/
+2025-05-28 03:23:54 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/destination/dat-tui-15-mon-ngon-da-nang-an-la-ghien/180936
+2025-05-28 03:27:12 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 03:27:12 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 03:27:12 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:27:12 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:27:19 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:27:25 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:27:25 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 03:27:25 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 03:28:20 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 03:28:20 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 03:28:20 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:28:20 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:28:25 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:28:31 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:28:31 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 03:28:31 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 03:28:31 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 03:28:31 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 03:28:31 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/
+2025-05-28 03:28:31 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 03:28:31 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 03:28:31 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://kipalog.com/
+2025-05-28 03:28:31 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://viblo.asia/
+2025-05-28 03:28:31 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://shopee.vn/
+2025-05-28 03:28:31 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tiki.vn/
+2025-05-28 03:28:31 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vietnamnet.vn/
+2025-05-28 03:28:31 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://thanhnien.vn/
+2025-05-28 03:28:31 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://techcrunch.com/
+2025-05-28 03:28:35 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/destination/dat-tui-15-mon-ngon-da-nang-an-la-ghien/180936
+2025-05-28 03:30:28 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 03:30:28 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:30:28 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:30:36 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:30:40 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:30:40 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 03:30:40 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 03:30:40 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 03:30:40 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 03:30:40 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/
+2025-05-28 03:30:40 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 03:30:40 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 03:30:40 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://kipalog.com/
+2025-05-28 03:30:40 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://viblo.asia/
+2025-05-28 03:30:40 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://shopee.vn/
+2025-05-28 03:30:40 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tiki.vn/
+2025-05-28 03:30:40 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vietnamnet.vn/
+2025-05-28 03:30:40 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://thanhnien.vn/
+2025-05-28 03:30:40 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://techcrunch.com/
+2025-05-28 03:30:44 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/destination/dat-tui-15-mon-ngon-da-nang-an-la-ghien/180936
+2025-05-28 03:33:26 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 03:33:26 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 03:33:26 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:33:26 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:33:31 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:33:37 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:33:37 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 03:33:37 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 03:36:16 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 03:36:16 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 03:36:16 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 03:36:16 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 03:36:22 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 03:36:29 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 03:36:29 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 03:36:29 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 03:36:29 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 03:36:29 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 03:36:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/
+2025-05-28 03:36:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 03:36:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 03:36:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://kipalog.com/
+2025-05-28 03:36:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://viblo.asia/
+2025-05-28 03:36:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://shopee.vn/
+2025-05-28 03:36:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tiki.vn/
+2025-05-28 03:36:30 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vietnamnet.vn/
+2025-05-28 03:36:30 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://thanhnien.vn/
+2025-05-28 03:36:30 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://techcrunch.com/
+2025-05-28 03:36:34 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/destination/dat-tui-15-mon-ngon-da-nang-an-la-ghien/180936
+2025-05-28 22:20:18 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:20:18 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:20:18 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:20:18 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:20:23 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:20:27 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:20:27 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:20:27 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:20:28 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:20:28 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:20:28 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/
+2025-05-28 22:20:28 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 22:20:28 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 22:20:30 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://kipalog.com/
+2025-05-28 22:20:30 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://viblo.asia/
+2025-05-28 22:20:30 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://shopee.vn/
+2025-05-28 22:20:32 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tiki.vn/
+2025-05-28 22:20:32 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vietnamnet.vn/
+2025-05-28 22:20:32 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://thanhnien.vn/
+2025-05-28 22:20:33 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://techcrunch.com/
+2025-05-28 22:20:33 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/destination/dat-tui-15-mon-ngon-da-nang-an-la-ghien/180936
+2025-05-28 22:22:13 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:22:13 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:22:13 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:22:13 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:22:23 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:22:29 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:22:29 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:22:29 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:22:48 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:22:48 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:22:48 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:22:48 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:22:57 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:23:02 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:23:02 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:23:02 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:26:06 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:26:06 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:26:06 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:26:06 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:26:11 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:26:16 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:26:16 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:26:16 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:26:31 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:26:31 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:26:31 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:26:31 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:26:36 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:26:41 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:26:41 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:26:41 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:26:41 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:26:41 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:26:41 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://httpbin.org/html
+2025-05-28 22:26:41 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://httpbin.org/json
+2025-05-28 22:26:41 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://example.com
+2025-05-28 22:26:47 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/html: AI-enhanced async scraping error: 503, message='Service Temporarily Unavailable', url='https://httpbin.org/html'
+2025-05-28 22:26:48 - smart_scraper.main - ERROR - Error scraping https://httpbin.org/json: AI-enhanced async scraping error: 503, message='Service Temporarily Unavailable', url='https://httpbin.org/json'
+2025-05-28 22:27:04 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:27:04 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:27:04 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:27:04 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:27:11 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:27:16 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:27:16 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:27:16 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:27:17 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:27:17 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:27:17 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/cam-nang-du-lich-phu-yen-4465949.html
+2025-05-28 22:28:57 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:28:57 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:28:57 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:28:57 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:29:02 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:29:08 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:29:08 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:29:08 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:29:25 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:29:25 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:29:25 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:29:25 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:29:31 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:29:36 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:29:36 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:29:36 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:29:36 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:29:36 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:29:36 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/cam-nang-du-lich-phu-yen-4465949.html
+2025-05-28 22:30:48 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:30:48 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:30:48 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:30:48 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:30:54 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:31:00 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:31:00 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:31:00 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:31:00 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:31:00 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:31:00 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/cam-nang-du-lich-phu-yen-4465949.html
+2025-05-28 22:31:32 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:31:32 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:31:32 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:31:32 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:31:37 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:31:42 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:31:42 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:31:42 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:32:05 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:32:05 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:32:05 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:32:05 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:32:09 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:32:15 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:32:15 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:32:15 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:32:54 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:32:54 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:32:54 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:32:54 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:32:59 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:33:05 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:33:05 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:33:05 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:33:05 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:33:05 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:33:05 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/cam-nang-du-lich-phu-yen-4465949.html
+2025-05-28 22:33:05 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 22:33:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 22:33:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://baomoi.com/
+2025-05-28 22:33:21 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:33:21 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:33:21 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:33:21 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:33:27 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:33:33 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:33:33 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:33:33 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:33:33 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:33:33 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:33:33 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/cam-nang-du-lich-phu-yen-4465949.html
+2025-05-28 22:33:33 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 22:34:05 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 22:34:05 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://baomoi.com/
+2025-05-28 22:38:16 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:38:16 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:38:16 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:38:16 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:38:22 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:38:27 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:38:27 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:38:27 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:38:27 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:38:27 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:38:28 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/cam-nang-du-lich-phu-yen-4465949.html
+2025-05-28 22:39:17 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:39:17 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:39:17 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:39:17 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:39:23 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:39:27 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:39:27 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:39:27 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:39:27 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:39:27 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:39:27 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/cam-nang-du-lich-phu-yen-4465949.html
+2025-05-28 22:39:43 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:39:43 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:39:43 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:39:43 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:39:47 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:39:52 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:39:52 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:39:52 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:39:52 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:39:52 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:39:52 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/cam-nang-du-lich-phu-yen-4465949.html
+2025-05-28 22:40:11 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:40:11 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:40:11 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:40:11 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:40:16 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:40:21 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:40:21 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:40:21 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:40:21 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:40:21 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:40:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/cam-nang-du-lich-phu-yen-4465949.html
+2025-05-28 22:40:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 22:40:23 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://tuoitre.vn/
+2025-05-28 22:40:23 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://baomoi.com/
+2025-05-28 22:40:32 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:40:32 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:40:32 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:40:32 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:40:38 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:40:43 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:40:43 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:40:43 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:40:43 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:40:43 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:40:43 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/cam-nang-du-lich-phu-yen-4465949.html
+2025-05-28 22:40:53 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:40:53 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:40:53 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:40:53 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:40:58 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:41:03 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:41:03 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:41:03 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:41:03 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:41:03 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:41:03 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/cam-nang-du-lich-phu-yen-4465949.html
+2025-05-28 22:41:12 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:41:12 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:41:12 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:41:12 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:41:17 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:41:22 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:41:22 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:41:22 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:41:22 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:41:22 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:41:22 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/
+2025-05-28 22:41:22 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://dantri.com.vn/
+2025-05-28 22:41:24 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://thanhnien.vn/
+2025-05-28 22:41:24 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://techcrunch.com/
+2025-05-28 22:41:26 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://news.bbc.co.uk/
+2025-05-28 22:41:26 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://example.com/
+2025-05-28 22:41:29 - smart_scraper.main - ERROR - Error scraping https://news.bbc.co.uk/: AI-enhanced async scraping error: Cannot connect to host news.bbc.co.uk:443 ssl:default [Connect call failed ('127.0.0.1', 443)]
+2025-05-28 22:41:29 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/du-khach-tuong-chet-khi-di-xe-dia-hinh-o-bau-trang-4890341.html
+2025-05-28 22:42:45 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:42:45 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:42:45 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:42:45 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:42:50 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:42:56 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:42:56 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:42:56 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:42:56 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:42:56 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:42:56 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://vnexpress.net/cam-nang-du-lich-phu-yen-4465949.html
+2025-05-28 22:43:41 - smart_scraper.ai_extractor - INFO - Using MPS device (Mac GPU)
+2025-05-28 22:43:41 - smart_scraper.ai_extractor - INFO - Device set to use Mac GPU (MPS)
+2025-05-28 22:43:41 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-05-28 22:43:41 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: paraphrase-multilingual-MiniLM-L12-v2
+2025-05-28 22:43:46 - smart_scraper.ai_extractor - WARNING - English model not found, using blank model
+2025-05-28 22:43:51 - smart_scraper.ai_extractor - INFO - AI models loaded successfully
+2025-05-28 22:43:51 - fake_useragent - WARNING - Error occurred during getting browser(s): get_random_user_agent, but was suppressed with fallback.
+2025-05-28 22:43:51 - smart_scraper.anti_detection - WARNING - Error initializing user agents: 'str' object is not callable
+2025-05-28 22:43:51 - smart_scraper.main - INFO - Mac GPU (MPS) được phát hiện và sẽ được sử dụng
+2025-05-28 22:43:51 - smart_scraper.main - ERROR - Error initializing AI modules: __init__() got an unexpected keyword argument 'embedding_model'
+2025-05-28 22:43:51 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=1
+2025-05-28 22:43:51 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=2
+2025-05-28 22:43:51 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=3
+2025-05-28 22:43:51 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=4
+2025-05-28 22:43:51 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=5
+2025-05-28 22:43:53 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=6
+2025-05-28 22:43:53 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=7
+2025-05-28 22:43:53 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=8
+2025-05-28 22:43:53 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=9
+2025-05-28 22:43:53 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=10
+2025-05-28 22:43:55 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=11
+2025-05-28 22:43:55 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=12
+2025-05-28 22:43:55 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=13
+2025-05-28 22:43:55 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=14
+2025-05-28 22:43:55 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=15
+2025-05-28 22:43:57 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=16
+2025-05-28 22:43:57 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=17
+2025-05-28 22:43:57 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=18
+2025-05-28 22:43:57 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=19
+2025-05-28 22:43:57 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=20
+2025-05-28 22:43:59 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=21
+2025-05-28 22:43:59 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=22
+2025-05-28 22:43:59 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=23
+2025-05-28 22:43:59 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=24
+2025-05-28 22:43:59 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=25
+2025-05-28 22:44:01 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=26
+2025-05-28 22:44:01 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=27
+2025-05-28 22:44:01 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=28
+2025-05-28 22:44:01 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=29
+2025-05-28 22:44:01 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=30
+2025-05-28 22:44:02 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=31
+2025-05-28 22:44:02 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=32
+2025-05-28 22:44:02 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=33
+2025-05-28 22:44:02 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=34
+2025-05-28 22:44:02 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=35
+2025-05-28 22:44:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=36
+2025-05-28 22:44:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=37
+2025-05-28 22:44:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=38
+2025-05-28 22:44:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=39
+2025-05-28 22:44:06 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=40
+2025-05-28 22:44:08 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=41
+2025-05-28 22:44:08 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=42
+2025-05-28 22:44:08 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=43
+2025-05-28 22:44:08 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=44
+2025-05-28 22:44:08 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=45
+2025-05-28 22:44:10 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=46
+2025-05-28 22:44:10 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=47
+2025-05-28 22:44:10 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=48
+2025-05-28 22:44:10 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=49
+2025-05-28 22:44:10 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=50
+2025-05-28 22:44:12 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=51
+2025-05-28 22:44:12 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=52
+2025-05-28 22:44:12 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=53
+2025-05-28 22:44:12 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=54
+2025-05-28 22:44:12 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=55
+2025-05-28 22:44:13 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=56
+2025-05-28 22:44:13 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=57
+2025-05-28 22:44:13 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=58
+2025-05-28 22:44:13 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=59
+2025-05-28 22:44:13 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=60
+2025-05-28 22:44:15 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=61
+2025-05-28 22:44:15 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=62
+2025-05-28 22:44:15 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=63
+2025-05-28 22:44:15 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=64
+2025-05-28 22:44:15 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=65
+2025-05-28 22:44:17 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=66
+2025-05-28 22:44:17 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=67
+2025-05-28 22:44:17 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=68
+2025-05-28 22:44:17 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=69
+2025-05-28 22:44:17 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=70
+2025-05-28 22:44:19 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=71
+2025-05-28 22:44:19 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=72
+2025-05-28 22:44:19 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=73
+2025-05-28 22:44:19 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=74
+2025-05-28 22:44:19 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=75
+2025-05-28 22:44:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=76
+2025-05-28 22:44:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=77
+2025-05-28 22:44:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=78
+2025-05-28 22:44:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=79
+2025-05-28 22:44:21 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=80
+2025-05-28 22:44:23 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=81
+2025-05-28 22:44:23 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=82
+2025-05-28 22:44:23 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=83
+2025-05-28 22:44:23 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=84
+2025-05-28 22:44:23 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=85
+2025-05-28 22:44:24 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=86
+2025-05-28 22:44:24 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=87
+2025-05-28 22:44:24 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=88
+2025-05-28 22:44:24 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=89
+2025-05-28 22:44:24 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=90
+2025-05-28 22:44:26 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=91
+2025-05-28 22:44:26 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=92
+2025-05-28 22:44:26 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=93
+2025-05-28 22:44:26 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=94
+2025-05-28 22:44:26 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=95
+2025-05-28 22:44:28 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=96
+2025-05-28 22:44:28 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=97
+2025-05-28 22:44:28 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=98
+2025-05-28 22:44:28 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=99
+2025-05-28 22:44:28 - smart_scraper.main - INFO - Starting AI-enhanced async scrape for URL: https://www.traveloka.com/vi-vn/explore/search?q=%C4%83n%20g%C3%AC&page=100

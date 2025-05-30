@@ -1,0 +1,95 @@
+{
+  "url": "https://thanhnien.vn/",
+  "cached_at": "2025-05-27T21:55:21.314974",
+  "result": {
+    "url": "https://thanhnien.vn/",
+    "page_type": "unknown",
+    "classification_confidence": 0.15833333333333333,
+    "extraction_confidence": 0.44999999999999996,
+    "extractor_used": "blog",
+    "timestamp": "2025-05-27T21:55:21.314937",
+    "content": {
+      "title": "",
+      "meta_description": "Tin tức 24h, đọc báo TN cập nhật tin nóng online Việt Nam và thế giới mới nhất trong ngày, tin nhanh thời sự, chính trị, xã hội hôm nay, tin tức, top news VN",
+      "canonical_url": "https://thanhnien.vn",
+      "language": "vi",
+      "author": "Tác giả Tuyến Phan",
+      "categories": [
+        "Chính trị",
+        "Thời sự",
+        "Thế giới",
+        "Kinh tế",
+        "Đời sống",
+        "Sức khỏe",
+        "Giới trẻ",
+        "Giáo dục",
+        "Du lịch",
+        "Văn hóa",
+        "Giải trí",
+        "Thể thao",
+        "Công nghệ -\n                                                                                            Game",
+        "Xe",
+        "Video",
+        "Tiêu dùng",
+        "Thời trang\n                                                                                            trẻ"
+      ],
+      "tags": [
+        "Tin tức thời sự nhanh 24h",
+        "tin nóng nhất Việt Nam",
+        "pháp luật",
+        "xã hội",
+        "đời sống",
+        "chính trị",
+        "kinh doanh",
+        "kinh tế",
+        "công nghệ thông tin",
+        "game",
+        "giới trẻ",
+        "văn hóa",
+        "giáo dục",
+        "thể thao. Video clip",
+        "hình ảnh tin độc quyền",
+        "tin nóng trên mạng xã hội được cập nhật mới và nhanh nhất trong ngày"
+      ],
+      "comments_info": {
+        "has_comments": false,
+        "comment_count": 0,
+        "comments_enabled": false
+      },
+      "blog_info": {
+        "rss_feed": "https://thanhnien.vn/rss/home.rss",
+        "platform": "Unknown"
+      }
+    },
+    "html_analysis": {
+      "structure_info": {
+        "has_header": false,
+        "has_nav": false,
+        "has_main": false,
+        "has_aside": false,
+        "has_footer": false,
+        "total_elements": 1081,
+        "total_text_length": 12069,
+        "has_forms": false,
+        "has_tables": false,
+        "script_count": 37,
+        "css_count": 1
+      },
+      "content_score": 36.903794609348346,
+      "metadata": {
+        "og:title": "Tin tức 24h mới nhất, tin nhanh, tin nóng hàng ngày | Báo Thanh Niên",
+        "og:description": "Tin tức 24h, đọc báo TN cập nhật tin nóng online Việt Nam và thế giới mới nhất trong ngày, tin nhanh thời sự, chính trị, xã hội hôm nay, tin tức, top news VN",
+        "og:type": "website",
+        "og:url": "https://thanhnien.vn",
+        "og:image": "https://static.thanhnien.com.vn/thanhnien.vn/image/logo-share.jpg",
+        "og:image:type": "image/jpg",
+        "og:image:width": "600",
+        "og:image:height": "315",
+        "og:site_name": "thanhnien.vn",
+        "author": "thanhnien.vn"
+      }
+    },
+    "success": true,
+    "from_cache": false
+  }
+}

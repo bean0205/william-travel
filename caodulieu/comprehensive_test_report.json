@@ -1,0 +1,146 @@
+{
+  "summary": {
+    "total_tests": 12,
+    "passed": 10,
+    "failed": 2,
+    "success_rate": 83.33333333333334,
+    "duration": 26.56864595413208
+  },
+  "test_results": [
+    {
+      "test_name": "SmartScraper initialization",
+      "success": true,
+      "details": {},
+      "error": null,
+      "timestamp": "2025-05-27T21:42:26.459962"
+    },
+    {
+      "test_name": "Supported types check",
+      "success": true,
+      "details": {
+        "types": [
+          "news",
+          "blog",
+          "ecommerce"
+        ]
+      },
+      "error": null,
+      "timestamp": "2025-05-27T21:42:26.459970"
+    },
+    {
+      "test_name": "Classification: https://example.com",
+      "success": true,
+      "details": {
+        "url": "https://example.com",
+        "page_type": "unknown",
+        "confidence": 0.0,
+        "supported_types": [
+          "news",
+          "blog",
+          "ecommerce",
+          "article"
+        ],
+        "timestamp": "2025-05-27T21:42:27.289027"
+      },
+      "error": null,
+      "timestamp": "2025-05-27T21:42:27.289071"
+    },
+    {
+      "test_name": "Classification: https://httpbin.org/html",
+      "success": false,
+      "details": {
+        "error": "Classification error: 503 Server Error: Service Temporarily Unavailable for url: https://httpbin.org/html"
+      },
+      "error": null,
+      "timestamp": "2025-05-27T21:42:35.223904"
+    },
+    {
+      "test_name": "Extraction: Simple site",
+      "success": true,
+      "details": {
+        "url": "https://example.com",
+        "content_fields": [
+          "title",
+          "meta_description",
+          "main_content",
+          "images",
+          "links",
+          "headings"
+        ],
+        "page_type": "unknown"
+      },
+      "error": null,
+      "timestamp": "2025-05-27T21:42:36.998155"
+    },
+    {
+      "test_name": "Extraction: HTML test page",
+      "success": false,
+      "details": {},
+      "error": "Scraping error: 503 Server Error: Service Temporarily Unavailable for url: https://httpbin.org/html",
+      "timestamp": "2025-05-27T21:42:44.447162"
+    },
+    {
+      "test_name": "Custom extractor addition",
+      "success": true,
+      "details": {},
+      "error": null,
+      "timestamp": "2025-05-27T21:42:45.448258"
+    },
+    {
+      "test_name": "Custom extractor usage",
+      "success": true,
+      "details": {
+        "extractor_used": "test",
+        "content": {
+          "test_field": "test_value",
+          "title": "Example Domain"
+        }
+      },
+      "error": null,
+      "timestamp": "2025-05-27T21:42:47.002388"
+    },
+    {
+      "test_name": "Caching functionality",
+      "success": true,
+      "details": {
+        "first_duration": 0.001065969467163086,
+        "second_duration": 0.0005891323089599609,
+        "from_cache": true,
+        "performance_improvement": false
+      },
+      "error": null,
+      "timestamp": "2025-05-27T21:42:47.004177"
+    },
+    {
+      "test_name": "Cache statistics",
+      "success": true,
+      "details": {
+        "total_entries": 1,
+        "total_size_bytes": 1407,
+        "total_size_mb": 0.0,
+        "cache_dir": "cache"
+      },
+      "error": null,
+      "timestamp": "2025-05-27T21:42:47.004539"
+    },
+    {
+      "test_name": "Error handling: https://this-domain-does-not-exist-12345.com",
+      "success": true,
+      "details": {
+        "error_message": "Scraping error: HTTPSConnectionPool(host='this-domain-does-not-exist-12345.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x109e98290>: Failed to resolve 'this-domain-does-not-exist-12345.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+      },
+      "error": null,
+      "timestamp": "2025-05-27T21:42:50.019911"
+    },
+    {
+      "test_name": "Error handling: invalid-url",
+      "success": true,
+      "details": {
+        "error_message": "Scraping error: Invalid URL 'invalid-url': No scheme supplied. Perhaps you meant https://invalid-url?"
+      },
+      "error": null,
+      "timestamp": "2025-05-27T21:42:53.027648"
+    }
+  ],
+  "timestamp": "2025-05-27T21:42:53.028245"
+}

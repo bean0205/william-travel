@@ -1,0 +1,47 @@
+{
+  "url": "https://example.com",
+  "page_type": "unknown",
+  "classification_confidence": 0.0,
+  "extraction_confidence": 0.5,
+  "extractor_used": "generic",
+  "timestamp": "2025-05-27T21:29:12.042849",
+  "content": {
+    "title": "Example Domain",
+    "meta_description": "",
+    "main_content": "Example Domain This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission. More information...",
+    "images": [],
+    "links": [
+      {
+        "url": "https://www.iana.org/domains/example",
+        "text": "More information...",
+        "title": ""
+      }
+    ],
+    "headings": [
+      {
+        "level": 1,
+        "text": "Example Domain",
+        "id": ""
+      }
+    ]
+  },
+  "html_analysis": {
+    "structure_info": {
+      "has_header": false,
+      "has_nav": false,
+      "has_main": false,
+      "has_aside": false,
+      "has_footer": false,
+      "total_elements": 13,
+      "total_text_length": 220,
+      "has_forms": false,
+      "has_tables": false,
+      "script_count": 0,
+      "css_count": 0
+    },
+    "content_score": 2.1863544973544977,
+    "metadata": {}
+  },
+  "success": true,
+  "from_cache": false
+}

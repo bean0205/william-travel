@@ -1,0 +1,111 @@
+{
+  "hero": {
+    "title": "Discover Vietnam's Hidden Treasures",
+    "subtitle": "Experience the beauty, culture, and unforgettable adventures",
+    "searchPlaceholder": "Search for destinations, activities, or experiences",
+    "searchButton": "Explore",
+    "popularSearches": "Popular Searches:",
+    "continueExploring": "Continue Exploring",
+    "searchDestination": "Search for destinations",
+    "locationsIn": "Locations in {{countryName}}...",
+    "popularDestinations": "Popular destinations:",
+    "selectExactLocation": "Select exact location",
+    "province": "Province/City",
+    "district": "District",
+    "ward": "Ward",
+    "chooseProvince": "Choose province/city",
+    "chooseDistrict": "Choose district",
+    "chooseWard": "Choose ward",
+    "explore": "Explore",
+    "exploreSelectedLocation": "Explore {{location}}"
+  },
+  "destinations": {
+    "title": "Popular Destinations",
+    "subtitle": "Explore Vietnam's most loved travel spots",
+    "viewAll": "View All Destinations",
+    "exploreNow": "Explore Now"
+  },
+  "experiences": {
+    "title": "Unique Experiences",
+    "subtitle": "Discover activities that make your trip memorable",
+    "viewAll": "View All Experiences"
+  },
+  "events": {
+    "title": "Upcoming Events & Festivals",
+    "subtitle": "Don't miss these cultural celebrations",
+    "viewAll": "View All Events"
+  },
+  "food": {
+    "title": "Culinary Delights",
+    "subtitle": "Taste the authentic flavors of Vietnam",
+    "viewAll": "Explore All Cuisines"
+  },
+  "accommodations": {
+    "title": "Where to Stay",
+    "subtitle": "From luxury resorts to authentic homestays",
+    "viewAll": "Find Accommodations"
+  },
+  "articles": {
+    "title": "Travel Stories & Tips",
+    "subtitle": "Insights from travelers and local experts",
+    "viewAll": "Read All Articles"
+  },
+  "guides": {
+    "title": "Meet Our Local Guides",
+    "subtitle": "Expert guides to enhance your journey",
+    "viewAll": "See All Guides"
+  },
+  "cta": {
+    "title": "Ready for your Vietnamese adventure?",
+    "subtitle": "Plan your perfect trip with our customized itineraries",
+    "button": "Start Planning"
+  },
+  "filters": {
+    "dates": "Travel Dates",
+    "duration": "Duration",
+    "travelers": "Travelers",
+    "budget": "Budget",
+    "interests": "Interests",
+    "applyFilters": "Apply Filters"
+  },
+  "navigation": {
+    "explore": "Explore",
+    "accommodations": "Accommodations",
+    "foodAndDining": "Food & Dining",
+    "articles": "Articles",
+    "events": "Events",
+    "transportation": "Transportation",
+    "shoppingAndSouvenirs": "Shopping & Souvenirs",
+    "tipsAndWarnings": "Tips & Warnings",
+    "photoVideoAlbum": "Photo/Video Album"
+  },
+  "eventTabs": {
+    "allEvents": "All Events",
+    "ongoing": "Ongoing",
+    "upcoming": "Upcoming"
+  },
+  "transportation": {
+    "title": "Transportation",
+    "subtitle": "Find the best ways to get around",
+    "viewAll": "View All Transportation Options"
+  },
+  "shopping": {
+    "title": "Shopping & Souvenirs",
+    "subtitle": "Bring home unique treasures and gifts",
+    "viewAll": "Browse All Shopping Options"
+  },
+  "tipsWarnings": {
+    "title": "Travel Tips & Warnings",
+    "subtitle": "Stay safe and make the most of your trip",
+    "viewAll": "View All Tips"
+  },
+  "gallery": {
+    "title": "Photo & Video Gallery",
+    "subtitle": "Experience the beauty through visuals",
+    "viewAll": "View Full Gallery"
+  },
+  "common": {
+    "discoverIn": "Discover what's happening in"
+  }
+}
+

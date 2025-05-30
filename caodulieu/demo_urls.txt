@@ -1,0 +1,15 @@
+# URLs ví dụ để test chức năng lưu nhiều file
+# Các dòng bắt đầu bằng # sẽ được bỏ qua
+
+# Trang tin tức tiếng Việt
+https://vnexpress.net/
+https://dantri.com.vn/
+https://thanhnien.vn/
+
+# Trang tin tức quốc tế
+https://techcrunch.com/
+https://news.bbc.co.uk/
+
+# Trang khác
+https://example.com/
+https://vnexpress.net/du-khach-tuong-chet-khi-di-xe-dia-hinh-o-bau-trang-4890341.html

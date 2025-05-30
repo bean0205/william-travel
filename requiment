@@ -1,0 +1,609 @@
+Chắc chắn rồi\! Chúng ta sẽ đi qua từng tính năng trong danh sách đầy đủ đã thống nhất, và xác định rõ "yêu cầu đầu ra" (deliverables/outputs) cụ thể cho Frontend (FE) và Backend (BE).
+
+**I. Tính Năng Nền Tảng Cốt Lõi – Yêu Cầu Đầu Ra**
+
+**1. Hệ Thống Xác Thực Người Dùng (Authentication System)**
+
+  * **Frontend (FE) - Yêu Cầu Đầu Ra:**
+
+      * **Giao diện (UI Screens/Components):**
+          * `Màn hình Đăng Ký`: Form với các trường (email, mật khẩu, xác nhận mật khẩu, có thể thêm tên hiển thị), nút "Đăng ký". Hiển thị thông báo lỗi validation (ví dụ: "Email không hợp lệ", "Mật khẩu không khớp") và thông báo kết quả từ API (thành công/thất bại).
+          * `Màn hình Đăng Nhập`: Form với các trường (email, mật khẩu), nút "Đăng nhập", link "Quên mật khẩu". Hiển thị thông báo lỗi validation và kết quả từ API.
+          * `Màn hình Quên Mật Khẩu`: Form nhập email, nút "Gửi yêu cầu khôi phục". Hiển thị thông báo hướng dẫn/lỗi.
+          * `Màn hình Đặt Lại Mật Khẩu`: Form nhập mật khẩu mới và xác nhận mật khẩu mới (nhận token reset từ URL). Nút "Đặt lại mật khẩu". Hiển thị thông báo kết quả.
+          * `Thành phần Header/User Menu`: Sau khi đăng nhập, hiển thị tên người dùng (hoặc avatar) và nút/link "Đăng xuất".
+      * **Dữ liệu hiển thị:** Thông tin người dùng (tên) sau khi đăng nhập, các thông báo lỗi/thành công cụ thể từ API.
+      * **Hành động người dùng có thể thực hiện:** Nhập dữ liệu vào các form, nhấn các nút submit (Đăng ký, Đăng nhập, Gửi yêu cầu, Đặt lại), nhấn nút Đăng xuất.
+      * **Quản lý trạng thái (FE State):**
+          * Lưu trữ thông tin người dùng hiện tại (nếu đã đăng nhập) và JWT token (ví dụ: trong `localStorage` và một state global như Zustand/Redux).
+          * Trạng thái `isLoading` cho các thao tác gọi API xác thực.
+          * Trạng thái `error` để hiển thị thông báo lỗi.
+      * **Luồng điều hướng (Routing):**
+          * Chuyển hướng người dùng đến trang chính hoặc trang dashboard sau khi đăng nhập/đăng ký thành công.
+          * Chuyển hướng về trang đăng nhập nếu người dùng chưa đăng nhập mà cố gắng truy cập trang được bảo vệ.
+          * Xóa token và chuyển hướng về trang chủ/đăng nhập sau khi đăng xuất.
+
+  * **Backend (BE) - Yêu Cầu Đầu Ra:**
+
+      * **API Endpoints:**
+          * `POST /api/v1/auth/register`:
+              * **Request Body (Pydantic Schema - `UserCreate`):** `{ "email": "user@example.com", "password": "securepassword123", "full_name": "Tên Người Dùng" }`
+              * **Response (Thành công - 201 Created) (Pydantic Schema - `UserRead`):** `{ "id": 1, "email": "user@example.com", "full_name": "Tên Người Dùng", "is_active": true }` (Không trả về mật khẩu).
+              * **Response (Lỗi - 400 Bad Request / 409 Conflict):** `{ "detail": "Email đã được sử dụng." }` hoặc chi tiết lỗi validation.
+          * `POST /api/v1/auth/login`:
+              * **Request Body (FastAPI's `OAuth2PasswordRequestForm` hoặc Pydantic Schema `LoginCredentials`):** `username` (là email), `password`.
+              * **Response (Thành công - 200 OK) (Pydantic Schema - `Token`):** `{ "access_token": "your_jwt_token_string", "token_type": "bearer", "user": { "id": 1, "email": "user@example.com", ... } }`
+              * **Response (Lỗi - 401 Unauthorized):** `{ "detail": "Email hoặc mật khẩu không chính xác." }`
+          * `POST /api/v1/auth/logout` (Tùy chọn - nếu cần cơ chế blacklist token phía server):
+              * **Response (Thành công - 200 OK):** `{ "message": "Đăng xuất thành công." }`
+          * `POST /api/v1/auth/forgot-password`:
+              * **Request Body (Pydantic Schema - `EmailSchema`):** `{ "email": "user@example.com" }`
+              * **Response (Thành công - 200 OK):** `{ "message": "Nếu email tồn tại, một liên kết đặt lại mật khẩu đã được gửi." }`
+              * **Tác dụng phụ:** Tạo token reset, lưu vào DB (có thời hạn), gửi email chứa link reset.
+          * `POST /api/v1/auth/reset-password`:
+              * **Request Body (Pydantic Schema - `ResetPasswordSchema`):** `{ "token": "valid_reset_token", "new_password": "newsecurepassword" }`
+              * **Response (Thành công - 200 OK):** `{ "message": "Mật khẩu đã được cập nhật thành công." }`
+              * **Response (Lỗi - 400 Bad Request):** `{ "detail": "Token không hợp lệ hoặc đã hết hạn." }`
+      * **Thay đổi trong Cơ sở dữ liệu:**
+          * Khi đăng ký: Một bản ghi mới được tạo trong bảng `users` với `hashed_password`.
+          * Khi đặt lại mật khẩu: Cập nhật trường `hashed_password` cho người dùng tương ứng.
+          * (Tùy chọn) Bảng `password_reset_tokens` để lưu token reset.
+      * **Mã trạng thái HTTP chính:** 200 (OK), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found - ví dụ email không tồn tại cho forgot password), 409 (Conflict).
+
+**2. Hệ Thống Phân Quyền Người Dùng (Authorization System)**
+
+  * **Frontend (FE) - Yêu Cầu Đầu Ra:**
+
+      * **Giao diện:**
+          * Các thành phần UI (nút bấm, menu items, sections của trang) được hiển thị, ẩn, hoặc vô hiệu hóa dựa trên vai trò/quyền của người dùng hiện tại (ví dụ: nút "Thêm địa điểm mới" chỉ hiển thị cho admin).
+          * Hiển thị thông báo "Bạn không có quyền truy cập" nếu người dùng cố gắng thực hiện hành động hoặc truy cập trang mà không được phép.
+      * **Logic điều hướng (Protected Routes):** Ngăn chặn người dùng truy cập các route (đường dẫn URL) không thuộc quyền hạn của họ (ví dụ: `/admin` chỉ cho admin). Tự động chuyển hướng nếu truy cập trái phép.
+      * **Dữ liệu sử dụng:** Thông tin vai trò (`role`) hoặc danh sách quyền (`permissions`) của người dùng được lưu trong state (lấy từ BE khi đăng nhập hoặc qua một API `/users/me`).
+
+  * **Backend (BE) - Yêu Cầu Đầu Ra:**
+
+      * **API Endpoints:** Không tạo endpoint mới chỉ để "phân quyền". Thay vào đó, các endpoint hiện có (đặc biệt là các endpoint quản trị) sẽ được tích hợp logic kiểm tra quyền.
+      * **Cơ chế bảo vệ API (API Protection Mechanism):**
+          * Sử dụng FastAPI Dependencies để kiểm tra vai trò hoặc quyền của người dùng (được decode từ JWT token).
+          * Ví dụ, một dependency `require_role(required_role: str)`:
+            ```python
+            # app/api/deps.py
+            # ... (get_current_user đã có)
+            def require_role(required_role: str):
+                async def role_checker(current_user: models.User = Depends(get_current_user)):
+                    if not current_user or getattr(current_user, 'role', None) != required_role: # Giả sử model User có trường 'role'
+                        # Hoặc nếu dùng is_superuser: if not current_user.is_superuser and required_role == "admin":
+                        raise HTTPException(status_code=403, detail="Không đủ quyền hạn.")
+                    return current_user
+                return role_checker
+            ```
+          * Áp dụng dependency này cho các endpoint cần bảo vệ:
+            `@router.post("/admin/locations", current_admin: models.User = Depends(require_role("admin")))`
+      * **Cấu trúc dữ liệu (Database):**
+          * Bảng `users` có trường `role: str` (ví dụ: "user", "admin") hoặc `is_superuser: bool`.
+          * (Nâng cao hơn) Các bảng `roles`, `permissions`, `user_roles` để quản lý quyền chi tiết hơn.
+      * **Mã trạng thái HTTP chính:** `403 Forbidden` khi người dùng đã xác thực nhưng không có quyền truy cập tài nguyên/hành động.
+
+
+**II. Tính Năng Dành Cho Người Dùng Truy Cập Website (End-User Features) – Yêu Cầu Đầu Ra (Tiếp theo)**
+
+**3. Khám Phá và Tìm Kiếm Địa Điểm (Locations Discovery & Search)**
+
+  * **Frontend (FE) - Yêu Cầu Đầu Ra:**
+
+      * **Màn hình/Giao diện:**
+          * `Trang Danh Sách Địa Điểm (LocationListPage)`: Hiển thị một lưới (grid) hoặc danh sách các `LocationCard` (thẻ địa điểm tóm tắt).
+          * `Thanh Tìm Kiếm (SearchBar)`: Ô nhập liệu cho người dùng gõ từ khóa tìm kiếm tên địa điểm, vùng miền, v.v.
+          * `Bảng Lọc (FilterPanel)`: Các tùy chọn (dropdowns, checkboxes, sliders) để lọc địa điểm theo:
+              * Quốc gia, Vùng/Miền.
+              * Loại hình (ví dụ: Di tích, Bảo tàng, Nhà hàng, Quán cà phê, Bãi biển).
+              * Khoảng giá (cho địa điểm ăn uống).
+              * Tiện ích (ví dụ: Có Wifi, Chỗ đậu xe, Thân thiện với trẻ em).
+              * (Tùy chọn) Đánh giá sao.
+          * `Phân Trang (Pagination)`: Các nút số trang, nút "Trang trước", "Trang sau" để điều hướng qua các kết quả.
+          * `Sắp xếp (SortOptions)`: Tùy chọn sắp xếp kết quả (ví dụ: theo mức độ phổ biến, mới nhất, đánh giá cao nhất, tên A-Z).
+      * **Dữ liệu hiển thị:**
+          * Mỗi `LocationCard` hiển thị: Ảnh đại diện, Tên địa điểm, Địa chỉ rút gọn (hoặc tên vùng/thành phố), Tên loại hình, (tùy chọn) đánh giá sao trung bình.
+          * Thông tin phân trang: Số trang hiện tại, tổng số trang, tổng số kết quả.
+          * Thông báo: "Đang tải dữ liệu...", "Không tìm thấy địa điểm nào phù hợp", "Có lỗi xảy ra, vui lòng thử lại".
+      * **Hành động người dùng có thể thực hiện:**
+          * Nhập từ khóa vào ô tìm kiếm.
+          * Chọn/bỏ chọn các tiêu chí lọc.
+          * Chọn tùy chọn sắp xếp.
+          * Nhấn nút chuyển trang.
+          * Click vào một `LocationCard` để điều hướng đến trang chi tiết địa điểm.
+      * **Quản lý trạng thái (FE State):**
+          * Lưu trữ các giá trị lọc hiện tại, từ khóa tìm kiếm, tùy chọn sắp xếp, số trang hiện tại.
+          * Lưu trữ danh sách các địa điểm đã tải về cho trang hiện tại.
+          * Trạng thái `isLoading`, `error`.
+      * **Tương tác API:** Gửi request `GET` đến `/api/v1/locations` với các tham số query tương ứng với trạng thái lọc, tìm kiếm, sắp xếp và phân trang hiện tại.
+
+  * **Backend (BE) - Yêu Cầu Đầu Ra:**
+
+      * **API Endpoint:** `GET /api/v1/locations`
+      * **Request Params (Query - Pydantic `LocationFilterParams`):**
+          * `page: int` (mặc định 1)
+          * `size: int` (mặc định 10-20)
+          * `search_term: Optional[str]`
+          * `country_id: Optional[int]`
+          * `region_id: Optional[int]`
+          * `category_id: Optional[int]`
+          * `price_range_min: Optional[float]`, `price_range_max: Optional[float]`
+          * `amenities: Optional[List[str]]` (ví dụ: `amenities=wifi&amenities=parking`)
+          * `min_rating: Optional[float]`
+          * `sort_by: Optional[str]` (ví dụ: `popularity_desc`, `name_asc`, `rating_desc`)
+      * **Response Body (Thành công - 200 OK) (Pydantic `PaginatedLocationResponseSchema` chứa `List[LocationSummarySchema]`):**
+        ```json
+        {
+          "items": [
+            {
+              "id": 123,
+              "name": "Nhà Thờ Lớn Hà Nội",
+              "thumbnail_url": "https://example.com/images/nhatho.jpg",
+              "address_short": "Quận Hoàn Kiếm, Hà Nội",
+              "category_name": "Di Tích Lịch Sử",
+              "average_rating": 4.5 // (Nếu có)
+            }
+            // ... thêm các địa điểm khác
+          ],
+          "total_items": 57,
+          "total_pages": 6,
+          "current_page": 1
+        }
+        ```
+      * **Thay đổi trong Cơ sở dữ liệu:** Không (chỉ đọc dữ liệu).
+      * **Logic cốt lõi:**
+          * Xây dựng câu truy vấn SQLAlchemy động dựa trên tất cả các tham số lọc và tìm kiếm.
+          * Thực hiện `JOIN` với bảng `location_categories` để lấy `category_name`, `regions`, `countries` nếu cần cho việc lọc hoặc hiển thị.
+          * Áp dụng logic sắp xếp.
+          * Áp dụng logic phân trang (`OFFSET`, `LIMIT`).
+          * Đếm tổng số bản ghi phù hợp với điều kiện lọc (để tính `total_pages`, `total_items`).
+          * Trả về kết quả đã được định dạng.
+      * **Mã trạng thái HTTP chính:** 200 (OK).
+
+**4. Xem Thông Tin Chi Tiết Địa Điểm (Location Details View)**
+
+  * **Frontend (FE) - Yêu Cầu Đầu Ra:**
+      * **Màn hình/Giao diện (`LocationDetailPage`):**
+          * Phần tiêu đề: Tên địa điểm lớn, địa chỉ chi tiết, (tùy chọn) đánh giá sao trung bình, nút "Thêm vào yêu thích" (nếu người dùng đã đăng nhập).
+          * Thư viện ảnh/video (`ImageGallery`): Hiển thị nhiều ảnh, có thể xem dạng slideshow hoặc lưới, có thể có video.
+          * Mô tả chi tiết (`LocationDescription`): Nội dung văn bản mô tả sâu về địa điểm.
+          * Bản đồ nhỏ (`EmbeddedMap`): Tích hợp bản đồ (MapLibre GL JS) chỉ rõ vị trí của địa điểm này, có marker.
+          * Thông tin thực tế (`PracticalInfo`): Giờ mở cửa (có thể thay đổi theo ngày), thông tin giá vé (nếu có), số điện thoại, website.
+          * Khu vực "Thông tin văn hóa vùng miền" (`RegionalCultureSection`): Hiển thị nội dung về văn hóa, lịch sử, con người của vùng miền liên quan.
+          * Khu vực "Những điều nên & không nên làm" (`DosAndDontsSection`): Liệt kê các quy tắc ứng xử, lưu ý.
+          * (Nếu có) Khu vực "Đánh giá của khách du lịch" (`ReviewsSection`): Hiển thị danh sách đánh giá, form để người dùng đã đăng nhập gửi đánh giá mới.
+      * **Dữ liệu hiển thị:** Tất cả thông tin chi tiết về địa điểm từ A đến Z.
+      * **Hành động người dùng:** Xem ảnh, đọc thông tin, tương tác với bản đồ nhỏ (ví dụ: click để mở bản đồ lớn hơn hoặc chỉ đường), (nếu có) viết và gửi đánh giá.
+      * **Tương tác API:** Gửi request `GET` đến `/api/v1/locations/{locationId}`.
+  * **Backend (BE) - Yêu Cầu Đầu Ra:**
+      * **API Endpoint:** `GET /api/v1/locations/{location_id}`
+      * **Path Parameter:** `location_id: int`
+      * **Response Body (Thành công - 200 OK) (Pydantic `LocationDetailSchema`):**
+        ```json
+        {
+          "id": 123,
+          "name": "Nhà Thờ Lớn Hà Nội",
+          "description_html": "<p>Đây là một công trình kiến trúc Gothic...</p>",
+          "images": [
+            {"url": "https://example.com/images/nhatho1.jpg", "caption": "Mặt tiền nhà thờ"},
+            {"url": "https://example.com/images/nhatho2.jpg", "caption": "Bên trong"}
+          ],
+          "latitude": 21.0288,
+          "longitude": 105.8492,
+          "address_full": "40 Nhà Chung, Hàng Trống, Hoàn Kiếm, Hà Nội",
+          "phone_number": "02439285963",
+          "website_url": "https://nhatholonhanoi.org/",
+          "opening_hours_info": { // Hoặc dạng text tùy theo cách lưu
+            "Mon-Fri": "08:00 - 17:00",
+            "Sat": "08:00 - 12:00"
+          },
+          "price_info": "Miễn phí tham quan",
+          "category_name": "Di Tích Lịch Sử",
+          "region_info": { // Thông tin vùng miền
+            "id": 5,
+            "name": "Đồng Bằng Sông Hồng",
+            "cultural_summary_html": "<p>Nơi đây là cái nôi của văn minh lúa nước...</p>"
+          },
+          "dos_and_donts_specific": [ // Do's/Don'ts riêng cho địa điểm
+            { "type": "do", "text": "Giữ trật tự, trang nghiêm." },
+            { "type": "dont", "text": "Mặc trang phục quá ngắn khi vào bên trong." }
+          ],
+          "dos_and_donts_region": [ // Do's/Don'ts chung của vùng (nếu có)
+             { "type": "do", "text": "Thưởng thức ẩm thực địa phương." }
+          ],
+          "average_rating": 4.5, // Nếu có
+          "reviews": [ // Nếu có và được trả về cùng
+            // ... danh sách reviews
+          ]
+        }
+        ```
+      * **Response Body (Lỗi - 404 Not Found):** `{ "detail": "Địa điểm không tồn tại." }`
+      * **Thay đổi trong Cơ sở dữ liệu:** Không (chỉ đọc dữ liệu).
+      * **Logic cốt lõi:**
+          * Truy vấn bảng `locations` theo `location_id`.
+          * `JOIN` hoặc thực hiện các truy vấn con để lấy dữ liệu từ các bảng liên quan: `location_images`, `location_categories`, `regions` (để lấy `regional_info`), `dos_and_donts` (lấy cả mục riêng của địa điểm và mục chung của vùng).
+          * Tổng hợp tất cả thông tin vào một cấu trúc JSON duy nhất để trả về.
+
+**II. Tính Năng Dành Cho Người Dùng Truy Cập Website (End-User Features) – Yêu Cầu Đầu Ra (Tiếp theo)**
+
+**5. Khám Phá và Đọc Cẩm Nang Du Lịch (Travel Guides Discovery & Reading)**
+
+* **Frontend (FE) - Yêu Cầu Đầu Ra:**
+    * **Màn hình/Giao diện:**
+        * `Trang Danh Sách Cẩm Nang (GuideListPage)`: Hiển thị lưới hoặc danh sách các `GuideCard` (thẻ cẩm nang tóm tắt: ảnh bìa, tiêu đề, mô tả ngắn, có thể có tác giả/ngày đăng).
+        * `Bảng Lọc Cẩm Nang (GuideFilterPanel)`: Các tùy chọn để lọc cẩm nang theo: Quốc gia, Vùng/Miền, Chủ đề (ví dụ: Ẩm thực, Khám phá, Văn hóa, Mẹo du lịch).
+        * `Phân Trang (Pagination)` cho danh sách cẩm nang.
+        * `Trang Chi Tiết Cẩm Nang (GuideDetailPage)`:
+            * Hiển thị Tiêu đề lớn, ảnh bìa nổi bật.
+            * Nội dung chi tiết của bài viết cẩm nang (văn bản được định dạng, hình ảnh, video xen kẽ).
+            * (Tùy chọn) Thông tin tác giả, ngày đăng/cập nhật.
+            * (Tùy chọn) Liên kết đến các địa điểm cụ thể được đề cập trong cẩm nang.
+            * (Tùy chọn) Mục lục (Table of Contents) nếu bài viết dài.
+            * (Tùy chọn) Khu vực bình luận/đánh giá cho cẩm nang.
+    * **Dữ liệu hiển thị:** Danh sách cẩm nang phù hợp, nội dung chi tiết của từng cẩm nang. Thông báo "Đang tải...", "Không tìm thấy cẩm nang".
+    * **Hành động người dùng:** Chọn bộ lọc, nhấn nút chuyển trang, click vào `GuideCard` để xem chi tiết, đọc nội dung, tương tác với media.
+    * **Tương tác API:** Gửi request `GET` đến `/api/v1/guides` (với tham số lọc/phân trang) và `GET /api/v1/guides/{guideId}`.
+
+* **Backend (BE) - Yêu Cầu Đầu Ra:**
+    * **API Endpoints:**
+        * `GET /api/v1/guides`:
+            * **Request Params (Query - Pydantic `GuideFilterParams`):** `page`, `size`, `country_id`, `region_id`, `theme_id`, `search_term`.
+            * **Response Body (200 OK - Pydantic `PaginatedGuideResponseSchema` chứa `List[GuideSummarySchema]`):** Tương tự như địa điểm, mỗi `GuideSummarySchema` chứa `id`, `title`, `thumbnail_url`, `short_description`.
+        * `GET /api/v1/guides/{guide_id}`:
+            * **Path Parameter:** `guide_id: int`.
+            * **Response Body (200 OK - Pydantic `GuideDetailSchema`):** Chứa `id`, `title`, `content_html` (hoặc markdown), `cover_image_url`, `author_info`, `publish_date`, danh sách các địa điểm liên quan (nếu có), thông tin văn hóa/Do's & Don'ts liên quan.
+            * **Response Body (404 Not Found):** `{ "detail": "Cẩm nang không tồn tại." }`.
+    * **Thay đổi Database:** Không (chỉ đọc).
+    * **Logic cốt lõi:** Truy vấn bảng `travel_guides`, áp dụng bộ lọc, phân trang. Cho trang chi tiết, lấy toàn bộ nội dung và các thông tin liên quan.
+
+**6. Sử Dụng Bản Đồ Tương Tác (Interactive Map)**
+
+* **Frontend (FE) - Yêu Cầu Đầu Ra:**
+    * **Màn hình/Giao diện (`MapExplorerPage` hoặc tích hợp vào trang khác):**
+        * Bản đồ lớn hiển thị (sử dụng MapLibre GL JS).
+        * Các `Marker` (biểu tượng đánh dấu) cho các địa điểm trên bản đồ. Icon marker có thể khác nhau tùy theo loại hình địa điểm.
+        * `InfoWindow` (cửa sổ thông tin nhỏ) bật lên khi click vào marker, hiển thị tên địa điểm, ảnh nhỏ, link "Xem chi tiết".
+        * Chức năng `Gom cụm marker (Marker Clustering)` khi có nhiều marker ở gần nhau lúc zoom xa.
+        * (Tùy chọn) Lớp phủ (overlay) hiển thị ranh giới vùng/quốc gia.
+        * (Tùy chọn) Thanh tìm kiếm địa điểm trực tiếp trên bản đồ.
+    * **Tính năng "Tìm Gần Đây":**
+        * Nút bấm "Tìm địa điểm gần tôi".
+        * Popup yêu cầu quyền truy cập vị trí GPS của người dùng.
+        * Sau khi có tọa độ, gửi lên BE và hiển thị các địa điểm kết quả trên bản đồ (có thể làm nổi bật) và/hoặc trong một danh sách bên cạnh.
+    * **Dữ liệu hiển thị:** Vị trí trực quan của các địa điểm.
+    * **Hành động người dùng:** Zoom, pan bản đồ, click marker, sử dụng chức năng tìm gần đây.
+    * **Tương tác API:**
+        * `GET /api/v1/locations/map-pins` (hoặc tương tự) để lấy dữ liệu tọa độ, tên, loại hình của nhiều địa điểm để vẽ lên bản đồ.
+        * `GET /api/v1/locations/nearby` với tham số `latitude`, `longitude`, `radius` cho tính năng "Tìm Gần Đây".
+
+* **Backend (BE) - Yêu Cầu Đầu Ra:**
+    * **API Endpoints:**
+        * `GET /api/v1/locations/map-pins`:
+            * **Request Params (Query):** Có thể có các filter cơ bản (ví dụ: theo vùng đang xem trên bản đồ - map bounds).
+            * **Response Body (200 OK):** Danh sách các đối tượng JSON chứa `id`, `name`, `latitude`, `longitude`, `category_icon_slug` (để FE chọn icon marker).
+        * `GET /api/v1/locations/nearby`:
+            * **Request Params (Query - Pydantic `NearbyParams`):** `latitude: float`, `longitude: float`, `radius_km: float`, `category_id: Optional[int]`.
+            * **Response Body (200 OK):** Danh sách các `LocationSummarySchema` nằm trong bán kính.
+    * **Thay đổi Database:** Không (chỉ đọc).
+    * **Logic cốt lõi:**
+        * Cho `/map-pins`: Truy vấn hiệu quả để lấy dữ liệu cần thiết cho việc đánh dấu trên bản đồ.
+        * Cho `/nearby`: Sử dụng PostGIS function `ST_DWithin` (hoặc `ST_Distance` kết hợp với `WHERE`) trên cột `geom` của bảng `locations` để tìm các địa điểm trong bán kính. Chuyển đổi bán kính từ km sang đơn vị của hệ tọa độ (thường là mét cho SRID 4326 khi dùng `geography` type).
+
+**7. Gửi Liên Hệ/Phản Hồi (Contact/Feedback Submission)**
+
+* **Frontend (FE) - Yêu Cầu Đầu Ra:**
+    * **Màn hình/Giao diện (`ContactPage`):**
+        * Form liên hệ với các trường: Tên, Email, Chủ đề, Nội dung tin nhắn.
+        * Nút "Gửi".
+        * Thông báo lỗi validation, thông báo gửi thành công/thất bại.
+    * **Hành động người dùng:** Nhập thông tin vào form, nhấn nút gửi.
+    * **Tương tác API:** Gửi request `POST` đến `/api/v1/feedback`.
+
+* **Backend (BE) - Yêu Cầu Đầu Ra:**
+    * **API Endpoint:** `POST /api/v1/feedback`
+    * **Request Body (Pydantic `FeedbackCreateSchema`):** `{ "name": "...", "email": "...", "subject": "...", "message": "..." }`
+    * **Response Body (Thành công - 201 Created hoặc 200 OK):** `{ "message": "Cảm ơn bạn đã gửi phản hồi!" }`
+    * **Response Body (Lỗi - 400 Bad Request):** Chi tiết lỗi validation.
+    * **Thay đổi Database:** (Tùy chọn) Lưu phản hồi vào một bảng `feedbacks`.
+    * **Tác dụng phụ:** Gửi email thông báo chứa nội dung phản hồi đến địa chỉ email quản trị (sử dụng thư viện như `fastapi-mail`).
+
+**8. Xem Các Trang Tĩnh (Static Page Viewing)**
+
+* **Frontend (FE) - Yêu Cầu Đầu Ra:**
+    * **Màn hình/Giao diện:** Các trang riêng biệt như `AboutUsPage`, `TermsOfServicePage`, `PrivacyPolicyPage`.
+    * **Dữ liệu hiển thị:** Nội dung văn bản (có thể có hình ảnh) được định dạng.
+    * **Hành động người dùng:** Đọc nội dung.
+    * **Tương tác API:**
+        * (Cách 1 - Nội dung từ BE): `GET /api/v1/static-pages/{slug}` (ví dụ `/static-pages/about-us`).
+        * (Cách 2 - Nội dung hardcode ở FE): Không cần gọi API, nội dung nằm trong component.
+
+* **Backend (BE) - Yêu Cầu Đầu Ra (Nếu nội dung quản lý từ BE):**
+    * **API Endpoint:** `GET /api/v1/static-pages/{page_slug}`
+    * **Path Parameter:** `page_slug: str`
+    * **Response Body (200 OK - Pydantic `StaticPageSchema`):** `{ "title": "Về Chúng Tôi", "content_html": "<p>Nội dung trang...</p>" }`
+    * **Response Body (404 Not Found):** `{ "detail": "Trang không tồn tại." }`.
+    * **Thay đổi Database:** Không (chỉ đọc).
+    * **Logic cốt lõi:** Truy vấn bảng `static_pages` (nếu có) dựa trên `slug`.
+
+**9. Quản Lý Hồ Sơ Cá Nhân (User Profile Management)**
+
+* **Frontend (FE) - Yêu Cầu Đầu Ra:**
+    * **Màn hình/Giao diện (`ProfilePage` - yêu cầu đăng nhập):**
+        * Hiển thị thông tin người dùng hiện tại: Tên hiển thị, email (có thể không cho sửa), ảnh đại diện (nếu có).
+        * Form cho phép chỉnh sửa: Tên hiển thị, (tùy chọn) tải lên ảnh đại diện mới.
+        * Form cho phép thay đổi mật khẩu: Mật khẩu cũ, Mật khẩu mới, Xác nhận mật khẩu mới.
+        * Nút "Lưu thay đổi".
+        * Thông báo cập nhật thành công/thất bại.
+    * **Hành động người dùng:** Xem thông tin, nhập liệu để thay đổi, nhấn nút lưu.
+    * **Tương tác API:**
+        * `GET /api/v1/users/me` để lấy thông tin hồ sơ hiện tại khi vào trang.
+        * `PUT /api/v1/users/me` để cập nhật thông tin (tên, avatar).
+        * `PUT /api/v1/users/me/password` để thay đổi mật khẩu.
+
+* **Backend (BE) - Yêu Cầu Đầu Ra:**
+    * **API Endpoints (Yêu cầu xác thực - `Depends(get_current_user)`):**
+        * `GET /api/v1/users/me`:
+            * **Response Body (200 OK - Pydantic `UserReadSchema`):** Thông tin người dùng hiện tại.
+        * `PUT /api/v1/users/me`:
+            * **Request Body (Pydantic `UserUpdateSchema`):** `{ "full_name": "...", "avatar_url": "..." }` (chỉ các trường cho phép sửa).
+            * **Response Body (200 OK - Pydantic `UserReadSchema`):** Thông tin người dùng đã cập nhật.
+        * `PUT /api/v1/users/me/password`:
+            * **Request Body (Pydantic `PasswordUpdateSchema`):** `{ "current_password": "...", "new_password": "..." }`
+            * **Response Body (200 OK):** `{ "message": "Mật khẩu đã được thay đổi thành công." }`
+            * **Response Body (400 Bad Request):** `{ "detail": "Mật khẩu cũ không đúng." }` hoặc lỗi validation mật khẩu mới.
+    * **Thay đổi Database:** Cập nhật các trường tương ứng trong bản ghi của người dùng trong bảng `users`.
+    * **Logic cốt lõi:** Xác minh mật khẩu cũ trước khi cho đổi mật khẩu mới. Xử lý tải file ảnh đại diện (nếu có).
+
+**10. Đánh Giá và Bình Luận (Reviews & Comments)**
+
+* **Frontend (FE) - Yêu Cầu Đầu Ra:**
+    * **Giao diện (Tích hợp vào `LocationDetailPage`, `GuideDetailPage`):**
+        * `ReviewListComponent`: Hiển thị danh sách các đánh giá/bình luận đã có (tên người đánh giá/avatar, điểm sao, nội dung bình luận, ngày giờ).
+        * `ReviewFormComponent` (Chỉ hiển thị cho người dùng đã đăng nhập): Form để chọn số sao, nhập nội dung bình luận, nút "Gửi đánh giá".
+        * Thông báo gửi thành công/thất bại.
+    * **Dữ liệu hiển thị:** Điểm sao trung bình (nếu có), danh sách các đánh giá.
+    * **Hành động người dùng:** Xem đánh giá, gửi đánh giá mới.
+    * **Tương tác API:**
+        * `GET /api/v1/locations/{locationId}/reviews` (hoặc `/guides/{guideId}/reviews`) để lấy danh sách.
+        * `POST /api/v1/locations/{locationId}/reviews` (hoặc `/guides/{guideId}/reviews`) để gửi đánh giá mới (kèm token xác thực).
+
+* **Backend (BE) - Yêu Cầu Đầu Ra:**
+    * **API Endpoints:**
+        * `GET /api/v1/locations/{location_id}/reviews` (Tương tự cho guides):
+            * **Request Params (Query):** `page`, `size`, `sort_by` (ví dụ: mới nhất, hữu ích nhất).
+            * **Response Body (200 OK):** Danh sách các `ReviewSchema` đã phân trang.
+        * `POST /api/v1/locations/{location_id}/reviews` (Tương tự cho guides, yêu cầu xác thực `Depends(get_current_user)`):
+            * **Request Body (Pydantic `ReviewCreateSchema`):** `{ "rating": 5, "comment_text": "Tuyệt vời!" }`
+            * **Response Body (201 Created - Pydantic `ReviewSchema`):** Đánh giá vừa được tạo.
+            * **Response Body (400 Bad Request):** Lỗi validation (ví dụ: rating ngoài khoảng 1-5).
+            * **Response Body (401 Unauthorized):** Nếu chưa đăng nhập.
+    * **Thay đổi Database:** Tạo bản ghi mới trong bảng `reviews` (liên kết với `user_id`, `location_id` hoặc `guide_id`). (Tùy chọn) Cập nhật điểm `average_rating` trong bảng `locations`/`guides`.
+    * **Logic cốt lõi:** Validate dữ liệu review. Kiểm tra người dùng đã review địa điểm này chưa (nếu có quy định mỗi người 1 review).
+
+**11. Lưu Danh Sách Yêu Thích (Wishlist/Favorites)**
+
+* **Frontend (FE) - Yêu Cầu Đầu Ra:**
+    * **Giao diện:**
+        * Nút "Yêu thích" (hình trái tim) trên `LocationCard`, `GuideCard`, `LocationDetailPage`, `GuideDetailPage`. Trạng thái của nút thay đổi (đã yêu thích/chưa yêu thích).
+        * `Trang Danh Sách Yêu Thích (WishlistPage)`: Hiển thị danh sách các địa điểm/cẩm nang người dùng đã lưu (yêu cầu đăng nhập).
+    * **Hành động người dùng:** Click nút yêu thích để thêm/bỏ. Xem danh sách yêu thích.
+    * **Tương tác API:**
+        * `POST /api/v1/users/me/favorites` để thêm/bỏ yêu thích (gửi `location_id` hoặc `guide_id` và `type`).
+        * `GET /api/v1/users/me/favorites` để lấy danh sách yêu thích.
+
+* **Backend (BE) - Yêu Cầu Đầu Ra:**
+    * **API Endpoints (Yêu cầu xác thực):**
+        * `GET /api/v1/users/me/favorites`:
+            * **Request Params (Query):** `type` (ví dụ: 'location', 'guide').
+            * **Response Body (200 OK):** Danh sách các `LocationSummarySchema` hoặc `GuideSummarySchema` đã yêu thích.
+        * `POST /api/v1/users/me/favorites`:
+            * **Request Body (Pydantic `FavoriteCreateSchema`):** `{ "item_id": 123, "item_type": "location" }` (item_type có thể là 'location' hoặc 'guide').
+            * **Response Body (200 OK/201 Created):** Trạng thái yêu thích mới (ví dụ: `{ "is_favorite": true }`) hoặc item vừa thêm.
+        * `DELETE /api/v1/users/me/favorites/{item_type}/{item_id}`:
+            * **Response Body (200 OK/204 No Content):** Thông báo bỏ yêu thích thành công.
+    * **Thay đổi Database:** Tạo/Xóa bản ghi trong bảng `user_favorites` (chứa `user_id`, `item_id`, `item_type`).
+    * **Logic cốt lõi:** Kiểm tra item đã tồn tại trong danh sách yêu thích của user chưa để thực hiện thêm hoặc xóa.
+
+**12. Chia Sẻ Lên Mạng Xã Hội (Social Sharing)**
+
+* **Frontend (FE) - Yêu Cầu Đầu Ra:**
+    * **Giao diện:** Các nút/icon chia sẻ (Facebook, Twitter, LinkedIn, Email, Copy Link) trên trang chi tiết địa điểm/cẩm nang.
+    * **Hành động người dùng:** Click vào nút chia sẻ.
+    * **Logic:** Sử dụng SDK của các mạng xã hội hoặc tạo link chia sẻ chuẩn (ví dụ: `https://www.facebook.com/sharer/sharer.php?u=<URL_TO_SHARE>`). Lấy URL hiện tại của trang để chia sẻ.
+    * **Tương tác API:** Thường không cần gọi API BE, xử lý hoàn toàn ở FE. Tuy nhiên, BE cần đảm bảo các trang có URL tĩnh và metadata (Open Graph tags) phù hợp để hiển thị đẹp khi chia sẻ.
+
+* **Backend (BE) - Yêu Cầu Đầu Ra:**
+    * **API Endpoint:** Không có API trực tiếp cho việc chia sẻ.
+    * **Hỗ trợ:** Đảm bảo các trang được render từ server (SSR/SSG cho FE) hoặc API cung cấp đủ metadata để FE có thể chèn vào `<head>` các thẻ Open Graph (`og:title`, `og:description`, `og:image`, `og:url`) giúp link hiển thị preview tốt trên mạng xã hội.
+
+**13. Hỗ Trợ Đa Ngôn Ngữ (Internationalization - i18n)**
+
+* **Frontend (FE) - Yêu Cầu Đầu Ra:**
+    * **Giao diện:** Nút/Dropdown cho phép người dùng chọn ngôn ngữ hiển thị (ví dụ: Tiếng Việt, Tiếng Anh).
+    * **Nội dung:** Toàn bộ văn bản trên giao diện (menu, nút bấm, nhãn, thông báo) và nội dung động (tên địa điểm, mô tả, cẩm nang) được hiển thị bằng ngôn ngữ người dùng đã chọn.
+    * **Quản lý trạng thái:** Lưu trữ ngôn ngữ hiện tại của người dùng (trong `localStorage`, URL, hoặc state global).
+    * **Logic:** Sử dụng thư viện i18n (ví dụ: `i18next` với `react-i18next`) để quản lý các file dịch (JSON, PO) và thực hiện việc dịch thuật trong các component.
+    * **Tương tác API:** Khi gọi API lấy nội dung, có thể gửi kèm header `Accept-Language` hoặc một query param `lang` để yêu cầu BE trả về dữ liệu bằng ngôn ngữ đó.
+
+* **Backend (BE) - Yêu Cầu Đầu Ra:**
+    * **API Endpoints:** Các API hiện có (ví dụ: `GET /api/v1/locations/{id}`, `GET /api/v1/guides/{id}`) cần có khả năng trả về nội dung bằng nhiều ngôn ngữ.
+    * **Request Handling:** Đọc header `Accept-Language` hoặc query param `lang` từ request của FE.
+    * **Response Body:** Nội dung (tên, mô tả, content_html) trong response JSON sẽ tương ứng với ngôn ngữ được yêu cầu.
+    * **Database Schema:** Cần thiết kế để lưu trữ nội dung đa ngôn ngữ. Các cách phổ biến:
+        * **Cách 1 (Cột riêng):** `name_vi`, `name_en`, `description_vi`, `description_en`. Dễ truy vấn nhưng khó mở rộng nhiều ngôn ngữ.
+        * **Cách 2 (Bảng dịch riêng - JSONB):** Một cột `translations` kiểu JSONB trong bảng chính, lưu các cặp `lang_code: value`. Ví dụ: `{"vi": "Tên Tiếng Việt", "en": "English Name"}`.
+        * **Cách 3 (Bảng dịch riêng - Table):** Tạo bảng `location_translations` ( `location_id`, `language_code`, `name`, `description`). Yêu cầu JOIN phức tạp hơn nhưng chuẩn hơn.
+    * **Logic cốt lõi:** Dựa vào ngôn ngữ yêu cầu, truy vấn và trả về đúng bản dịch của nội dung. Có thể có ngôn ngữ mặc định nếu bản dịch không tồn tại.
+
+**14. Thông Báo Người Dùng (User Notifications)**
+
+* **Frontend (FE) - Yêu Cầu Đầu Ra:**
+    * **Giao diện:**
+        * Khu vực hiển thị thông báo (ví dụ: icon chuông trên header với badge số lượng thông báo chưa đọc, danh sách dropdown khi click).
+        * Các thông báo dạng "toast" (popup nhỏ) cho các hành động tức thời (ví dụ: "Mật khẩu đã thay đổi thành công", "Đánh giá của bạn đã được gửi").
+        * (Tùy chọn) `Trang Thông Báo`: Liệt kê tất cả thông báo, đánh dấu đã đọc/chưa đọc.
+    * **Dữ liệu hiển thị:** Nội dung thông báo, thời gian, trạng thái (đã đọc/chưa đọc).
+    * **Hành động người dùng:** Click vào thông báo để xem chi tiết (nếu có) hoặc đánh dấu đã đọc.
+    * **Tương tác API:**
+        * `GET /api/v1/users/me/notifications` để lấy danh sách thông báo.
+        * `POST /api/v1/users/me/notifications/{notificationId}/mark-as-read` để đánh dấu đã đọc.
+        * (Tùy chọn) Sử dụng WebSockets hoặc Server-Sent Events (SSE) để nhận thông báo real-time từ BE.
+
+* **Backend (BE) - Yêu Cầu Đầu Ra:**
+    * **API Endpoints (Yêu cầu xác thực):**
+        * `GET /api/v1/users/me/notifications`:
+            * **Request Params (Query):** `page`, `size`, `status` (ví dụ: 'unread', 'all').
+            * **Response Body (200 OK):** Danh sách các `NotificationSchema` đã phân trang.
+        * `POST /api/v1/users/me/notifications/{notification_id}/mark-as-read`:
+            * **Response Body (200 OK):** Thông báo đã được cập nhật.
+    * **Thay đổi Database:**
+        * Tạo bảng `notifications` (`id`, `user_id`, `message`, `type`, `link_url`, `is_read`, `created_at`).
+        * Cập nhật trường `is_read` khi người dùng đọc.
+    * **Logic cốt lõi:**
+        * Tạo bản ghi thông báo mới trong DB khi có sự kiện xảy ra (ví dụ: admin duyệt review, có người trả lời bình luận của user).
+        * (Tùy chọn) Gửi thông báo real-time qua WebSockets/SSE nếu có người dùng đang online.
+        * (Tùy chọn) Logic gửi email thông báo cho các sự kiện quan trọng.
+
+---
+**III. Tính Năng Dành Cho Quản Trị Viên (Admin Features) – Yêu Cầu Đầu Ra**
+*(Giả định có một giao diện admin riêng hoặc khu vực admin được bảo vệ bằng vai trò "admin")*
+
+**15. Quản Lý Nội Dung Địa Điểm (CRUD)**
+
+* **Frontend (Admin FE) - Yêu Cầu Đầu Ra:**
+    * **Giao diện:**
+        * `Bảng Danh Sách Địa Điểm`: Hiển thị các địa điểm với các cột thông tin chính (ID, Tên, Loại hình, Vùng, Ngày tạo), nút Sửa/Xóa. Phân trang, tìm kiếm, lọc trong bảng.
+        * `Form Tạo Mới/Chỉnh Sửa Địa Điểm`: Các trường nhập liệu cho tất cả các thuộc tính của địa điểm (tên, mô tả chi tiết - có thể dùng Rich Text Editor, địa chỉ, chọn tọa độ trên bản đồ, chọn loại hình, vùng miền, quốc gia, tải lên nhiều hình ảnh, nhập giờ mở cửa, giá vé, thông tin liên hệ, các mục Do's/Don'ts riêng cho địa điểm). Nút Lưu/Hủy.
+    * **Hành động quản trị viên:** Xem, tìm kiếm, lọc danh sách, tạo mới, chỉnh sửa, xóa địa điểm.
+    * **Tương tác API:** Gọi các API CRUD của admin cho địa điểm.
+
+* **Backend (Admin BE) - Yêu Cầu Đầu Ra:**
+    * **API Endpoints (Yêu cầu quyền admin - `Depends(require_role("admin"))`):**
+        * `GET /api/v1/admin/locations`: Tương tự API user nhưng có thể trả về nhiều field hơn hoặc có filter riêng cho admin.
+        * `POST /api/v1/admin/locations`:
+            * **Request Body (Pydantic `LocationCreateSchema`):** Chứa tất cả các trường cần thiết để tạo địa điểm mới.
+            * **Response Body (201 Created - Pydantic `LocationDetailSchema`):** Địa điểm vừa tạo.
+        * `GET /api/v1/admin/locations/{location_id}`: Lấy chi tiết địa điểm cho admin.
+        * `PUT /api/v1/admin/locations/{location_id}`:
+            * **Request Body (Pydantic `LocationUpdateSchema`):** Chứa các trường cần cập nhật.
+            * **Response Body (200 OK - Pydantic `LocationDetailSchema`):** Địa điểm đã cập nhật.
+        * `DELETE /api/v1/admin/locations/{location_id}`:
+            * **Response Body (204 No Content):** Xóa thành công.
+    * **Thay đổi Database:** Tạo, cập nhật, xóa bản ghi trong bảng `locations` và các bảng liên quan (ví dụ: `location_images`, liên kết với `dos_and_donts`).
+    * **Logic cốt lõi:** Xử lý validation dữ liệu đầu vào. Xử lý upload file hình ảnh (lưu trữ và trả về URL). Đảm bảo tính toàn vẹn dữ liệu khi xóa (ví dụ: xóa các ảnh liên quan).
+
+*(Các tính năng quản trị khác từ 16 đến 25 sẽ có cấu trúc yêu cầu đầu ra tương tự như Tính năng 15: Quản Lý Nội Dung Địa Điểm, nhưng áp dụng cho các thực thể tương ứng (Cẩm nang, Vùng miền, Người dùng, v.v.). Tôi sẽ tóm tắt ngắn gọn hơn để tránh lặp lại quá nhiều, tập trung vào điểm khác biệt nếu có.)*
+
+**16. Quản Lý Nội Dung Cẩm Nang Du Lịch (CRUD)**
+* **FE (Admin):** Giao diện bảng danh sách cẩm nang, form tạo/sửa cẩm nang (tiêu đề, nội dung - Rich Text Editor, ảnh bìa, chọn vùng/quốc gia liên quan).
+* **BE (Admin):** API CRUD `/api/v1/admin/guides` cho `travel_guides`.
+
+**17. Quản Lý Danh Mục Địa Lý (CRUD)**
+* **FE (Admin):** Giao diện quản lý danh sách Quốc gia, Vùng/Miền (thêm, sửa, xóa tên, mô tả, mã code).
+* **BE (Admin):** API CRUD `/api/v1/admin/countries` và `/api/v1/admin/regions`.
+
+**18. Quản Lý Thông Tin Văn Hóa & "Do's and Don'ts" (CRUD)**
+* **FE (Admin):** Giao diện để nhập/sửa nội dung `regional_info` cho từng Vùng/Miền. Giao diện riêng để quản lý danh sách các mục "Do's and Don'ts" (nội dung, loại hình 'do'/'dont', chọn liên kết với Quốc gia, Vùng hoặc Địa điểm cụ thể).
+* **BE (Admin):** API để cập nhật `regional_info` của `regions`. API CRUD `/api/v1/admin/dos-and-donts` cho bảng `dos_and_donts`.
+
+**19. Quản Lý Loại Hình Địa Điểm (CRUD)**
+* **FE (Admin):** Giao diện quản lý danh sách các loại hình (ví dụ: "Di tích", "Nhà hàng"), cho phép thêm, sửa, xóa tên, (tùy chọn) icon.
+* **BE (Admin):** API CRUD `/api/v1/admin/location-categories`.
+
+**20. Quản Lý Người Dùng**
+* **FE (Admin):** Bảng danh sách người dùng (ID, email, tên, vai trò, trạng thái), nút xem chi tiết, nút Kích hoạt/Khóa tài khoản, nút thay đổi vai trò.
+* **BE (Admin):**
+    * API `GET /api/v1/admin/users` (lấy danh sách, hỗ trợ tìm kiếm/lọc).
+    * API `GET /api/v1/admin/users/{user_id}` (lấy chi tiết user).
+    * API `PUT /api/v1/admin/users/{user_id}` (cập nhật thông tin, vai trò, trạng thái `is_active`).
+    * API `DELETE /api/v1/admin/users/{user_id}` (xóa mềm hoặc cứng tùy chính sách).
+
+**21. Quản Lý Nội Dung Trang Tĩnh (CRUD)**
+* **FE (Admin):** Giao diện danh sách các trang tĩnh (Về chúng tôi, Điều khoản...), form tạo/sửa nội dung (tiêu đề, slug URL, nội dung - Rich Text Editor).
+* **BE (Admin):** API CRUD `/api/v1/admin/static-pages` cho bảng `static_pages`.
+
+**22. Quản Lý Đánh Giá/Bình Luận (Review/Comment Moderation)**
+* **FE (Admin):** Giao diện danh sách các đánh giá/bình luận đang chờ duyệt hoặc đã đăng, hiển thị nội dung, người gửi, địa điểm/cẩm nang liên quan. Nút Chấp nhận/Từ chối/Ẩn/Xóa.
+* **BE (Admin):**
+    * API `GET /api/v1/admin/reviews` (lọc theo trạng thái: pending, approved, rejected).
+    * API `PUT /api/v1/admin/reviews/{review_id}/status` (cập nhật trạng thái review).
+    * API `DELETE /api/v1/admin/reviews/{review_id}`.
+
+**23. Quản Lý Hình Ảnh/Đa Phương Tiện (Media Management)**
+* **FE (Admin):** Giao diện thư viện media, cho phép tải lên nhiều ảnh/video, xem ảnh, (tùy chọn) xóa ảnh không dùng nữa, (tùy chọn) chỉnh sửa metadata ảnh cơ bản.
+* **BE (Admin):**
+    * API `POST /api/v1/admin/media/upload` (xử lý tải file, lưu trữ file - có thể trên cloud S3, trả về URL).
+    * API `GET /api/v1/admin/media` (liệt kê file đã tải, hỗ trợ tìm kiếm/lọc).
+    * API `DELETE /api/v1/admin/media/{media_id}`.
+    * **Logic:** Xử lý file upload, tối ưu hóa hình ảnh (nếu cần), tích hợp với dịch vụ lưu trữ cloud.
+
+**24. Cấu Hình SEO Cơ Bản**
+* **FE (Admin):** Form cho phép admin nhập/sửa các thẻ meta mặc định cho trang chủ, hoặc metadata (title, description, keywords) cho các trang địa điểm/cẩm nang cụ thể (có thể tích hợp vào form sửa địa điểm/cẩm nang).
+* **BE (Admin):** API để lưu trữ các cấu hình SEO này. Ví dụ, có thể thêm các trường `meta_title`, `meta_description`, `meta_keywords` vào các model `Location`, `Guide`, `StaticPage`. Hoặc một bảng `seo_settings` riêng.
+
+**25. (Tùy chọn) Bảng Điều Khiển & Thống Kê (Dashboard & Analytics)**
+* **FE (Admin):** Trang dashboard hiển thị các biểu đồ, số liệu thống kê cơ bản: số lượng người dùng mới, số địa điểm/cẩm nang được xem nhiều, số lượng đánh giá mới, v.v.
+* **BE (Admin):** Các API endpoints `GET /api/v1/admin/stats/...` để cung cấp dữ liệu đã được tổng hợp/tính toán cho dashboard. Logic này có thể yêu cầu các truy vấn phức tạp hơn hoặc xử lý dữ liệu định kỳ.
+
+---
+**IV. Yêu Cầu Phi Chức Năng Quan Trọng – Yêu Cầu Đầu Ra**
+
+Những yêu cầu này không phải là "tính năng" có giao diện riêng, mà là các đặc tính chất lượng phải được đảm bảo xuyên suốt quá trình phát triển tất cả các tính năng khác.
+
+**26. Tối Ưu Hóa SEO (SEO Friendliness)**
+* **FE - Yêu Cầu Đầu Ra:**
+    * Mã HTML được render (đặc biệt cho các trang public như chi tiết địa điểm, cẩm nang) phải có cấu trúc ngữ nghĩa tốt.
+    * Các thẻ `<title>`, `<meta name="description">`, `<meta name="keywords">` được điền động và phù hợp với nội dung trang.
+    * Sử dụng thẻ Open Graph (`og:title`, `og:description`, `og:image`) để hiển thị đẹp khi chia sẻ link.
+    * URL thân thiện, dễ đọc (ví dụ: `/dia-diem/ha-noi/ho-guom` thay vì `/location?id=123`).
+    * (Nâng cao) Hỗ trợ Server-Side Rendering (SSR) hoặc Static Site Generation (SSG) cho các trang public quan trọng để cải thiện tốc độ index và hiệu năng cho bot. Nếu dùng Vite, có thể xem xét các giải pháp như Vite SSR.
+* **BE - Yêu Cầu Đầu Ra:**
+    * Các API cung cấp đầy đủ dữ liệu cần thiết để FE có thể tạo ra các thẻ meta và structured data (JSON-LD).
+    * Hỗ trợ tạo sitemap.xml tự động hoặc cung cấp dữ liệu để FE/công cụ khác tạo.
+    * API trả về mã lỗi 404 chính xác cho các trang không tồn tại.
+
+**27. Hiệu Suất Tải Trang (Page Load Performance)**
+* **FE - Yêu Cầu Đầu Ra:**
+    * Thời gian tải trang (First Contentful Paint, Largest Contentful Paint) nhanh.
+    * Kích thước bundle JS/CSS được tối ưu (code splitting, tree shaking).
+    * Hình ảnh được tối ưu (định dạng phù hợp như WebP, kích thước phù hợp, lazy loading).
+    * Sử dụng caching trình duyệt hiệu quả cho tài nguyên tĩnh.
+* **BE - Yêu Cầu Đầu Ra:**
+    * Thời gian phản hồi API nhanh (dưới 200-500ms cho hầu hết các request thông thường).
+    * Truy vấn database được tối ưu (sử dụng index, tránh N+1 query).
+    * (Nâng cao) Triển khai caching phía server (ví dụ: Redis) cho các dữ liệu ít thay đổi hoặc truy vấn tốn kém.
+    * Sử dụng nén HTTP (Gzip, Brotli).
+
+**28. Thiết Kế Đáp Ứng (Responsive Design)**
+* **FE - Yêu Cầu Đầu Ra:**
+    * Giao diện website tự động điều chỉnh và hiển thị tốt trên mọi kích thước màn hình phổ biến: desktop lớn, laptop, tablet (ngang/dọc), mobile (ngang/dọc).
+    * Các yếu tố tương tác (nút bấm, form) dễ sử dụng trên màn hình cảm ứng.
+    * Font chữ, hình ảnh co giãn phù hợp.
+* **BE - Yêu Cầu Đầu Ra:** Không ảnh hưởng trực tiếp, nhưng API cần cung cấp dữ liệu một cách linh hoạt để FE có thể render cho các layout khác nhau.
+
+**29. Khả Năng Tiếp Cận (Accessibility - a11y)**
+* **FE - Yêu Cầu Đầu Ra:**
+    * Tuân thủ các nguyên tắc của WCAG (Web Content Accessibility Guidelines) ở mức độ AA (khuyến nghị).
+    * HTML có ngữ nghĩa (sử dụng đúng thẻ `<h1>-<h6>`, `<nav>`, `<main>`, `<article>`, `<aside>`, `<button>`).
+    * Cung cấp văn bản thay thế (thuộc tính `alt`) cho tất cả hình ảnh có ý nghĩa.
+    * Đảm bảo độ tương phản màu sắc đủ tốt cho văn bản và các yếu tố giao diện.
+    * Hỗ trợ điều hướng hoàn toàn bằng bàn phím.
+    * Sử dụng ARIA attributes khi cần thiết để cải thiện trải nghiệm cho người dùng công nghệ hỗ trợ.
+* **BE - Yêu Cầu Đầu Ra:** Không ảnh hưởng trực tiếp, nhưng dữ liệu trả về (ví dụ: mô tả) nên cho phép FE hiển thị một cách dễ tiếp cận.
+
+**30. Bảo Mật (Security)**
+* **FE - Yêu Cầu Đầu Ra:**
+    * Validate dữ liệu đầu vào từ người dùng trước khi gửi lên BE (dù BE vẫn phải validate lại).
+    * Không lưu trữ thông tin nhạy cảm (như mật khẩu đầy đủ, private keys) trong `localStorage` hoặc code FE. JWT token nên được xử lý cẩn thận.
+    * (Nếu có nội dung do người dùng tạo hiển thị dạng HTML) Cần có biện pháp chống XSS (ví dụ: sanitize HTML).
+* **BE - Yêu Cầu Đầu Ra:**
+    * Validate tất cả dữ liệu đầu vào từ client (sử dụng Pydantic).
+    * Chống các lỗ hổng phổ biến: SQL Injection (SQLAlchemy thường giúp việc này nếu dùng đúng cách), XSS (nếu BE trả về HTML), CSRF (FastAPI có cơ chế hỗ trợ).
+    * Sử dụng HTTPS cho toàn bộ giao tiếp.
+    * Hash mật khẩu người dùng an toàn (bcrypt).
+    * Quản lý session/token an toàn (JWT với secret key mạnh, thời hạn hợp lý, cơ chế refresh token nếu cần).
+    * Phân quyền chặt chẽ, đảm bảo người dùng chỉ truy cập được dữ liệu/hành động họ được phép.
+    * Cập nhật các thư viện thường xuyên để vá lỗi bảo mật.
+    * Rate limiting cho các API nhạy cảm để chống brute-force.
+
