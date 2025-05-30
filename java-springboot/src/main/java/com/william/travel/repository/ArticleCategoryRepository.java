@@ -15,6 +15,6 @@ public interface ArticleCategoryRepository extends JpaRepository<ArticleCategory
     
     boolean existsByName(String name);
     
-    @Query("SELECT ac FROM ArticleCategory ac WHERE ac.isActive = true ORDER BY ac.name")
+    @Query("SELECT ac FROM ArticleCategory ac WHERE ac.status = true ORDER BY ac.name")
     List<ArticleCategory> findActiveCategories();
 }
