@@ -2,6 +2,8 @@ package com.williamtravel.app.controller;
 
 import com.williamtravel.app.entity.User;
 import com.williamtravel.app.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,8 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class UserController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private UserService userService;
 
@@ -29,6 +33,7 @@ public class UserController {
      */
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
+        logger.info("Fetching all users");
         List<User> users = userService.findAll();
         return ResponseEntity.ok(users);
     }
@@ -38,6 +43,7 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Integer id) {
+        logger.info("Fetching user by ID: {}", id);
         Optional<User> user = userService.findById(id);
         return user.map(ResponseEntity::ok)
                   .orElse(ResponseEntity.notFound().build());
@@ -48,6 +54,7 @@ public class UserController {
      */
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
+        logger.info("Creating new user: {}", user);
         User savedUser = userService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
@@ -57,6 +64,7 @@ public class UserController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) {
+        logger.info("Updating user with ID: {}", id);
         if (!userService.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -70,6 +78,7 @@ public class UserController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+        logger.info("Deleting user with ID: {}", id);
         if (!userService.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -82,6 +91,7 @@ public class UserController {
      */
     @GetMapping("/email/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        logger.info("Fetching user by email: {}", email);
         Optional<User> user = userService.findByEmail(email);
         return user.map(ResponseEntity::ok)
                   .orElse(ResponseEntity.notFound().build());
@@ -92,6 +102,7 @@ public class UserController {
      */
     @GetMapping("/role/{roleId}")
     public ResponseEntity<List<User>> getUsersByRole(@PathVariable Integer roleId) {
+        logger.info("Fetching users by role ID: {}", roleId);
         List<User> users = userService.findByRoleId(roleId);
         return ResponseEntity.ok(users);
     }
@@ -101,6 +112,7 @@ public class UserController {
      */
     @GetMapping("/active")
     public ResponseEntity<List<User>> getActiveUsers() {
+        logger.info("Fetching active users");
         List<User> users = userService.findActiveUsers();
         return ResponseEntity.ok(users);
     }
@@ -110,6 +122,7 @@ public class UserController {
      */
     @GetMapping("/status/{isActive}")
     public ResponseEntity<List<User>> getUsersByActiveStatus(@PathVariable Boolean isActive) {
+        logger.info("Fetching users by active status: {}", isActive);
         List<User> users = userService.findByIsActive(isActive);
         return ResponseEntity.ok(users);
     }
@@ -119,6 +132,7 @@ public class UserController {
      */
     @GetMapping("/superusers")
     public ResponseEntity<List<User>> getSuperusers() {
+        logger.info("Fetching superusers");
         List<User> users = userService.findSuperusers();
         return ResponseEntity.ok(users);
     }
@@ -130,6 +144,7 @@ public class UserController {
     public ResponseEntity<List<User>> getUsersCreatedBetween(
             @RequestParam LocalDateTime startDate,
             @RequestParam LocalDateTime endDate) {
+        logger.info("Fetching users created between: {} and {}", startDate, endDate);
         List<User> users = userService.findByCreatedAtBetween(startDate, endDate);
         return ResponseEntity.ok(users);
     }
@@ -139,6 +154,7 @@ public class UserController {
      */
     @GetMapping("/search/{fullName}")
     public ResponseEntity<List<User>> searchUsersByFullName(@PathVariable String fullName) {
+        logger.info("Searching users by full name: {}", fullName);
         List<User> users = userService.findByFullNameContainingIgnoreCase(fullName);
         return ResponseEntity.ok(users);
     }
@@ -148,6 +164,7 @@ public class UserController {
      */
     @GetMapping("/exists/email/{email}")
     public ResponseEntity<Boolean> checkEmailExists(@PathVariable String email) {
+        logger.info("Checking if email exists: {}", email);
         boolean exists = userService.existsByEmail(email);
         return ResponseEntity.ok(exists);
     }
@@ -158,6 +175,7 @@ public class UserController {
     @GetMapping("/count/active")
     public ResponseEntity<Long> countActiveUsers() {
         long count = userService.countActiveUsers();
+        logger.info("Counting active users: {}", count);
         return ResponseEntity.ok(count);
     }
 
@@ -167,6 +185,7 @@ public class UserController {
     @GetMapping("/count/role/{roleId}")
     public ResponseEntity<Long> countUsersByRole(@PathVariable Integer roleId) {
         long count = userService.countByRoleId(roleId);
+        logger.info("Counting users by role ID {}: {}", roleId, count);
         return ResponseEntity.ok(count);
     }
 
@@ -179,6 +198,7 @@ public class UserController {
             @RequestParam(required = false) Boolean isActive,
             @RequestParam(required = false) Integer roleId,
             Pageable pageable) {
+        logger.info("Fetching users with filters - search: {}, isActive: {}, roleId: {}", search, isActive, roleId);
         Page<User> users = userService.findUsersWithFilters(search, isActive, roleId, pageable);
         return ResponseEntity.ok(users);
     }
@@ -189,6 +209,7 @@ public class UserController {
     @GetMapping("/count")
     public ResponseEntity<Long> countUsers() {
         long count = userService.count();
+        logger.info("Counting total users: {}", count);
         return ResponseEntity.ok(count);
     }
 }

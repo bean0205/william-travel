@@ -17,7 +17,7 @@ import java.util.Optional;
  */
 @Service
 @Transactional
-public class UserService {
+public class UserService extends BaseService<User, Integer> {
 
     @Autowired
     private UserRepository userRepository;
@@ -26,28 +26,61 @@ public class UserService {
      * Find all users
      */
     public List<User> findAll() {
-        return userRepository.findAll();
+        logServiceMethodEntry("findAll");
+        List<User> users = userRepository.findAll();
+        logServiceInfo("Retrieved {} users", users.size());
+        logServiceMethodExit("findAll", users);
+        return users;
     }
 
     /**
      * Find user by ID
      */
     public Optional<User> findById(Integer id) {
-        return userRepository.findById(id);
+        logServiceMethodEntry("findById", id);
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            logEntityRead("User", id);
+        } else {
+            logEntityNotFound("User", id);
+        }
+        logServiceMethodExit("findById", user);
+        return user;
     }
 
     /**
      * Save user
      */
     public User save(User user) {
-        return userRepository.save(user);
+        boolean isNewEntity = user.getId() == null;
+        logServiceMethodEntry("save", user);
+        User savedUser = userRepository.save(user);
+        
+        if (isNewEntity) {
+            logEntityCreation("User", savedUser.getId());
+        } else {
+            logEntityUpdate("User", savedUser.getId());
+        }
+        
+        logServiceMethodExit("save", savedUser);
+        return savedUser;
     }
 
     /**
      * Delete user by ID
      */
     public void deleteById(Integer id) {
-        userRepository.deleteById(id);
+        logServiceMethodEntry("deleteById", id);
+        
+        // Check if user exists before deletion
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            logEntityDeletion("User", id);
+        } else {
+            logEntityNotFound("User", id);
+        }
+        
+        logServiceMethodExit("deleteById", null);
     }
 
     /**

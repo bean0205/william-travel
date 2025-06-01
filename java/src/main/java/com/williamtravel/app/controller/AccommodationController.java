@@ -20,7 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/accommodations")
 @CrossOrigin(origins = "*")
-public class AccommodationController {
+public class AccommodationController extends BaseController {
 
     @Autowired
     private AccommodationService accommodationService;
@@ -30,8 +30,10 @@ public class AccommodationController {
      */
     @GetMapping
     public ResponseEntity<List<Accommodation>> getAllAccommodations() {
+        logApiRequest("getAllAccommodations");
         List<Accommodation> accommodations = accommodationService.findAll();
-        return ResponseEntity.ok(accommodations);
+        logApiSuccess("getAllAccommodations", accommodations);
+        return logResponse("getAllAccommodations", ResponseEntity.ok(accommodations));
     }
 
     /**
@@ -39,9 +41,16 @@ public class AccommodationController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Accommodation> getAccommodationById(@PathVariable Integer id) {
+        logApiRequest("getAccommodationById", id);
         Optional<Accommodation> accommodation = accommodationService.findById(id);
-        return accommodation.map(ResponseEntity::ok)
-                           .orElse(ResponseEntity.notFound().build());
+        
+        if (accommodation.isPresent()) {
+            logApiSuccess("getAccommodationById", accommodation.get());
+            return logResponse("getAccommodationById", ResponseEntity.ok(accommodation.get()));
+        } else {
+            logApiWarning("getAccommodationById", "Accommodation with ID %d not found", id);
+            return logResponse("getAccommodationById", ResponseEntity.notFound().build());
+        }
     }
 
     /**
@@ -49,8 +58,16 @@ public class AccommodationController {
      */
     @PostMapping
     public ResponseEntity<Accommodation> createAccommodation(@RequestBody Accommodation accommodation) {
-        Accommodation savedAccommodation = accommodationService.save(accommodation);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedAccommodation);
+        logApiRequest("createAccommodation", accommodation);
+        try {
+            Accommodation savedAccommodation = accommodationService.save(accommodation);
+            logApiSuccess("createAccommodation", savedAccommodation);
+            return logResponse("createAccommodation", 
+                ResponseEntity.status(HttpStatus.CREATED).body(savedAccommodation));
+        } catch (Exception e) {
+            logApiError("createAccommodation", e);
+            throw e;
+        }
     }
 
     /**

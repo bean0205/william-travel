@@ -2,6 +2,8 @@ package com.williamtravel.app.controller;
 
 import com.williamtravel.app.dto.*;
 import com.williamtravel.app.service.AuthenticationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import jakarta.validation.Valid;
 @CrossOrigin(origins = "*")
 public class AuthController {
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+
     @Autowired
     private AuthenticationService authenticationService;
 
@@ -30,8 +34,10 @@ public class AuthController {
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         try {
             LoginResponse response = authenticationService.login(loginRequest);
+            logger.info("User logged in successfully: {}", loginRequest.getEmail());
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
+            logger.warn("Login failed for user: {}", loginRequest.getEmail());
             // Return 401 for authentication failures
             LoginResponse errorResponse = new LoginResponse();
             errorResponse.setAccess_token(null);
@@ -49,8 +55,10 @@ public class AuthController {
     public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest registerRequest) {
         try {
             RegisterResponse response = authenticationService.register(registerRequest);
+            logger.info("User registered successfully: {}", registerRequest.getEmail());
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (RuntimeException e) {
+            logger.warn("Registration failed for user: {}", registerRequest.getEmail());
             // Return 400 for registration failures (e.g., email already exists)
             RegisterResponse errorResponse = new RegisterResponse();
             errorResponse.setUser(null);
@@ -70,8 +78,10 @@ public class AuthController {
     public ResponseEntity<LogoutResponse> logout() {
         try {
             LogoutResponse response = authenticationService.logout();
+            logger.info("User logged out successfully");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
+            logger.error("Logout failed", e);
             LogoutResponse errorResponse = new LogoutResponse();
             errorResponse.setMessage("Logout failed");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
@@ -87,8 +97,10 @@ public class AuthController {
     public ResponseEntity<PasswordResetResponse> requestPasswordReset(@Valid @RequestBody PasswordResetRequest request) {
         try {
             PasswordResetResponse response = authenticationService.requestPasswordReset(request);
+            logger.info("Password reset requested for email: {}", request.getEmail());
             return ResponseEntity.ok(response);
         } catch (Exception e) {
+            logger.error("Error processing password reset request", e);
             // Always return success for security reasons (don't reveal if email exists)
             PasswordResetResponse response = new PasswordResetResponse();
             response.setMessage("If the email exists, a password reset link will be sent.");
@@ -105,8 +117,10 @@ public class AuthController {
     public ResponseEntity<PasswordResetResponse> confirmPasswordReset(@Valid @RequestBody PasswordResetConfirmRequest request) {
         try {
             PasswordResetResponse response = authenticationService.confirmPasswordReset(request);
+            logger.info("Password reset confirmed for token: {}", request.getToken());
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
+            logger.warn("Password reset confirmation failed: Invalid or expired token");
             PasswordResetResponse errorResponse = new PasswordResetResponse();
             errorResponse.setMessage("Invalid or expired reset token");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
@@ -133,6 +147,7 @@ public class AuthController {
             boolean exists = authenticationService.emailExists(email);
             return ResponseEntity.ok(exists);
         } catch (Exception e) {
+            logger.error("Error checking if email exists: {}", email, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
         }
     }
