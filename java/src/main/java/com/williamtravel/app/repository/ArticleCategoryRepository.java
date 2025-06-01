@@ -22,6 +22,10 @@ public interface ArticleCategoryRepository extends JpaRepository<ArticleCategory
     Optional<ArticleCategory> findByName(String name);
     
     boolean existsByName(String name);
+    
+    Optional<ArticleCategory> findBySlug(String slug);
+    
+    boolean existsBySlug(String slug);
 
     // Status-based queries
     List<ArticleCategory> findByStatus(Boolean status);
@@ -95,4 +99,22 @@ public interface ArticleCategoryRepository extends JpaRepository<ArticleCategory
     // Categories ordered by name
     @Query("SELECT ac FROM ArticleCategory ac WHERE ac.status = true ORDER BY ac.name ASC")
     List<ArticleCategory> findAllOrderByName();
+    
+    // Hierarchical queries
+    @Query("SELECT ac FROM ArticleCategory ac WHERE ac.status = true AND ac.parentCategory IS NULL ORDER BY ac.sortOrder ASC, ac.name ASC")
+    List<ArticleCategory> findRootCategories();
+    
+    @Query("SELECT ac FROM ArticleCategory ac WHERE ac.status = true AND ac.parentCategory IS NULL ORDER BY ac.sortOrder ASC, ac.name ASC")
+    Page<ArticleCategory> findRootCategories(Pageable pageable);
+    
+    @Query("SELECT ac FROM ArticleCategory ac WHERE ac.status = true AND ac.parentCategory.id = :parentCategoryId ORDER BY ac.sortOrder ASC, ac.name ASC")
+    List<ArticleCategory> findByParentCategoryId(@Param("parentCategoryId") Integer parentCategoryId);
+    
+    // Featured categories
+    @Query("SELECT ac FROM ArticleCategory ac WHERE ac.status = true AND ac.isFeatured = true ORDER BY ac.sortOrder ASC, ac.name ASC")
+    List<ArticleCategory> findFeaturedCategories();
+    
+    // Ordered by sort order
+    @Query("SELECT ac FROM ArticleCategory ac WHERE ac.status = true ORDER BY ac.sortOrder ASC, ac.name ASC")
+    List<ArticleCategory> findAllOrderBySortOrder();
 }

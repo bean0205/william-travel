@@ -22,6 +22,10 @@ public interface ArticleTagRepository extends JpaRepository<ArticleTag, Integer>
     Optional<ArticleTag> findByName(String name);
     
     boolean existsByName(String name);
+    
+    Optional<ArticleTag> findBySlug(String slug);
+    
+    boolean existsBySlug(String slug);
 
     // Status-based queries
     List<ArticleTag> findByStatus(Boolean status);

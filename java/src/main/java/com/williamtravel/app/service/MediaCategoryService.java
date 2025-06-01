@@ -159,7 +159,7 @@ public class MediaCategoryService {
      * Find media categories by date range
      */
     public List<MediaCategory> findCategoriesByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
-        return mediaCategoryRepository.findCategoriesByDateRange(startDate, endDate);
+        return mediaCategoryRepository.findCategoriesByDateRange(startDate.toLocalDate(), endDate.toLocalDate());
     }
 
     /**

@@ -34,6 +34,12 @@ public class ArticleTag {
     private String name;
 
     /**
+     * URL-friendly slug for the tag
+     */
+    @Column(name = "slug", length = 100, unique = true)
+    private String slug;
+
+    /**
      * Code for translation purposes
      */
     @Column(name = "name_code", length = 100)

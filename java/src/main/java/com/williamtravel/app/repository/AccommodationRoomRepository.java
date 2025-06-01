@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Repository interface for AccommodationRoom entity operations
@@ -90,17 +91,17 @@ public interface AccommodationRoomRepository extends JpaRepository<Accommodation
     List<AccommodationRoom> findByStatusAndPricePerNightBetween(@Param("status") Integer status, @Param("minPrice") Double minPrice, @Param("maxPrice") Double maxPrice);
     
     @Query("SELECT ar FROM AccommodationRoom ar WHERE ar.status = :status ORDER BY ar.pricePerNight ASC")
-    List<AccommodationRoom> findByStatusOrderByPricePerNightAsc(@Param("status") Integer status, Pageable pageable);
+    List<AccommodationRoom> findByStatusOrderByPricePerNightAsc(@Param("status") Integer status);
     
     @Query("SELECT ar FROM AccommodationRoom ar WHERE ar.status = :status ORDER BY ar.pricePerNight DESC")
-    List<AccommodationRoom> findByStatusOrderByPricePerNightDesc(@Param("status") Integer status, Pageable pageable);
+    List<AccommodationRoom> findByStatusOrderByPricePerNightDesc(@Param("status") Integer status);
     
     // Capacity-based queries (using combined adult and child capacity)
     @Query("SELECT ar FROM AccommodationRoom ar WHERE ar.status = :status AND (ar.adultCapacity + COALESCE(ar.childCapacity, 0)) >= :minCapacity")
     List<AccommodationRoom> findByStatusAndCapacityGreaterThanEqual(@Param("status") Integer status, @Param("minCapacity") Integer minCapacity);
     
     @Query("SELECT ar FROM AccommodationRoom ar WHERE ar.status = :status AND (ar.adultCapacity + COALESCE(ar.childCapacity, 0)) BETWEEN :minCapacity AND :maxCapacity")
-    List<AccommodationRoom> findByStatusAndCapacityBetween(@Param("status") Integer status, @Param("minCapacity") Integer minCapacity, @Param("maxCapacity") Integer maxCapacity);
+    List<AccommodationRoom> findByStatusAndCapacityBetween(@Param("status") Integer status, @Param("minCapacity") Integer minPrice, @Param("maxCapacity") Integer maxPrice);
     
     @Query("SELECT ar FROM AccommodationRoom ar WHERE ar.status = :status ORDER BY (ar.adultCapacity + COALESCE(ar.childCapacity, 0)) ASC")
     List<AccommodationRoom> findByStatusOrderByCapacityAsc(@Param("status") Integer status);
@@ -117,13 +118,29 @@ public interface AccommodationRoomRepository extends JpaRepository<Accommodation
         return findByStatusAndPricePerNightBetween(isActive ? 1 : 0, minPrice, maxPrice);
     }
     
+    default List<AccommodationRoom> findByIsActiveOrderByPricePerNightAsc(Boolean isActive) {
+        return findByStatusOrderByPricePerNightAsc(isActive ? 1 : 0);
+    }
+    
+    default List<AccommodationRoom> findByIsActiveOrderByPricePerNightDesc(Boolean isActive) {
+        return findByStatusOrderByPricePerNightDesc(isActive ? 1 : 0);
+    }
+    
+    // Pageable versions for price ordering
     default List<AccommodationRoom> findByIsActiveOrderByPricePerNightAsc(Boolean isActive, Pageable pageable) {
-        return findByStatusOrderByPricePerNightAsc(isActive ? 1 : 0, pageable);
+        return findByStatusOrderByPricePerNightAscWithPagination(isActive ? 1 : 0, pageable);
     }
     
     default List<AccommodationRoom> findByIsActiveOrderByPricePerNightDesc(Boolean isActive, Pageable pageable) {
-        return findByStatusOrderByPricePerNightDesc(isActive ? 1 : 0, pageable);
+        return findByStatusOrderByPricePerNightDescWithPagination(isActive ? 1 : 0, pageable);
     }
+    
+    // Query methods for price ordering with pagination
+    @Query("SELECT ar FROM AccommodationRoom ar WHERE ar.status = :status ORDER BY ar.pricePerNight ASC")
+    List<AccommodationRoom> findByStatusOrderByPricePerNightAscWithPagination(@Param("status") Integer status, Pageable pageable);
+    
+    @Query("SELECT ar FROM AccommodationRoom ar WHERE ar.status = :status ORDER BY ar.pricePerNight DESC")
+    List<AccommodationRoom> findByStatusOrderByPricePerNightDescWithPagination(@Param("status") Integer status, Pageable pageable);
     
     default List<AccommodationRoom> findByIsActiveAndCapacityGreaterThanEqual(Boolean isActive, Integer minCapacity) {
         return findByStatusAndCapacityGreaterThanEqual(isActive ? 1 : 0, minCapacity);

@@ -24,6 +24,12 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
     // Custom finder methods
     Optional<Article> findByTitleAndStatus(String title, Boolean status);
     
+    Optional<Article> findBySlug(String slug);
+    
+    boolean existsBySlug(String slug);
+    
+    boolean existsByTitle(String title);
+    
     List<Article> findByAuthorId(Integer authorId);
     
     Page<Article> findByAuthorId(Integer authorId, Pageable pageable);

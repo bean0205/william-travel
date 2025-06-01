@@ -23,6 +23,18 @@ public class ArticleService {
     private ArticleRepository articleRepository;
 
     /**
+     * Utility method to convert String status to Boolean
+     * @param status String representation of status ("true", "false", "published", "draft", etc.)
+     * @return Boolean representation of the status
+     */
+    private Boolean convertStringStatusToBoolean(String status) {
+        if (status == null) {
+            return null;
+        }
+        return "true".equalsIgnoreCase(status) || "published".equalsIgnoreCase(status) || "active".equalsIgnoreCase(status);
+    }
+
+    /**
      * Find all articles
      */
     public List<Article> findAll() {
@@ -89,21 +101,24 @@ public class ArticleService {
      * Find articles by author ID and status
      */
     public Page<Article> findByAuthorIdAndStatus(Integer authorId, String status, Pageable pageable) {
-        return articleRepository.findByAuthorIdAndStatus(authorId, status, pageable);
+        Boolean booleanStatus = convertStringStatusToBoolean(status);
+        return articleRepository.findByAuthorIdAndStatus(authorId, booleanStatus, pageable);
     }
 
     /**
      * Find articles by status
      */
     public List<Article> findByStatus(String status) {
-        return articleRepository.findByStatus(status);
+        Boolean booleanStatus = convertStringStatusToBoolean(status);
+        return articleRepository.findByStatus(booleanStatus);
     }
 
     /**
      * Find articles by status with pagination
      */
     public Page<Article> findByStatus(String status, Pageable pageable) {
-        return articleRepository.findByStatus(status, pageable);
+        Boolean booleanStatus = convertStringStatusToBoolean(status);
+        return articleRepository.findByStatus(booleanStatus, pageable);
     }
 
     /**
@@ -274,7 +289,8 @@ public class ArticleService {
      * Count articles by status
      */
     public Long countByStatus(String status) {
-        return articleRepository.countByStatus(status);
+        Boolean booleanStatus = convertStringStatusToBoolean(status);
+        return articleRepository.countByStatus(booleanStatus);
     }
 
     // Complex search with filters

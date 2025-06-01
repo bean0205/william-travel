@@ -169,7 +169,7 @@ public class MediaTypeService {
     }
 
     public List<MediaType> findTypesByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
-        return mediaTypeRepository.findTypesByDateRange(startDate, endDate);
+        return mediaTypeRepository.findTypesByDateRange(startDate.toLocalDate(), endDate.toLocalDate());
     }
 
     public List<MediaType> findTypesByTotalFileSize(Pageable pageable) {
