@@ -34,10 +34,10 @@ public class AuthController {
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         try {
             LoginResponse response = authenticationService.login(loginRequest);
-            logger.info("User logged in successfully: {}", loginRequest.getEmail());
+            logger.info("User logged in successfully: {}", loginRequest.getUsername());
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
-            logger.warn("Login failed for user: {}", loginRequest.getEmail());
+            logger.warn("Login failed for user: {}", loginRequest.getUsername());
             // Return 401 for authentication failures
             LoginResponse errorResponse = new LoginResponse();
             errorResponse.setAccess_token(null);

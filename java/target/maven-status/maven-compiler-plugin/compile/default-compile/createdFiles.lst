@@ -128,7 +128,6 @@ com/williamtravel/app/service/FoodCategoryService.class
 com/williamtravel/app/service/ArticleTagService.class
 com/williamtravel/app/entity/District.class
 com/williamtravel/app/entity/Article.class
-com/williamtravel/app/controller/AuthController.class
 com/williamtravel/app/service/MediaCategoryService.class
 com/williamtravel/app/entity/EventCategory.class
 com/williamtravel/app/service/ContinentService.class

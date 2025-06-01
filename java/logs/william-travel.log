@@ -1,0 +1,27 @@
+2025-06-01 22:23:08 [main] INFO  c.w.app.WilliamTravelApplication - Starting WilliamTravelApplication using Java 23.0.2 with PID 28319 (/Users/williamnguyen/william_project/william-travel/java/target/classes started by williamnguyen in /Users/williamnguyen/william_project/william-travel/java)
+2025-06-01 22:23:08 [main] INFO  c.w.app.WilliamTravelApplication - No active profile set, falling back to 1 default profile: "default"
+2025-06-01 22:23:09 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-01 22:23:09 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 36 ms. Found 28 JPA repository interfaces.
+2025-06-01 22:23:09 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2025-06-01 22:23:09 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-01 22:23:09 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.15]
+2025-06-01 22:23:09 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-06-01 22:23:09 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 678 ms
+2025-06-01 22:23:09 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-01 22:23:09 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.13.Final
+2025-06-01 22:23:09 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2025-06-01 22:23:09 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-01 22:23:09 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-01 22:23:10 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-01 22:23:10 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-01 22:23:10 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@66464f27
+2025-06-01 22:23:10 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-01 22:23:10 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-01 22:23:10 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-01 22:23:12 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-01 22:23:12 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7f0c153b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@63a8998e, org.springframework.security.web.context.SecurityContextHolderFilter@69b47a8d, org.springframework.security.web.header.HeaderWriterFilter@5601e212, org.springframework.web.filter.CorsFilter@2f74f4c4, org.springframework.security.web.authentication.logout.LogoutFilter@66c67868, com.williamtravel.app.security.JwtAuthenticationFilter@5050cf7e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7fe73ad0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2d63dd21, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3236e30, org.springframework.security.web.session.SessionManagementFilter@6d29157c, org.springframework.security.web.access.ExceptionTranslationFilter@bb08766, org.springframework.security.web.access.intercept.AuthorizationFilter@183216fe]
+2025-06-01 22:23:12 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/api'
+2025-06-01 22:23:12 [main] INFO  c.w.a.WilliamTravelApplication$ApplicationStartupListener - Application context refreshed, all beans initialized
+2025-06-01 22:23:12 [main] INFO  c.w.a.WilliamTravelApplication$ApplicationStartupListener - William Travel API is ready to serve requests
+2025-06-01 22:23:12 [main] INFO  c.w.app.WilliamTravelApplication - Started WilliamTravelApplication in 4.285 seconds (process running for 4.404)
+2025-06-01 22:23:12 [main] INFO  c.w.app.WilliamTravelApplication - William Travel Application started successfully!

@@ -48,7 +48,9 @@
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/util/EntityMapper.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/repository/RegionRepository.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/entity/AccommodationCategory.java
+/Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/config/WebMvcConfig.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/entity/CommunityPostCommunityPostTag.java
+/Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/util/LoggingUtils.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/entity/Permission.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/entity/Ward.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/controller/ArticleArticleCategoryController.java
@@ -78,6 +80,7 @@
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/controller/RegionController.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/service/RolePermissionService.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/service/RoleService.java
+/Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/controller/BaseController.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/repository/ArticleCommentRepository.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/controller/LocationController.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/entity/Food.java
@@ -96,6 +99,7 @@
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/controller/DistrictController.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/dto/RegisterRequest.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/repository/PermissionRepository.java
+/Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/service/BaseService.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/dto/PasswordResetResponse.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/service/UserService.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/WilliamTravelApplication.java
@@ -106,6 +110,7 @@
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/dto/LogoutResponse.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/entity/EventSponsor.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/entity/Organizer.java
+/Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/config/DatabaseLoggingAspect.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/entity/ArticleComment.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/entity/MediaType.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/entity/ArticleArticleTag.java
@@ -120,6 +125,7 @@
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/service/RatingService.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/entity/CommunityPostCategory.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/service/LocationCategoryService.java
+/Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/config/LoggingAspect.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/service/CountryService.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/controller/FoodCategoryController.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/controller/RolePermissionController.java
@@ -127,10 +133,12 @@
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/controller/AccommodationCategoryController.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/controller/WardController.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/repository/PasswordResetTokenRepository.java
+/Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/config/RequestLoggingInterceptor.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/controller/PermissionController.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/service/ContinentService.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/repository/AccommodationRoomRepository.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/entity/Role.java
+/Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/config/GlobalExceptionHandler.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/repository/AccommodationCategoryRepository.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/entity/Event.java
 /Users/williamnguyen/william_project/william-travel/java/src/main/java/com/williamtravel/app/entity/Article.java
