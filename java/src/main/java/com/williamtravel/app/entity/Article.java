@@ -41,6 +41,12 @@ public class Article {
     private String title;
 
     /**
+     * URL-friendly slug for the article
+     */
+    @Column(name = "slug", length = 255, unique = true)
+    private String slug;
+
+    /**
      * Code for translation purposes
      */
     @Column(name = "title_code", length = 255)

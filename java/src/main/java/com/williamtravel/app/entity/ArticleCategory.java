@@ -34,10 +34,41 @@ public class ArticleCategory {
     private String name;
 
     /**
+     * URL-friendly slug for the category
+     */
+    @Column(name = "slug", length = 100, unique = true)
+    private String slug;
+
+    /**
      * Whether the category is active
      */
     @Column(name = "status", nullable = false)
     private Boolean status;
+
+    /**
+     * Parent category for hierarchical organization
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_category_id")
+    private ArticleCategory parentCategory;
+
+    /**
+     * Child categories
+     */
+    @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<ArticleCategory> childCategories = new HashSet<>();
+
+    /**
+     * Sort order for displaying categories
+     */
+    @Column(name = "sort_order")
+    private Integer sortOrder;
+
+    /**
+     * Whether the category is featured
+     */
+    @Column(name = "is_featured")
+    private Boolean isFeatured;
 
     /**
      * Timestamp when category was created
