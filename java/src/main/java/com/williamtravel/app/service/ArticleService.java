@@ -201,7 +201,7 @@ public class ArticleService {
         return articleRepository.findByTagId(tagId, pageable);
     }
 
-    // Popular articles
+    // Popular articles (by view count)
     /**
      * Find popular articles
      */
@@ -210,7 +210,7 @@ public class ArticleService {
     }
 
     /**
-     * Find popular articles since date
+     * Find popular articles since a specific date
      */
     public List<Article> findPopularArticlesSince(LocalDateTime since, Pageable pageable) {
         return articleRepository.findPopularArticlesSince(since, pageable);
@@ -241,7 +241,7 @@ public class ArticleService {
 
     // Related articles
     /**
-     * Find related articles
+     * Find related articles by shared categories
      */
     public List<Article> findRelatedArticles(Integer articleId, Pageable pageable) {
         return articleRepository.findRelatedArticles(articleId, pageable);
