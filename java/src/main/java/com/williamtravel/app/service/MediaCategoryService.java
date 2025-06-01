@@ -67,14 +67,14 @@ public class MediaCategoryService {
     /**
      * Find media categories by status
      */
-    public List<MediaCategory> findByStatus(Boolean status) {
+    public List<MediaCategory> findByStatus(Integer status) {
         return mediaCategoryRepository.findByStatus(status);
     }
 
     /**
      * Find media categories by status with pagination
      */
-    public Page<MediaCategory> findByStatus(Boolean status, Pageable pageable) {
+    public Page<MediaCategory> findByStatus(Integer status, Pageable pageable) {
         return mediaCategoryRepository.findByStatus(status, pageable);
     }
 

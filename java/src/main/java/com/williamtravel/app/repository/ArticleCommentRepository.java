@@ -101,7 +101,7 @@ public interface ArticleCommentRepository extends JpaRepository<ArticleComment, 
     List<Object[]> findMostCommentedArticles(Pageable pageable);
 
     // Most active commenters
-    @Query("SELECT ac.user.id, ac.user.username, COUNT(ac) FROM ArticleComment ac WHERE ac.status = true GROUP BY ac.user.id, ac.user.username ORDER BY COUNT(ac) DESC")
+    @Query("SELECT ac.user.id, ac.user.fullName, COUNT(ac) FROM ArticleComment ac WHERE ac.status = true GROUP BY ac.user.id, ac.user.fullName ORDER BY COUNT(ac) DESC")
     List<Object[]> findMostActiveCommenters(Pageable pageable);
 
     // Comments pending approval
@@ -114,7 +114,7 @@ public interface ArticleCommentRepository extends JpaRepository<ArticleComment, 
     // Recent comments on published articles
     @Query("SELECT ac FROM ArticleComment ac " +
            "JOIN ac.article a " +
-           "WHERE ac.status = true AND a.status = 'published' " +
+           "WHERE ac.status = true AND a.status = true " +
            "ORDER BY ac.createdAt DESC")
     List<ArticleComment> findRecentCommentsOnPublishedArticles(Pageable pageable);
 }

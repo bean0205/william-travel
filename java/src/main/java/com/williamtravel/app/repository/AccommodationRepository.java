@@ -176,7 +176,7 @@ public interface AccommodationRepository extends JpaRepository<Accommodation, In
     boolean existsByLatitudeAndLongitudeAndIdNot(Double latitude, Double longitude, Integer id);
     
     // Custom business logic queries
-    @Query("SELECT a FROM Accommodation a WHERE a.isActive = true AND a.imageUrl IS NOT NULL ORDER BY a.rating DESC")
+    @Query("SELECT a FROM Accommodation a WHERE a.isActive = true AND EXISTS (SELECT 1 FROM Media m WHERE m.referenceId = a.id AND m.referenceType = 'accommodation') ORDER BY a.rating DESC")
     List<Accommodation> findFeaturedAccommodationsWithImages(Pageable pageable);
     
     @Query("SELECT a FROM Accommodation a WHERE a.isActive = true AND a.country.id = :countryId ORDER BY a.rating DESC")

@@ -72,14 +72,14 @@ public interface RatingRepository extends JpaRepository<Rating, Integer> {
 
     // Search in review content
     @Query("SELECT r FROM Rating r WHERE " +
-           "r.review IS NOT NULL AND " +
-           "LOWER(r.review) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+           "r.comment IS NOT NULL AND " +
+           "LOWER(r.comment) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
            "ORDER BY r.createdAt DESC")
     List<Rating> searchByReviewContent(@Param("keyword") String keyword);
     
     @Query("SELECT r FROM Rating r WHERE " +
-           "r.review IS NOT NULL AND " +
-           "LOWER(r.review) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+           "r.comment IS NOT NULL AND " +
+           "LOWER(r.comment) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
            "ORDER BY r.createdAt DESC")
     Page<Rating> searchByReviewContent(@Param("keyword") String keyword, Pageable pageable);
 
@@ -125,25 +125,25 @@ public interface RatingRepository extends JpaRepository<Rating, Integer> {
     List<Rating> findRecentRatingsByType(@Param("referenceType") String referenceType, Pageable pageable);
 
     // Ratings with reviews
-    @Query("SELECT r FROM Rating r WHERE r.review IS NOT NULL AND r.review != '' ORDER BY r.createdAt DESC")
+    @Query("SELECT r FROM Rating r WHERE r.comment IS NOT NULL AND r.comment != '' ORDER BY r.createdAt DESC")
     List<Rating> findRatingsWithReviews();
     
-    @Query("SELECT r FROM Rating r WHERE r.review IS NOT NULL AND r.review != '' ORDER BY r.createdAt DESC")
+    @Query("SELECT r FROM Rating r WHERE r.comment IS NOT NULL AND r.comment != '' ORDER BY r.createdAt DESC")
     Page<Rating> findRatingsWithReviews(Pageable pageable);
 
     // Ratings with reviews for specific entity
-    @Query("SELECT r FROM Rating r WHERE r.referenceId = :referenceId AND r.referenceType = :referenceType AND r.review IS NOT NULL AND r.review != '' ORDER BY r.createdAt DESC")
+    @Query("SELECT r FROM Rating r WHERE r.referenceId = :referenceId AND r.referenceType = :referenceType AND r.comment IS NOT NULL AND r.comment != '' ORDER BY r.createdAt DESC")
     List<Rating> findRatingsWithReviewsByReference(@Param("referenceId") Integer referenceId, 
                                                   @Param("referenceType") String referenceType);
     
-    @Query("SELECT r FROM Rating r WHERE r.referenceId = :referenceId AND r.referenceType = :referenceType AND r.review IS NOT NULL AND r.review != '' ORDER BY r.createdAt DESC")
+    @Query("SELECT r FROM Rating r WHERE r.referenceId = :referenceId AND r.referenceType = :referenceType AND r.comment IS NOT NULL AND r.comment != '' ORDER BY r.createdAt DESC")
     Page<Rating> findRatingsWithReviewsByReference(@Param("referenceId") Integer referenceId, 
                                                   @Param("referenceType") String referenceType, 
                                                   Pageable pageable);
 
     // Most active raters
-    @Query("SELECT r.user.id, r.user.username, COUNT(r), AVG(r.rating) FROM Rating r " +
-           "GROUP BY r.user.id, r.user.username " +
+    @Query("SELECT r.user.id, r.user.fullName, COUNT(r), AVG(r.rating) FROM Rating r " +
+           "GROUP BY r.user.id, r.user.fullName " +
            "ORDER BY COUNT(r) DESC")
     List<Object[]> findMostActiveRaters(Pageable pageable);
 

@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Stores individual rooms within accommodations
@@ -77,6 +80,12 @@ public class AccommodationRoom {
      */
     @Column(name = "bed_capacity", length = 100)
     private String bedCapacity;
+    
+    /**
+     * Price per night for the room
+     */
+    @Column(name = "price_per_night")
+    private Double pricePerNight;
 
     /**
      * Status: 1-active, 0-inactive
@@ -95,4 +104,12 @@ public class AccommodationRoom {
      */
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    
+    /**
+     * Media items associated with this room
+     */
+    @OneToMany
+    @JoinColumn(name = "reference_id")
+    @Where(clause = "reference_type = 'accommodation_room'")
+    private Set<Media> media = new HashSet<>();
 }

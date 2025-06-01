@@ -28,11 +28,11 @@ public interface MediaTypeRepository extends JpaRepository<MediaType, Integer> {
     boolean existsByExtension(String extension);
 
     // Status-based queries
-    List<MediaType> findByStatus(Boolean status);
+    List<MediaType> findByStatus(Integer status);
     
-    Page<MediaType> findByStatus(Boolean status, Pageable pageable);
+    Page<MediaType> findByStatus(Integer status, Pageable pageable);
     
-    @Query("SELECT mt FROM MediaType mt WHERE mt.status = true ORDER BY mt.name ASC")
+    @Query("SELECT mt FROM MediaType mt WHERE mt.status = 1 ORDER BY mt.name ASC")
     List<MediaType> findAllActiveOrderByName();
 
     // Find by MIME type
@@ -47,13 +47,13 @@ public interface MediaTypeRepository extends JpaRepository<MediaType, Integer> {
            "(LOWER(mt.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
            "LOWER(mt.description) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
            "LOWER(mt.extension) LIKE LOWER(CONCAT('%', :keyword, '%'))) AND " +
-           "mt.status = true")
+           "mt.status = 1")
     List<MediaType> searchByKeyword(@Param("keyword") String keyword);
 
     // Types with media count
     @Query("SELECT mt, COUNT(m) FROM MediaType mt " +
            "LEFT JOIN mt.media m " +
-           "WHERE mt.status = true " +
+           "WHERE mt.status = 1 " +
            "GROUP BY mt " +
            "ORDER BY mt.name ASC")
     List<Object[]> findTypesWithMediaCount();
@@ -61,14 +61,14 @@ public interface MediaTypeRepository extends JpaRepository<MediaType, Integer> {
     // Types ordered by media count
     @Query("SELECT mt FROM MediaType mt " +
            "LEFT JOIN mt.media m " +
-           "WHERE mt.status = true " +
+           "WHERE mt.status = 1 " +
            "GROUP BY mt " +
            "ORDER BY COUNT(m) DESC")
     List<MediaType> findTypesOrderByMediaCount();
     
     @Query("SELECT mt FROM MediaType mt " +
            "LEFT JOIN mt.media m " +
-           "WHERE mt.status = true " +
+           "WHERE mt.status = 1 " +
            "GROUP BY mt " +
            "ORDER BY COUNT(m) DESC")
     Page<MediaType> findTypesOrderByMediaCount(Pageable pageable);
@@ -76,34 +76,34 @@ public interface MediaTypeRepository extends JpaRepository<MediaType, Integer> {
     // Types with media
     @Query("SELECT DISTINCT mt FROM MediaType mt " +
            "JOIN mt.media m " +
-           "WHERE mt.status = true")
+           "WHERE mt.status = 1")
     List<MediaType> findTypesWithMedia();
 
     // Image types
     @Query("SELECT mt FROM MediaType mt WHERE " +
            "LOWER(mt.mimeType) LIKE 'image/%' AND " +
-           "mt.status = true " +
+           "mt.status = 1 " +
            "ORDER BY mt.name ASC")
     List<MediaType> findImageTypes();
 
     // Video types
     @Query("SELECT mt FROM MediaType mt WHERE " +
            "LOWER(mt.mimeType) LIKE 'video/%' AND " +
-           "mt.status = true " +
+           "mt.status = 1 " +
            "ORDER BY mt.name ASC")
     List<MediaType> findVideoTypes();
 
     // Audio types
     @Query("SELECT mt FROM MediaType mt WHERE " +
            "LOWER(mt.mimeType) LIKE 'audio/%' AND " +
-           "mt.status = true " +
+           "mt.status = 1 " +
            "ORDER BY mt.name ASC")
     List<MediaType> findAudioTypes();
 
     // Document types
     @Query("SELECT mt FROM MediaType mt WHERE " +
            "LOWER(mt.mimeType) LIKE 'application/%' AND " +
-           "mt.status = true " +
+           "mt.status = 1 " +
            "ORDER BY mt.name ASC")
     List<MediaType> findDocumentTypes();
 
@@ -111,34 +111,34 @@ public interface MediaTypeRepository extends JpaRepository<MediaType, Integer> {
     @Query("SELECT mt FROM MediaType mt WHERE " +
            "(:minSize IS NULL OR mt.maxFileSize >= :minSize) AND " +
            "(:maxSize IS NULL OR mt.maxFileSize <= :maxSize) AND " +
-           "mt.status = true")
+           "mt.status = 1")
     List<MediaType> findByFileSizeRange(@Param("minSize") Long minSize, @Param("maxSize") Long maxSize);
 
     // Statistical queries
-    @Query("SELECT COUNT(mt) FROM MediaType mt WHERE mt.status = true")
+    @Query("SELECT COUNT(mt) FROM MediaType mt WHERE mt.status = 1")
     Long countActiveTypes();
     
     @Query("SELECT COUNT(m) FROM MediaType mt " +
            "JOIN mt.media m " +
-           "WHERE mt.id = :typeId AND mt.status = true")
+           "WHERE mt.id = :typeId AND mt.status = 1")
     Long countMediaOfType(@Param("typeId") Integer typeId);
 
     // Recently created types
-    @Query("SELECT mt FROM MediaType mt WHERE mt.status = true ORDER BY mt.createdAt DESC")
+    @Query("SELECT mt FROM MediaType mt WHERE mt.status = 1 ORDER BY mt.createdDate DESC")
     List<MediaType> findRecentTypes(Pageable pageable);
 
     // Types by creation date range
     @Query("SELECT mt FROM MediaType mt WHERE " +
-           "mt.createdAt >= :startDate AND mt.createdAt <= :endDate AND " +
-           "mt.status = true " +
-           "ORDER BY mt.createdAt DESC")
-    List<MediaType> findTypesByDateRange(@Param("startDate") java.time.LocalDateTime startDate,
-                                        @Param("endDate") java.time.LocalDateTime endDate);
+           "mt.createdDate >= :startDate AND mt.createdDate <= :endDate AND " +
+           "mt.status = 1 " +
+           "ORDER BY mt.createdDate DESC")
+    List<MediaType> findTypesByDateRange(@Param("startDate") java.time.LocalDate startDate,
+                                        @Param("endDate") java.time.LocalDate endDate);
 
     // Popular types (by total file size)
     @Query("SELECT mt FROM MediaType mt " +
            "LEFT JOIN mt.media m " +
-           "WHERE mt.status = true " +
+           "WHERE mt.status = 1 " +
            "GROUP BY mt " +
            "ORDER BY COALESCE(SUM(m.fileSize), 0) DESC")
     List<MediaType> findTypesByTotalFileSize(Pageable pageable);
@@ -146,22 +146,22 @@ public interface MediaTypeRepository extends JpaRepository<MediaType, Integer> {
     // Types used for specific entity type
     @Query("SELECT DISTINCT mt FROM MediaType mt " +
            "JOIN mt.media m " +
-           "WHERE mt.status = true AND m.referenceType = :referenceType")
+           "WHERE mt.status = 1 AND m.referenceType = :referenceType")
     List<MediaType> findTypesUsedForReferenceType(@Param("referenceType") String referenceType);
 
     // Unused types (no media)
     @Query("SELECT mt FROM MediaType mt " +
            "LEFT JOIN mt.media m " +
-           "WHERE mt.status = true " +
+           "WHERE mt.status = 1 " +
            "GROUP BY mt " +
            "HAVING COUNT(m) = 0")
     List<MediaType> findUnusedTypes();
 
     // Valid file extensions
-    @Query("SELECT DISTINCT mt.extension FROM MediaType mt WHERE mt.status = true ORDER BY mt.extension ASC")
+    @Query("SELECT DISTINCT mt.extension FROM MediaType mt WHERE mt.status = 1 ORDER BY mt.extension ASC")
     List<String> findAllValidExtensions();
 
     // Valid MIME types
-    @Query("SELECT DISTINCT mt.mimeType FROM MediaType mt WHERE mt.status = true ORDER BY mt.mimeType ASC")
+    @Query("SELECT DISTINCT mt.mimeType FROM MediaType mt WHERE mt.status = 1 ORDER BY mt.mimeType ASC")
     List<String> findAllValidMimeTypes();
 }

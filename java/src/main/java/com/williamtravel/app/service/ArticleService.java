@@ -281,7 +281,7 @@ public class ArticleService {
     /**
      * Find articles with multiple filters
      */
-    public Page<Article> findWithFilters(String keyword, Integer authorId, Integer categoryId, Boolean featured, Pageable pageable) {
-        return articleRepository.findWithFilters(keyword, authorId, categoryId, featured, pageable);
+    public Page<Article> findWithFilters(String keyword, Integer authorId, Integer categoryId, Pageable pageable) {
+        return articleRepository.findWithFilters(keyword, authorId, categoryId, pageable);
     }
 }

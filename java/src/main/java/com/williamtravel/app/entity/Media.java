@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Stores information about media files (images, videos, documents) related to other entities
@@ -56,6 +57,18 @@ public class Media {
     private String url;
 
     /**
+     * File path where the media is stored
+     */
+    @Column(name = "file_path", columnDefinition = "TEXT")
+    private String filePath;
+
+    /**
+     * Original filename when uploaded
+     */
+    @Column(name = "original_file_name", length = 255)
+    private String originalFileName;
+
+    /**
      * Optional title for the media
      */
     @Column(name = "title", length = 255)
@@ -66,6 +79,48 @@ public class Media {
      */
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
+
+    /**
+     * Alternative text for accessibility (mainly for images)
+     */
+    @Column(name = "alt_text", length = 255)
+    private String altText;
+
+    /**
+     * Sort order for displaying media in a specific sequence
+     */
+    @Column(name = "sort_order")
+    private Integer sortOrder;
+
+    /**
+     * Whether this is the main/featured media for the entity
+     */
+    @Column(name = "is_main")
+    private Boolean isMain;
+
+    /**
+     * Width in pixels (for images and videos)
+     */
+    @Column(name = "width")
+    private Integer width;
+
+    /**
+     * Height in pixels (for images and videos)
+     */
+    @Column(name = "height")
+    private Integer height;
+
+    /**
+     * File size in bytes
+     */
+    @Column(name = "file_size")
+    private Long fileSize;
+
+    /**
+     * Date when media was uploaded
+     */
+    @Column(name = "uploaded_at")
+    private LocalDateTime uploadedAt;
 
     /**
      * Status: 1-active, 0-inactive

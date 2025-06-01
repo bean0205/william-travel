@@ -83,11 +83,11 @@ public interface FoodRepository extends JpaRepository<Food, Integer> {
            "f.status = true")
     Page<Food> searchByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
-    // Popular food queries (by view count)
-    @Query("SELECT f FROM Food f WHERE f.status = true ORDER BY f.viewCount DESC")
+    // Popular food queries (by popularity score)
+    @Query("SELECT f FROM Food f WHERE f.status = true ORDER BY f.popularityScore DESC")
     List<Food> findPopularFood(Pageable pageable);
     
-    @Query("SELECT f FROM Food f WHERE f.category.id = :categoryId AND f.status = true ORDER BY f.viewCount DESC")
+    @Query("SELECT f FROM Food f WHERE f.category.id = :categoryId AND f.status = true ORDER BY f.popularityScore DESC")
     List<Food> findPopularFoodByCategory(@Param("categoryId") Integer categoryId, Pageable pageable);
 
     // Recently added food
@@ -95,7 +95,7 @@ public interface FoodRepository extends JpaRepository<Food, Integer> {
     List<Food> findRecentFood(Pageable pageable);
 
     // Food with media
-    @Query("SELECT DISTINCT f FROM Food f JOIN f.media m WHERE f.status = true")
+    @Query("SELECT DISTINCT f FROM Food f WHERE f.status = true AND EXISTS (SELECT m FROM Media m WHERE m.referenceId = f.id AND m.referenceType = 'food')")
     List<Food> findFoodWithMedia();
 
     // Statistical queries

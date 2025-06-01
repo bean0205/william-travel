@@ -30,6 +30,13 @@ public class ArticleTagService {
     }
 
     /**
+     * Find all article tags with pagination
+     */
+    public Page<ArticleTag> findAll(Pageable pageable) {
+        return articleTagRepository.findAll(pageable);
+    }
+
+    /**
      * Find article tag by ID
      */
     public Optional<ArticleTag> findById(Integer id) {

@@ -24,30 +24,30 @@ public interface MediaCategoryRepository extends JpaRepository<MediaCategory, In
     boolean existsByName(String name);
 
     // Status-based queries
-    List<MediaCategory> findByStatus(Boolean status);
+    List<MediaCategory> findByStatus(Integer status);
     
-    Page<MediaCategory> findByStatus(Boolean status, Pageable pageable);
+    Page<MediaCategory> findByStatus(Integer status, Pageable pageable);
     
-    @Query("SELECT mc FROM MediaCategory mc WHERE mc.status = true ORDER BY mc.name ASC")
+    @Query("SELECT mc FROM MediaCategory mc WHERE mc.status = 1 ORDER BY mc.name ASC")
     List<MediaCategory> findAllActiveOrderByName();
 
     // Search queries
     @Query("SELECT mc FROM MediaCategory mc WHERE " +
            "(LOWER(mc.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
            "LOWER(mc.description) LIKE LOWER(CONCAT('%', :keyword, '%'))) AND " +
-           "mc.status = true")
+           "mc.status = 1")
     List<MediaCategory> searchByKeyword(@Param("keyword") String keyword);
     
     @Query("SELECT mc FROM MediaCategory mc WHERE " +
            "(LOWER(mc.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
            "LOWER(mc.description) LIKE LOWER(CONCAT('%', :keyword, '%'))) AND " +
-           "mc.status = true")
+           "mc.status = 1")
     Page<MediaCategory> searchByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
     // Categories with media count
     @Query("SELECT mc, COUNT(m) FROM MediaCategory mc " +
            "LEFT JOIN mc.media m " +
-           "WHERE mc.status = true " +
+           "WHERE mc.status = 1 " +
            "GROUP BY mc " +
            "ORDER BY mc.name ASC")
     List<Object[]> findCategoriesWithMediaCount();
@@ -55,14 +55,14 @@ public interface MediaCategoryRepository extends JpaRepository<MediaCategory, In
     // Categories ordered by media count
     @Query("SELECT mc FROM MediaCategory mc " +
            "LEFT JOIN mc.media m " +
-           "WHERE mc.status = true " +
+           "WHERE mc.status = 1 " +
            "GROUP BY mc " +
            "ORDER BY COUNT(m) DESC")
     List<MediaCategory> findCategoriesOrderByMediaCount();
     
     @Query("SELECT mc FROM MediaCategory mc " +
            "LEFT JOIN mc.media m " +
-           "WHERE mc.status = true " +
+           "WHERE mc.status = 1 " +
            "GROUP BY mc " +
            "ORDER BY COUNT(m) DESC")
     Page<MediaCategory> findCategoriesOrderByMediaCount(Pageable pageable);
@@ -70,42 +70,42 @@ public interface MediaCategoryRepository extends JpaRepository<MediaCategory, In
     // Categories with media
     @Query("SELECT DISTINCT mc FROM MediaCategory mc " +
            "JOIN mc.media m " +
-           "WHERE mc.status = true")
+           "WHERE mc.status = 1")
     List<MediaCategory> findCategoriesWithMedia();
 
     // Categories by usage in specific reference type
     @Query("SELECT mc, COUNT(m) FROM MediaCategory mc " +
            "LEFT JOIN mc.media m ON m.referenceType = :referenceType " +
-           "WHERE mc.status = true " +
+           "WHERE mc.status = 1 " +
            "GROUP BY mc " +
            "ORDER BY COUNT(m) DESC")
     List<Object[]> findCategoriesUsageByReferenceType(@Param("referenceType") String referenceType);
 
     // Statistical queries
-    @Query("SELECT COUNT(mc) FROM MediaCategory mc WHERE mc.status = true")
+    @Query("SELECT COUNT(mc) FROM MediaCategory mc WHERE mc.status = 1")
     Long countActiveCategories();
     
     @Query("SELECT COUNT(m) FROM MediaCategory mc " +
            "JOIN mc.media m " +
-           "WHERE mc.id = :categoryId AND mc.status = true")
+           "WHERE mc.id = :categoryId AND mc.status = 1")
     Long countMediaInCategory(@Param("categoryId") Integer categoryId);
 
     // Recently created categories
-    @Query("SELECT mc FROM MediaCategory mc WHERE mc.status = true ORDER BY mc.createdAt DESC")
+    @Query("SELECT mc FROM MediaCategory mc WHERE mc.status = 1 ORDER BY mc.createdDate DESC")
     List<MediaCategory> findRecentCategories(Pageable pageable);
 
     // Categories by creation date range
     @Query("SELECT mc FROM MediaCategory mc WHERE " +
-           "mc.createdAt >= :startDate AND mc.createdAt <= :endDate AND " +
-           "mc.status = true " +
-           "ORDER BY mc.createdAt DESC")
-    List<MediaCategory> findCategoriesByDateRange(@Param("startDate") java.time.LocalDateTime startDate,
-                                                 @Param("endDate") java.time.LocalDateTime endDate);
+           "mc.createdDate >= :startDate AND mc.createdDate <= :endDate AND " +
+           "mc.status = 1 " +
+           "ORDER BY mc.createdDate DESC")
+    List<MediaCategory> findCategoriesByDateRange(@Param("startDate") java.time.LocalDate startDate,
+                                                 @Param("endDate") java.time.LocalDate endDate);
 
     // Popular categories (by total file size)
     @Query("SELECT mc FROM MediaCategory mc " +
            "LEFT JOIN mc.media m " +
-           "WHERE mc.status = true " +
+           "WHERE mc.status = 1 " +
            "GROUP BY mc " +
            "ORDER BY COALESCE(SUM(m.fileSize), 0) DESC")
     List<MediaCategory> findCategoriesByTotalFileSize(Pageable pageable);
@@ -114,19 +114,19 @@ public interface MediaCategoryRepository extends JpaRepository<MediaCategory, In
     @Query("SELECT DISTINCT mc FROM MediaCategory mc " +
            "JOIN mc.media m " +
            "JOIN m.type mt " +
-           "WHERE mc.status = true AND mt.id = :mediaTypeId")
+           "WHERE mc.status = 1 AND mt.id = :mediaTypeId")
     List<MediaCategory> findCategoriesWithMediaType(@Param("mediaTypeId") Integer mediaTypeId);
 
     // Categories used for specific entity type
     @Query("SELECT DISTINCT mc FROM MediaCategory mc " +
            "JOIN mc.media m " +
-           "WHERE mc.status = true AND m.referenceType = :referenceType")
+           "WHERE mc.status = 1 AND m.referenceType = :referenceType")
     List<MediaCategory> findCategoriesUsedForReferenceType(@Param("referenceType") String referenceType);
 
     // Empty categories (no media)
     @Query("SELECT mc FROM MediaCategory mc " +
            "LEFT JOIN mc.media m " +
-           "WHERE mc.status = true " +
+           "WHERE mc.status = 1 " +
            "GROUP BY mc " +
            "HAVING COUNT(m) = 0")
     List<MediaCategory> findEmptyCategories();

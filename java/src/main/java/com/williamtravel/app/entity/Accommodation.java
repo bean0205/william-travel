@@ -2,6 +2,7 @@ package com.williamtravel.app.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -81,6 +82,9 @@ public class Accommodation {
     @Column(name = "popularity_score")
     private Double popularityScore;
 
+    @Column(name = "rating")
+    private Double rating;
+
     @Column(name = "checkin_time")
     private LocalTime checkinTime;
 
@@ -107,4 +111,9 @@ public class Accommodation {
     
     @OneToMany(mappedBy = "accommodation")
     private Set<AccommodationRoom> rooms = new HashSet<>();
+
+    @OneToMany
+    @JoinColumn(name = "reference_id")
+    @Where(clause = "reference_type = 'accommodation'")
+    private Set<Media> media = new HashSet<>();
 }

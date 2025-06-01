@@ -89,11 +89,11 @@ public class MediaTypeService {
     }
 
     // Status-based queries
-    public List<MediaType> findByStatus(Boolean status) {
+    public List<MediaType> findByStatus(Integer status) {
         return mediaTypeRepository.findByStatus(status);
     }
 
-    public Page<MediaType> findByStatus(Boolean status, Pageable pageable) {
+    public Page<MediaType> findByStatus(Integer status, Pageable pageable) {
         return mediaTypeRepository.findByStatus(status, pageable);
     }
 

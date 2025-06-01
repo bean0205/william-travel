@@ -90,15 +90,15 @@ public interface ArticleReactionRepository extends JpaRepository<ArticleReaction
     // Most liked articles
     @Query("SELECT ar.article.id, ar.article.title, COUNT(ar) FROM ArticleReaction ar " +
            "JOIN ar.article a " +
-           "WHERE ar.status = true AND a.status = 'published' " +
+           "WHERE ar.status = true AND a.status = true " +
            "GROUP BY ar.article.id, ar.article.title " +
            "ORDER BY COUNT(ar) DESC")
     List<Object[]> findMostLikedArticles(Pageable pageable);
 
     // Most active users (by reactions given)
-    @Query("SELECT ar.user.id, ar.user.username, COUNT(ar) FROM ArticleReaction ar " +
+    @Query("SELECT ar.user.id, ar.user.fullName, COUNT(ar) FROM ArticleReaction ar " +
            "WHERE ar.status = true " +
-           "GROUP BY ar.user.id, ar.user.username " +
+           "GROUP BY ar.user.id, ar.user.fullName " +
            "ORDER BY COUNT(ar) DESC")
     List<Object[]> findMostActiveReactors(Pageable pageable);
 
@@ -124,14 +124,14 @@ public interface ArticleReactionRepository extends JpaRepository<ArticleReaction
     // Recent reactions on published articles
     @Query("SELECT ar FROM ArticleReaction ar " +
            "JOIN ar.article a " +
-           "WHERE ar.status = true AND a.status = 'published' " +
+           "WHERE ar.status = true AND a.status = true " +
            "ORDER BY ar.createdAt DESC")
     List<ArticleReaction> findRecentReactionsOnPublishedArticles(Pageable pageable);
 
     // Trending articles (by recent likes)
     @Query("SELECT ar.article.id, COUNT(ar) FROM ArticleReaction ar " +
            "JOIN ar.article a " +
-           "WHERE ar.status = true AND a.status = 'published' " +
+           "WHERE ar.status = true AND a.status = true " +
            "AND ar.createdAt >= :since " +
            "GROUP BY ar.article.id " +
            "ORDER BY COUNT(ar) DESC")

@@ -92,11 +92,11 @@ public interface FoodCategoryRepository extends JpaRepository<FoodCategory, Inte
     List<FoodCategory> findCategoriesByDateRange(@Param("startDate") java.time.LocalDateTime startDate,
                                                 @Param("endDate") java.time.LocalDateTime endDate);
 
-    // Popular categories (by total food views)
+    // Popular categories (by total food popularity score)
     @Query("SELECT fc FROM FoodCategory fc " +
            "LEFT JOIN fc.foods f ON f.status = true " +
            "WHERE fc.status = true " +
            "GROUP BY fc " +
-           "ORDER BY COALESCE(SUM(f.viewCount), 0) DESC")
+           "ORDER BY COALESCE(SUM(f.popularityScore), 0) DESC")
     List<FoodCategory> findPopularCategories(Pageable pageable);
 }

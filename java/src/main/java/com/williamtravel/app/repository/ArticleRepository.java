@@ -15,126 +15,115 @@ import java.util.Optional;
 
 /**
  * Repository interface for Article entity operations
- * Provides CRUD operations and custom queries for article management
  */
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
-    // Basic finder methods
-    Optional<Article> findBySlug(String slug);
+    // Basic CRUD operations are inherited from JpaRepository
     
-    boolean existsBySlug(String slug);
+    // Custom finder methods
+    Optional<Article> findByTitleAndStatus(String title, Boolean status);
     
-    boolean existsByTitle(String title);
-
-    // Author-based queries
-    @Query("SELECT a FROM Article a WHERE a.author.id = :authorId")
-    List<Article> findByAuthorId(@Param("authorId") Integer authorId);
+    List<Article> findByAuthorId(Integer authorId);
     
-    @Query("SELECT a FROM Article a WHERE a.author.id = :authorId")
-    Page<Article> findByAuthorId(@Param("authorId") Integer authorId, Pageable pageable);
+    Page<Article> findByAuthorId(Integer authorId, Pageable pageable);
     
-    @Query("SELECT a FROM Article a WHERE a.author.id = :authorId AND a.status = :status")
-    Page<Article> findByAuthorIdAndStatus(@Param("authorId") Integer authorId, 
-                                         @Param("status") String status, 
+    List<Article> findByAuthorIdAndStatus(Integer authorId, Boolean status);
+    
+    Page<Article> findByAuthorIdAndStatus(@Param("authorId") Integer authorId,
+                                         @Param("status") Boolean status,
                                          Pageable pageable);
 
     // Status-based queries
-    List<Article> findByStatus(String status);
+    List<Article> findByStatus(Boolean status);
     
-    Page<Article> findByStatus(String status, Pageable pageable);
+    Page<Article> findByStatus(Boolean status, Pageable pageable);
     
-    @Query("SELECT a FROM Article a WHERE a.status = 'published' ORDER BY a.publishedAt DESC")
+    @Query("SELECT a FROM Article a WHERE a.status = true ORDER BY a.createdAt DESC")
     List<Article> findPublishedArticles();
     
-    @Query("SELECT a FROM Article a WHERE a.status = 'published' ORDER BY a.publishedAt DESC")
+    @Query("SELECT a FROM Article a WHERE a.status = true ORDER BY a.createdAt DESC")
     Page<Article> findPublishedArticles(Pageable pageable);
 
-    // Featured articles
-    @Query("SELECT a FROM Article a WHERE a.featured = true AND a.status = 'published' ORDER BY a.publishedAt DESC")
+    // Featured articles - using published articles ordered by view count as featured
+    @Query("SELECT a FROM Article a WHERE a.status = true ORDER BY a.viewCount DESC")
     List<Article> findFeaturedArticles();
     
-    @Query("SELECT a FROM Article a WHERE a.featured = true AND a.status = 'published' ORDER BY a.publishedAt DESC")
+    @Query("SELECT a FROM Article a WHERE a.status = true ORDER BY a.viewCount DESC")
     Page<Article> findFeaturedArticles(Pageable pageable);
 
     // Search queries
     @Query("SELECT a FROM Article a WHERE " +
            "(LOWER(a.title) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
-           "LOWER(a.excerpt) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+           "LOWER(a.description) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
            "LOWER(a.content) LIKE LOWER(CONCAT('%', :keyword, '%'))) AND " +
-           "a.status = 'published'")
+           "a.status = true")
     List<Article> searchByKeyword(@Param("keyword") String keyword);
     
     @Query("SELECT a FROM Article a WHERE " +
            "(LOWER(a.title) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
-           "LOWER(a.excerpt) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+           "LOWER(a.description) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
            "LOWER(a.content) LIKE LOWER(CONCAT('%', :keyword, '%'))) AND " +
-           "a.status = 'published'")
+           "a.status = true")
     Page<Article> searchByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
     // Category-based queries
     @Query("SELECT a FROM Article a " +
-           "JOIN a.articleCategories aac " +
-           "JOIN aac.category c " +
-           "WHERE c.id = :categoryId AND a.status = 'published'")
+           "JOIN a.categories c " +
+           "WHERE c.id = :categoryId AND a.status = true")
     List<Article> findByCategoryId(@Param("categoryId") Integer categoryId);
     
     @Query("SELECT a FROM Article a " +
-           "JOIN a.articleCategories aac " +
-           "JOIN aac.category c " +
-           "WHERE c.id = :categoryId AND a.status = 'published'")
+           "JOIN a.categories c " +
+           "WHERE c.id = :categoryId AND a.status = true")
     Page<Article> findByCategoryId(@Param("categoryId") Integer categoryId, Pageable pageable);
 
     // Tag-based queries
     @Query("SELECT a FROM Article a " +
-           "JOIN a.articleTags aat " +
-           "JOIN aat.tag t " +
-           "WHERE t.id = :tagId AND a.status = 'published'")
+           "JOIN a.tags t " +
+           "WHERE t.id = :tagId AND a.status = true")
     List<Article> findByTagId(@Param("tagId") Integer tagId);
     
     @Query("SELECT a FROM Article a " +
-           "JOIN a.articleTags aat " +
-           "JOIN aat.tag t " +
-           "WHERE t.id = :tagId AND a.status = 'published'")
+           "JOIN a.tags t " +
+           "WHERE t.id = :tagId AND a.status = true")
     Page<Article> findByTagId(@Param("tagId") Integer tagId, Pageable pageable);
 
     // Popular articles (by view count)
-    @Query("SELECT a FROM Article a WHERE a.status = 'published' ORDER BY a.viewCount DESC")
+    @Query("SELECT a FROM Article a WHERE a.status = true ORDER BY a.viewCount DESC")
     List<Article> findPopularArticles(Pageable pageable);
     
-    @Query("SELECT a FROM Article a WHERE a.status = 'published' AND a.publishedAt >= :since ORDER BY a.viewCount DESC")
+    @Query("SELECT a FROM Article a WHERE a.status = true AND a.createdAt >= :since ORDER BY a.viewCount DESC")
     List<Article> findPopularArticlesSince(@Param("since") LocalDateTime since, Pageable pageable);
 
     // Recent articles
-    @Query("SELECT a FROM Article a WHERE a.status = 'published' ORDER BY a.publishedAt DESC")
+    @Query("SELECT a FROM Article a WHERE a.status = true ORDER BY a.createdAt DESC")
     List<Article> findRecentArticles(Pageable pageable);
 
     // Articles by date range
     @Query("SELECT a FROM Article a WHERE " +
-           "a.publishedAt >= :startDate AND a.publishedAt <= :endDate AND " +
-           "a.status = 'published' " +
-           "ORDER BY a.publishedAt DESC")
+           "a.createdAt >= :startDate AND a.createdAt <= :endDate AND " +
+           "a.status = true " +
+           "ORDER BY a.createdAt DESC")
     List<Article> findByDateRange(@Param("startDate") LocalDateTime startDate,
                                  @Param("endDate") LocalDateTime endDate);
     
     @Query("SELECT a FROM Article a WHERE " +
-           "a.publishedAt >= :startDate AND a.publishedAt <= :endDate AND " +
-           "a.status = 'published' " +
-           "ORDER BY a.publishedAt DESC")
+           "a.createdAt >= :startDate AND a.createdAt <= :endDate AND " +
+           "a.status = true " +
+           "ORDER BY a.createdAt DESC")
     Page<Article> findByDateRange(@Param("startDate") LocalDateTime startDate,
                                  @Param("endDate") LocalDateTime endDate,
                                  Pageable pageable);
 
     // Related articles (by shared categories)
     @Query("SELECT DISTINCT a FROM Article a " +
-           "JOIN a.articleCategories aac1 " +
-           "JOIN aac1.category c " +
-           "WHERE c.id IN (" +
-           "   SELECT c2.id FROM Article a2 " +
-           "   JOIN a2.articleCategories aac2 " +
-           "   JOIN aac2.category c2 " +
+           "JOIN a.categories c " +
+           "WHERE c IN (" +
+           "   SELECT c2 FROM Article a2 " +
+           "   JOIN a2.categories c2 " +
            "   WHERE a2.id = :articleId" +
-           ") AND a.id != :articleId AND a.status = 'published'")
+           ") AND a.id != :articleId AND a.status = true")
     List<Article> findRelatedArticles(@Param("articleId") Integer articleId, Pageable pageable);
 
     // Update view count
@@ -143,30 +132,27 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
     void incrementViewCount(@Param("id") Integer id);
 
     // Statistical queries
-    @Query("SELECT COUNT(a) FROM Article a WHERE a.status = 'published'")
+    @Query("SELECT COUNT(a) FROM Article a WHERE a.status = true")
     Long countPublishedArticles();
     
-    @Query("SELECT COUNT(a) FROM Article a WHERE a.author.id = :authorId AND a.status = 'published'")
+    @Query("SELECT COUNT(a) FROM Article a WHERE a.author.id = :authorId AND a.status = true")
     Long countPublishedArticlesByAuthor(@Param("authorId") Integer authorId);
     
     @Query("SELECT COUNT(a) FROM Article a WHERE a.status = :status")
-    Long countByStatus(@Param("status") String status);
+    Long countByStatus(@Param("status") Boolean status);
 
-    // Complex search with filters
+    // Complex search with filters - simplified without featured field
     @Query("SELECT a FROM Article a " +
-           "LEFT JOIN a.articleCategories aac " +
-           "LEFT JOIN aac.category c " +
+           "LEFT JOIN a.categories c " +
            "WHERE " +
            "(:keyword IS NULL OR LOWER(a.title) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
-           "LOWER(a.excerpt) LIKE LOWER(CONCAT('%', :keyword, '%'))) AND " +
+           "LOWER(a.description) LIKE LOWER(CONCAT('%', :keyword, '%'))) AND " +
            "(:authorId IS NULL OR a.author.id = :authorId) AND " +
            "(:categoryId IS NULL OR c.id = :categoryId) AND " +
-           "(:featured IS NULL OR a.featured = :featured) AND " +
-           "a.status = 'published' " +
-           "ORDER BY a.publishedAt DESC")
+           "a.status = true " +
+           "ORDER BY a.createdAt DESC")
     Page<Article> findWithFilters(@Param("keyword") String keyword,
                                  @Param("authorId") Integer authorId,
                                  @Param("categoryId") Integer categoryId,
-                                 @Param("featured") Boolean featured,
                                  Pageable pageable);
 }

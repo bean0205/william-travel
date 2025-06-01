@@ -38,6 +38,24 @@ public class MediaType {
     private String description;
 
     /**
+     * File extension for this media type (e.g. jpg, mp4, pdf)
+     */
+    @Column(name = "extension", length = 10)
+    private String extension;
+
+    /**
+     * MIME type for this media type (e.g. image/jpeg, video/mp4)
+     */
+    @Column(name = "mime_type", length = 100)
+    private String mimeType;
+
+    /**
+     * Maximum file size allowed for this media type (in bytes)
+     */
+    @Column(name = "max_file_size")
+    private Long maxFileSize;
+
+    /**
      * Status: 1-active, 0-inactive
      */
     @Column(name = "status", nullable = false)

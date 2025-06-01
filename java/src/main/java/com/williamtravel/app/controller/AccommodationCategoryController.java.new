@@ -1,0 +1,87 @@
+package com.williamtravel.app.controller;
+
+import com.williamtravel.app.entity.AccommodationCategory;
+import com.williamtravel.app.service.AccommodationCategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * REST Controller for AccommodationCategory operations
+ */
+@RestController
+@RequestMapping("/api/accommodation-categories")
+@CrossOrigin(origins = "*")
+public class AccommodationCategoryController {
+
+    @Autowired
+    private AccommodationCategoryService accommodationCategoryService;
+
+    /**
+     * Get all accommodation categories
+     */
+    @GetMapping
+    public ResponseEntity<List<AccommodationCategory>> getAllAccommodationCategories() {
+        List<AccommodationCategory> categories = accommodationCategoryService.findAll();
+        return ResponseEntity.ok(categories);
+    }
+
+    /**
+     * Get accommodation category by ID
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<AccommodationCategory> getAccommodationCategoryById(@PathVariable Integer id) {
+        Optional<AccommodationCategory> category = accommodationCategoryService.findById(id);
+        return category.map(ResponseEntity::ok)
+                      .orElse(ResponseEntity.notFound().build());
+    }
+
+    /**
+     * Create new accommodation category
+     */
+    @PostMapping
+    public ResponseEntity<AccommodationCategory> createAccommodationCategory(@RequestBody AccommodationCategory category) {
+        AccommodationCategory savedCategory = accommodationCategoryService.save(category);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
+    }
+
+    /**
+     * Update accommodation category
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<AccommodationCategory> updateAccommodationCategory(@PathVariable Integer id, @RequestBody AccommodationCategory category) {
+        if (!accommodationCategoryService.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        category.setId(id);
+        AccommodationCategory updatedCategory = accommodationCategoryService.save(category);
+        return ResponseEntity.ok(updatedCategory);
+    }
+
+    /**
+     * Delete accommodation category
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAccommodationCategory(@PathVariable Integer id) {
+        if (!accommodationCategoryService.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        accommodationCategoryService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * Count total accommodation categories
+     */
+    @GetMapping("/count")
+    public ResponseEntity<Long> countAccommodationCategories() {
+        long count = accommodationCategoryService.count();
+        return ResponseEntity.ok(count);
+    }
+}
