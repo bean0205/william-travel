@@ -1,5 +1,6 @@
 com/williamtravel/app/controller/AccommodationCategoryController.class
 com/williamtravel/app/service/PermissionService$PermissionStats.class
+com/williamtravel/app/dto/PasswordResetRequest.class
 com/williamtravel/app/entity/ArticleArticleTag.class
 com/williamtravel/app/controller/ArticleCategoryController.class
 com/williamtravel/app/repository/FoodRepository.class
@@ -8,6 +9,7 @@ com/williamtravel/app/entity/User.class
 com/williamtravel/app/controller/RoleController.class
 com/williamtravel/app/controller/ArticleController.class
 com/williamtravel/app/controller/ContinentController.class
+com/williamtravel/app/dto/RegisterRequest.class
 com/williamtravel/app/security/JwtAuthenticationFilter.class
 com/williamtravel/app/service/MediaTypeService.class
 com/williamtravel/app/repository/MediaTypeRepository.class
@@ -29,6 +31,8 @@ com/williamtravel/app/repository/ArticleArticleCategoryRepository.class
 com/williamtravel/app/repository/ArticleArticleTagRepository.class
 com/williamtravel/app/repository/ArticleCategoryRepository.class
 com/williamtravel/app/service/ArticleCategoryService.class
+com/williamtravel/app/dto/PasswordResetResponse.class
+com/williamtravel/app/service/AuthenticationService.class
 com/williamtravel/app/repository/ArticleCommentRepository.class
 com/williamtravel/app/repository/AccommodationCategoryRepository.class
 com/williamtravel/app/controller/AccommodationController.class
@@ -58,6 +62,8 @@ com/williamtravel/app/repository/UserRepository.class
 com/williamtravel/app/entity/ArticleCategory.class
 com/williamtravel/app/repository/MediaRepository.class
 com/williamtravel/app/controller/RegionController.class
+com/williamtravel/app/util/UserMapper.class
+com/williamtravel/app/dto/UserResponse.class
 com/williamtravel/app/entity/FoodCategory.class
 com/williamtravel/app/service/WardService.class
 com/williamtravel/app/service/PasswordResetTokenService.class
@@ -84,13 +90,16 @@ com/williamtravel/app/service/PermissionService.class
 com/williamtravel/app/service/RoleService.class
 com/williamtravel/app/entity/ArticleArticleCategory.class
 com/williamtravel/app/service/RegionService.class
+com/williamtravel/app/dto/LogoutResponse.class
 com/williamtravel/app/repository/LocationCategoryRepository.class
 com/williamtravel/app/repository/ArticleRepository.class
 com/williamtravel/app/controller/PasswordResetTokenController.class
 com/williamtravel/app/controller/WardController.class
+com/williamtravel/app/dto/PasswordResetConfirmRequest.class
 com/williamtravel/app/service/ArticleReactionService.class
 com/williamtravel/app/entity/Permission.class
 com/williamtravel/app/entity/Continent.class
+com/williamtravel/app/dto/LoginRequest.class
 com/williamtravel/app/repository/LocationRepository.class
 com/williamtravel/app/repository/ArticleTagRepository.class
 com/williamtravel/app/entity/ArticleComment.class
@@ -113,11 +122,13 @@ com/williamtravel/app/controller/PermissionController.class
 com/williamtravel/app/entity/Role.class
 com/williamtravel/app/entity/CommunityPost.class
 com/williamtravel/app/util/EntityMapper.class
+com/williamtravel/app/dto/RegisterResponse.class
 com/williamtravel/app/entity/CommunityPostComment.class
 com/williamtravel/app/service/FoodCategoryService.class
 com/williamtravel/app/service/ArticleTagService.class
 com/williamtravel/app/entity/District.class
 com/williamtravel/app/entity/Article.class
+com/williamtravel/app/controller/AuthController.class
 com/williamtravel/app/service/MediaCategoryService.class
 com/williamtravel/app/entity/EventCategory.class
 com/williamtravel/app/service/ContinentService.class
@@ -133,3 +144,4 @@ com/williamtravel/app/entity/PasswordResetToken.class
 com/williamtravel/app/controller/ArticleTagController.class
 com/williamtravel/app/entity/RolePermissionId.class
 com/williamtravel/app/service/MediaService.class
+com/williamtravel/app/dto/LoginResponse.class

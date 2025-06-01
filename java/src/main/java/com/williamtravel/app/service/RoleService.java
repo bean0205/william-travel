@@ -64,6 +64,13 @@ public class RoleService {
     }
 
     /**
+     * Find default role (alias method for authentication service compatibility)
+     */
+    public Optional<Role> findDefaultRole() {
+        return findByIsDefaultTrue();
+    }
+
+    /**
      * Find roles by name containing (case insensitive)
      */
     public List<Role> findByNameContainingIgnoreCase(String name) {
