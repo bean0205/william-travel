@@ -123,7 +123,6 @@ public class CountryController {
      */
     @GetMapping("/continent/{continentId}")
     public ResponseEntity<List<Country>> getCountriesByContinent(@PathVariable Integer continentId) throws InterruptedException {
-        Thread.sleep(5000);
         List<Country> countries = countryService.findByContinentId(continentId);
         return ResponseEntity.ok(countries);
     }

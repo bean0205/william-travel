@@ -19534,3 +19534,1131 @@ Caused by: java.io.IOException: Broken pipe
 2025-06-02 21:51:00 [http-nio-8080-exec-8] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation completed: com.williamtravel.app.repository.CountryRepository.findByContinentId() in 4ms
 2025-06-02 21:51:00 [http-nio-8080-exec-8] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.CountryController.getCountriesByContinent() returned: data
 2025-06-02 21:51:00 [http-nio-8080-exec-8] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/countries/continent/4] status: 200, execution time: 5012 ms
+2025-06-02 21:53:12 [http-nio-8080-exec-9] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:53:12 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/4
+2025-06-02 21:53:12 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:53:12 [http-nio-8080-exec-9] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:53:12 [http-nio-8080-exec-9] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:53:12 [http-nio-8080-exec-9] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:53:12 [http-nio-8080-exec-9] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:53:12 [http-nio-8080-exec-9] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 21:53:12 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/4
+2025-06-02 21:53:12 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:53:12 [http-nio-8080-exec-1] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/countries/continent/4] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:53:12 [http-nio-8080-exec-1] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.CountryController.getCountriesByContinent() with arguments: [4]
+2025-06-02 21:53:12 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 21:53:12 [http-nio-8080-exec-9] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 21:53:12 [http-nio-8080-exec-9] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 23 ms
+2025-06-02 21:53:17 [http-nio-8080-exec-1] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation: com.williamtravel.app.repository.CountryRepository.findByContinentId() with arguments: [4]
+2025-06-02 21:53:17 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.continent_id,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        countries c1_0 
+    where
+        c1_0.continent_id=?
+2025-06-02 21:53:17 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0 
+    where
+        c1_0.id=?
+2025-06-02 21:53:17 [http-nio-8080-exec-1] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation completed: com.williamtravel.app.repository.CountryRepository.findByContinentId() in 6ms
+2025-06-02 21:53:17 [http-nio-8080-exec-1] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.CountryController.getCountriesByContinent() returned: data
+2025-06-02 21:53:17 [http-nio-8080-exec-1] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/countries/continent/4] status: 200, execution time: 5012 ms
+2025-06-02 21:53:17 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/4
+2025-06-02 21:53:17 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:53:17 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/4
+2025-06-02 21:53:17 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:53:17 [http-nio-8080-exec-4] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/countries/continent/4] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:53:17 [http-nio-8080-exec-4] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.CountryController.getCountriesByContinent() with arguments: [4]
+2025-06-02 21:53:22 [http-nio-8080-exec-4] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation: com.williamtravel.app.repository.CountryRepository.findByContinentId() with arguments: [4]
+2025-06-02 21:53:22 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.continent_id,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        countries c1_0 
+    where
+        c1_0.continent_id=?
+2025-06-02 21:53:22 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0 
+    where
+        c1_0.id=?
+2025-06-02 21:53:22 [http-nio-8080-exec-4] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation completed: com.williamtravel.app.repository.CountryRepository.findByContinentId() in 4ms
+2025-06-02 21:53:22 [http-nio-8080-exec-4] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.CountryController.getCountriesByContinent() returned: data
+2025-06-02 21:53:22 [http-nio-8080-exec-4] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/countries/continent/4] status: 200, execution time: 5009 ms
+2025-06-02 21:53:25 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:53:25 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/4
+2025-06-02 21:53:25 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:53:25 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:53:25 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:53:25 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:53:25 [http-nio-8080-exec-2] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:53:25 [http-nio-8080-exec-2] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 21:53:25 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 21:53:25 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/4
+2025-06-02 21:53:25 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:53:25 [http-nio-8080-exec-2] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 21:53:25 [http-nio-8080-exec-2] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 9 ms
+2025-06-02 21:53:25 [http-nio-8080-exec-3] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/countries/continent/4] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:53:25 [http-nio-8080-exec-3] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.CountryController.getCountriesByContinent() with arguments: [4]
+2025-06-02 21:53:30 [http-nio-8080-exec-3] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation: com.williamtravel.app.repository.CountryRepository.findByContinentId() with arguments: [4]
+2025-06-02 21:53:30 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.continent_id,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        countries c1_0 
+    where
+        c1_0.continent_id=?
+2025-06-02 21:53:30 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0 
+    where
+        c1_0.id=?
+2025-06-02 21:53:30 [http-nio-8080-exec-3] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation completed: com.williamtravel.app.repository.CountryRepository.findByContinentId() in 6ms
+2025-06-02 21:53:30 [http-nio-8080-exec-3] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.CountryController.getCountriesByContinent() returned: data
+2025-06-02 21:53:30 [http-nio-8080-exec-3] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/countries/continent/4] status: 200, execution time: 5015 ms
+2025-06-02 21:53:30 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/4
+2025-06-02 21:53:30 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:53:30 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/4
+2025-06-02 21:53:30 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:53:30 [http-nio-8080-exec-6] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/countries/continent/4] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:53:30 [http-nio-8080-exec-6] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.CountryController.getCountriesByContinent() with arguments: [4]
+2025-06-02 21:53:35 [http-nio-8080-exec-6] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation: com.williamtravel.app.repository.CountryRepository.findByContinentId() with arguments: [4]
+2025-06-02 21:53:35 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.continent_id,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        countries c1_0 
+    where
+        c1_0.continent_id=?
+2025-06-02 21:53:35 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0 
+    where
+        c1_0.id=?
+2025-06-02 21:53:35 [http-nio-8080-exec-6] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation completed: com.williamtravel.app.repository.CountryRepository.findByContinentId() in 4ms
+2025-06-02 21:53:35 [http-nio-8080-exec-6] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.CountryController.getCountriesByContinent() returned: data
+2025-06-02 21:53:35 [http-nio-8080-exec-6] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/countries/continent/4] status: 200, execution time: 5012 ms
+2025-06-02 21:56:49 [http-nio-8080-exec-7] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:56:49 [http-nio-8080-exec-7] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:56:49 [http-nio-8080-exec-7] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:56:49 [http-nio-8080-exec-7] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:56:49 [http-nio-8080-exec-7] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:56:49 [http-nio-8080-exec-7] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 21:56:49 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 21:56:49 [http-nio-8080-exec-7] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 21:56:49 [http-nio-8080-exec-7] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 18 ms
+2025-06-02 21:57:08 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:57:08 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:57:08 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:57:08 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:57:08 [http-nio-8080-exec-10] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:57:08 [http-nio-8080-exec-10] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 21:57:08 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 21:57:08 [http-nio-8080-exec-10] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 21:57:08 [http-nio-8080-exec-10] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 11 ms
+2025-06-02 21:58:09 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:58:09 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:58:09 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:58:09 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:58:09 [http-nio-8080-exec-1] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:58:09 [http-nio-8080-exec-1] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 21:58:09 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 21:58:09 [http-nio-8080-exec-1] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 21:58:09 [http-nio-8080-exec-1] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 50 ms
+2025-06-02 21:58:09 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:58:09 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:58:09 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:58:09 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:58:09 [http-nio-8080-exec-4] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:58:09 [http-nio-8080-exec-4] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 21:58:09 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 21:58:09 [http-nio-8080-exec-4] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 21:58:09 [http-nio-8080-exec-4] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 9 ms
+2025-06-02 21:58:14 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:58:14 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:58:14 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:58:14 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:58:14 [http-nio-8080-exec-2] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:58:14 [http-nio-8080-exec-2] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 21:58:14 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 21:58:14 [http-nio-8080-exec-2] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 21:58:14 [http-nio-8080-exec-2] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 4 ms
+2025-06-02 21:58:16 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:58:16 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:58:16 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:58:16 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:58:16 [http-nio-8080-exec-3] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:58:16 [http-nio-8080-exec-3] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 21:58:16 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 21:58:16 [http-nio-8080-exec-3] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 21:58:16 [http-nio-8080-exec-3] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 75 ms
+2025-06-02 21:58:16 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:58:16 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:58:16 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:58:16 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:58:16 [http-nio-8080-exec-6] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:58:16 [http-nio-8080-exec-6] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 21:58:16 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 21:58:16 [http-nio-8080-exec-6] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 21:58:16 [http-nio-8080-exec-6] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 9 ms
+2025-06-02 21:58:43 [http-nio-8080-exec-5] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:58:43 [http-nio-8080-exec-5] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:58:43 [http-nio-8080-exec-5] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:58:43 [http-nio-8080-exec-5] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:58:43 [http-nio-8080-exec-5] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:58:43 [http-nio-8080-exec-5] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 21:58:43 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 21:58:43 [http-nio-8080-exec-5] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 21:58:43 [http-nio-8080-exec-5] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 17 ms
+2025-06-02 21:59:06 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:59:06 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:59:06 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:59:06 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:59:06 [http-nio-8080-exec-8] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:59:06 [http-nio-8080-exec-8] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 21:59:06 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 21:59:06 [http-nio-8080-exec-8] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 21:59:06 [http-nio-8080-exec-8] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 21 ms
+2025-06-02 21:59:19 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:59:19 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:59:19 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 21:59:19 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 21:59:19 [http-nio-8080-exec-10] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 21:59:19 [http-nio-8080-exec-10] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 21:59:19 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 21:59:19 [http-nio-8080-exec-10] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 21:59:19 [http-nio-8080-exec-10] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 6 ms
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:00:21 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 123 ms
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:00:21 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:00:21 [http-nio-8080-exec-1] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 4 ms
+2025-06-02 22:00:29 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:00:29 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:00:29 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:00:29 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:00:29 [http-nio-8080-exec-6] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:00:29 [http-nio-8080-exec-6] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:00:29 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:00:29 [http-nio-8080-exec-6] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:00:29 [http-nio-8080-exec-6] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 4 ms
+2025-06-02 22:00:58 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:00:58 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:00:58 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:00:58 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:00:58 [http-nio-8080-exec-8] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:00:58 [http-nio-8080-exec-8] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:00:58 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:00:58 [http-nio-8080-exec-8] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:00:58 [http-nio-8080-exec-8] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 26 ms
+2025-06-02 22:01:37 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:01:37 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:01:37 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:01:37 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:01:37 [http-nio-8080-exec-10] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:01:37 [http-nio-8080-exec-10] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:01:37 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:01:37 [http-nio-8080-exec-10] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:01:37 [http-nio-8080-exec-10] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 28 ms
+2025-06-02 22:02:05 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:02:05 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:02:05 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:02:05 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:02:05 [http-nio-8080-exec-4] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:02:05 [http-nio-8080-exec-4] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:02:05 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:02:05 [http-nio-8080-exec-4] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:02:05 [http-nio-8080-exec-4] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 17 ms
+2025-06-02 22:02:18 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:02:18 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:02:18 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:02:18 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:02:18 [http-nio-8080-exec-3] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:02:18 [http-nio-8080-exec-3] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:02:18 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:02:18 [http-nio-8080-exec-3] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:02:18 [http-nio-8080-exec-3] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 8 ms
+2025-06-02 22:03:13 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:03:13 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:13 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:03:13 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:13 [http-nio-8080-exec-6] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:03:13 [http-nio-8080-exec-6] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:03:13 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:03:13 [http-nio-8080-exec-6] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:03:13 [http-nio-8080-exec-6] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 36 ms
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:03:30 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 34 ms
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:03:30 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:03:30 [http-nio-8080-exec-8] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 3 ms
+2025-06-02 22:03:32 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:03:32 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:32 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:03:32 [http-nio-8080-exec-4] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:32 [http-nio-8080-exec-4] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:03:32 [http-nio-8080-exec-4] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:03:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:03:32 [http-nio-8080-exec-4] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:03:32 [http-nio-8080-exec-4] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 7 ms
+2025-06-02 22:03:36 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:03:36 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:36 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:03:36 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:36 [http-nio-8080-exec-3] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:03:36 [http-nio-8080-exec-3] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:03:36 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:03:36 [http-nio-8080-exec-3] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:03:36 [http-nio-8080-exec-3] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 7 ms
+2025-06-02 22:03:36 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:03:36 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:36 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:03:36 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:36 [http-nio-8080-exec-2] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:03:36 [http-nio-8080-exec-2] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:03:36 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:03:36 [http-nio-8080-exec-2] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:03:36 [http-nio-8080-exec-2] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 5 ms
+2025-06-02 22:03:42 [http-nio-8080-exec-7] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:03:42 [http-nio-8080-exec-7] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:42 [http-nio-8080-exec-7] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:03:42 [http-nio-8080-exec-7] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:42 [http-nio-8080-exec-7] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:03:42 [http-nio-8080-exec-7] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:03:42 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:03:42 [http-nio-8080-exec-7] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:03:42 [http-nio-8080-exec-7] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 5 ms
+2025-06-02 22:03:47 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/4
+2025-06-02 22:03:47 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:47 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/4
+2025-06-02 22:03:47 [http-nio-8080-exec-10] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:03:47 [http-nio-8080-exec-10] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/countries/continent/4] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:03:47 [http-nio-8080-exec-10] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.CountryController.getCountriesByContinent() with arguments: [4]
+2025-06-02 22:03:52 [http-nio-8080-exec-10] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation: com.williamtravel.app.repository.CountryRepository.findByContinentId() with arguments: [4]
+2025-06-02 22:03:52 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.continent_id,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        countries c1_0 
+    where
+        c1_0.continent_id=?
+2025-06-02 22:03:52 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0 
+    where
+        c1_0.id=?
+2025-06-02 22:03:52 [http-nio-8080-exec-10] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation completed: com.williamtravel.app.repository.CountryRepository.findByContinentId() in 6ms
+2025-06-02 22:03:52 [http-nio-8080-exec-10] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.CountryController.getCountriesByContinent() returned: data
+2025-06-02 22:03:52 [http-nio-8080-exec-10] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/countries/continent/4] status: 200, execution time: 5010 ms
+2025-06-02 22:03:54 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-02 22:03:54 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-02 22:03:54 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-02 22:03:57 [main] INFO  c.w.app.WilliamTravelApplication - Starting WilliamTravelApplication using Java 23.0.2 with PID 44806 (/Users/williamnguyen/william_project/william-travel/java/target/classes started by williamnguyen in /Users/williamnguyen/william_project/william-travel/java)
+2025-06-02 22:03:57 [main] INFO  c.w.app.WilliamTravelApplication - No active profile set, falling back to 1 default profile: "default"
+2025-06-02 22:03:57 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-02 22:03:57 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33 ms. Found 28 JPA repository interfaces.
+2025-06-02 22:03:57 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2025-06-02 22:03:57 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-02 22:03:57 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.15]
+2025-06-02 22:03:57 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-02 22:03:57 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 631 ms
+2025-06-02 22:03:57 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-02 22:03:57 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3356ff58
+2025-06-02 22:03:57 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-02 22:03:57 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-02 22:03:57 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.13.Final
+2025-06-02 22:03:57 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2025-06-02 22:03:57 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-02 22:03:57 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-02 22:03:58 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-02 22:03:58 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-02 22:03:58 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-02 22:04:00 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-02 22:04:00 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@19db46c3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4a6eaf83, org.springframework.security.web.context.SecurityContextHolderFilter@663458e5, org.springframework.security.web.header.HeaderWriterFilter@3159479b, org.springframework.web.filter.CorsFilter@4d3f7e6a, org.springframework.security.web.authentication.logout.LogoutFilter@458bf662, com.williamtravel.app.security.JwtAuthenticationFilter@1de306c9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4ce6fb9a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@757023a6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3c9c90f8, org.springframework.security.web.session.SessionManagementFilter@5121b883, org.springframework.security.web.access.ExceptionTranslationFilter@1989cc38, org.springframework.security.web.access.intercept.AuthorizationFilter@2794b25f]
+2025-06-02 22:04:00 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2025-06-02 22:04:00 [main] INFO  c.w.a.WilliamTravelApplication$ApplicationStartupListener - Application context refreshed, all beans initialized
+2025-06-02 22:04:00 [main] INFO  c.w.a.WilliamTravelApplication$ApplicationStartupListener - William Travel API is ready to serve requests
+2025-06-02 22:04:00 [main] INFO  c.w.app.WilliamTravelApplication - Started WilliamTravelApplication in 3.896 seconds (process running for 4.226)
+2025-06-02 22:04:00 [main] INFO  c.w.app.WilliamTravelApplication - William Travel Application started successfully!
+2025-06-02 22:04:06 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-02 22:04:06 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-02 22:04:06 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2025-06-02 22:04:06 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:04:06 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:07 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:04:07 [http-nio-8080-exec-1] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:07 [http-nio-8080-exec-1] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:04:07 [http-nio-8080-exec-1] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:04:07 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:04:07 [http-nio-8080-exec-1] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:04:07 [http-nio-8080-exec-1] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 120 ms
+2025-06-02 22:04:07 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:04:07 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:07 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:04:07 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:07 [http-nio-8080-exec-2] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:04:07 [http-nio-8080-exec-2] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:04:07 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:04:07 [http-nio-8080-exec-2] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:04:07 [http-nio-8080-exec-2] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 13 ms
+2025-06-02 22:04:08 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/2
+2025-06-02 22:04:08 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:08 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/2
+2025-06-02 22:04:08 [http-nio-8080-exec-3] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:08 [http-nio-8080-exec-3] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/countries/continent/2] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:04:08 [http-nio-8080-exec-3] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.CountryController.getCountriesByContinent() with arguments: [2]
+2025-06-02 22:04:08 [http-nio-8080-exec-3] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation: com.williamtravel.app.repository.CountryRepository.findByContinentId() with arguments: [2]
+2025-06-02 22:04:08 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.continent_id,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        countries c1_0 
+    where
+        c1_0.continent_id=?
+2025-06-02 22:04:08 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0 
+    where
+        c1_0.id=?
+2025-06-02 22:04:08 [http-nio-8080-exec-3] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation completed: com.williamtravel.app.repository.CountryRepository.findByContinentId() in 44ms
+2025-06-02 22:04:08 [http-nio-8080-exec-3] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.CountryController.getCountriesByContinent() returned: data
+2025-06-02 22:04:08 [http-nio-8080-exec-3] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/countries/continent/2] status: 200, execution time: 57 ms
+2025-06-02 22:04:10 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/4
+2025-06-02 22:04:10 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:10 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/4
+2025-06-02 22:04:10 [http-nio-8080-exec-6] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:10 [http-nio-8080-exec-6] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/countries/continent/4] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+2025-06-02 22:04:10 [http-nio-8080-exec-6] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.CountryController.getCountriesByContinent() with arguments: [4]
+2025-06-02 22:04:10 [http-nio-8080-exec-6] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation: com.williamtravel.app.repository.CountryRepository.findByContinentId() with arguments: [4]
+2025-06-02 22:04:10 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.continent_id,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        countries c1_0 
+    where
+        c1_0.continent_id=?
+2025-06-02 22:04:10 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0 
+    where
+        c1_0.id=?
+2025-06-02 22:04:10 [http-nio-8080-exec-6] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation completed: com.williamtravel.app.repository.CountryRepository.findByContinentId() in 7ms
+2025-06-02 22:04:10 [http-nio-8080-exec-6] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.CountryController.getCountriesByContinent() returned: data
+2025-06-02 22:04:10 [http-nio-8080-exec-6] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/countries/continent/4] status: 200, execution time: 14 ms
+2025-06-02 22:04:23 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:04:23 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:23 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:04:23 [http-nio-8080-exec-8] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:23 [http-nio-8080-exec-8] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1
+2025-06-02 22:04:23 [http-nio-8080-exec-8] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:04:23 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:04:23 [http-nio-8080-exec-8] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:04:23 [http-nio-8080-exec-8] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 20 ms
+2025-06-02 22:04:23 [http-nio-8080-exec-9] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:04:23 [http-nio-8080-exec-9] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:23 [http-nio-8080-exec-9] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/continents
+2025-06-02 22:04:23 [http-nio-8080-exec-9] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:23 [http-nio-8080-exec-9] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/continents] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1
+2025-06-02 22:04:23 [http-nio-8080-exec-9] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.ContinentController.getAllContinents() with arguments: []
+2025-06-02 22:04:23 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0
+2025-06-02 22:04:23 [http-nio-8080-exec-9] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.ContinentController.getAllContinents() returned: data
+2025-06-02 22:04:23 [http-nio-8080-exec-9] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/continents] status: 200, execution time: 7 ms
+2025-06-02 22:04:32 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/2
+2025-06-02 22:04:32 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:32 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/2
+2025-06-02 22:04:32 [http-nio-8080-exec-2] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:32 [http-nio-8080-exec-2] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/countries/continent/2] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1
+2025-06-02 22:04:32 [http-nio-8080-exec-2] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.CountryController.getCountriesByContinent() with arguments: [2]
+2025-06-02 22:04:32 [http-nio-8080-exec-2] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation: com.williamtravel.app.repository.CountryRepository.findByContinentId() with arguments: [2]
+2025-06-02 22:04:32 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.continent_id,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        countries c1_0 
+    where
+        c1_0.continent_id=?
+2025-06-02 22:04:32 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0 
+    where
+        c1_0.id=?
+2025-06-02 22:04:33 [http-nio-8080-exec-2] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation completed: com.williamtravel.app.repository.CountryRepository.findByContinentId() in 29ms
+2025-06-02 22:04:33 [http-nio-8080-exec-2] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.CountryController.getCountriesByContinent() returned: data
+2025-06-02 22:04:33 [http-nio-8080-exec-2] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/countries/continent/2] status: 200, execution time: 38 ms
+2025-06-02 22:04:45 [http-nio-8080-exec-5] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/1
+2025-06-02 22:04:45 [http-nio-8080-exec-5] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:45 [http-nio-8080-exec-5] INFO  c.w.a.s.JwtAuthenticationFilter - Request path: /api/public/countries/continent/1
+2025-06-02 22:04:45 [http-nio-8080-exec-5] INFO  c.w.a.s.JwtAuthenticationFilter - Should not filter: true
+2025-06-02 22:04:45 [http-nio-8080-exec-5] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Request [GET /api/public/countries/continent/1] from IP: 0:0:0:0:0:0:0:1, User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1
+2025-06-02 22:04:45 [http-nio-8080-exec-5] INFO  c.w.app.config.LoggingAspect - API Request: com.williamtravel.app.controller.CountryController.getCountriesByContinent() with arguments: [1]
+2025-06-02 22:04:45 [http-nio-8080-exec-5] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation: com.williamtravel.app.repository.CountryRepository.findByContinentId() with arguments: [1]
+2025-06-02 22:04:45 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.continent_id,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        countries c1_0 
+    where
+        c1_0.continent_id=?
+2025-06-02 22:04:45 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.background_image,
+        c1_0.code,
+        c1_0.created_date,
+        c1_0.description,
+        c1_0.description_code,
+        c1_0.logo,
+        c1_0.name,
+        c1_0.name_code,
+        c1_0.status,
+        c1_0.updated_date 
+    from
+        continents c1_0 
+    where
+        c1_0.id=?
+2025-06-02 22:04:45 [http-nio-8080-exec-5] DEBUG c.w.app.config.DatabaseLoggingAspect - DB Operation completed: com.williamtravel.app.repository.CountryRepository.findByContinentId() in 9ms
+2025-06-02 22:04:45 [http-nio-8080-exec-5] INFO  c.w.app.config.LoggingAspect - API Response: com.williamtravel.app.controller.CountryController.getCountriesByContinent() returned: data
+2025-06-02 22:04:45 [http-nio-8080-exec-5] INFO  c.w.a.c.RequestLoggingInterceptor - HTTP Response [GET /api/public/countries/continent/1] status: 200, execution time: 16 ms

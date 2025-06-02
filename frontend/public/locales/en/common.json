@@ -72,6 +72,8 @@
   },
   "countrySelection": {
     "title": "Begin your journey across the world",
+    "loadingCountries": "Loading countries",
+    "pleaseWait": "Please wait while we fetch the destinations",
     "subtitle": "Choose your destination and discover personalized travel experiences tailored just for you.",
     "chooseContinent": "Choose a Continent",
     "selectRegion": "Select a region to explore its destinations",

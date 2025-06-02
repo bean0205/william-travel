@@ -57,6 +57,8 @@
   },
   "countrySelection": {
     "title": "Bắt đầu hành trình khám phá thế giới",
+    "loadingCountries": "Đang tải danh sách quốc gia",
+    "pleaseWait": "Vui lòng chờ trong khi chúng tôi tìm kiếm các điểm đến",
     "subtitle": "Chọn điểm đến của bạn và khám phá những trải nghiệm du lịch được cá nhân hóa dành riêng cho bạn.",
     "chooseContinent": "Chọn một Châu lục",
     "selectRegion": "Chọn một khu vực để khám phá điểm đến",
@@ -328,5 +330,6 @@
       "GB": "Vương quốc Anh",
       "VA": "Thành Vatican"
     }
+    
   }
 }
