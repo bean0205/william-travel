@@ -16,7 +16,7 @@ import java.util.Optional;
  * REST Controller for Continent operations
  */
 @RestController
-@RequestMapping("/api/continents")
+@RequestMapping("/api/public/continents")
 @CrossOrigin(origins = "*")
 public class ContinentController {
 

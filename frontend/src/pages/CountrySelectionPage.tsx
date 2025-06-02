@@ -92,6 +92,7 @@ interface Continent {
   gradient: string;
   image: string;
   description: string;
+  backgroundImage: string;
 }
 
 interface FeaturedDestination {
@@ -145,13 +146,6 @@ interface ContinentDetailApiResponse {
   countries: CountryApiItem[];
 }
 
-interface ContinentApiResponse {
-  items: ContinentApiItem[];
-  total: number;
-  page: number;
-  limit: number;
-  pages: number;
-}
 
 const CountrySelectionPage = () => {
   const { countries, setSelectedCountry, isCountrySelected } = useCountryStore();
@@ -178,10 +172,11 @@ const CountrySelectionPage = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await axios.get<ContinentApiResponse>(
-          'http://localhost:8000/api/v1/locations/continents/?page=1&limit=10'
+        const response = await axios.get<any>(
+          'http://localhost:8080/api/public/continents'
         );
-        setApiContinents(response.data.items);
+        setApiContinents(response.data);
+        debugger
       } catch (err) {
         console.error('Failed to fetch continents:', err);
         setError('Failed to load continents data. Using fallback data.');
@@ -420,7 +415,7 @@ const CountrySelectionPage = () => {
 
         try {
           const response = await axios.get<ContinentDetailApiResponse>(
-            `http://localhost:8000/api/v1/locations/continents/${selectedContinentData.id}`
+            `http://localhost:8000/api/continents/${selectedContinentData.id}`
           );
 
           setApiCountries(response.data.countries);
@@ -489,7 +484,7 @@ const CountrySelectionPage = () => {
   const getContinentFeaturedImage = (continentId: string) => {
     const continent = continents.find(c => c.id === continentId);
     if (!continent) return '';
-    return continent.image.replace("url('", '').replace("')", '');
+    return continent.backgroundImage.replace("url('", '').replace("')", '');
   };
 
   // Handle featured destination click
@@ -625,7 +620,7 @@ const CountrySelectionPage = () => {
                   style={{ animationDelay: `${0.1 + index * 0.1}s` }}
                   onClick={() => setSelectedContinent(continent.id)}
                 >
-                  <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{ backgroundImage: continent.image }}></div>
+                  <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{ backgroundImage: continent.backgroundImage }}></div>
                   <div className={`absolute inset-0 bg-gradient-to-br ${continent.color} opacity-70`}></div>
 
                   <div className="relative flex h-full flex-col justify-between p-5 md:p-6">

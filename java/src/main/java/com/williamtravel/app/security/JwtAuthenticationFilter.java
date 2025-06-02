@@ -10,10 +10,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import com.williamtravel.app.config.JwtProperties;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -26,6 +29,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtProperties jwtProperties;
+
+    private static final List<String> PUBLIC_URLS = Arrays.asList(
+        "/api/auth/**",
+        "/api/public/**",
+        "/auth/**",     // Thêm đường dẫn không có tiền tố /api
+        "/public/**",   // Thêm đường dẫn không có tiền tố /api
+        "/swagger-ui/**",
+        "/v3/api-docs/**"
+    );
+
+    private final AntPathMatcher pathMatcher = new AntPathMatcher();
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getServletPath();
+        logger.info("Request path: " + path);
+        boolean shouldNotFilter = PUBLIC_URLS.stream()
+               .anyMatch(pattern -> pathMatcher.match(pattern, path));
+        logger.info("Should not filter: " + shouldNotFilter);
+        return shouldNotFilter;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, 
