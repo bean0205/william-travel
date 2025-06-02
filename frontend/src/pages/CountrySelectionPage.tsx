@@ -25,6 +25,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { debug } from 'console';
 
 // Custom scrollbar styles
 const scrollbarStyles = `
@@ -90,7 +91,6 @@ interface Continent {
   icon: React.ReactNode;
   color: string;
   gradient: string;
-  image: string;
   description: string;
   backgroundImage: string;
 }
@@ -107,7 +107,7 @@ interface ContinentApiItem {
   name: string;
   code: string;
   name_code: string;
-  background_image: string;
+  backgroundImage: string;
   logo: string;
   description: string | null;
   description_code: string | null;
@@ -172,11 +172,10 @@ const CountrySelectionPage = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await axios.get<any>(
+        const response = await axios.get<[ContinentDetailApiResponse]>(
           'http://localhost:8080/api/public/continents'
         );
         setApiContinents(response.data);
-        debugger
       } catch (err) {
         console.error('Failed to fetch continents:', err);
         setError('Failed to load continents data. Using fallback data.');
@@ -254,7 +253,7 @@ const CountrySelectionPage = () => {
           icon,
           color,
           gradient,
-          image: `url('${continent.background_image}')`,
+          backgroundImage: `url('${continent?.backgroundImage}')`,
           description: t(`countrySelection.continentDesc.${continent.code}`) || continent.description || '',
         };
       })
@@ -265,7 +264,7 @@ const CountrySelectionPage = () => {
           icon: <Building className="h-6 w-6 text-yellow-100" />,
           color: 'from-yellow-500 to-orange-600',
           gradient: 'bg-gradient-to-br from-yellow-500 to-orange-600',
-          image: "url('https://images.unsplash.com/photo-1535139262971-c51845709a48?q=80&w=800')",
+          backgroundImage: "url('https://images.unsplash.com/photo-1535139262971-c51845709a48?q=80&w=800')",
           description: t('countrySelection.continentDesc.asia'),
         },
         {
@@ -274,7 +273,7 @@ const CountrySelectionPage = () => {
           icon: <Building className="h-6 w-6 text-indigo-100" />,
           color: 'from-indigo-600 to-purple-700',
           gradient: 'bg-gradient-to-br from-indigo-600 to-purple-700',
-          image: "url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=800')",
+          backgroundImage: "url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=800')",
           description: t('countrySelection.continentDesc.europe'),
         },
         {
@@ -283,7 +282,7 @@ const CountrySelectionPage = () => {
           icon: <Mountain className="h-6 w-6 text-red-100" />,
           color: 'from-red-600 to-rose-700',
           gradient: 'bg-gradient-to-br from-red-600 to-rose-700',
-          image: "url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=800')",
+          backgroundImage: "url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=800')",
           description: t('countrySelection.continentDesc.northAmerica'),
         },
         {
@@ -292,7 +291,7 @@ const CountrySelectionPage = () => {
           icon: <Palmtree className="h-6 w-6 text-emerald-100" />,
           color: 'from-emerald-600 to-green-700',
           gradient: 'bg-gradient-to-br from-emerald-600 to-green-700',
-          image: "url('https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?q=80&w=800')",
+          backgroundImage: "url('https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?q=80&w=800')",
           description: t('countrySelection.continentDesc.southAmerica'),
         },
         {
@@ -301,7 +300,7 @@ const CountrySelectionPage = () => {
           icon: <Palmtree className="h-6 w-6 text-amber-100" />,
           color: 'from-amber-600 to-yellow-700',
           gradient: 'bg-gradient-to-br from-amber-600 to-yellow-700',
-          image: "url('https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80&w=800')",
+          backgroundImage: "url('https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80&w=800')",
           description: t('countrySelection.continentDesc.africa'),
         },
         {
@@ -310,7 +309,7 @@ const CountrySelectionPage = () => {
           icon: <Sailboat className="h-6 w-6 text-cyan-100" />,
           color: 'from-cyan-600 to-blue-700',
           gradient: 'bg-gradient-to-br from-cyan-600 to-blue-700',
-          image: "url('https://images.unsplash.com/photo-1507699622108-4be3abd695ad?q=80&w=800')",
+          backgroundImage: "url('https://images.unsplash.com/photo-1507699622108-4be3abd695ad?q=80&w=800')",
           description: t('countrySelection.continentDesc.oceania'),
         },
       ];
@@ -415,10 +414,10 @@ const CountrySelectionPage = () => {
 
         try {
           const response = await axios.get<ContinentDetailApiResponse>(
-            `http://localhost:8000/api/continents/${selectedContinentData.id}`
+            `http://localhost:8080/api/public/countries/continent/${selectedContinentData.id}`
           );
 
-          setApiCountries(response.data.countries);
+          setApiCountries(response.data);
         } catch (err) {
           console.error('Failed to fetch countries for continent:', err);
           setCountryError('Failed to load countries. Using fallback data.');
@@ -702,10 +701,18 @@ const CountrySelectionPage = () => {
                 </>
               )}
             </div>
-            
-            {/* Country list */}
+              {/* Country list */}
             <div className="custom-scrollbar mb-6 max-h-[60vh] overflow-y-auto rounded-xl bg-white/5 p-1 backdrop-blur-md sm:p-2">
-              {filteredCountries.length > 0 ? (
+              {isLoadingCountries ? (
+                <div className="flex flex-col items-center justify-center h-60 p-6 text-center">
+                  <div className="relative w-16 h-16 mb-4">
+                    <div className="absolute inset-0 rounded-full border-4 border-white/10 border-t-primary-400 animate-spin"></div>
+                    <Globe className="absolute inset-0 m-auto h-8 w-8 text-white/50 animate-pulse-slow" />
+                  </div>
+                  <p className="text-white/80">{t('countrySelection.loadingCountries')}</p>
+                  <p className="text-sm text-white/50 mt-2">{t('countrySelection.pleaseWait')}</p>
+                </div>
+              ) : filteredCountries.length > 0 ? (
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {filteredCountries.map((country, index) => (
                     <div

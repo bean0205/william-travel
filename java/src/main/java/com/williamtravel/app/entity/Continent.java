@@ -1,5 +1,6 @@
 package com.williamtravel.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -86,5 +87,6 @@ public class Continent {
     private LocalDate updatedDate;
     
     @OneToMany(mappedBy = "continent")
+    @JsonIgnore
     private Set<Country> countries = new HashSet<>();
 }

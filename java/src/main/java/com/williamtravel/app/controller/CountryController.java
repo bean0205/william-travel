@@ -16,7 +16,7 @@ import java.util.Optional;
  * REST Controller for Country operations
  */
 @RestController
-@RequestMapping("/api/countries")
+@RequestMapping("/api/public/countries")
 @CrossOrigin(origins = "*")
 public class CountryController {
 
@@ -122,7 +122,8 @@ public class CountryController {
      * Get countries by continent
      */
     @GetMapping("/continent/{continentId}")
-    public ResponseEntity<List<Country>> getCountriesByContinent(@PathVariable Integer continentId) {
+    public ResponseEntity<List<Country>> getCountriesByContinent(@PathVariable Integer continentId) throws InterruptedException {
+        Thread.sleep(5000);
         List<Country> countries = countryService.findByContinentId(continentId);
         return ResponseEntity.ok(countries);
     }

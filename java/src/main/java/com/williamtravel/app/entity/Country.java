@@ -1,5 +1,6 @@
 package com.williamtravel.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -89,24 +90,31 @@ public class Country {
      * Reference to the continent this country belongs to
      */
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "continent_id", nullable = false)
     private Continent continent;
     
     @OneToMany(mappedBy = "country")
+    @JsonIgnore
     private Set<Region> regions = new HashSet<>();
     
     @OneToMany(mappedBy = "country")
+    @JsonIgnore
     private Set<Location> locations = new HashSet<>();
     
     @OneToMany(mappedBy = "country")
+    @JsonIgnore
     private Set<Accommodation> accommodations = new HashSet<>();
     
     @OneToMany(mappedBy = "country")
+    @JsonIgnore
     private Set<Food> foods = new HashSet<>();
     
     @OneToMany(mappedBy = "country")
+    @JsonIgnore
     private Set<Article> articles = new HashSet<>();
     
     @OneToMany(mappedBy = "country")
+    @JsonIgnore
     private Set<Event> events = new HashSet<>();
 }
